@@ -1,0 +1,4 @@
+{$CADDY_DOMAIN:localhost} {
+	encode gzip zstd
+	reverse_proxy couplecards:3000
+}

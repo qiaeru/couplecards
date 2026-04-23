@@ -1,0 +1,3 @@
+Contact: https://github.com/qiaeru/couplecards/security/advisories/new
+Preferred-Languages: en, fr
+Expires: 2027-01-01T00:00:00Z

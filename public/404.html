@@ -1,0 +1,26 @@
+<!-- SPDX-License-Identifier: MIT -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1a0f35">
+  <title>CoupleCards — Not found</title>
+  <link rel="stylesheet" href="/css/fonts.css">
+  <link rel="stylesheet" href="/css/themes.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+</head>
+<body>
+  <main class="error-page">
+    <h1 class="title" data-i18n="errors.page.404.title">Page not found</h1>
+    <p data-i18n="errors.page.404.body"></p>
+    <a class="btn btn-primary" href="/" data-i18n="errors.page.404.back">Back to home</a>
+  </main>
+  <script type="module">
+    // SPDX-License-Identifier: MIT
+    import { initI18n, applyI18n } from '/js/core/i18n.js';
+    initI18n().then(() => applyI18n(document)).catch(() => {});
+  </script>
+</body>
+</html>

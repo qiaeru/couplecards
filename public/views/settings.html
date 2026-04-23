@@ -1,0 +1,40 @@
+<!-- SPDX-License-Identifier: MIT -->
+<header class="app-header">
+  <button class="icon-btn" id="btn-back-home" data-i18n-attr="aria-label:common.back" type="button">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <h2 class="title" data-i18n="settings.title">Settings</h2>
+  <span></span>
+</header>
+<div class="settings">
+  <div class="setting-row" id="install-row" hidden>
+    <span data-i18n="settings.install">Install the app</span>
+    <button class="btn btn-primary" id="install-btn" type="button" data-i18n="settings.install.action">Install</button>
+  </div>
+  <div class="setting-row">
+    <span data-i18n="settings.language">Language</span>
+    <select id="setting-language" class="setting-select"></select>
+  </div>
+  <div class="setting-row">
+    <span data-i18n="settings.sounds">Sound effects</span>
+    <label class="switch">
+      <input type="checkbox" id="setting-sounds">
+      <span class="slider"></span>
+    </label>
+  </div>
+  <div class="setting-row">
+    <span data-i18n="settings.vibrations">Vibrations</span>
+    <label class="switch">
+      <input type="checkbox" id="setting-vibrations">
+      <span class="slider"></span>
+    </label>
+  </div>
+  <div class="setting-row">
+    <span data-i18n="settings.changePassword">Change my password</span>
+    <button class="btn" id="btn-change-password" type="button" data-i18n="common.edit">Edit</button>
+  </div>
+  <div class="setting-row">
+    <span data-i18n="settings.logout">Log out</span>
+    <button class="btn btn-danger" id="btn-logout" type="button" data-i18n="settings.logout">Log out</button>
+  </div>
+</div>

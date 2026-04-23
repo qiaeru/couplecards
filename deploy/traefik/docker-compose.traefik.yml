@@ -1,0 +1,51 @@
+# SPDX-License-Identifier: MIT
+# HTTPS deployment with Traefik v3 (Let's Encrypt via HTTP challenge).
+# Run from project root:
+#   export COUPLECARDS_DOMAIN=couplecards.example.com
+#   export LETSENCRYPT_EMAIL=you@example.com
+#   docker compose -f deploy/traefik/docker-compose.traefik.yml up -d
+
+services:
+  traefik:
+    image: traefik:v3.1
+    restart: unless-stopped
+    command:
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.le.acme.httpchallenge=true"
+      - "--certificatesresolvers.le.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.le.acme.email=${LETSENCRYPT_EMAIL:?Set LETSENCRYPT_EMAIL}"
+      - "--certificatesresolvers.le.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - letsencrypt:/letsencrypt
+
+  couplecards:
+    build: ../..
+    image: couplecards:latest
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      SESSION_SECRET: ${SESSION_SECRET:?Set SESSION_SECRET in .env}
+      COOKIE_SECURE: "true"
+      TRUST_PROXY: "1"
+      SEED_LOCALE: ${SEED_LOCALE:-en}
+    volumes:
+      - ../../var:/app/var
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.couplecards.rule=Host(`${COUPLECARDS_DOMAIN:?Set COUPLECARDS_DOMAIN}`)"
+      - "traefik.http.routers.couplecards.entrypoints=websecure"
+      - "traefik.http.routers.couplecards.tls.certresolver=le"
+      - "traefik.http.services.couplecards.loadbalancer.server.port=3000"
+
+volumes:
+  letsencrypt:

@@ -1,0 +1,63 @@
+/* SPDX-License-Identifier: MIT */
+
+body { font-family: var(--font); }
+
+.auth-shell {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 32px 18px;
+}
+
+.brand-title {
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-optical-sizing: auto;
+  line-height: 1.2;
+  padding-bottom: 0.08em;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.auth-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  margin: 0 0 8px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-bottom: 0.08em;
+}
+
+.auth-subtitle {
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  margin: 0 0 22px;
+  line-height: 1.5;
+}
+
+.auth-form { display: flex; flex-direction: column; gap: 14px; }
+.auth-form .btn { margin-top: 6px; }

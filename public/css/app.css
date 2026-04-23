@@ -1,0 +1,119 @@
+/* SPDX-License-Identifier: MIT */
+/* Shell-specific rules layered on top of the shared style.css.
+   Form / password-strength / error-page styles now live in style.css since
+   they are reused by login.html, admin.html and the main app shell. */
+
+.demo-banner {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: var(--accent-contrast);
+  padding-top: calc(10px + env(safe-area-inset-top, 0px));
+  padding-right: 14px;
+  padding-bottom: 10px;
+  padding-left: 14px;
+  text-align: center;
+  font-size: 0.88rem;
+  font-weight: 600;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+.app-bottom-nav {
+  position: sticky;
+  bottom: 0;
+  border-top: 1px solid var(--surface-border);
+  background-image: var(--tile-surface);
+  background-color: rgba(15, 8, 32, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  font-size: 0.76rem;
+  letter-spacing: 0.01em;
+  z-index: 40;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.4);
+}
+/* Thin warm shimmer along the top edge to echo the divider used on the
+   rules panel and hint that the nav belongs to the same parchment family. */
+.app-bottom-nav::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 14%;
+  right: 14%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 210, 150, 0.45), transparent);
+  pointer-events: none;
+}
+.app-bottom-nav-list {
+  list-style: none;
+  margin: 0;
+  padding: 10px 10px calc(env(safe-area-inset-bottom, 0px) + 10px);
+  display: flex;
+  justify-content: space-around;
+  gap: 4px;
+}
+.app-bottom-nav-list li { display: contents; }
+.app-bottom-nav a {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-soft);
+  text-decoration: none;
+  padding: 8px 14px 6px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  line-height: 1.15;
+  position: relative;
+  transition: color 0.18s ease, background-color 0.18s ease, transform 0.18s ease;
+}
+.app-bottom-nav a .nav-icon {
+  width: 22px;
+  height: 22px;
+  color: currentColor;
+  flex-shrink: 0;
+  transition: transform 0.18s ease;
+}
+.app-bottom-nav a:hover {
+  color: var(--text);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+.app-bottom-nav a:hover .nav-icon { transform: translateY(-2px); }
+.app-bottom-nav a:active { transform: scale(0.97); }
+
+.app-bottom-nav a[aria-current='page'] {
+  color: var(--accent);
+  background:
+    radial-gradient(ellipse at 50% 130%, rgba(255, 94, 149, 0.22), transparent 70%),
+    linear-gradient(180deg, rgba(255, 94, 149, 0.14), rgba(255, 94, 149, 0.05));
+}
+.app-bottom-nav a[aria-current='page']::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  box-shadow: 0 0 10px rgba(255, 94, 149, 0.5);
+  pointer-events: none;
+}
+.app-bottom-nav a[aria-current='page'] .nav-icon {
+  filter: drop-shadow(0 0 6px rgba(255, 94, 149, 0.45));
+}
+@media (prefers-reduced-motion: reduce) {
+  .app-bottom-nav a,
+  .app-bottom-nav a .nav-icon { transition: none; }
+}
+
+.setting-select {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  border: 1px solid var(--surface-border);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.95rem;
+}

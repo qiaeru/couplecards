@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="gold" x1="16" y1="5.15686" x2="16" y2="29.8431" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffe6a8"/>
+      <stop offset="0.5" stop-color="#f0c26b"/>
+      <stop offset="1" stop-color="#b8862c"/>
+    </linearGradient>
+    <radialGradient id="shine" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(12 10) rotate(-30) scale(9 6)">
+      <stop stop-color="#fff6d8" stop-opacity="0.8"/>
+      <stop offset="1" stop-color="#fff6d8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <path d="M21.0084 5.3171C18.1675 5.81911 15.9969 9.17258 15.9969 9.17258C15.9969 9.17258 13.8162 5.81911 10.9854 5.3171C3.97328 4.08214 1.08242 10.2469 2.25277 14.8353C3.98329 21.6126 12.3058 27.687 15.0866 29.5645C15.6367 29.936 16.357 29.936 16.9171 29.5645C19.708 27.687 28.0304 21.6126 29.7509 14.8353C30.9113 10.2469 28.0204 4.08214 21.0084 5.3171Z" fill="url(#gold)"/>
+  <path d="M21.0084 5.3171C18.1675 5.81911 15.9969 9.17258 15.9969 9.17258C15.9969 9.17258 13.8162 5.81911 10.9854 5.3171C3.97328 4.08214 1.08242 10.2469 2.25277 14.8353C3.98329 21.6126 12.3058 27.687 15.0866 29.5645C15.6367 29.936 16.357 29.936 16.9171 29.5645C19.708 27.687 28.0304 21.6126 29.7509 14.8353C30.9113 10.2469 28.0204 4.08214 21.0084 5.3171Z" fill="url(#shine)"/>
+</svg>

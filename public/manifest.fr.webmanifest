@@ -1,0 +1,16 @@
+{
+  "name": "CoupleCards",
+  "short_name": "CoupleCards",
+  "description": "Application web auto-hébergée permettant aux couples de piocher des cartes d'activité pour casser la routine et pimenter le quotidien.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f0820",
+  "theme_color": "#1a0f35",
+  "lang": "fr",
+  "icons": [
+    { "src": "/icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icons/icon-maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}

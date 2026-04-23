@@ -1,0 +1,99 @@
+<!-- SPDX-License-Identifier: MIT -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1a0f35">
+  <title>CoupleCards — Administration</title>
+  <link rel="stylesheet" href="/css/fonts.css">
+  <link rel="stylesheet" href="/css/themes.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+</head>
+<body>
+  <div id="admin-boot" class="boot-skeleton">
+    <div class="boot-logo">CoupleCards</div>
+    <div class="boot-pulse"></div>
+  </div>
+
+  <div id="admin-app" hidden>
+    <header class="admin-header">
+      <h1 id="admin-title" class="title" data-i18n="admin.title">Administration</h1>
+      <div class="admin-header-actions">
+        <label class="sr-only" for="admin-language" data-i18n="settings.language">Language</label>
+        <select id="admin-language" class="setting-select admin-language-select"></select>
+        <button class="icon-btn" id="admin-logout" type="button" data-i18n-attr="aria-label:nav.logout">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+               stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <nav class="admin-tabs" role="tablist">
+      <button type="button" id="admin-tab-users" class="admin-tab" role="tab" aria-selected="true"  data-i18n="admin.tabs.users">Users</button>
+      <button type="button" id="admin-tab-cards" class="admin-tab" role="tab" aria-selected="false" data-i18n="admin.tabs.cards">Cards</button>
+    </nav>
+
+    <section id="admin-panel-users" class="admin-panel" role="tabpanel" aria-labelledby="admin-tab-users">
+      <h2 data-i18n="admin.users.title">Users</h2>
+      <form id="admin-create-user-form" class="admin-inline-form">
+        <label for="admin-create-user-input" class="admin-inline-form-label" data-i18n="admin.users.create.usernameLabel">Username</label>
+        <div class="admin-inline-form-row">
+          <input type="text" id="admin-create-user-input" required minlength="3" maxlength="32" pattern="[a-z0-9._\-]+">
+          <button type="submit" class="btn btn-primary" data-i18n="admin.users.create.submit">Create</button>
+        </div>
+        <small class="admin-inline-form-hint" data-i18n="admin.users.create.usernameHint"></small>
+      </form>
+      <div id="admin-users-list" class="list"></div>
+    </section>
+
+    <section id="admin-panel-cards" class="admin-panel" role="tabpanel" aria-labelledby="admin-tab-cards" hidden>
+      <h2 data-i18n="admin.cards.title">Cards</h2>
+
+      <div class="deck-tools">
+        <h3 class="deck-tools-title" data-i18n="admin.cards.tools.title">Deck maintenance</h3>
+        <p class="deck-tools-hint" data-i18n="admin.cards.tools.hint"></p>
+        <div class="deck-tools-actions">
+          <div class="deck-tools-row deck-tools-row-primary">
+            <button type="button" class="btn btn-primary" id="admin-deck-sync" data-i18n="admin.cards.tools.syncFromFiles">Sync from the files</button>
+          </div>
+          <div class="deck-tools-row">
+            <button type="button" class="btn" id="admin-deck-export" data-i18n="admin.cards.tools.export">Export a backup</button>
+            <button type="button" class="btn" id="admin-deck-import" data-i18n="admin.cards.tools.importBackup">Import a backup</button>
+            <input type="file" id="admin-deck-import-input" accept="application/zip,.zip,application/json,.json" hidden>
+          </div>
+        </div>
+      </div>
+
+      <button id="admin-create-card-btn" class="btn btn-success btn-with-icon" type="button">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        <span data-i18n="admin.cards.create">Add a card</span>
+      </button>
+      <div id="admin-cards-list" class="list"></div>
+    </section>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+    <div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+      <div class="modal-backdrop" data-modal-close></div>
+      <div class="modal-card">
+        <h3 id="modal-title" class="modal-title"></h3>
+        <div id="modal-body" class="modal-body"></div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="modal-cancel"></button>
+          <button type="button" class="btn btn-primary" id="modal-confirm"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "name": "couplecards",
+  "version": "1.0.0",
+  "description": "A self-hosted web app that lets couples draw activity cards to break the routine and spice up their daily lives.",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qiaeru/couplecards.git"
+  },
+  "homepage": "https://github.com/qiaeru/couplecards",
+  "bugs": "https://github.com/qiaeru/couplecards/issues",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "build:vendor": "node scripts/build-vendor.mjs",
+    "add-spdx": "node scripts/add-spdx.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.0",
+    "jszip": "^3.10.1",
+    "@zxcvbn-ts/core": "^3.0.4",
+    "@zxcvbn-ts/language-common": "^3.0.4",
+    "@zxcvbn-ts/language-en": "^3.0.2",
+    "@zxcvbn-ts/language-fr": "^3.0.2"
+  }
+}

@@ -1,0 +1,21 @@
+# SPDX-License-Identifier: MIT
+# Local HTTP deployment. For HTTPS, use one of the variants in deploy/.
+
+services:
+  couplecards:
+    build: .
+    image: couplecards:latest
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      SESSION_SECRET: ${SESSION_SECRET:?Set SESSION_SECRET in .env (generate with `openssl rand -base64 48`)}
+      COOKIE_SECURE: "false"
+      TRUST_PROXY: "0"
+      SEED_LOCALE: ${SEED_LOCALE:-en}
+      ADMIN_RESET: ${ADMIN_RESET:-0}
+      ENABLE_DEMO_ACCOUNT: ${ENABLE_DEMO_ACCOUNT:-0}
+    volumes:
+      - ./var:/app/var

@@ -1,0 +1,64 @@
+<!-- SPDX-License-Identifier: MIT -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1a0f35">
+  <title>CoupleCards — Sign in</title>
+  <link rel="stylesheet" href="/css/fonts.css">
+  <link rel="stylesheet" href="/css/themes.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/auth.css">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+</head>
+<body>
+  <main class="auth-shell">
+    <h1 class="brand-title" data-i18n="app.name">CoupleCards</h1>
+    <section class="auth-card" id="step-login" hidden>
+      <h1 class="auth-title" data-i18n="login.title">Sign in</h1>
+      <p class="auth-subtitle" data-i18n="login.subtitle"></p>
+      <form id="login-form" class="auth-form" novalidate>
+        <label class="field">
+          <span data-i18n="login.username">Username</span>
+          <input type="text" id="login-username" name="username"
+                 autocomplete="username" autocapitalize="off" spellcheck="false"
+                 required minlength="3" maxlength="32" pattern="[a-z0-9._\-]+">
+        </label>
+        <label class="field">
+          <span data-i18n="login.password">Password</span>
+          <input type="password" id="login-password" name="password"
+                 autocomplete="current-password" required>
+        </label>
+        <div class="auth-error" id="login-error" role="alert" aria-live="polite"></div>
+        <button type="submit" class="btn btn-primary" data-i18n="login.submit">Sign in</button>
+      </form>
+    </section>
+
+    <section class="auth-card" id="step-change" hidden>
+      <h1 class="auth-title" id="change-title" data-i18n="changePassword.title">Change your password</h1>
+      <p class="auth-subtitle" id="change-subtitle"></p>
+      <form id="change-form" class="auth-form" novalidate>
+        <label class="field">
+          <span data-i18n="changePassword.current">Current password</span>
+          <input type="password" id="change-current" autocomplete="current-password" required>
+        </label>
+        <label class="field">
+          <span data-i18n="changePassword.new">New password</span>
+          <input type="password" id="change-new" autocomplete="new-password" required minlength="12">
+        </label>
+        <div id="change-strength"></div>
+        <label class="field">
+          <span data-i18n="changePassword.confirm">Confirm new password</span>
+          <input type="password" id="change-confirm" autocomplete="new-password" required minlength="12">
+        </label>
+        <div class="auth-error" id="change-error" role="alert" aria-live="polite"></div>
+        <button type="submit" class="btn btn-primary" data-i18n="changePassword.submit">Update my password</button>
+      </form>
+    </section>
+
+  </main>
+  <script type="module" src="/js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+// SPDX-License-Identifier: MIT
+// Offline-first state: optimistic IDB writes, queued server sync, multilingual
+// cards with per-locale `translations`.
+
+import { request, ApiError } from './api.js';
+import { idb } from './idb.js';
+import { emit } from './events.js';
+import { getLocale } from './i18n.js';
+
+const HISTORY_CAP = 500;
+const FALLBACK_LOCALE = 'en';
+
+let cards = [];
+// Map<cardId, bannedAt>; Map keeps the backend's banned_at DESC order.
+let banned = new Map();
+let history = [];
+let initialized = false;
+let flushing = false;
+
+function uuid() {
+  if (crypto.randomUUID) return crypto.randomUUID();
+  const bytes = crypto.getRandomValues(new Uint8Array(16));
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  return [...bytes].map((b, i) => {
+    const h = b.toString(16).padStart(2, '0');
+    return (i === 4 || i === 6 || i === 8 || i === 10) ? `-${h}` : h;
+  }).join('');
+}
+
+async function loadCardsFromApiOrCache() {
+  const cachedVersion = await idb.getCardsVersion();
+  try {
+    const headers = cachedVersion ? { 'if-none-match': `"${cachedVersion}"` } : {};
+    // 10 s timeout: a stalled server shouldn't block the boot skeleton forever.
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 10_000);
+    let resp;
+    try {
+      resp = await fetch('/api/cards', {
+        credentials: 'same-origin',
+        headers,
+        signal: controller.signal,
+      });
+    } finally {
+      clearTimeout(timer);
+    }
+    if (resp.status === 304) {
+      cards = await idb.getCards();
+      return cards;
+    }
+    if (!resp.ok) throw new ApiError('CARDS_FETCH_FAILED', resp.status);
+    const data = await resp.json();
+    cards = data.cards || [];
+    await idb.putCards(cards, data.version);
+    return cards;
+  } catch (err) {
+    const cached = await idb.getCards();
+    if (cached.length > 0) {
+      cards = cached;
+      return cards;
+    }
+    throw err;
+  }
+}
+
+// Accept both the current [{ cardId, bannedAt }] and the legacy [cardId]
+// shape that may still live in IndexedDB after an upgrade.
+function normaliseBanned(list) {
+  const map = new Map();
+  for (const entry of list || []) {
+    if (typeof entry === 'string') map.set(entry, null);
+    else if (entry && typeof entry === 'object') map.set(entry.cardId, entry.bannedAt ?? null);
+  }
+  return map;
+}
+
+function bannedToList() {
+  return [...banned.entries()].map(([cardId, bannedAt]) => ({ cardId, bannedAt }));
+}
+
+async function loadStateFromApiOrCache() {
+  try {
+    const data = await request('/api/state');
+    banned = normaliseBanned(data.banned);
+    history = data.history;
+    await idb.setBanned(bannedToList());
+    await idb.setHistory(history);
+  } catch (err) {
+    const cached = await idb.getState();
+    banned = normaliseBanned(cached.banned);
+    history = cached.history;
+    if (err?.status && err.status !== 0) throw err;
+  }
+}
+
+export async function initSync() {
+  if (initialized) return;
+  await loadCardsFromApiOrCache();
+  await loadStateFromApiOrCache();
+  initialized = true;
+  emit('sync:ready');
+  flushOutbox().catch(() => {});
+  window.addEventListener('online', () => { flushOutbox().catch(() => {}); });
+}
+
+export function getCards() { return cards; }
+export function getBanned() { return bannedToList(); }
+export function isBanned(cardId) { return banned.has(cardId); }
+export function getHistory() { return history.slice(); }
+export function bannedAtOf(cardId) { return banned.get(cardId) ?? null; }
+
+export function getCardById(id) {
+  return cards.find((c) => c.id === id) || null;
+}
+
+// Picks a translation for `locale`, falls back to English then any available.
+// Also handles the legacy `{title, description}` shape so a stale /api/cards
+// cache from a previous version never leaves the lists blank.
+export function getCardText(card, locale = getLocale()) {
+  const placeholder = { title: '', description: '' };
+  if (!card) return placeholder;
+  if (card.translations) {
+    const t = card.translations[locale]
+      || card.translations[FALLBACK_LOCALE]
+      || Object.values(card.translations).find(Boolean);
+    if (t) return t;
+  }
+  if (card.title || card.description) {
+    return { title: card.title ?? '', description: card.description ?? '' };
+  }
+  return placeholder;
+}
+
+export function availableCards(pile) {
+  return cards.filter((c) => c.pile === pile && !banned.has(c.id));
+}
+
+export function countsByPile() {
+  const counts = { home: 0, outdoor: 0 };
+  for (const c of cards) {
+    if (!banned.has(c.id) && counts[c.pile] !== undefined) counts[c.pile]++;
+  }
+  return counts;
+}
+
+export function totalByPile() {
+  const counts = { home: 0, outdoor: 0 };
+  for (const c of cards) {
+    if (counts[c.pile] !== undefined) counts[c.pile]++;
+  }
+  return counts;
+}
+
+export function drawRandom(pile, recentIds = []) {
+  const pool = availableCards(pile);
+  if (pool.length === 0) return null;
+  const recent = new Set(recentIds);
+  const filtered = pool.filter((c) => !recent.has(c.id));
+  const finalPool = filtered.length > 0 ? filtered : pool;
+  return finalPool[Math.floor(Math.random() * finalPool.length)];
+}
+
+export async function banCard(cardId) {
+  // Optimistic timestamp; server truth lands on the next state load.
+  banned.set(cardId, new Date().toISOString());
+  await idb.setBanned(bannedToList());
+  emit('state:banned-changed');
+  await idb.enqueue({ kind: 'ban', cardId });
+  flushOutbox().catch(() => {});
+}
+
+export async function unbanCard(cardId) {
+  banned.delete(cardId);
+  await idb.setBanned(bannedToList());
+  emit('state:banned-changed');
+  await idb.enqueue({ kind: 'unban', cardId });
+  flushOutbox().catch(() => {});
+}
+
+export async function addHistory(entry) {
+  const full = {
+    clientUuid: uuid(),
+    cardId: entry.cardId,
+    action: entry.action,
+    drawnAt: entry.drawnAt || new Date().toISOString(),
+  };
+  history = [full, ...history].slice(0, HISTORY_CAP);
+  await idb.setHistory(history);
+  emit('state:history-changed');
+  await idb.enqueue({ kind: 'history', entry: full });
+  flushOutbox().catch(() => {});
+}
+
+export async function clearAllLocalState() {
+  banned = new Map();
+  history = [];
+  await idb.clearAll();
+  emit('state:cleared');
+}
+
+async function flushOutbox() {
+  if (flushing) return;
+  if (!navigator.onLine) return;
+  flushing = true;
+  try {
+    const items = await idb.listOutbox();
+    if (!items.length) return;
+    const historyBatch = [];
+    for (const item of items) {
+      try {
+        if (item.kind === 'ban') {
+          const resp = await request('/api/bans', { method: 'POST', body: { cardId: item.cardId } });
+          if (resp && resp.bannedAt && banned.has(item.cardId)) {
+            banned.set(item.cardId, resp.bannedAt);
+            await idb.setBanned(bannedToList());
+            emit('state:banned-changed');
+          }
+        } else if (item.kind === 'unban') {
+          await request(`/api/bans/${encodeURIComponent(item.cardId)}`, { method: 'DELETE' });
+        } else if (item.kind === 'history') {
+          historyBatch.push({ item, entry: item.entry });
+          continue;
+        }
+        await idb.removeOutbox(item.id);
+      } catch (err) {
+        // 401 or transient failure: stop here, the next online event retries.
+        if (err?.status === 401) return;
+        return;
+      }
+    }
+    if (historyBatch.length > 0) {
+      try {
+        await request('/api/history', {
+          method: 'POST',
+          body: { entries: historyBatch.map((b) => b.entry) },
+        });
+        for (const { item } of historyBatch) {
+          await idb.removeOutbox(item.id);
+        }
+      } catch (err) {
+        if (err?.status === 401) return;
+      }
+    }
+    emit('sync:flushed');
+  } finally {
+    flushing = false;
+  }
+}
+
+export { flushOutbox };

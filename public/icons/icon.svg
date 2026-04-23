@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a1450"/>
+      <stop offset="55%" stop-color="#1a0f35"/>
+      <stop offset="100%" stop-color="#0f0820"/>
+    </linearGradient>
+    <radialGradient id="bg-shine" cx="30%" cy="22%" r="55%">
+      <stop offset="0%" stop-color="#ff78aa" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#ff78aa" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Gradients repris tels quels de Fluent (coords dans le 32x32 local) -->
+    <linearGradient id="heart-main" x1="16" y1="5.15686" x2="16" y2="29.8431" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF3F67"/>
+      <stop offset="1" stop-color="#F83BA1"/>
+    </linearGradient>
+    <radialGradient id="heart-soft" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(10.5863 18.4047) rotate(-25.71) scale(20.7042 22.7813)">
+      <stop offset="0.89097" stop-color="#FF657C" stop-opacity="0"/>
+      <stop offset="1" stop-color="#FF657C"/>
+    </radialGradient>
+    <radialGradient id="heart-top" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(14.8574 8.66919) rotate(-126.248) scale(4.35524 1.65175)">
+      <stop stop-color="#FF5772"/>
+      <stop offset="1" stop-color="#FF5772" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <rect width="512" height="512" rx="112" fill="url(#bg-shine)"/>
+
+  <!-- Cœur centré :
+       - Local bbox : x 2→30 (w=28), y 5.3→29.9 (h=24.6), centre (16, 17.6)
+       - Scale 12 : heart 336×295
+       - Translate : (256 - 16*12, 256 - 17.6*12) = (64, 45) pour centrer dans le 512 -->
+  <g transform="translate(64 45) scale(12)">
+    <path d="M21.0084 5.3171C18.1675 5.81911 15.9969 9.17258 15.9969 9.17258C15.9969 9.17258 13.8162 5.81911 10.9854 5.3171C3.97328 4.08214 1.08242 10.2469 2.25277 14.8353C3.98329 21.6126 12.3058 27.687 15.0866 29.5645C15.6367 29.936 16.357 29.936 16.9171 29.5645C19.708 27.687 28.0304 21.6126 29.7509 14.8353C30.9113 10.2469 28.0204 4.08214 21.0084 5.3171Z" fill="url(#heart-main)"/>
+    <path d="M21.0084 5.3171C18.1675 5.81911 15.9969 9.17258 15.9969 9.17258C15.9969 9.17258 13.8162 5.81911 10.9854 5.3171C3.97328 4.08214 1.08242 10.2469 2.25277 14.8353C3.98329 21.6126 12.3058 27.687 15.0866 29.5645C15.6367 29.936 16.357 29.936 16.9171 29.5645C19.708 27.687 28.0304 21.6126 29.7509 14.8353C30.9113 10.2469 28.0204 4.08214 21.0084 5.3171Z" fill="url(#heart-soft)"/>
+    <path d="M21.0084 5.3171C18.1675 5.81911 15.9969 9.17258 15.9969 9.17258C15.9969 9.17258 13.8162 5.81911 10.9854 5.3171C3.97328 4.08214 1.08242 10.2469 2.25277 14.8353C3.98329 21.6126 12.3058 27.687 15.0866 29.5645C15.6367 29.936 16.357 29.936 16.9171 29.5645C19.708 27.687 28.0304 21.6126 29.7509 14.8353C30.9113 10.2469 28.0204 4.08214 21.0084 5.3171Z" fill="url(#heart-top)"/>
+  </g>
+</svg>

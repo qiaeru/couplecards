@@ -1,0 +1,96 @@
+<!--
+  SPDX-License-Identifier: MIT
+  SPA shell. All screens live in public/views/*.html and are loaded by the
+  router based on the URL hash. Keep inline scripts/styles out of this file
+  so the strict CSP (no 'unsafe-inline') stays compliant.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1a0f35">
+  <meta name="description" data-i18n-attr="content:app.name" content="CoupleCards">
+  <title>CoupleCards</title>
+
+  <link rel="stylesheet" href="/css/fonts.css">
+  <link rel="stylesheet" href="/css/themes.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/cards.css">
+  <link rel="stylesheet" href="/css/app.css">
+
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icons/icon.svg">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CoupleCards">
+</head>
+<body>
+  <a href="#/home" class="skip-link" data-i18n="common.back">Back</a>
+  <div id="screen-announce" class="sr-only" role="status" aria-live="polite"></div>
+
+  <div id="boot-skeleton" class="boot-skeleton">
+    <div class="boot-logo">CoupleCards</div>
+    <div class="boot-pulse"></div>
+  </div>
+
+  <div id="app" hidden>
+    <div id="demo-banner" class="demo-banner" role="status" aria-live="polite" hidden></div>
+    <main id="main-content">
+      <div id="view" class="screen"></div>
+    </main>
+
+    <nav class="app-bottom-nav" data-i18n-attr="aria-label:nav.main">
+      <ul class="app-bottom-nav-list">
+        <li>
+          <a href="#/rules" data-nav-route="rules">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <span data-i18n="nav.rules">Rules</span>
+          </a>
+        </li>
+        <li>
+          <a href="#/history" data-nav-route="history">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>
+            <span data-i18n="nav.history">History</span>
+          </a>
+        </li>
+        <li>
+          <a href="#/bans" data-nav-route="bans">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><line x1="5.6" y1="5.6" x2="18.4" y2="18.4"/></svg>
+            <span data-i18n="nav.bans">Bans</span>
+          </a>
+        </li>
+        <li>
+          <a href="#/settings" data-nav-route="settings">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33h0a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <span data-i18n="nav.settings">Settings</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+    <div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+      <div class="modal-backdrop" data-modal-close></div>
+      <div class="modal-card">
+        <h3 id="modal-title" class="modal-title"></h3>
+        <div id="modal-body" class="modal-body"></div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="modal-cancel" data-i18n="common.cancel"></button>
+          <button type="button" class="btn btn-primary" id="modal-confirm" data-i18n="common.confirm"></button>
+        </div>
+      </div>
+    </div>
+
+    <div id="update-banner" class="update-banner" role="status" hidden>
+      <span data-i18n="common.reload">Reload</span>
+      <button type="button" class="btn btn-primary" id="update-reload" data-i18n="common.reload">Reload</button>
+    </div>
+  </div>
+
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>
