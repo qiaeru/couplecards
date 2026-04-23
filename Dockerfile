@@ -37,8 +37,8 @@ LABEL org.opencontainers.image.title="couplecards" \
 RUN apt-get update \
   && apt-get install -y --no-install-recommends tini wget \
   && rm -rf /var/lib/apt/lists/* \
-  && groupadd --system app \
-  && useradd --system --gid app --home-dir /app --shell /usr/sbin/nologin app
+  && groupadd --system --gid 999 app \
+  && useradd --system --uid 999 --gid 999 --home-dir /app --shell /usr/sbin/nologin app
 WORKDIR /app
 ENV NODE_ENV=production \
     PORT=3000 \
