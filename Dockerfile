@@ -7,13 +7,13 @@ ARG VERSION=0.0.0
 ARG REVISION=unknown
 
 # ---- Stage 1: Backend deps (pure JS only) ----
-FROM node:24-alpine AS backend-deps
+FROM node:25-alpine AS backend-deps
 WORKDIR /build
 COPY server/package.json ./
 RUN npm install --omit=dev --no-audit --no-fund
 
 # ---- Stage 2: Browser vendor bundle (zxcvbn-ts) ----
-FROM node:24-alpine AS vendor
+FROM node:25-alpine AS vendor
 WORKDIR /build
 COPY package.json ./
 COPY scripts ./scripts
@@ -22,7 +22,7 @@ COPY public ./public
 RUN node scripts/build-vendor.mjs
 
 # ---- Stage 3: Runtime ----
-FROM node:24-alpine
+FROM node:25-alpine
 ARG VERSION
 ARG REVISION
 LABEL org.opencontainers.image.title="couplecards" \
