@@ -39,6 +39,15 @@ See [configuration.md](./configuration.md) for the full reference. The only mand
 
 The SQLite database lives at `/app/var/couplecards.db` inside the container and is bind-mounted to `./var/couplecards.db` on the host, relative to the Compose file you run.
 
+The container runs as a non-root user with **UID 999, GID 999**. The host directory you bind-mount to `/app/var` must be owned by that UID/GID, otherwise the server cannot open the database file and will crash at startup with `SQLITE_ERROR: unable to open database file`. Create the directory before the first `docker compose up` and `chown` it:
+
+```bash
+mkdir -p ./var
+sudo chown -R 999:999 ./var
+```
+
+Docker creates missing bind-mount directories as root by default, which is why this step is required. Named Docker volumes do not need this step.
+
 ### Manual backup
 
 ```bash
