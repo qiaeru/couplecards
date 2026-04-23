@@ -1,19 +1,19 @@
 # SPDX-License-Identifier: MIT
-# Multi-stage build. No native-addon compilation: the backend runs on
-# node:sqlite (built-in) and hash-wasm (pure WebAssembly), so the runtime
-# image needs nothing beyond Node itself.
+# Multi-stage build on Debian slim (glibc). sodium-native (pulled in by
+# @fastify/secure-session) ships reliable glibc prebuilds; musl prebuilds
+# on Alpine are flaky, so we stay on glibc.
 
 ARG VERSION=0.0.0
 ARG REVISION=unknown
 
-# ---- Stage 1: Backend deps (pure JS only) ----
-FROM node:24-alpine AS backend-deps
+# ---- Stage 1: Backend deps ----
+FROM node:24-slim AS backend-deps
 WORKDIR /build
 COPY server/package.json ./
 RUN npm install --omit=dev --no-audit --no-fund
 
 # ---- Stage 2: Browser vendor bundle (zxcvbn-ts) ----
-FROM node:24-alpine AS vendor
+FROM node:24-slim AS vendor
 WORKDIR /build
 COPY package.json ./
 COPY scripts ./scripts
@@ -22,7 +22,7 @@ COPY public ./public
 RUN node scripts/build-vendor.mjs
 
 # ---- Stage 3: Runtime ----
-FROM node:24-alpine
+FROM node:24-slim
 ARG VERSION
 ARG REVISION
 LABEL org.opencontainers.image.title="couplecards" \
@@ -34,8 +34,11 @@ LABEL org.opencontainers.image.title="couplecards" \
       org.opencontainers.image.version="$VERSION" \
       org.opencontainers.image.revision="$REVISION"
 
-RUN apk add --no-cache tini wget \
-  && addgroup -S app && adduser -S app -G app
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends tini wget \
+  && rm -rf /var/lib/apt/lists/* \
+  && groupadd --system app \
+  && useradd --system --gid app --home-dir /app --shell /usr/sbin/nologin app
 WORKDIR /app
 ENV NODE_ENV=production \
     PORT=3000 \
@@ -54,5 +57,5 @@ EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
   CMD wget -qO- http://127.0.0.1:3000/api/health >/dev/null 2>&1 || exit 1
 
-ENTRYPOINT ["/sbin/tini", "--"]
+ENTRYPOINT ["/usr/bin/tini", "--"]
 CMD ["node", "server/src/index.js"]
