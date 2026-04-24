@@ -56,7 +56,11 @@
   justify-content: space-evenly;
   gap: 4px;
 }
-.app-bottom-nav-list li { display: contents; }
+.app-bottom-nav-list li {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
 .app-bottom-nav a {
   display: inline-flex;
   flex-direction: column;
