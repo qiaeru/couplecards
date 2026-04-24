@@ -37,7 +37,7 @@ body { padding: 20px 16px calc(env(safe-area-inset-bottom, 0px) + 24px); }
 }
 .admin-tab.active {
   color: var(--text);
-  background: rgba(255, 94, 149, 0.12);
+  background: rgba(236, 90, 158, 0.12);
 }
 .admin-tab-right {
   margin-left: auto;

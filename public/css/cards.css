@@ -19,20 +19,19 @@
   left: 0;
   right: 0;
   margin: 0;
-  text-align: center;
   font-family: var(--font-display);
   font-size: 2.2rem;
   font-weight: 600;
-  letter-spacing: -0.01em;
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  letter-spacing: -0.03em;
+  color: var(--accent);
   z-index: 102;
   pointer-events: none;
   font-optical-sizing: auto;
-  line-height: 1.3;
-  padding-bottom: 0.08em;
+  line-height: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25em;
 }
 
 .draw-stage {
@@ -240,7 +239,7 @@
 .card-flip.settled .card-back {
   visibility: hidden;
 }
-.card-back-crest .heart-gold {
+.card-back-crest .heart-icon {
   width: 1em;
   height: 1em;
   filter:
@@ -287,7 +286,7 @@
       rgba(140, 240, 180, 0.40) 40%,
       rgba(120, 200, 255, 0.40) 60%,
       rgba(200, 140, 255, 0.40) 80%,
-      rgba(255, 120, 170, 0.40) 100%
+      rgba(244, 156, 197, 0.40) 100%
     ),
     /* Dark base so the iridescent tones stand out */
     linear-gradient(160deg, #2a1a4a 0%, #12082c 60%, #1a0f3a 100%);

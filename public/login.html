@@ -12,10 +12,15 @@
   <link rel="stylesheet" href="/css/auth.css">
   <link rel="manifest" href="/manifest.webmanifest">
   <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+  <link rel="shortcut icon" href="/icons/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
 </head>
 <body>
   <main class="auth-shell">
-    <h1 class="brand-title" data-i18n="app.name">CoupleCards</h1>
+    <h1 class="brand-title">
+      <img class="title-icon" src="/icons/icon.svg" alt="" aria-hidden="true" draggable="false">
+      <span data-i18n="app.name">CoupleCards</span>
+    </h1>
     <section class="auth-card" id="step-login" hidden>
       <h1 class="auth-title" data-i18n="login.title">Sign in</h1>
       <p class="auth-subtitle" data-i18n="login.subtitle"></p>

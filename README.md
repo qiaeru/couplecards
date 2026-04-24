@@ -10,6 +10,14 @@ The app is fully offline-capable once loaded.
 
 > **One Docker instance, one couple.** Start it, sign in, then invite both partners. There is no telemetry and no external network call at runtime.
 
+## Try the demo
+
+A hosted demo is available at **<https://couplecards.qiaeru.com/>**. Sign in with `demo` / `demo`. The demo account's state is wiped on every sign-in, so feel free to click anything.
+
+![CoupleCards on desktop](./desktop.png)
+
+![CoupleCards on mobile](./mobile.png)
+
 ## Highlights
 
 - **Backend.** Node.js 24 and Fastify 5, with SQLite through the built-in `node:sqlite` module. The entire database is a single file on disk (`var/couplecards.db`). Password hashing uses `hash-wasm` (pure WebAssembly), so the server has zero native dependencies and no compilation step.

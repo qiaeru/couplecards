@@ -4,7 +4,7 @@
 //   * /api/cards — stale-while-revalidate (allows offline viewing)
 //   * all other /api/* — network only, never cached (auth-sensitive)
 
-const VERSION = 'couplecards-v3';
+const VERSION = 'couplecards-v11';
 const SHELL = [
   '/',
   '/index.html',
@@ -59,6 +59,8 @@ const SHELL = [
   '/fonts/literata/italic-latin-ext.woff2',
   '/icons/icon.svg',
   '/icons/icon-maskable.svg',
+  '/icons/favicon.ico',
+  '/icons/apple-touch-icon.png',
   '/icons/heart-gold.svg',
   '/icons/emoji/house.svg',
   '/icons/emoji/city.svg',
