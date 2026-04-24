@@ -54,7 +54,7 @@ function renderCardsList(cards) {
   host.innerHTML = '';
   if (cards.length === 0) {
     host.innerHTML = `<div class="empty">
-      <div class="empty-icon">🃏</div>
+      <div class="empty-icon" aria-hidden="true">🃏</div>
       <div class="empty-title">${escapeHtml(t('admin.cards.empty.title'))}</div>
       <div class="empty-hint">${escapeHtml(t('admin.cards.empty.hint'))}</div>
     </div>`;

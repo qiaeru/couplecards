@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Accessibility: tag the revealed card's title and description with the effective `lang` attribute. When a card has no translation in the active UI locale and falls back to English, screen readers now switch to the English voice instead of mispronouncing the text with the UI voice.
 - Accessibility: make the admin tablist follow the WAI-ARIA APG tabs pattern. The active tab carries `tabindex="0"` and every other tab `tabindex="-1"`, so `Tab` moves from the tablist straight into the visible panel. `ArrowLeft` / `ArrowRight`, `Home` and `End` now cycle between tabs and move focus to the newly selected one.
 - Accessibility: add a focus trap, `Escape` to close, backdrop click to close, and focus return to the opener on the Sync / Import deck-sync modal. It previously lacked all four, unlike the shared confirmation modal.
+- Accessibility: hide the decorative emoji on empty-state screens (Admin cards, Bans, History) from assistive tech. Screen readers stopped announcing "playing card", "herb" or "heart with ribbon" before the real title and hint.
 
 ### Security
 
