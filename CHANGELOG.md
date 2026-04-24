@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+_Nothing released yet._
+
+## [1.2.0] - 2026-04-24
+
 ### Added
 
 - README: hero screenshots (desktop + mobile) and a "Try the demo" callout pointing at <https://couplecards.qiaeru.com/> with the `demo` / `demo` credentials.
