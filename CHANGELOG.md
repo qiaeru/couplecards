@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
-_Nothing released yet._
+### Fixed
+
+- Remove the white tap-highlight flash that appeared when tapping an item of the bottom navigation bar on mobile browsers.
 
 ## [1.1.0] - 2026-04-24
 
