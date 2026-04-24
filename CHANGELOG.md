@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Enlarge the bottom navigation icons (22 → 26 px) so they read better on mobile without increasing the nav height enough to require scrolling on the home screen.
+
 ### Fixed
 
 - Remove the white tap-highlight flash that appeared when tapping an item of the bottom navigation bar on mobile browsers.
