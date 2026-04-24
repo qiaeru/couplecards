@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Rename the shared heart-ornament CSS class from `.heart-gold` to `.heart-icon`. The gold heart ornament (`heart-gold.svg`) is kept for the card-back crest, the card-front divider, and the rules-page dividers, where its warm gradient reads better than the flat pink logo.
 - Enlarge the bottom navigation icons (22 → 26 px) so they read better on mobile without increasing the nav height enough to require scrolling on the home screen.
 - Add a little breathing room between the icon and the label in each bottom-nav item (gap 4 → 6 px).
+- Widen the gap between the two piles on the home screen on desktop (≥ 540 px viewports): grid gap 14 → 40 px, container max-width 460 → 500 px. Mobile single-column layout is unchanged.
 
 ### Fixed
 

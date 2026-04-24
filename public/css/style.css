@@ -400,8 +400,8 @@ body::before {
 @media (min-width: 540px) {
   .piles {
     grid-template-columns: 1fr 1fr;
-    gap: 14px;
-    max-width: 460px;
+    gap: 40px;
+    max-width: 500px;
   }
 }
 
