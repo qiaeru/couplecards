@@ -84,7 +84,7 @@
   "history.groups.week": "This week",
   "history.groups.month": "This month",
   "history.groups.older": "Older",
-  "history.action.returned": "Returned",
+  "history.action.returned": "Returned\nto the pile",
   "history.action.banned": "Banned",
   "history.card.deleted": "(card removed)",
   "bans.title": "Bans",

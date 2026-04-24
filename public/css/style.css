@@ -322,12 +322,12 @@ body::before {
   border-radius: 6px;
   font-family: var(--font);
   font-weight: 900;
-  font-size: 0.65rem;
-  line-height: 1.1;
+  font-size: 0.58rem;
+  line-height: 1.15;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   text-align: center;
-  white-space: nowrap;
+  white-space: pre-line;
   user-select: none;
 }
 .stamp-banned {
