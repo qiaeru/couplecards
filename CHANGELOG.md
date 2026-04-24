@@ -6,10 +6,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
-### Documentation
-
-- Move the README screenshots from the repository root to `docs/assets/` and render them side by side inside a two-column Markdown table with short captions. The table layout caps each image at half the container width on GitHub without resorting to inline HTML.
-
 ### Fixed
 
 - Accessibility: demote the CoupleCards wordmark on `login.html` from `<h1>` to `<div>`. Each login stage (Sign in, Change password) keeps its own `<h1>`, so the document hierarchy now has a single top-level heading per view instead of two.
@@ -18,12 +14,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Accessibility: move focus to `<main id="main-content">` after every SPA route change. Keyboard and screen-reader users now hear the new view's contents instead of staying stranded on the last clicked link.
 - Accessibility: tag the revealed card's title and description with the effective `lang` attribute. When a card has no translation in the active UI locale and falls back to English, screen readers now switch to the English voice instead of mispronouncing the text with the UI voice.
 - Accessibility: make the admin tablist follow the WAI-ARIA APG tabs pattern. The active tab carries `tabindex="0"` and every other tab `tabindex="-1"`, so `Tab` moves from the tablist straight into the visible panel. `ArrowLeft` / `ArrowRight`, `Home` and `End` now cycle between tabs and move focus to the newly selected one.
-- Accessibility: add a focus trap, `Escape` to close, backdrop click to close, and focus return to the opener on the Sync / Import deck-sync modal. It previously lacked all four, unlike the shared confirmation modal.
+- Accessibility: apply the shared modal a11y pattern (focus trap, `Escape`, backdrop click, focus return to opener) to the Sync / Import deck-sync dialog and to the admin Create / Edit card dialog, bringing them in line with the shared confirmation modal.
 - Accessibility: hide the decorative emoji on empty-state screens (Admin cards, Bans, History) from assistive tech. Screen readers stopped announcing "playing card", "herb" or "heart with ribbon" before the real title and hint.
 - Accessibility: expose the home screen "Almost empty" hint to screen readers. The pile button uses `aria-label`, which replaced its inner text for assistive tech, so the visible low-pile warning was ignored. It is now linked via `aria-describedby` only while the hint is actually shown.
 - Accessibility: link the sign-in and change-password inputs to their error region via `aria-describedby`, and toggle `aria-invalid` on each field while the form holds an error. The password-change "New password" field also links to the strength meter so screen readers reach the live hints when the field is focused.
 - Accessibility: mark the password strength label as an `aria-live="polite"` region and only mutate its text when the tier actually changes. Screen readers now hear the new strength level (Weak, Fair, Good, Strong) once when it shifts, instead of staying silent or spamming every keystroke.
-- Accessibility: add a focus trap, `Escape` to close, backdrop click to close, and focus return to the opener on the admin Create / Edit card modal. This was the remaining bespoke modal that still drove `#modal` directly without the a11y plumbing now shared by the confirmation and deck-sync dialogs.
 
 ### Security
 
@@ -31,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Documentation
 
+- Move the README screenshots from the repository root to `docs/assets/` and render them side by side inside a two-column Markdown table with short captions. The table layout caps each image at half the container width on GitHub without resorting to inline HTML.
 - Spell out in `docs/configuration.md` and `docs/security.md` that `TRUST_PROXY=1` must only be enabled behind a reverse proxy that strips inbound `X-Forwarded-*` headers. Without that, a remote caller can spoof `X-Forwarded-For` and bypass the per-IP rate limits.
 
 ## [1.2.0] - 2026-04-24
