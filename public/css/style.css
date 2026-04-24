@@ -1123,6 +1123,12 @@ select option:hover {
   align-items: flex-end;
   flex-shrink: 0;
 }
+/* Stamps (history list) have varying widths across actions; center them so
+   the shorter "Bannie" lines up with "Remise dans la pioche". */
+.list-item-right:has(.stamp) {
+  align-items: center;
+  min-width: 96px;
+}
 .list-item-badges {
   display: flex;
   gap: 6px;
