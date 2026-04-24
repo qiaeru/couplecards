@@ -52,14 +52,14 @@
   list-style: none;
   margin: 0;
   padding: 10px 10px calc(env(safe-area-inset-bottom, 0px) + 10px);
-  display: flex;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 4px;
 }
 .app-bottom-nav-list li {
-  flex: 1;
   display: flex;
   justify-content: center;
+  min-width: 0;
 }
 .app-bottom-nav a {
   display: inline-flex;
@@ -68,7 +68,10 @@
   gap: 4px;
   color: var(--text-soft);
   text-decoration: none;
-  padding: 8px 12px;
+  padding: 8px 6px;
+  min-width: 0;
+  max-width: 100%;
+  font-size: 0.72rem;
   border-radius: var(--radius-sm);
   font-weight: 600;
   line-height: 1.15;
