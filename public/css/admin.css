@@ -241,8 +241,8 @@ body { padding: 20px 16px calc(env(safe-area-inset-bottom, 0px) + 24px); }
   flex-shrink: 0;
 }
 #admin-create-card-btn {
-  align-self: flex-start;
-  margin-top: 4px;
+  align-self: flex-end;
+  margin: 14px 0;
 }
 
 .field-group {
