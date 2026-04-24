@@ -1107,6 +1107,15 @@ select option:hover {
   gap: 4px;
   margin-bottom: 4px;
 }
+.list-item-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--surface-border);
+  flex-wrap: wrap;
+}
 .list-item-right {
   display: flex;
   flex-direction: column;

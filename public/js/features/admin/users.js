@@ -37,19 +37,18 @@ function renderUsersList(users) {
     const showUnlock = isLocked && !isAdmin && !isDemo;
     const showReset = !isAdmin && !isDemo;
     const showDelete = !isAdmin;
+    const actions = [
+      showUnlock ? `<button class="btn btn-sm" data-action="unlock" data-id="${u.id}">${escapeHtml(t('admin.users.unlock'))}</button>` : '',
+      showReset ? `<button class="btn btn-sm" data-action="reset" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('admin.users.reset'))}</button>` : '',
+      showDelete ? `<button class="btn btn-sm btn-danger" data-action="delete" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('admin.users.delete'))}</button>` : '',
+    ].filter(Boolean).join('');
     row.innerHTML = `
-      <div class="list-item-row">
-        <div class="list-item-main">
-          <div class="list-item-title">${escapeHtml(u.username)}</div>
-          <div class="list-item-meta">${escapeHtml(t('admin.users.createdAt', { when: fmtDateLong(u.createdAt) }))}</div>
-          <div class="list-item-badges">${badges.join('')}</div>
-        </div>
-        <div class="list-item-right">
-          ${showUnlock ? `<button class="btn btn-sm" data-action="unlock" data-id="${u.id}">${escapeHtml(t('admin.users.unlock'))}</button>` : ''}
-          ${showReset ? `<button class="btn btn-sm" data-action="reset" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('admin.users.reset'))}</button>` : ''}
-          ${showDelete ? `<button class="btn btn-sm btn-danger" data-action="delete" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('admin.users.delete'))}</button>` : ''}
-        </div>
+      <div class="list-item-main">
+        <div class="list-item-title">${escapeHtml(u.username)}</div>
+        <div class="list-item-meta">${escapeHtml(t('admin.users.createdAt', { when: fmtDateLong(u.createdAt) }))}</div>
+        <div class="list-item-badges">${badges.join('')}</div>
       </div>
+      ${actions ? `<div class="list-item-actions">${actions}</div>` : ''}
     `;
     host.appendChild(row);
   }

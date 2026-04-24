@@ -10,6 +10,7 @@
   "common.ok": "Valider",
   "common.back": "Retour",
   "common.scrollTop": "Revenir en haut",
+  "common.dateAtTime": "{{date}} à {{time}}",
   "common.copy": "Copier",
   "common.open": "Ouvrir",
   "common.copied": "Copié",

@@ -46,18 +46,16 @@ function renderCardsList(cards) {
     const row = document.createElement('div');
     row.className = 'list-item';
     row.innerHTML = `
-      <div class="list-item-row">
-        <div class="list-item-main">
-          <div class="list-item-header">
-            <span class="pile-badge ${card.pile}">${escapeHtml(t(`piles.${card.pile}.label`))}</span>
-            <span class="list-item-title">${escapeHtml(title)}${card.foil ? ' ✦' : ''}</span>
-          </div>
-          <div class="list-item-meta">${escapeHtml(description)}</div>
+      <div class="list-item-main">
+        <div class="list-item-header">
+          <span class="pile-badge ${card.pile}">${escapeHtml(t(`piles.${card.pile}.label`))}</span>
+          <span class="list-item-title">${escapeHtml(title)}${card.foil ? ' ✦' : ''}</span>
         </div>
-        <div class="list-item-right">
-          <button class="btn btn-sm" data-action="edit" data-id="${escapeHtml(card.id)}">${escapeHtml(t('common.edit'))}</button>
-          <button class="btn btn-sm btn-danger" data-action="delete" data-id="${escapeHtml(card.id)}">${escapeHtml(t('common.delete'))}</button>
-        </div>
+        <div class="list-item-meta">${escapeHtml(description)}</div>
+      </div>
+      <div class="list-item-actions">
+        <button class="btn btn-sm" data-action="edit" data-id="${escapeHtml(card.id)}">${escapeHtml(t('common.edit'))}</button>
+        <button class="btn btn-sm btn-danger" data-action="delete" data-id="${escapeHtml(card.id)}">${escapeHtml(t('common.delete'))}</button>
       </div>
     `;
     host.appendChild(row);
