@@ -101,6 +101,7 @@
   "settings.resetData.confirm": "Cette action effacera votre historique et vos cartes bannies. Elle est irréversible.",
   "settings.resetData.toast": "Vos données ont été réinitialisées",
   "settings.logout": "Se déconnecter",
+  "settings.logout.action": "Déconnecter",
   "settings.install": "Installer l'application",
   "settings.install.action": "Installer",
   "rules.title": "Règles",
