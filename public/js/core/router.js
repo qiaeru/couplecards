@@ -68,6 +68,11 @@ export async function render() {
   }
   document.dispatchEvent(new CustomEvent('route:mounted', { detail: { route: segment } }));
   window.scrollTo(0, 0);
+
+  // Reset focus to the new view so screen readers pick up the change.
+  // <main id="main-content"> carries tabindex="-1" so it can receive focus
+  // without entering the normal tab order.
+  document.getElementById('main-content')?.focus({ preventScroll: true });
 }
 
 export function startRouter() {
