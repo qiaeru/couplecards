@@ -1,6 +1,9 @@
 # CoupleCards
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![Release](https://img.shields.io/github/v/release/qiaeru/couplecards)](https://github.com/qiaeru/couplecards/releases)
+[![Docker image](https://img.shields.io/badge/ghcr.io-qiaeru%2Fcouplecards-blue)](https://github.com/qiaeru/couplecards/pkgs/container/couplecards)
+[![GitHub stars](https://img.shields.io/github/stars/qiaeru/couplecards?style=social)](https://github.com/qiaeru/couplecards/stargazers)
 
 A self-hosted web app that lets couples draw activity cards to break the routine and spice up their daily lives.
 
