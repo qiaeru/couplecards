@@ -386,7 +386,7 @@ body::before {
 .piles {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 12px;
+  gap: 18px;
   flex: 1;
   align-content: center;
   padding: 8px 0;
