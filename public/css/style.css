@@ -782,17 +782,6 @@ body::before {
 }
 .switch input:checked + .slider::before { transform: translateX(20px); }
 
-.rules-text {
-  max-width: 560px;
-  margin: 0 auto;
-  line-height: 1.65;
-  color: var(--text-soft);
-}
-.rules-text p { margin: 0 0 14px; }
-.rules-text ul { padding-left: 22px; margin: 0 0 14px; }
-.rules-text li { margin-bottom: 6px; }
-.rules-text strong { color: var(--text); }
-
 /* Rules view container: the parchment-like panel the user liked. Its
    background and border have been promoted to a reusable custom property
    (--tile-surface) so every tile across the app can adopt the same finish. */
@@ -1139,12 +1128,6 @@ select option:hover {
   opacity: 0.6;
   font-family: ui-monospace, 'Menlo', 'Courier New', monospace;
 }
-.btn-compact {
-  padding: 6px 14px;
-  min-height: 32px;
-  font-size: 0.82rem;
-}
-
 /* Password strength meter */
 .pw-strength { margin: 4px 0 8px; }
 .pw-strength-bar {
