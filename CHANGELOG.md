@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Fixed
 
 - Accessibility: demote the CoupleCards wordmark on `login.html` from `<h1>` to `<div>`. Each login stage (Sign in, Change password) keeps its own `<h1>`, so the document hierarchy now has a single top-level heading per view instead of two.
+- Accessibility: associate the Settings switches (Sound effects, Vibrations) with their visible label via `aria-labelledby`. Screen readers now announce the checkbox name instead of an unlabeled toggle.
 
 ### Security
 
