@@ -386,11 +386,11 @@ body::before {
 .piles {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 10px;
+  gap: 12px;
   flex: 1;
   align-content: center;
   padding: 8px 0;
-  max-width: 170px;
+  max-width: 190px;
   margin: 0 auto;
   width: 100%;
 }
