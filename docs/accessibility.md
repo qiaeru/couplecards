@@ -14,23 +14,25 @@ Audience: maintainers and contributors. This page summarises what the app implem
 
 ### Global
 
-The `<html lang>` attribute is updated whenever the i18n locale changes. Every interactive control is focusable and exposes a visible ring through `:focus-visible`. The first tab stop on the SPA shell is a "Skip to main content" link that moves focus to `<main id="main-content" tabindex="-1">`. Toasts and card announcements live in `role="status"` regions. `prefers-reduced-motion` disables decorative animations, and `prefers-reduced-transparency` removes backdrop blurs.
+The `<html lang>` attribute is updated whenever the i18n locale changes. Every interactive control is focusable and exposes a visible ring through `:focus-visible`. The first tab stop on the SPA shell is a "Skip to main content" link that moves focus to `<main id="main-content" tabindex="-1">`, and focus is moved to that same element after every route change so the new view is announced to screen readers. Toasts and card announcements live in `role="status"` regions. `prefers-reduced-motion` disables decorative animations, and `prefers-reduced-transparency` removes backdrop blurs.
 
 ### Forms
 
-Every `<input>` has an explicit `<label>`. Error messages render inside a `role="alert"` region with `aria-live`. Required fields use the standard `required` attribute. The password strength meter is purely informational: the form never blocks submission based on a visual score alone, because the server is the authority on password validity.
+Every `<input>` has an explicit `<label>`. Error messages render inside a `role="alert"` region with `aria-live`; on the sign-in and change-password forms, each input points at that region via `aria-describedby` and carries `aria-invalid="true"` while the form holds an error. Required fields use the standard `required` attribute. The password strength meter is purely informational: the form never blocks submission based on a visual score alone, because the server is the authority on password validity. The meter's current tier is exposed as an `aria-live="polite"` region that only mutates when the tier actually changes, so screen readers hear each transition between Weak, Fair, Good and Strong without spamming every keystroke.
 
 ### Draw screen
 
-The card title and description are announced through `#card-announce`. Every swipe gesture has a visible button equivalent (Ban, Return and Redraw) that is keyboard-friendly. Arrow keys act as shortcuts while the card is revealed: left arrow bans it, right arrow returns it to the pile. The shortcuts are ignored in preview mode, while the reveal animation is playing, and whenever focus sits inside a text input. Screen readers are informed through `aria-keyshortcuts` on the matching buttons, and the shortcuts honour `prefers-reduced-motion` by skipping the swipe-out animation. `Escape` closes the read-only preview opened from the history screen.
+The card title and description are announced through `#card-announce`, and both elements are tagged with a `lang` attribute reflecting the translation that was actually used, so screen readers switch voice when a card falls back to English under a non-English UI. Every swipe gesture has a visible button equivalent (Ban, Return and Redraw) that is keyboard-friendly. Arrow keys act as shortcuts while the card is revealed: left arrow bans it, right arrow returns it to the pile. The shortcuts are ignored in preview mode, while the reveal animation is playing, and whenever focus sits inside a text input. Screen readers are informed through `aria-keyshortcuts` on the matching buttons, and the shortcuts honour `prefers-reduced-motion` by skipping the swipe-out animation. `Escape` closes the read-only preview opened from the history screen.
 
 ### Modals
 
-Every modal uses `role="dialog"`, `aria-modal="true"` and `aria-labelledby` pointing to the visible title. Focus is trapped inside the modal and `Tab` cycles between the cancel and confirm buttons. `Escape` closes the modal, `Enter` confirms (except when focus is on the Cancel button), and focus is returned to the element that opened the modal once it closes.
+Every modal uses `role="dialog"`, `aria-modal="true"` and `aria-labelledby` pointing to the visible title. Focus is trapped inside the modal's focusables, so `Tab` cycles across every button, input, select and checkbox in the body in addition to the cancel and confirm buttons. `Escape` and a click on the backdrop close the modal, and focus is returned to the element that opened it once it closes. On the shared confirmation dialog, `Enter` also confirms when focus is not on the Cancel button.
 
 ### Navigation
 
 The bottom navigation is a `<nav>` element with a translated `aria-label` in English and French, wrapping an `<ul>` / `<li>` structure so assistive technology announces it as "Main navigation, list of N items". `aria-current="page"` is set on the link of the currently mounted route, updated by the SPA router on every navigation.
+
+The admin page exposes a `role="tablist"` that follows the WAI-ARIA APG tabs pattern: the active tab carries `tabindex="0"` and the others `tabindex="-1"`, so `Tab` moves from the tablist straight into the visible panel rather than cycling across the three headers. `ArrowLeft` / `ArrowRight` wrap around the tablist, `Home` jumps to the first tab and `End` to the last, and every move also focuses the newly selected tab.
 
 ## Manual verification
 
