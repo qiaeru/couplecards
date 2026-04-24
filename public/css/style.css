@@ -191,8 +191,6 @@ body::before {
   font-optical-sizing: auto;
   line-height: 1.3;
 }
-/* Logo icon paired with a brand wordmark (.boot-logo / .brand-title /
-   .draw-title / .app-header-home .title). */
 .title-icon {
   width: 1.6em;
   height: 1.6em;
