@@ -386,11 +386,11 @@ body::before {
 .piles {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 14px;
+  gap: 10px;
   flex: 1;
   align-content: center;
   padding: 8px 0;
-  max-width: 240px;
+  max-width: 170px;
   margin: 0 auto;
   width: 100%;
 }
@@ -414,7 +414,7 @@ body::before {
   position: relative;
   display: block;
   aspect-ratio: 3 / 4;
-  min-height: 170px;
+  min-height: 140px;
   transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 @media (hover: hover) {
