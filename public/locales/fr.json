@@ -225,9 +225,9 @@
   "errors.UNSUPPORTED_LOCALE": "Langue non prise en charge.",
   "errors.INVALID_MODE": "Mode de synchronisation invalide.",
   "settings.sounds": "Effets sonores",
-  "admin.users.createdAt": "Créé le {{when}}",
-  "history.entry.drawnAt": "Piochée le {{when}}",
-  "bans.entry.bannedAt": "Bannie le {{when}}",
+  "admin.users.createdAt": "Créé le {{when}}.",
+  "history.entry.drawnAt": "Piochée le {{when}}.",
+  "bans.entry.bannedAt": "Bannie le {{when}}.",
   "errors.CARDS_FETCH_FAILED": "Impossible de charger le jeu de cartes. Utilisation du cache local.",
   "admin.cards.empty.title": "Le jeu de cartes est vide",
   "admin.cards.empty.hint": "Ajoutez une carte manuellement ou importez un deck depuis le bloc Maintenance du jeu de cartes ci-dessus."

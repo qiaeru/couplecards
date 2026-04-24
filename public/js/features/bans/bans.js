@@ -47,25 +47,23 @@ function render() {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); preview(); }
       });
     }
-    const row = document.createElement('div');
-    row.className = 'list-item-row';
-    const left = document.createElement('div');
-    left.className = 'list-item-main';
+    const main = document.createElement('div');
+    main.className = 'list-item-main';
     const pileBadge = pile
       ? `<span class="pile-badge ${pile}">${escapeHtml(t(`piles.${pile}.label`))}</span>`
       : '';
     const whenLine = bannedAt
       ? `<div class="list-item-meta">${escapeHtml(t('bans.entry.bannedAt', { when: fmtDateLong(bannedAt) }))}</div>`
       : '';
-    left.innerHTML = `
+    main.innerHTML = `
       <div class="list-item-header">
         ${pileBadge}
         <span class="list-item-title">${escapeHtml(title)}${foil ? ' ✦' : ''}</span>
       </div>
       ${whenLine}
     `;
-    const right = document.createElement('div');
-    right.className = 'list-item-right';
+    const actions = document.createElement('div');
+    actions.className = 'list-item-actions';
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'btn btn-sm btn-success';
@@ -76,10 +74,9 @@ function render() {
       toast(t('bans.toast.restored'));
       render();
     });
-    right.appendChild(btn);
-    row.appendChild(left);
-    row.appendChild(right);
-    div.appendChild(row);
+    actions.appendChild(btn);
+    div.appendChild(main);
+    div.appendChild(actions);
     host.appendChild(div);
   }
 }

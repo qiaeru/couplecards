@@ -225,9 +225,9 @@
   "errors.UNSUPPORTED_LOCALE": "Unsupported language.",
   "errors.INVALID_MODE": "Invalid sync mode.",
   "settings.sounds": "Sound effects",
-  "admin.users.createdAt": "Created on {{when}}",
-  "history.entry.drawnAt": "Drawn on {{when}}",
-  "bans.entry.bannedAt": "Banned on {{when}}",
+  "admin.users.createdAt": "Created on {{when}}.",
+  "history.entry.drawnAt": "Drawn on {{when}}.",
+  "bans.entry.bannedAt": "Banned on {{when}}.",
   "errors.CARDS_FETCH_FAILED": "Could not load the card deck. Working from cache.",
   "admin.cards.empty.title": "The deck is empty",
   "admin.cards.empty.hint": "Add a card manually or import a deck from the Deck maintenance block above."
