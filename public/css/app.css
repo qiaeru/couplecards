@@ -97,7 +97,7 @@
 
 .app-bottom-nav a[aria-current='page'] {
   color: var(--accent);
-  background: radial-gradient(ellipse 70% 110% at 50% 0%, rgba(255, 94, 149, 0.10), transparent 80%);
+  background: radial-gradient(ellipse 70% 110% at 50% 0%, rgba(236, 90, 158, 0.10), transparent 80%);
 }
 .app-bottom-nav a[aria-current='page']::before {
   content: '';
@@ -109,11 +109,11 @@
   height: 2px;
   border-radius: 2px;
   background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  box-shadow: 0 0 10px rgba(255, 94, 149, 0.5);
+  box-shadow: 0 0 10px rgba(236, 90, 158, 0.5);
   pointer-events: none;
 }
 .app-bottom-nav a[aria-current='page'] .nav-icon {
-  filter: drop-shadow(0 0 6px rgba(255, 94, 149, 0.45));
+  filter: drop-shadow(0 0 6px rgba(236, 90, 158, 0.45));
 }
 @media (prefers-reduced-motion: reduce) {
   .app-bottom-nav a,

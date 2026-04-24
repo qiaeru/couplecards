@@ -22,7 +22,7 @@ body { font-family: var(--font); }
   font-size: 2.2rem;
   font-weight: 600;
   letter-spacing: -0.03em;
-  color: #ec5a9e;
+  color: var(--accent);
   font-optical-sizing: auto;
   line-height: 1;
   display: flex;
@@ -49,7 +49,7 @@ body { font-family: var(--font); }
   font-weight: 600;
   letter-spacing: -0.03em;
   margin: 0 0 8px;
-  color: #ec5a9e;
+  color: var(--accent);
 }
 
 .auth-subtitle {

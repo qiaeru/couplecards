@@ -23,7 +23,7 @@
   font-size: 2.2rem;
   font-weight: 600;
   letter-spacing: -0.03em;
-  color: #ec5a9e;
+  color: var(--accent);
   z-index: 102;
   pointer-events: none;
   font-optical-sizing: auto;
@@ -286,7 +286,7 @@
       rgba(140, 240, 180, 0.40) 40%,
       rgba(120, 200, 255, 0.40) 60%,
       rgba(200, 140, 255, 0.40) 80%,
-      rgba(255, 120, 170, 0.40) 100%
+      rgba(244, 156, 197, 0.40) 100%
     ),
     /* Dark base so the iridescent tones stand out */
     linear-gradient(160deg, #2a1a4a 0%, #12082c 60%, #1a0f3a 100%);
