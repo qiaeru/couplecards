@@ -27,6 +27,7 @@ Audience: admins who self-host the app and want a clear picture of the measures 
 - `POST /api/auth/login` is limited to 5 requests per minute per IP.
 - `POST /api/auth/change-password` is limited to 10 requests per hour per IP.
 - After 10 consecutive failed login attempts an account is locked for 15 minutes. The admin can unlock it earlier from the admin panel.
+- The per-IP counters read the client IP through Fastify. Enable `TRUST_PROXY=1` only behind a reverse proxy that you control and that strips inbound `X-Forwarded-*` headers, otherwise a remote caller can spoof the header and bypass these limits. All variants under [`deploy/`](../deploy/) are safe in this respect.
 
 ## Transport and headers
 
