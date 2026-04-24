@@ -116,8 +116,10 @@ function openCardDialog({ card = null } = {}) {
   const bodyEl = document.getElementById('modal-body');
   const confirmBtn = document.getElementById('modal-confirm');
   const cancelBtn = document.getElementById('modal-cancel');
+  const backdrop = host?.querySelector('[data-modal-close]');
   if (!host) return;
 
+  const previouslyFocused = document.activeElement;
   const isEdit = !!card;
   titleEl.textContent = isEdit ? t('admin.cards.edit') : t('admin.cards.create');
   bodyEl.innerHTML = `
@@ -151,12 +153,36 @@ function openCardDialog({ card = null } = {}) {
   cancelBtn.textContent = t('common.cancel');
   host.hidden = false;
 
+  const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+  const getFocusables = () => Array.from(host.querySelectorAll(FOCUSABLE))
+    .filter((el) => !el.hidden && el.offsetParent !== null);
+
   const close = () => {
     host.hidden = true;
     confirmBtn.removeEventListener('click', onConfirm);
     cancelBtn.removeEventListener('click', onCancel);
+    backdrop?.removeEventListener('click', onCancel);
+    document.removeEventListener('keydown', onKey);
+    if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
+      try { previouslyFocused.focus(); } catch {}
+    }
   };
   const onCancel = () => close();
+  const onKey = (event) => {
+    if (event.key === 'Escape') { event.preventDefault(); close(); return; }
+    if (event.key !== 'Tab') return;
+    const items = getFocusables();
+    if (items.length === 0) return;
+    const first = items[0];
+    const last = items[items.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  };
   const onConfirm = async () => {
     const form = document.getElementById('card-form');
     const err = document.getElementById('card-error');
@@ -190,6 +216,8 @@ function openCardDialog({ card = null } = {}) {
   };
   confirmBtn.addEventListener('click', onConfirm);
   cancelBtn.addEventListener('click', onCancel);
+  backdrop?.addEventListener('click', onCancel);
+  document.addEventListener('keydown', onKey);
   setTimeout(() => (isEdit
     ? document.querySelector('[name="title-' + getLocale() + '"]')
     : document.getElementById('card-id'))?.focus(), 50);

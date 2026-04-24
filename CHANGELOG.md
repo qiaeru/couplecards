@@ -19,6 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Accessibility: expose the home screen "Almost empty" hint to screen readers. The pile button uses `aria-label`, which replaced its inner text for assistive tech, so the visible low-pile warning was ignored. It is now linked via `aria-describedby` only while the hint is actually shown.
 - Accessibility: link the sign-in and change-password inputs to their error region via `aria-describedby`, and toggle `aria-invalid` on each field while the form holds an error. The password-change "New password" field also links to the strength meter so screen readers reach the live hints when the field is focused.
 - Accessibility: mark the password strength label as an `aria-live="polite"` region and only mutate its text when the tier actually changes. Screen readers now hear the new strength level (Weak, Fair, Good, Strong) once when it shifts, instead of staying silent or spamming every keystroke.
+- Accessibility: add a focus trap, `Escape` to close, backdrop click to close, and focus return to the opener on the admin Create / Edit card modal. This was the remaining bespoke modal that still drove `#modal` directly without the a11y plumbing now shared by the confirmation and deck-sync dialogs.
 
 ### Security
 
