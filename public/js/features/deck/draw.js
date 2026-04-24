@@ -458,9 +458,15 @@ function announceCard(card) {
 // Re-called on reveal and on locale change so the visible card follows
 // the active language.
 function applyCardText(card) {
-  const { title, description } = getCardText(card);
-  $('card-title').textContent = title;
-  $('card-description').textContent = description;
+  const { title, description, locale } = getCardText(card);
+  const titleEl = $('card-title');
+  const descEl = $('card-description');
+  titleEl.textContent = title;
+  descEl.textContent = description;
+  // Tag with the effective locale so screen readers switch voice when the
+  // card falls back to English because the requested locale is missing.
+  titleEl.setAttribute('lang', locale);
+  descEl.setAttribute('lang', locale);
 }
 
 export async function startDraw(pile) {
