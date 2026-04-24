@@ -271,6 +271,9 @@ function attachTilt() {
   let mode = 'idle';
   let startX = 0, startY = 0, startTime = 0;
   let velocitySamples = [];
+  // Tracks whether the current drag has already crossed the commit threshold,
+  // so we only vibrate on the transition (not every frame past it).
+  let swipePastThreshold = false;
 
   const banLabel = tilt.querySelector('.swipe-label-ban');
   const returnLabel = tilt.querySelector('.swipe-label-return');
@@ -289,6 +292,11 @@ function attachTilt() {
     tilt.style.setProperty('--tz', `${dx * 0.08}deg`);
     tilt.style.setProperty('--rx', '0deg');
     tilt.style.setProperty('--ry', '0deg');
+    const past = Math.abs(dx) >= CONFIG.swipe.minDistance;
+    if (past !== swipePastThreshold) {
+      swipePastThreshold = past;
+      if (past) vibrate(CONFIG.vibrations.swipeThreshold);
+    }
     const intensity = Math.min(Math.abs(dx) / SWIPE_FULL_DISTANCE, 1);
     if (dx > 0) {
       if (returnLabel) returnLabel.style.opacity = intensity;
@@ -308,6 +316,7 @@ function attachTilt() {
     startY = e.clientY;
     startTime = Date.now();
     mode = 'idle';
+    swipePastThreshold = false;
     velocitySamples = [{ x: e.clientX, t: performance.now() }];
     try { tilt.setPointerCapture(e.pointerId); } catch {}
   };
