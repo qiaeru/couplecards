@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Documentation
+
+- Move the README screenshots from the repository root to `docs/assets/` and render them side by side inside a two-column Markdown table with short captions. The table layout caps each image at half the container width on GitHub without resorting to inline HTML.
+
 ### Fixed
 
 - Accessibility: demote the CoupleCards wordmark on `login.html` from `<h1>` to `<div>`. Each login stage (Sign in, Change password) keeps its own `<h1>`, so the document hierarchy now has a single top-level heading per view instead of two.
