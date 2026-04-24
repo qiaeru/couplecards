@@ -186,6 +186,7 @@
   "errors.DEMO_READONLY": "The demo account cannot change its password.",
   "errors.CANNOT_EDIT_DEMO": "The demo account cannot be edited.",
   "errors.CANNOT_RESET_DEMO": "The demo account's password cannot be reset.",
+  "errors.CANNOT_DELETE_DEMO": "The demo account cannot be deleted. Unset the ENABLE_DEMO_ACCOUNT environment variable and restart the instance to disable it.",
   "errors.VALIDATION_ERROR": "Some fields are invalid.",
   "errors.INTERNAL_ERROR": "Internal server error.",
   "errors.page.404.title": "Page not found",

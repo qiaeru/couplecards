@@ -158,10 +158,17 @@ export default async function userRoutes(app) {
     if (id === request.currentUser.id) {
       return reply.code(400).send({ error: 'CANNOT_DELETE_SELF' });
     }
-    const target = db.prepare('SELECT role FROM users WHERE id = ?').get(id);
+    const target = db.prepare('SELECT role, is_demo FROM users WHERE id = ?').get(id);
     if (!target) return reply.code(404).send({ error: 'USER_NOT_FOUND' });
     if (target.role === 'admin') {
       return reply.code(400).send({ error: 'CANNOT_DELETE_ADMIN' });
+    }
+    // The demo account is controlled by ENABLE_DEMO_ACCOUNT. Deleting the row
+    // would only last until the next restart, since the seed step recreates it
+    // whenever the flag is set. Refuse the delete so the admin points at the
+    // right lever (unset the env var and restart).
+    if (target.is_demo === 1) {
+      return reply.code(400).send({ error: 'CANNOT_DELETE_DEMO' });
     }
     db.prepare('DELETE FROM users WHERE id = ?').run(id);
     return { ok: true };
