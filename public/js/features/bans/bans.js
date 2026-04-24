@@ -37,6 +37,16 @@ function render() {
 
     const div = document.createElement('div');
     div.className = 'list-item';
+    if (card) {
+      div.classList.add('clickable');
+      div.setAttribute('role', 'button');
+      div.setAttribute('tabindex', '0');
+      const preview = () => navigate('draw', { preview: cardId });
+      div.addEventListener('click', preview);
+      div.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); preview(); }
+      });
+    }
     const row = document.createElement('div');
     row.className = 'list-item-row';
     const left = document.createElement('div');
@@ -60,7 +70,8 @@ function render() {
     btn.type = 'button';
     btn.className = 'btn btn-success';
     btn.textContent = t('bans.restore');
-    btn.addEventListener('click', async () => {
+    btn.addEventListener('click', async (e) => {
+      e.stopPropagation();
       await unbanCard(cardId);
       toast(t('bans.toast.restored'));
       render();
