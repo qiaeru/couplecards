@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Fixed
 
 - `ENABLE_DEMO_ACCOUNT` is now the single source of truth for the demo account. The admin UI refuses to delete the demo row (a new `CANNOT_DELETE_DEMO` error, matching the existing `CANNOT_EDIT_DEMO` / `CANNOT_RESET_DEMO` guards), and the seed step now removes any stale demo row on boot when the flag is off. Previously a delete through the admin UI was undone by the next restart since the seed recreated the row whenever the flag was still set, and unsetting the flag left the demo row in place.
+- Admin Cards panel: balance the spacing around the "Add a card" button. It previously had 28 px of visual gap above and 40 px below, because the button carried a 14 px vertical margin on top of the panel's flex gap while the list below added another 12 px of internal top padding for its fade mask. The button now offsets by 12 px on top only, so both gaps settle at 26 px.
 
 ### Documentation
 
