@@ -114,6 +114,7 @@ The procedure to add a third language is documented end-to-end in [i18n.md](./i1
 | `POST` | `/api/admin/cards/sync` | admin | Reads every `cards.<locale>.json` under `data/` and applies them together (mirror or upsert) |
 | `POST` | `/api/admin/cards/import` | admin | Applies a deck uploaded in the request body (multilingual shape) |
 | `GET` | `/api/state` | session | Returns `{ banned, history }` |
+| `POST` | `/api/state/reset` | session | Wipes the caller's bans and history in a single transaction. Rejected with 403 for demo accounts |
 | `POST`, `DELETE` | `/api/bans[/:cardId]` | session | Idempotent |
 | `POST` | `/api/history` | session | Batch endpoint, idempotent on `clientUuid` |
 | `GET`, `POST`, `PATCH`, `DELETE` | `/api/admin/users[/:id]` | admin | Full user CRUD plus unlock and reset-password |

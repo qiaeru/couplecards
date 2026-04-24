@@ -6,7 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
-_Nothing released yet._
+### Added
+
+- New `POST /api/state/reset` endpoint backing a "Reset my data" action in the settings screen. It deletes the caller's bans and history in a single transaction. Demo accounts are rejected with 403 since their state is already wiped at every sign-in.
+
+### Changed
+
+- Admin UI polish: header title shrunk so the logout button stays in the viewport on narrow screens, Export/Import backup buttons aligned with the full-width "Sync from the files" button, user-list and card-list action buttons resized via a new `.btn-sm` utility, demo badge now shares the admin gold palette to read as a role.
+- History entries render as tilted stamps instead of horizontal pills; action labels shortened ("Remise"/"Bannie", "Returned"/"Banned").
+- Banned-card tiles are now clickable and open the card in preview mode, mirroring the History view.
+- Home piles shrink on mobile so both fit in a ~375×667 viewport without scrolling.
+- Bottom-nav selected-state gradients softened and icon spacing normalised with `space-evenly`.
+- The heart divider between the "draw" and "reveal" paragraphs on the Rules page was removed.
+
+### Fixed
+
+- `POST /auth/login` rejected any password shorter than 8 characters at schema validation, so the seeded demo account (`demo` / `demo`) never reached the handler. Login now accepts any non-empty password; the strength policy is still enforced on change-password.
 
 ## [1.0.2] - 2026-04-23
 
