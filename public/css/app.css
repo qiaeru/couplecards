@@ -85,11 +85,13 @@
   flex-shrink: 0;
   transition: transform 0.18s ease;
 }
-.app-bottom-nav a:hover {
-  color: var(--text);
-  background-color: rgba(255, 255, 255, 0.05);
+@media (hover: hover) {
+  .app-bottom-nav a:hover {
+    color: var(--text);
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  .app-bottom-nav a:hover .nav-icon { transform: translateY(-2px); }
 }
-.app-bottom-nav a:hover .nav-icon { transform: translateY(-2px); }
 .app-bottom-nav a:active { transform: scale(0.97); }
 
 .app-bottom-nav a[aria-current='page'] {
