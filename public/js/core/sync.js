@@ -192,6 +192,15 @@ export async function addHistory(entry) {
   flushOutbox().catch(() => {});
 }
 
+export async function resetUserData() {
+  await request('/api/state/reset', { method: 'POST' });
+  banned = new Map();
+  history = [];
+  await idb.clearState();
+  emit('state:banned-changed');
+  emit('state:history-changed');
+}
+
 export async function clearAllLocalState() {
   banned = new Map();
   history = [];
