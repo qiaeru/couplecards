@@ -2,7 +2,7 @@
 // Draw screen: reveal animation, tilt, holographic effects, swipe-to-ban and
 // swipe-to-return.
 
-import { getCardById, getCardText, drawRandom, getHistory, banCard, addHistory } from '../../core/sync.js';
+import { getCardById, getCardText, drawRandom, getHistory, banCard, unbanCard, addHistory, removeHistoryByUuid } from '../../core/sync.js';
 import { emojiImgHTML, createEmojiImg, HEART_KEYS } from '../../ui/emoji.js';
 import { t } from '../../core/i18n.js';
 import { on } from '../../core/events.js';
@@ -556,15 +556,24 @@ function doReturn(animated = false) {
   finishWith(animated ? 'swipe-out-right' : null, t('draw.toast.returned'));
 }
 
-function doBan(animated = false) {
+async function doBan(animated = false) {
   if (!currentCardId) return;
   const id = currentCardId;
   currentCardId = null;
   banCard(id);
-  addHistory({ cardId: id, drawnAt: new Date().toISOString(), action: 'banned' });
+  const entry = await addHistory({ cardId: id, drawnAt: new Date().toISOString(), action: 'banned' });
   vibrate(CONFIG.vibrations.banAction);
   playBan();
-  finishWith(animated ? 'swipe-out-left' : null, t('draw.toast.banned'));
+  finishWith(animated ? 'swipe-out-left' : null, {
+    message: t('draw.toast.banned'),
+    action: {
+      label: t('common.undo'),
+      onClick: () => {
+        unbanCard(id);
+        if (entry?.clientUuid) removeHistoryByUuid(entry.clientUuid);
+      },
+    },
+  });
 }
 
 function doRedraw() {
@@ -580,7 +589,9 @@ function doRedraw() {
   if (pile) startDraw(pile);
 }
 
-function finishWith(swipeClass, toastMsg) {
+// toastArg is either a string (plain toast) or { message, action } for a
+// snackbar with an action button.
+function finishWith(swipeClass, toastArg) {
   stopHearts();
   refreshHomeCounts();
   releaseWakeLock();
@@ -590,7 +601,8 @@ function finishWith(swipeClass, toastMsg) {
   const backToHome = () => {
     if (tilt) tilt.classList.remove('swipe-out-right', 'swipe-out-left');
     navigate('home');
-    if (toastMsg) toast(toastMsg);
+    if (typeof toastArg === 'string') toast(toastArg);
+    else if (toastArg) toast(toastArg.message, { action: toastArg.action });
   };
   if (swipeClass && tilt) {
     tilt.classList.add(swipeClass);

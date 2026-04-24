@@ -190,6 +190,17 @@ export async function addHistory(entry) {
   emit('state:history-changed');
   await idb.enqueue({ kind: 'history', entry: full });
   flushOutbox().catch(() => {});
+  return full;
+}
+
+// Remove a history entry locally by its clientUuid. Used by the ban-undo flow
+// so reverting a ban also removes the matching history row.
+export async function removeHistoryByUuid(clientUuid) {
+  const before = history.length;
+  history = history.filter((e) => e.clientUuid !== clientUuid);
+  if (history.length === before) return;
+  await idb.setHistory(history);
+  emit('state:history-changed');
 }
 
 export async function resetUserData() {

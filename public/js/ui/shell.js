@@ -30,12 +30,29 @@ export function setSoundsEnabled(on) {
   try { localStorage.setItem(SOUND_KEY, on ? '1' : '0'); } catch {}
 }
 
-export function toast(message, duration = 1800) {
+// Optional `action` is { label, onClick } and renders a trailing button;
+// clicking it dismisses the toast and invokes onClick. Default duration
+// doubles to 5s when an action is present so the user has time to react.
+export function toast(message, options = {}) {
   const el = document.getElementById('toast');
   if (!el) return;
-  el.textContent = message;
-  el.hidden = false;
   clearTimeout(toast._timer);
+  const action = options.action || null;
+  const duration = options.duration ?? (action ? 5000 : 1800);
+  el.replaceChildren(document.createTextNode(message));
+  if (action) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'toast-action';
+    btn.textContent = action.label;
+    btn.addEventListener('click', () => {
+      clearTimeout(toast._timer);
+      el.hidden = true;
+      try { action.onClick(); } catch {}
+    });
+    el.appendChild(btn);
+  }
+  el.hidden = false;
   toast._timer = setTimeout(() => { el.hidden = true; }, duration);
 }
 

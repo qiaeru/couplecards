@@ -865,6 +865,24 @@ body::before {
   animation: toast-in 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
   max-width: calc(100vw - 32px);
   text-align: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.toast-action {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: none;
+  color: var(--accent);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  padding: 2px 4px;
 }
 
 /* History grouping by date */

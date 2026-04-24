@@ -2,6 +2,7 @@
   "app.name": "CoupleCards",
   "app.loading": "Chargement…",
   "common.cancel": "Annuler",
+  "common.undo": "Annuler",
   "common.confirm": "Confirmer",
   "common.save": "Enregistrer",
   "common.close": "Fermer",
