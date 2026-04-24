@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- README: hero screenshots (desktop + mobile) and a "Try the demo" callout pointing at <https://couplecards.qiaeru.com/> with the `demo` / `demo` credentials.
 - Display the pink heart logo alongside the "CoupleCards" wordmark everywhere the app name is shown as a title: the home-screen header, the card-draw header, the login page, and the boot splash on both `/` and `/admin.html`.
 - `favicon.ico` (multi-resolution) and `apple-touch-icon.png` (180×180) under `/icons/`, linked from `index.html` and `login.html`. Improves rendering on legacy browsers, Windows shortcuts, and iOS "Add to Home Screen".
 
