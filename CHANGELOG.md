@@ -6,7 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
-_Nothing released yet._
+### Security
+
+- Raise the Argon2id iteration count from `t=2` to `t=3` on password hashing. Still uses the same 19 MiB memory cost. Adds roughly 15 ms to each login and password change; existing stored hashes keep verifying since the PHC string embeds its own parameters.
+
+### Documentation
+
+- Spell out in `docs/configuration.md` and `docs/security.md` that `TRUST_PROXY=1` must only be enabled behind a reverse proxy that strips inbound `X-Forwarded-*` headers. Without that, a remote caller can spoof `X-Forwarded-For` and bypass the per-IP rate limits.
 
 ## [1.2.0] - 2026-04-24
 

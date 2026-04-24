@@ -4,7 +4,7 @@ Audience: admins who self-host the app and want a clear picture of the measures 
 
 ## Authentication
 
-- Passwords are hashed with Argon2id using the OWASP 2024 recommended parameters.
+- Passwords are hashed with Argon2id (`t=3`, `m=19 MiB`, `p=1`), one iteration above the OWASP 2024 minimum.
 - The password policy is enforced on the server, with the client mirroring it for live feedback. The hard rules are a minimum length of 12 characters, at least one uppercase letter, one lowercase letter, one digit and one special character, no whitespace, and no inclusion of the username. Each password must also reach a zxcvbn score of 4 for the admin account and 3 for a regular user, with both English and French dictionaries loaded.
 - Initial user passwords are generated with `crypto.randomBytes` and enforced character classes. The admin sees the value once; only the hash is stored.
 - A user account with a pending password change cannot reach any protected endpoint until the password has been updated.
@@ -27,6 +27,7 @@ Audience: admins who self-host the app and want a clear picture of the measures 
 - `POST /api/auth/login` is limited to 5 requests per minute per IP.
 - `POST /api/auth/change-password` is limited to 10 requests per hour per IP.
 - After 10 consecutive failed login attempts an account is locked for 15 minutes. The admin can unlock it earlier from the admin panel.
+- The per-IP counters read the client IP through Fastify. Enable `TRUST_PROXY=1` only behind a reverse proxy that you control and that strips inbound `X-Forwarded-*` headers, otherwise a remote caller can spoof the header and bypass these limits. All variants under [`deploy/`](../deploy/) are safe in this respect.
 
 ## Transport and headers
 

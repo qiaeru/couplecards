@@ -19,10 +19,12 @@ zxcvbnOptions.setOptions({
   },
 });
 
-// OWASP 2024 recommended Argon2id parameters.
+// Argon2id parameters above the OWASP 2024 minimum (t=2, m=19 MiB). Bumped to
+// t=3 to widen the margin against GPU/ASIC attacks at a ~15 ms login cost.
+// Existing hashes keep verifying since the PHC string encodes its own params.
 const ARGON2_PARAMS = {
   parallelism: 1,
-  iterations: 2,
+  iterations: 3,
   memorySize: 19456, // KiB → 19 MiB
   hashLength: 32,
   outputType: 'encoded',
