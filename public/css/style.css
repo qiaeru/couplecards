@@ -315,6 +315,36 @@ body::before {
   gap: 6px;
 }
 
+/* Static "stamp" badges for the history list — same visual language as
+   the .swipe-label tinder-style markers on the draw screen, but smaller. */
+.stamp {
+  display: inline-block;
+  padding: 3px 9px;
+  border: 2px solid;
+  border-radius: 6px;
+  font-family: var(--font);
+  font-weight: 900;
+  font-size: 0.65rem;
+  line-height: 1.1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: nowrap;
+  user-select: none;
+}
+.stamp-banned {
+  color: #ff6680;
+  border-color: #ff6680;
+  transform: rotate(-8deg);
+  text-shadow: 0 1px 4px rgba(255, 102, 128, 0.35);
+}
+.stamp-returned {
+  color: #4ee09a;
+  border-color: #4ee09a;
+  transform: rotate(-8deg);
+  text-shadow: 0 1px 4px rgba(78, 224, 154, 0.35);
+}
+
 .btn-ghost {
   background: var(--surface);
   box-shadow: var(--shadow-sm);
