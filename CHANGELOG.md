@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+_Nothing released yet._
+
+## [1.1.0] - 2026-04-24
+
 ### Added
 
 - **Reset my data** action in Settings, backed by a new `POST /api/state/reset` endpoint. Wipes the caller's bans and history in a single transaction. Demo accounts are rejected with 403 since their state is already wiped at every sign-in.
