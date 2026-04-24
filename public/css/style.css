@@ -709,6 +709,38 @@ body::before {
   font-family: inherit;
   font-size: 0.85rem;
 }
+
+.scroll-to-top {
+  position: fixed;
+  right: calc(16px + env(safe-area-inset-right, 0px));
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--surface-border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 999px;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 40;
+  -webkit-appearance: none;
+  appearance: none;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.scroll-to-top svg { width: 20px; height: 20px; }
+.scroll-to-top.visible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
 .setting-row {
   background-image: var(--tile-surface);
   background-color: var(--surface);

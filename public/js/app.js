@@ -6,6 +6,7 @@ import { initI18n, applyI18n, t } from './core/i18n.js';
 import { initSync } from './core/sync.js';
 import { registerFeature, setOutlet, startRouter } from './core/router.js';
 import { registerServiceWorker } from './ui/shell.js';
+import { initScrollToTop } from './ui/scroll-to-top.js';
 
 async function boot() {
   const user = await me();
@@ -50,6 +51,7 @@ async function boot() {
   }
 
   startRouter();
+  initScrollToTop();
   registerServiceWorker();
 }
 

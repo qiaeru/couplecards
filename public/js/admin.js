@@ -3,6 +3,7 @@
 
 import { me, logout, setPreferences } from './core/auth.js';
 import { initI18n, applyI18n, setLocale, getLocale, supportedLocales, t } from './core/i18n.js';
+import { initScrollToTop } from './ui/scroll-to-top.js';
 
 const TABS = ['users', 'cards', 'settings'];
 
@@ -62,6 +63,7 @@ async function init() {
 
   document.getElementById('admin-boot')?.remove();
   document.getElementById('admin-app')?.removeAttribute('hidden');
+  initScrollToTop();
 }
 
 init().catch((err) => {
