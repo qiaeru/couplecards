@@ -55,8 +55,8 @@ function renderCardsList(cards) {
           <div class="list-item-meta">${escapeHtml(description)}</div>
         </div>
         <div class="list-item-right">
-          <button class="btn" data-action="edit" data-id="${escapeHtml(card.id)}">${escapeHtml(t('common.edit'))}</button>
-          <button class="btn btn-danger" data-action="delete" data-id="${escapeHtml(card.id)}">${escapeHtml(t('common.delete'))}</button>
+          <button class="btn btn-sm" data-action="edit" data-id="${escapeHtml(card.id)}">${escapeHtml(t('common.edit'))}</button>
+          <button class="btn btn-sm btn-danger" data-action="delete" data-id="${escapeHtml(card.id)}">${escapeHtml(t('common.delete'))}</button>
         </div>
       </div>
     `;

@@ -45,9 +45,9 @@ function renderUsersList(users) {
           <div class="list-item-badges">${badges.join('')}</div>
         </div>
         <div class="list-item-right">
-          ${showUnlock ? `<button class="btn" data-action="unlock" data-id="${u.id}">${escapeHtml(t('admin.users.unlock'))}</button>` : ''}
-          ${showReset ? `<button class="btn" data-action="reset" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('admin.users.reset'))}</button>` : ''}
-          ${showDelete ? `<button class="btn btn-danger" data-action="delete" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('admin.users.delete'))}</button>` : ''}
+          ${showUnlock ? `<button class="btn btn-sm" data-action="unlock" data-id="${u.id}">${escapeHtml(t('admin.users.unlock'))}</button>` : ''}
+          ${showReset ? `<button class="btn btn-sm" data-action="reset" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('admin.users.reset'))}</button>` : ''}
+          ${showDelete ? `<button class="btn btn-sm btn-danger" data-action="delete" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('admin.users.delete'))}</button>` : ''}
         </div>
       </div>
     `;

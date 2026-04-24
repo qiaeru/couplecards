@@ -12,7 +12,8 @@ body { padding: 20px 16px calc(env(safe-area-inset-bottom, 0px) + 24px); }
 }
 .admin-header .title {
   text-align: left;
-  font-size: 2rem;
+  font-size: 1.5rem;
+  line-height: 1.2;
 }
 .admin-header-actions {
   display: inline-flex;
