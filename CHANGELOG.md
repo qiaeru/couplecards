@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Accessibility: demote the CoupleCards wordmark on `login.html` from `<h1>` to `<div>`. Each login stage (Sign in, Change password) keeps its own `<h1>`, so the document hierarchy now has a single top-level heading per view instead of two.
 - Accessibility: associate the Settings switches (Sound effects, Vibrations) with their visible label via `aria-labelledby`. Screen readers now announce the checkbox name instead of an unlabeled toggle.
+- Accessibility: replace the first tab stop of the SPA shell with a real "Skip to main content" link. It previously pointed at `#/home` with the label "Back", which was misleading for keyboard users expecting the standard skip-link behaviour. It now targets `<main id="main-content">` (marked `tabindex="-1"` so it can receive focus) and uses a dedicated `common.skipToContent` i18n key in both locales.
 
 ### Security
 

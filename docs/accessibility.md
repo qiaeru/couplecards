@@ -14,7 +14,7 @@ Audience: maintainers and contributors. This page summarises what the app implem
 
 ### Global
 
-The `<html lang>` attribute is updated whenever the i18n locale changes. Every interactive control is focusable and exposes a visible ring through `:focus-visible`. A skip link sits at the top of the SPA shell. Toasts and card announcements live in `role="status"` regions. `prefers-reduced-motion` disables decorative animations, and `prefers-reduced-transparency` removes backdrop blurs.
+The `<html lang>` attribute is updated whenever the i18n locale changes. Every interactive control is focusable and exposes a visible ring through `:focus-visible`. The first tab stop on the SPA shell is a "Skip to main content" link that moves focus to `<main id="main-content" tabindex="-1">`. Toasts and card announcements live in `role="status"` regions. `prefers-reduced-motion` disables decorative animations, and `prefers-reduced-transparency` removes backdrop blurs.
 
 ### Forms
 
