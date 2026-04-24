@@ -6,8 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Display the pink heart logo alongside the "CoupleCards" wordmark everywhere the app name is shown as a title: the home-screen header, the card-draw header, the login page, and the boot splash on both `/` and `/admin.html`.
+- `favicon.ico` (multi-resolution) and `apple-touch-icon.png` (180×180) under `/icons/`, linked from `index.html` and `login.html`. Improves rendering on legacy browsers, Windows shortcuts, and iOS "Add to Home Screen".
+
 ### Changed
 
+- Restyle all app titles to a flat pink (`#ec5a9e`, matching the new logo) with tighter letter-spacing. Removes the previous `--accent` → `--accent-2` gradient text on `.title`, `.brand-title`, `.draw-title`, and `.boot-logo`.
+- Replace the app logo with a new flat pink heart silhouette. `icon.svg` (favicon) is now a transparent cœur, and `icon-maskable.svg` keeps the dark gradient plaque for safe PWA masking.
+- Rename the shared heart-ornament CSS class from `.heart-gold` to `.heart-icon`. The gold heart ornament (`heart-gold.svg`) is kept for the card-back crest, the card-front divider, and the rules-page dividers, where its warm gradient reads better than the flat pink logo.
 - Enlarge the bottom navigation icons (22 → 26 px) so they read better on mobile without increasing the nav height enough to require scrolling on the home screen.
 
 ### Fixed
