@@ -68,7 +68,7 @@ function render() {
     right.className = 'list-item-right';
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'btn btn-success';
+    btn.className = 'btn btn-sm btn-success';
     btn.textContent = t('bans.restore');
     btn.addEventListener('click', async (e) => {
       e.stopPropagation();
