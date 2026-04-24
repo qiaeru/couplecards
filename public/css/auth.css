@@ -8,9 +8,12 @@ body { font-family: var(--font); }
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 24px;
-  padding: 32px 18px;
+  gap: 28px;
+  padding: 36px 18px 32px;
+}
+.auth-shell .auth-card {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .brand-title {
