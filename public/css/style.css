@@ -390,7 +390,7 @@ body::before {
   flex: 1;
   align-content: center;
   padding: 8px 0;
-  max-width: 190px;
+  max-width: 186px;
   margin: 0 auto;
   width: 100%;
 }
