@@ -186,6 +186,7 @@
   "errors.DEMO_READONLY": "Le compte de démonstration ne peut pas changer son mot de passe.",
   "errors.CANNOT_EDIT_DEMO": "Le compte de démonstration ne peut pas être modifié.",
   "errors.CANNOT_RESET_DEMO": "Le mot de passe du compte de démonstration ne peut pas être réinitialisé.",
+  "errors.CANNOT_DELETE_DEMO": "Le compte de démonstration ne peut pas être supprimé. Veuillez retirer la variable d'environnement « ENABLE_DEMO_ACCOUNT » et redémarrez l'instance pour le désactiver.",
   "errors.VALIDATION_ERROR": "Certains champs sont incorrects.",
   "errors.INTERNAL_ERROR": "Erreur interne du serveur.",
   "errors.page.404.title": "Page introuvable",

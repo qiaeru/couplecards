@@ -95,12 +95,12 @@ What is deliberately restricted to keep it safe:
 
 - The role is fixed to `user`, so there is no admin visibility and no way to create other users or manage cards.
 - The password cannot be changed. It must stay `demo` for the next visitor.
-- The username cannot be renamed, and the admin cannot reset its password through the UI.
+- The username cannot be renamed, the admin cannot reset its password through the UI, and the delete button is blocked on the demo row too.
 - The bans and history of the demo user are wiped at every sign-in. Anything a visitor does disappears the next time someone signs in as `demo`, so nothing persistent leaks across sessions.
 - A persistent banner is displayed inside the app for as long as the demo user is signed in.
 - The name `demo` is reserved, so no other account can be created with that username.
 
-Because a well-known credential exists while the flag is on, only enable the demo account on public demo instances. Never enable it on a private couple deployment. To disable it, remove the environment variable (or set it to `0`) and delete the `demo` user from the admin panel.
+Because a well-known credential exists while the flag is on, only enable the demo account on public demo instances. Never enable it on a private couple deployment. To disable it, remove the environment variable (or set it to `0`) and restart: the demo row is removed automatically at the next boot. The admin panel does not expose a delete button for the demo account, so the env var is the single lever.
 
 ## Changing the default language
 

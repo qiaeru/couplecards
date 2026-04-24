@@ -62,7 +62,8 @@ Authentication relies on a single factor (password). For a two-person self-hoste
 The optional `demo` account, enabled with `ENABLE_DEMO_ACCOUNT=1`, is a deliberate opt-in credential:
 
 - Anyone who knows the URL can sign in, because the credential is well known by design.
-- The account is restricted to the `user` role, cannot change its password, cannot be renamed, and the admin cannot reset its password through the UI. Rate limiting and lockout apply as they do to any other account.
+- The account is restricted to the `user` role, cannot change its password, cannot be renamed, cannot be deleted from the admin UI, and the admin cannot reset its password through the UI. Rate limiting and lockout apply as they do to any other account.
+- `ENABLE_DEMO_ACCOUNT` is the single source of truth for the demo row. Setting it to `1` seeds the account at the next boot; unsetting it (or setting it to `0`) removes the row at the next boot. That is the only way to disable the demo account on an existing deployment.
 - The `bans` and `history` rows of the demo user are wiped on every sign-in, so nothing a previous visitor did persists across sessions.
 - Safe to expose on a public demo instance. Never enable it on a private deployment.
 
