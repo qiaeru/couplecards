@@ -12,8 +12,17 @@ function escapeHtml(s) {
   }[c]));
 }
 
+let allUsers = [];
+let usersQuery = '';
+
 async function loadUsers() {
   return request('/api/admin/users');
+}
+
+function filterUsers() {
+  const q = usersQuery.trim().toLowerCase();
+  if (!q) return allUsers;
+  return allUsers.filter((u) => u.username.toLowerCase().includes(q));
 }
 
 function renderUsersList(users) {
@@ -87,8 +96,8 @@ function showInitialPassword(username, password) {
 }
 
 export async function renderUsers() {
-  const users = await loadUsers();
-  renderUsersList(users);
+  allUsers = await loadUsers();
+  renderUsersList(filterUsers());
 }
 
 async function createUser(username) {
@@ -149,6 +158,11 @@ export async function mount() {
   });
 
   on('i18n:change', () => { renderUsers().catch(() => {}); });
+
+  document.getElementById('admin-users-search')?.addEventListener('input', (e) => {
+    usersQuery = e.target.value;
+    renderUsersList(filterUsers());
+  });
 
   document.getElementById('admin-users-list')?.addEventListener('click', async (e) => {
     const btn = e.target.closest('button[data-action]');

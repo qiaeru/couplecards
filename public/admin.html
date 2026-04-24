@@ -40,6 +40,11 @@
         </div>
         <small class="admin-inline-form-hint" data-i18n="admin.users.create.usernameHint"></small>
       </form>
+      <label class="admin-search">
+        <span class="sr-only" data-i18n="admin.users.search">Search users</span>
+        <input type="search" id="admin-users-search" autocomplete="off"
+               data-i18n-attr="placeholder:admin.users.search">
+      </label>
       <div id="admin-users-list" class="list"></div>
     </section>
 
@@ -60,6 +65,12 @@
           </div>
         </div>
       </div>
+
+      <label class="admin-search">
+        <span class="sr-only" data-i18n="admin.cards.search">Search cards</span>
+        <input type="search" id="admin-cards-search" autocomplete="off"
+               data-i18n-attr="placeholder:admin.cards.search">
+      </label>
 
       <button id="admin-create-card-btn" class="btn btn-success btn-with-icon" type="button">
         <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
