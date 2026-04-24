@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+_Nothing released yet._
+
+## [1.2.2] - 2026-04-24
+
 ### Fixed
 
 - `ENABLE_DEMO_ACCOUNT` is now the single source of truth for the demo account. The admin UI refuses to delete the demo row (a new `CANNOT_DELETE_DEMO` error, matching the existing `CANNOT_EDIT_DEMO` / `CANNOT_RESET_DEMO` guards), and the seed step now removes any stale demo row on boot when the flag is off. Previously a delete through the admin UI was undone by the next restart since the seed recreated the row whenever the flag was still set, and unsetting the flag left the demo row in place.
