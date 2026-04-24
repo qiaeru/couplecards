@@ -10,6 +10,7 @@
   "common.edit": "Edit",
   "common.ok": "OK",
   "common.back": "Back",
+  "common.skipToContent": "Skip to main content",
   "common.scrollTop": "Back to top",
   "common.dateAtTime": "{{date}} at {{time}}",
   "common.copy": "Copy",

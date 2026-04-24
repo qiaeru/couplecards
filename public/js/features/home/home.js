@@ -31,6 +31,12 @@ export function refreshHomeCounts() {
       btn.classList.toggle('empty', empty);
       btn.classList.toggle('low', low);
       btn.disabled = empty;
+      // The pile button uses aria-label, which replaces its inner text for
+      // screen readers, so the visible "Almost empty" hint would otherwise
+      // be invisible to assistive tech. Link it via aria-describedby only
+      // when it is actually shown.
+      if (low) btn.setAttribute('aria-describedby', `low-${pile}`);
+      else btn.removeAttribute('aria-describedby');
     }
     const hint = document.getElementById(`low-${pile}`);
     if (hint) hint.hidden = !(remaining[pile] > 0 && remaining[pile] <= 3);

@@ -56,7 +56,7 @@ export function bindPasswordStrength({ input, host, userInputs = [], minScore = 
       <div class="pw-strength-bar" role="presentation">
         <div class="pw-strength-fill" data-fill></div>
       </div>
-      <div class="pw-strength-label" data-label></div>
+      <div class="pw-strength-label" data-label aria-live="polite" aria-atomic="true"></div>
       <ul class="pw-strength-rules" data-rules>
         <li data-rule="minLength">${t('changePassword.policy.minLength', { min: RULES.minLength })}</li>
         <li data-rule="upper">${t('changePassword.policy.upper')}</li>
@@ -73,6 +73,11 @@ export function bindPasswordStrength({ input, host, userInputs = [], minScore = 
   const label = host.querySelector('[data-label]');
   const rules = host.querySelectorAll('[data-rule]');
 
+  // Track the last announced label so we only mutate textContent when the
+  // strength tier actually changed. Re-setting the same string would still
+  // trigger the live region to re-announce on every keystroke.
+  let lastLabel = '';
+
   const update = async () => {
     const value = input.value;
     const hard = evaluateHardRules(value, userInputs[0] || '');
@@ -85,7 +90,11 @@ export function bindPasswordStrength({ input, host, userInputs = [], minScore = 
     const pct = (score / 4) * 100;
     fill.style.width = `${pct}%`;
     fill.dataset.score = String(score);
-    label.textContent = value ? t(`changePassword.strength.${score}`) : '';
+    const nextLabel = value ? t(`changePassword.strength.${score}`) : '';
+    if (nextLabel !== lastLabel) {
+      label.textContent = nextLabel;
+      lastLabel = nextLabel;
+    }
     const allHard = Object.values(hard).every(Boolean);
     input.setCustomValidity(allHard && score >= minScore ? '' : 'weak');
   };

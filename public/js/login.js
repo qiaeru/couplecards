@@ -15,9 +15,21 @@ function showStep(name) {
   }
 }
 
+const ERROR_FIELDS = {
+  login:  ['login-username', 'login-password'],
+  change: ['change-current', 'change-new', 'change-confirm'],
+};
+
 function showError(scope, code, extra = {}) {
   const el = document.getElementById(`${scope}-error`);
   if (!el) return;
+  const invalid = !!code;
+  for (const id of ERROR_FIELDS[scope] || []) {
+    const input = document.getElementById(id);
+    if (!input) continue;
+    if (invalid) input.setAttribute('aria-invalid', 'true');
+    else input.removeAttribute('aria-invalid');
+  }
   if (!code) { el.textContent = ''; return; }
   const key = code.startsWith('login.errors.') ? code : `errors.${code}`;
   const fallback = t('errors.generic');

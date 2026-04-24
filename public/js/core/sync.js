@@ -116,18 +116,24 @@ export function getCardById(id) {
 
 // Picks a translation for `locale`, falls back to English then any available.
 // Also handles the legacy `{title, description}` shape so a stale /api/cards
-// cache from a previous version never leaves the lists blank.
+// cache from a previous version never leaves the lists blank. The returned
+// `locale` reflects what the caller actually got, which lets views tag the
+// rendered text with `lang` so screen readers switch voice on fallback.
 export function getCardText(card, locale = getLocale()) {
-  const placeholder = { title: '', description: '' };
+  const placeholder = { title: '', description: '', locale };
   if (!card) return placeholder;
   if (card.translations) {
-    const t = card.translations[locale]
-      || card.translations[FALLBACK_LOCALE]
-      || Object.values(card.translations).find(Boolean);
-    if (t) return t;
+    if (card.translations[locale]) {
+      return { ...card.translations[locale], locale };
+    }
+    if (card.translations[FALLBACK_LOCALE]) {
+      return { ...card.translations[FALLBACK_LOCALE], locale: FALLBACK_LOCALE };
+    }
+    const [effectiveLocale, t] = Object.entries(card.translations).find(([, v]) => v) || [];
+    if (t) return { ...t, locale: effectiveLocale };
   }
   if (card.title || card.description) {
-    return { title: card.title ?? '', description: card.description ?? '' };
+    return { title: card.title ?? '', description: card.description ?? '', locale };
   }
   return placeholder;
 }

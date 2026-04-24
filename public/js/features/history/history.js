@@ -52,7 +52,7 @@ function render() {
   host.innerHTML = '';
   if (history.length === 0) {
     host.innerHTML = `<div class="empty">
-      <div class="empty-icon">💝</div>
+      <div class="empty-icon" aria-hidden="true">💝</div>
       <div class="empty-title">${escapeHtml(t('history.empty.title'))}</div>
       <div class="empty-hint">${escapeHtml(t('history.empty.hint'))}</div>
     </div>`;

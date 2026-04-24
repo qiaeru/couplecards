@@ -102,7 +102,10 @@ function withModal({ title, bodyHtml, confirmLabel, cancelLabel, danger, onConfi
   const bodyEl = document.getElementById('modal-body');
   const confirmBtn = document.getElementById('modal-confirm');
   const cancelBtn = document.getElementById('modal-cancel');
+  const backdrop = host?.querySelector('[data-modal-close]');
   if (!host) return { close: () => {} };
+
+  const previouslyFocused = document.activeElement;
 
   titleEl.textContent = title;
   bodyEl.innerHTML = bodyHtml;
@@ -114,19 +117,56 @@ function withModal({ title, bodyHtml, confirmLabel, cancelLabel, danger, onConfi
   cancelBtn.textContent = cancelLabel;
   host.hidden = false;
 
+  // Every focusable control currently inside the modal (body inputs +
+  // confirm/cancel). Queried on each Tab so dynamic bodies (preview summary,
+  // mode switches) stay in the trap.
+  const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+  const getFocusables = () => Array.from(host.querySelectorAll(FOCUSABLE))
+    .filter((el) => !el.hidden && el.offsetParent !== null);
+
   const close = () => {
     host.hidden = true;
     confirmBtn.removeEventListener('click', handler);
     cancelBtn.removeEventListener('click', cancel);
+    backdrop?.removeEventListener('click', cancel);
+    document.removeEventListener('keydown', onKey);
+    if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
+      try { previouslyFocused.focus(); } catch {}
+    }
   };
   const cancel = () => close();
   const handler = async () => {
     try { await onConfirm({ close, confirmBtn }); }
     catch {}
   };
+  const onKey = (event) => {
+    if (event.key === 'Escape') { event.preventDefault(); cancel(); return; }
+    if (event.key !== 'Tab') return;
+    const items = getFocusables();
+    if (items.length === 0) return;
+    const first = items[0];
+    const last = items[items.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  };
+
   confirmBtn.addEventListener('click', handler);
   cancelBtn.addEventListener('click', cancel);
+  backdrop?.addEventListener('click', cancel);
+  document.addEventListener('keydown', onKey);
   onBodyReady?.({ close });
+
+  // Defer initial focus so the body has rendered its first focusable control.
+  setTimeout(() => {
+    const [first] = getFocusables();
+    (first || confirmBtn).focus();
+  }, 50);
+
   return { close };
 }
 

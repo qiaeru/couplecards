@@ -22,7 +22,7 @@ function render() {
   host.innerHTML = '';
   if (banned.length === 0) {
     host.innerHTML = `<div class="empty">
-      <div class="empty-icon">🌿</div>
+      <div class="empty-icon" aria-hidden="true">🌿</div>
       <div class="empty-title">${escapeHtml(t('bans.empty.title'))}</div>
       <div class="empty-hint">${escapeHtml(t('bans.empty.hint'))}</div>
     </div>`;

@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+- Accessibility: demote the CoupleCards wordmark on `login.html` from `<h1>` to `<div>`. Each login stage (Sign in, Change password) keeps its own `<h1>`, so the document hierarchy now has a single top-level heading per view instead of two.
+- Accessibility: associate the Settings switches (Sound effects, Vibrations) with their visible label via `aria-labelledby`. Screen readers now announce the checkbox name instead of an unlabeled toggle.
+- Accessibility: replace the first tab stop of the SPA shell with a real "Skip to main content" link. It previously pointed at `#/home` with the label "Back", which was misleading for keyboard users expecting the standard skip-link behaviour. It now targets `<main id="main-content">` (marked `tabindex="-1"` so it can receive focus) and uses a dedicated `common.skipToContent` i18n key in both locales.
+- Accessibility: move focus to `<main id="main-content">` after every SPA route change. Keyboard and screen-reader users now hear the new view's contents instead of staying stranded on the last clicked link.
+- Accessibility: tag the revealed card's title and description with the effective `lang` attribute. When a card has no translation in the active UI locale and falls back to English, screen readers now switch to the English voice instead of mispronouncing the text with the UI voice.
+- Accessibility: make the admin tablist follow the WAI-ARIA APG tabs pattern. The active tab carries `tabindex="0"` and every other tab `tabindex="-1"`, so `Tab` moves from the tablist straight into the visible panel. `ArrowLeft` / `ArrowRight`, `Home` and `End` now cycle between tabs and move focus to the newly selected one.
+- Accessibility: add a focus trap, `Escape` to close, backdrop click to close, and focus return to the opener on the Sync / Import deck-sync modal. It previously lacked all four, unlike the shared confirmation modal.
+- Accessibility: hide the decorative emoji on empty-state screens (Admin cards, Bans, History) from assistive tech. Screen readers stopped announcing "playing card", "herb" or "heart with ribbon" before the real title and hint.
+- Accessibility: expose the home screen "Almost empty" hint to screen readers. The pile button uses `aria-label`, which replaced its inner text for assistive tech, so the visible low-pile warning was ignored. It is now linked via `aria-describedby` only while the hint is actually shown.
+- Accessibility: link the sign-in and change-password inputs to their error region via `aria-describedby`, and toggle `aria-invalid` on each field while the form holds an error. The password-change "New password" field also links to the strength meter so screen readers reach the live hints when the field is focused.
+- Accessibility: mark the password strength label as an `aria-live="polite"` region and only mutate its text when the tier actually changes. Screen readers now hear the new strength level (Weak, Fair, Good, Strong) once when it shifts, instead of staying silent or spamming every keystroke.
+- Accessibility: add a focus trap, `Escape` to close, backdrop click to close, and focus return to the opener on the admin Create / Edit card modal. This was the remaining bespoke modal that still drove `#modal` directly without the a11y plumbing now shared by the confirmation and deck-sync dialogs.
+
 ### Security
 
 - Raise the Argon2id iteration count from `t=2` to `t=3` on password hashing. Still uses the same 19 MiB memory cost. Adds roughly 15 ms to each login and password change; existing stored hashes keep verifying since the PHC string embeds its own parameters.

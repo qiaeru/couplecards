@@ -17,10 +17,10 @@
 </head>
 <body>
   <main class="auth-shell">
-    <h1 class="brand-title">
+    <div class="brand-title">
       <img class="title-icon" src="/icons/icon.svg" alt="" aria-hidden="true" draggable="false">
       <span data-i18n="app.name">CoupleCards</span>
-    </h1>
+    </div>
     <section class="auth-card" id="step-login" hidden>
       <h1 class="auth-title" data-i18n="login.title">Sign in</h1>
       <p class="auth-subtitle" data-i18n="login.subtitle"></p>
@@ -29,12 +29,15 @@
           <span data-i18n="login.username">Username</span>
           <input type="text" id="login-username" name="username"
                  autocomplete="username" autocapitalize="off" spellcheck="false"
+                 aria-describedby="login-error"
                  required minlength="3" maxlength="32" pattern="[a-z0-9._\-]+">
         </label>
         <label class="field">
           <span data-i18n="login.password">Password</span>
           <input type="password" id="login-password" name="password"
-                 autocomplete="current-password" required>
+                 autocomplete="current-password"
+                 aria-describedby="login-error"
+                 required>
         </label>
         <div class="auth-error" id="login-error" role="alert" aria-live="polite"></div>
         <button type="submit" class="btn btn-primary" data-i18n="login.submit">Sign in</button>
@@ -47,16 +50,21 @@
       <form id="change-form" class="auth-form" novalidate>
         <label class="field">
           <span data-i18n="changePassword.current">Current password</span>
-          <input type="password" id="change-current" autocomplete="current-password" required>
+          <input type="password" id="change-current" autocomplete="current-password"
+                 aria-describedby="change-error" required>
         </label>
         <label class="field">
           <span data-i18n="changePassword.new">New password</span>
-          <input type="password" id="change-new" autocomplete="new-password" required minlength="12">
+          <input type="password" id="change-new" autocomplete="new-password"
+                 aria-describedby="change-strength change-error"
+                 required minlength="12">
         </label>
         <div id="change-strength"></div>
         <label class="field">
           <span data-i18n="changePassword.confirm">Confirm new password</span>
-          <input type="password" id="change-confirm" autocomplete="new-password" required minlength="12">
+          <input type="password" id="change-confirm" autocomplete="new-password"
+                 aria-describedby="change-error"
+                 required minlength="12">
         </label>
         <div class="auth-error" id="change-error" role="alert" aria-live="polite"></div>
         <button type="submit" class="btn btn-primary" data-i18n="changePassword.submit">Update my password</button>
