@@ -40,8 +40,13 @@ export async function runSeed(logger) {
     logger?.info({ locale }, 'seeded default admin (username=couplecards, password=changeme)');
   }
 
+  // ENABLE_DEMO_ACCOUNT is the single source of truth for the demo row:
+  // flag on seeds it when missing, flag off prunes it when still present.
+  // The admin UI refuses to delete the demo row so the operator points at
+  // the env var rather than at a button that would only last until the
+  // next restart. CASCADE on bans and history cleans up automatically.
   if (config.enableDemoAccount) {
-    const existing = db.prepare('SELECT id FROM users WHERE username = ?').get(DEMO_USERNAME);
+    const existing = db.prepare('SELECT id FROM users WHERE username = ? AND is_demo = 1').get(DEMO_USERNAME);
     if (!existing) {
       const locale = db.prepare("SELECT value FROM settings WHERE key = 'seed_locale'").get()?.value || 'en';
       const hash = await hashPassword(DEMO_PASSWORD);
@@ -50,6 +55,11 @@ export async function runSeed(logger) {
         VALUES (?, ?, 'user', 0, 1, ?)
       `).run(DEMO_USERNAME, hash, locale);
       logger?.info('seeded demo account (username=demo, password=demo) — state resets on each sign-in');
+    }
+  } else {
+    const removed = db.prepare('DELETE FROM users WHERE is_demo = 1').run();
+    if (removed.changes > 0) {
+      logger?.info('ENABLE_DEMO_ACCOUNT is off: removed the demo account row');
     }
   }
 
