@@ -19,7 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Enlarge the bottom navigation icons (22 → 26 px) so they read better on mobile without increasing the nav height enough to require scrolling on the home screen.
 - Add a little breathing room between the icon and the label in each bottom-nav item (gap 4 → 6 px).
 - Widen the gap between the two piles on the home screen on desktop (≥ 540 px viewports): grid gap 14 → 40 px, container max-width 460 → 500 px. Mobile single-column layout is unchanged.
-- Align every pink in the app with the new brand primary `#ec5a9e`. `--accent` switches from `#ff5e95` to `#ec5a9e`, `--accent-2` becomes a softer `#f49cc5` tint, and every hardcoded `rgba(255, 94, 149, …)` / `rgba(255, 120, 170, …)` shadow or glow across `app.css`, `style.css`, `cards.css`, and `admin.css` follows suit. The five `color: #ec5a9e` rules introduced by the title restyle now use `var(--accent)` so the brand has one source of truth.
+- Align every pink in the app with the new brand primary `#ec5a9e`. `--accent` switches from `#ff5e95` to `#ec5a9e`, `--accent-2` becomes a softer `#f49cc5` tint, and every hardcoded `rgba(255, 94, 149, …)` / `rgba(255, 120, 170, …)` shadow or glow across `app.css`, `style.css`, `cards.css`, and `admin.css` follows suit. The five `color: #ec5a9e` rules introduced by the title restyle now use `var(--accent)` so the brand has one source of truth. The `.btn-primary:hover` glow, previously hardcoded as `rgba(229, 53, 107, 0.38)`, now derives from the token via `color-mix(in srgb, var(--accent) 38%, transparent)`.
 
 ### Fixed
 

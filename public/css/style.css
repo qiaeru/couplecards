@@ -295,7 +295,7 @@ body::before {
   border-color: transparent;
   box-shadow: var(--shadow-color-pink);
 }
-.btn-primary:hover { box-shadow: 0 18px 46px rgba(229, 53, 107, 0.38); }
+.btn-primary:hover { box-shadow: 0 18px 46px color-mix(in srgb, var(--accent) 38%, transparent); }
 
 .btn-danger {
   background: var(--danger);
