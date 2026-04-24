@@ -4,7 +4,7 @@
 import { me, logout, setPreferences } from './core/auth.js';
 import { initI18n, applyI18n, setLocale, getLocale, supportedLocales, t } from './core/i18n.js';
 
-const TABS = ['users', 'cards'];
+const TABS = ['users', 'cards', 'settings'];
 
 function activateTab(name) {
   for (const tab of TABS) {

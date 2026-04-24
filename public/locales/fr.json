@@ -116,6 +116,8 @@
   "admin.title": "Administration",
   "admin.tabs.users": "Utilisateurs",
   "admin.tabs.cards": "Cartes",
+  "admin.tabs.settings": "Paramètres",
+  "admin.settings.title": "Paramètres",
   "admin.users.title": "Utilisateurs",
   "admin.users.create": "Créer un utilisateur",
   "admin.users.create.usernameLabel": "Identifiant",

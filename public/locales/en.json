@@ -116,6 +116,8 @@
   "admin.title": "Administration",
   "admin.tabs.users": "Users",
   "admin.tabs.cards": "Cards",
+  "admin.tabs.settings": "Settings",
+  "admin.settings.title": "Settings",
   "admin.users.title": "Users",
   "admin.users.create": "Create a user",
   "admin.users.create.usernameLabel": "Username",

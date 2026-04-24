@@ -22,23 +22,12 @@
   <div id="admin-app" hidden>
     <header class="admin-header">
       <h1 id="admin-title" class="title" data-i18n="admin.title">Administration</h1>
-      <div class="admin-header-actions">
-        <label class="sr-only" for="admin-language" data-i18n="settings.language">Language</label>
-        <select id="admin-language" class="setting-select admin-language-select"></select>
-        <button class="icon-btn" id="admin-logout" type="button" data-i18n-attr="aria-label:nav.logout">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-               stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-            <polyline points="16 17 21 12 16 7"/>
-            <line x1="21" y1="12" x2="9" y2="12"/>
-          </svg>
-        </button>
-      </div>
     </header>
 
     <nav class="admin-tabs" role="tablist">
       <button type="button" id="admin-tab-users" class="admin-tab" role="tab" aria-selected="true"  data-i18n="admin.tabs.users">Users</button>
       <button type="button" id="admin-tab-cards" class="admin-tab" role="tab" aria-selected="false" data-i18n="admin.tabs.cards">Cards</button>
+      <button type="button" id="admin-tab-settings" class="admin-tab admin-tab-right" role="tab" aria-selected="false" data-i18n="admin.tabs.settings">Settings</button>
     </nav>
 
     <section id="admin-panel-users" class="admin-panel" role="tabpanel" aria-labelledby="admin-tab-users">
@@ -77,6 +66,20 @@
         <span data-i18n="admin.cards.create">Add a card</span>
       </button>
       <div id="admin-cards-list" class="list"></div>
+    </section>
+
+    <section id="admin-panel-settings" class="admin-panel" role="tabpanel" aria-labelledby="admin-tab-settings" hidden>
+      <h2 data-i18n="admin.settings.title">Settings</h2>
+      <div class="settings">
+        <div class="setting-row">
+          <span data-i18n="settings.language">Language</span>
+          <select id="admin-language" class="setting-select"></select>
+        </div>
+        <div class="setting-row">
+          <span data-i18n="settings.logout">Log out</span>
+          <button class="btn btn-sm btn-danger" id="admin-logout" type="button" data-i18n="settings.logout.action">Log out</button>
+        </div>
+      </div>
     </section>
 
     <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
