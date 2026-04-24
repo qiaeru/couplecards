@@ -12,7 +12,7 @@ The app is fully offline-capable once loaded.
 
 ## Try the demo
 
-A hosted demo is available at **<https://couplecards.qiaeru.com/>** — sign in with `demo` / `demo`. The demo account's state is wiped on every sign-in, so feel free to click anything.
+A hosted demo is available at **<https://couplecards.qiaeru.com/>**. Sign in with `demo` / `demo`. The demo account's state is wiped on every sign-in, so feel free to click anything.
 
 ![CoupleCards on desktop](./desktop.png)
 
