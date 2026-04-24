@@ -94,9 +94,6 @@
 
 .app-bottom-nav a[aria-current='page'] {
   color: var(--accent);
-  background:
-    radial-gradient(ellipse at 50% 130%, rgba(255, 94, 149, 0.10), transparent 70%),
-    linear-gradient(180deg, rgba(255, 94, 149, 0.06), rgba(255, 94, 149, 0.02));
 }
 .app-bottom-nav a[aria-current='page']::before {
   content: '';
