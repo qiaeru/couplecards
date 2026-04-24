@@ -569,9 +569,11 @@ function doBan(animated = false) {
 
 function doRedraw() {
   if (!currentCardId) return;
-  const card = getCardById(currentCardId);
+  const id = currentCardId;
+  const card = getCardById(id);
   const pile = card ? card.pile : null;
   currentCardId = null;
+  addHistory({ cardId: id, drawnAt: new Date().toISOString(), action: 'returned' });
   vibrate(CONFIG.vibrations.redrawAction);
   playRedraw();
   stopHearts();
