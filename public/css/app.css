@@ -112,8 +112,8 @@
   background: rgba(255, 255, 255, 0.08);
   color: var(--text);
   border: 1px solid var(--surface-border);
-  padding: 8px 12px;
+  padding: 7px 10px;
   border-radius: var(--radius-sm);
   font-family: inherit;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
 }
