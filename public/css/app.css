@@ -96,7 +96,7 @@
 
 .app-bottom-nav a[aria-current='page'] {
   color: var(--accent);
-  background: radial-gradient(ellipse 65% 70% at 50% 70%, rgba(255, 94, 149, 0.22), transparent 80%);
+  background: radial-gradient(ellipse 70% 110% at 50% 0%, rgba(255, 94, 149, 0.10), transparent 80%);
 }
 .app-bottom-nav a[aria-current='page']::before {
   content: '';
