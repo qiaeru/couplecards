@@ -117,6 +117,7 @@
   "rules.ban": "Bannir la carte pour la retirer définitivement. Vous pouvez toujours la restaurer depuis le menu « Bannissements ».",
   "rules.swipe": "En plus des boutons, vous pouvez glisser la carte révélée vers la gauche pour la bannir ou vers la droite pour la remettre dans la pioche. Cela rappelle quelque chose…",
   "admin.title": "Administration",
+  "home.pile.lowHint": "Presque vide",
   "admin.users.search": "Rechercher un utilisateur",
   "admin.cards.search": "Rechercher une carte",
   "admin.tabs.users": "Utilisateurs",

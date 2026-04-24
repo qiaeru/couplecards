@@ -117,6 +117,7 @@
   "rules.ban": "Ban the card to remove it permanently. You can still restore it from the \"Bans\" menu.",
   "rules.swipe": "Besides the buttons, you can swipe the revealed card left to ban it or right to return it to the pile. Sound familiar…",
   "admin.title": "Administration",
+  "home.pile.lowHint": "Almost empty",
   "admin.users.search": "Search users",
   "admin.cards.search": "Search cards",
   "admin.tabs.users": "Users",
