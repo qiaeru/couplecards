@@ -7,17 +7,39 @@ import { initScrollToTop } from './ui/scroll-to-top.js';
 
 const TABS = ['users', 'cards', 'settings'];
 
-function activateTab(name) {
+// Tabs follow the WAI-ARIA APG pattern: the active tab carries tabindex="0",
+// every other tab carries tabindex="-1" so Tab moves from the tablist straight
+// into the visible panel rather than cycling across the three buttons.
+function activateTab(name, { focus = false } = {}) {
   for (const tab of TABS) {
     const panel = document.getElementById(`admin-panel-${tab}`);
     const btn = document.getElementById(`admin-tab-${tab}`);
-    if (panel) panel.hidden = tab !== name;
+    const isActive = tab === name;
+    if (panel) panel.hidden = !isActive;
     if (btn) {
-      btn.classList.toggle('active', tab === name);
-      btn.setAttribute('aria-selected', tab === name ? 'true' : 'false');
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      btn.setAttribute('tabindex', isActive ? '0' : '-1');
+      if (isActive && focus) btn.focus();
     }
   }
   sessionStorage.setItem('couplecards:admin-tab', name);
+}
+
+function onTabKey(event) {
+  const currentName = event.currentTarget.id.replace(/^admin-tab-/, '');
+  const currentIndex = TABS.indexOf(currentName);
+  if (currentIndex < 0) return;
+  let nextIndex = null;
+  switch (event.key) {
+    case 'ArrowLeft':  nextIndex = (currentIndex - 1 + TABS.length) % TABS.length; break;
+    case 'ArrowRight': nextIndex = (currentIndex + 1) % TABS.length; break;
+    case 'Home':       nextIndex = 0; break;
+    case 'End':        nextIndex = TABS.length - 1; break;
+    default: return;
+  }
+  event.preventDefault();
+  activateTab(TABS[nextIndex], { focus: true });
 }
 
 async function init() {
@@ -30,7 +52,10 @@ async function init() {
   applyI18n(document);
 
   for (const tab of TABS) {
-    document.getElementById(`admin-tab-${tab}`)?.addEventListener('click', () => activateTab(tab));
+    const btn = document.getElementById(`admin-tab-${tab}`);
+    if (!btn) continue;
+    btn.addEventListener('click', () => activateTab(tab));
+    btn.addEventListener('keydown', onTabKey);
   }
 
   const initialTab = sessionStorage.getItem('couplecards:admin-tab') || 'users';
