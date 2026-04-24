@@ -86,10 +86,16 @@ export function fmtDate(date, options) {
   return new Intl.DateTimeFormat(current, options ?? { dateStyle: 'medium', timeStyle: 'short' }).format(d);
 }
 
-// Longer date format used for contextual list entries: the month is spelled
-// out in full. Example: "23 avril 2026, 12:29" in French.
+// Contextual date format for list entries. Month is abbreviated to fit on a
+// single line in narrow list rows. Example: "23 avr. 2026, 12:29" (FR).
 export function fmtDateLong(date) {
-  return fmtDate(date, { dateStyle: 'long', timeStyle: 'short' });
+  return fmtDate(date, {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  });
 }
 
 export function fmtNumber(n, options) {
