@@ -799,7 +799,7 @@ body::before {
 .manual {
   max-width: 620px;
   margin: 8px auto 0;
-  padding: 24px clamp(20px, 5vw, 36px);
+  padding: 18px clamp(18px, 5vw, 36px);
   background-image: var(--tile-surface);
   background-color: var(--surface);
   border: 1px solid var(--surface-border);
@@ -808,12 +808,12 @@ body::before {
   position: relative;
   font-family: var(--font);
   color: var(--text);
-  line-height: 1.65;
-  font-size: 1rem;
+  line-height: 1.5;
+  font-size: 0.95rem;
   overflow: hidden;
 }
 
-.manual > p { margin: 0 0 12px; }
+.manual > p { margin: 0 0 10px; }
 .manual > p:first-of-type { margin-top: 0; }
 .manual > p:last-child { margin-bottom: 0; }
 
@@ -846,7 +846,7 @@ body::before {
   align-items: center;
   justify-content: center;
   gap: 12px;
-  margin: 22px 0;
+  margin: 14px 0;
 }
 .manual-divider-rule {
   flex: 1;
