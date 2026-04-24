@@ -634,7 +634,8 @@ body::before {
   background: rgba(217, 50, 68, 0.15);
   color: var(--danger);
 }
-.action-tag.admin-role {
+.action-tag.admin-role,
+.action-tag.demo-role {
   background: rgba(255, 215, 140, 0.14);
   color: #ffd37a;
 }

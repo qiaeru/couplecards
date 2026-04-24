@@ -216,12 +216,18 @@ body { padding: 20px 16px calc(env(safe-area-inset-bottom, 0px) + 24px); }
   margin-top: 4px;
 }
 .deck-tools-row {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 8px;
 }
+.deck-tools-row-primary {
+  grid-template-columns: 1fr;
+}
 .deck-tools-row-primary .btn {
-  flex: 1 1 100%;
+  width: 100%;
+}
+.deck-tools-row .btn {
+  width: 100%;
 }
 
 .btn-with-icon {
