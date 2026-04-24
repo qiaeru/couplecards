@@ -65,7 +65,7 @@
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   color: var(--text-soft);
   text-decoration: none;
   padding: 8px 6px;

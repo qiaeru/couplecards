@@ -4,7 +4,7 @@
 //   * /api/cards — stale-while-revalidate (allows offline viewing)
 //   * all other /api/* — network only, never cached (auth-sensitive)
 
-const VERSION = 'couplecards-v6';
+const VERSION = 'couplecards-v7';
 const SHELL = [
   '/',
   '/index.html',

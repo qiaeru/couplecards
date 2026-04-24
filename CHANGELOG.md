@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Replace the app logo with a new flat pink heart silhouette. `icon.svg` (favicon) is now a transparent cœur, and `icon-maskable.svg` keeps the dark gradient plaque for safe PWA masking.
 - Rename the shared heart-ornament CSS class from `.heart-gold` to `.heart-icon`. The gold heart ornament (`heart-gold.svg`) is kept for the card-back crest, the card-front divider, and the rules-page dividers, where its warm gradient reads better than the flat pink logo.
 - Enlarge the bottom navigation icons (22 → 26 px) so they read better on mobile without increasing the nav height enough to require scrolling on the home screen.
+- Add a little breathing room between the icon and the label in each bottom-nav item (gap 4 → 6 px).
 
 ### Fixed
 
