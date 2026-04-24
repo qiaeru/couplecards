@@ -23,9 +23,29 @@ function localeLabel(locale) {
   return t(`settings.language.${locale}`);
 }
 
+let allCards = [];
+let cardsQuery = '';
+
 async function loadCards() {
   const data = await request('/api/cards');
   return data?.cards || [];
+}
+
+// Match against every locale's title + description so users can find a card
+// by a word from either translation.
+function filterCards() {
+  const q = cardsQuery.trim().toLowerCase();
+  if (!q) return allCards;
+  return allCards.filter((card) => {
+    const translations = card.translations || {};
+    for (const locale of Object.keys(translations)) {
+      const tr = translations[locale];
+      if (!tr) continue;
+      if ((tr.title || '').toLowerCase().includes(q)) return true;
+      if ((tr.description || '').toLowerCase().includes(q)) return true;
+    }
+    return false;
+  });
 }
 
 function renderCardsList(cards) {
@@ -46,18 +66,16 @@ function renderCardsList(cards) {
     const row = document.createElement('div');
     row.className = 'list-item';
     row.innerHTML = `
-      <div class="list-item-row">
-        <div class="list-item-main">
-          <div class="list-item-header">
-            <span class="pile-badge ${card.pile}">${escapeHtml(t(`piles.${card.pile}.label`))}</span>
-            <span class="list-item-title">${escapeHtml(title)}${card.foil ? ' ✦' : ''}</span>
-          </div>
-          <div class="list-item-meta">${escapeHtml(description)}</div>
+      <div class="list-item-main">
+        <div class="list-item-header">
+          <span class="pile-badge ${card.pile}">${escapeHtml(t(`piles.${card.pile}.label`))}</span>
+          <span class="list-item-title">${escapeHtml(title)}${card.foil ? ' ✦' : ''}</span>
         </div>
-        <div class="list-item-right">
-          <button class="btn" data-action="edit" data-id="${escapeHtml(card.id)}">${escapeHtml(t('common.edit'))}</button>
-          <button class="btn btn-danger" data-action="delete" data-id="${escapeHtml(card.id)}">${escapeHtml(t('common.delete'))}</button>
-        </div>
+        <div class="list-item-meta">${escapeHtml(description)}</div>
+      </div>
+      <div class="list-item-actions">
+        <button class="btn btn-sm" data-action="edit" data-id="${escapeHtml(card.id)}">${escapeHtml(t('common.edit'))}</button>
+        <button class="btn btn-sm btn-danger" data-action="delete" data-id="${escapeHtml(card.id)}">${escapeHtml(t('common.delete'))}</button>
       </div>
     `;
     host.appendChild(row);
@@ -178,8 +196,8 @@ function openCardDialog({ card = null } = {}) {
 }
 
 export async function renderCards() {
-  const cards = await loadCards();
-  renderCardsList(cards);
+  allCards = await loadCards();
+  renderCardsList(filterCards());
 }
 
 async function deleteCard(id, title) {
@@ -198,6 +216,11 @@ async function deleteCard(id, title) {
 export async function mount() {
   mountDeckTools(() => { renderCards().catch(() => {}); });
   on('i18n:change', () => { renderCards().catch(() => {}); });
+
+  document.getElementById('admin-cards-search')?.addEventListener('input', (e) => {
+    cardsQuery = e.target.value;
+    renderCardsList(filterCards());
+  });
   document.getElementById('admin-create-card-btn')?.addEventListener('click', () => openCardDialog());
   document.getElementById('admin-cards-list')?.addEventListener('click', async (e) => {
     const btn = e.target.closest('button[data-action]');

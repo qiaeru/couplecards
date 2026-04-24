@@ -22,6 +22,7 @@ export const CONFIG = {
     returnAction: 25,
     banAction: [20, 40, 20],
     redrawAction: 15,
+    swipeThreshold: 8,
   },
   inactivityTimeoutMs: 10 * 60 * 1000,
 };

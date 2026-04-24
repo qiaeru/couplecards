@@ -104,7 +104,7 @@ Because a well-known credential exists while the flag is on, only enable the dem
 
 ## Changing the default language
 
-Each user picks their own language on the settings screen, and the backend stores the preference per user. The admin account has its own language selector in the header of `/admin.html`, right next to the logout button, so the admin UI can be flipped between French and English without going through a player account or editing the database.
+Each user picks their own language on the settings screen, and the backend stores the preference per user. The admin account has its own language selector in the **Settings** tab of `/admin.html` (alongside the logout button), so the admin UI can be flipped between French and English without going through a player account or editing the database.
 
 There is no instance-wide default beyond the initial locale detected at first boot. That initial value is set by the `SEED_LOCALE` environment variable (see [configuration.md](./configuration.md)). It is applied to the admin account at creation time and becomes the default for any user account seeded afterwards, until the user changes it.
 

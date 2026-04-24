@@ -22,23 +22,12 @@
   <div id="admin-app" hidden>
     <header class="admin-header">
       <h1 id="admin-title" class="title" data-i18n="admin.title">Administration</h1>
-      <div class="admin-header-actions">
-        <label class="sr-only" for="admin-language" data-i18n="settings.language">Language</label>
-        <select id="admin-language" class="setting-select admin-language-select"></select>
-        <button class="icon-btn" id="admin-logout" type="button" data-i18n-attr="aria-label:nav.logout">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-               stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-            <polyline points="16 17 21 12 16 7"/>
-            <line x1="21" y1="12" x2="9" y2="12"/>
-          </svg>
-        </button>
-      </div>
     </header>
 
     <nav class="admin-tabs" role="tablist">
       <button type="button" id="admin-tab-users" class="admin-tab" role="tab" aria-selected="true"  data-i18n="admin.tabs.users">Users</button>
       <button type="button" id="admin-tab-cards" class="admin-tab" role="tab" aria-selected="false" data-i18n="admin.tabs.cards">Cards</button>
+      <button type="button" id="admin-tab-settings" class="admin-tab admin-tab-right" role="tab" aria-selected="false" data-i18n="admin.tabs.settings">Settings</button>
     </nav>
 
     <section id="admin-panel-users" class="admin-panel" role="tabpanel" aria-labelledby="admin-tab-users">
@@ -51,6 +40,11 @@
         </div>
         <small class="admin-inline-form-hint" data-i18n="admin.users.create.usernameHint"></small>
       </form>
+      <label class="admin-search">
+        <span class="sr-only" data-i18n="admin.users.search">Search users</span>
+        <input type="search" id="admin-users-search" autocomplete="off"
+               data-i18n-attr="placeholder:admin.users.search">
+      </label>
       <div id="admin-users-list" class="list"></div>
     </section>
 
@@ -65,12 +59,18 @@
             <button type="button" class="btn btn-primary" id="admin-deck-sync" data-i18n="admin.cards.tools.syncFromFiles">Sync from the files</button>
           </div>
           <div class="deck-tools-row">
-            <button type="button" class="btn" id="admin-deck-export" data-i18n="admin.cards.tools.export">Export a backup</button>
-            <button type="button" class="btn" id="admin-deck-import" data-i18n="admin.cards.tools.importBackup">Import a backup</button>
+            <button type="button" class="btn btn-sm" id="admin-deck-export" data-i18n="admin.cards.tools.export">Export a backup</button>
+            <button type="button" class="btn btn-sm" id="admin-deck-import" data-i18n="admin.cards.tools.importBackup">Import a backup</button>
             <input type="file" id="admin-deck-import-input" accept="application/zip,.zip,application/json,.json" hidden>
           </div>
         </div>
       </div>
+
+      <label class="admin-search">
+        <span class="sr-only" data-i18n="admin.cards.search">Search cards</span>
+        <input type="search" id="admin-cards-search" autocomplete="off"
+               data-i18n-attr="placeholder:admin.cards.search">
+      </label>
 
       <button id="admin-create-card-btn" class="btn btn-success btn-with-icon" type="button">
         <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -78,6 +78,24 @@
       </button>
       <div id="admin-cards-list" class="list"></div>
     </section>
+
+    <section id="admin-panel-settings" class="admin-panel" role="tabpanel" aria-labelledby="admin-tab-settings" hidden>
+      <h2 data-i18n="admin.settings.title">Settings</h2>
+      <div class="settings">
+        <div class="setting-row">
+          <span data-i18n="settings.language">Language</span>
+          <select id="admin-language" class="setting-select"></select>
+        </div>
+        <div class="setting-row">
+          <span data-i18n="settings.logout">Log out</span>
+          <button class="btn btn-sm btn-danger" id="admin-logout" type="button" data-i18n="settings.logout.action">Log out</button>
+        </div>
+      </div>
+    </section>
+
+    <button type="button" id="scroll-to-top" class="scroll-to-top" data-i18n-attr="aria-label:common.scrollTop" aria-label="Back to top">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
 
     <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 

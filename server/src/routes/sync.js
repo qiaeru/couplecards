@@ -76,6 +76,19 @@ export default async function syncRoutes(app) {
     return { ok: true };
   });
 
+  app.post('/state/reset', async (request, reply) => {
+    if (request.currentUser.isDemo) {
+      return reply.code(403).send({ error: 'DEMO_READONLY' });
+    }
+    const db = getDb();
+    const userId = request.currentUser.id;
+    transaction(() => {
+      db.prepare('DELETE FROM bans WHERE user_id = ?').run(userId);
+      db.prepare('DELETE FROM history WHERE user_id = ?').run(userId);
+    })();
+    return { ok: true };
+  });
+
   app.post('/history', {
     schema: {
       body: {

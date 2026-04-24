@@ -96,4 +96,14 @@ export const idb = {
   async removeOutbox(id) {
     return tx('outbox', 'readwrite', (store) => promisifyRequest(store.delete(id)));
   },
+  async clearState() {
+    const db = await openDb();
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction(['state', 'outbox'], 'readwrite');
+      transaction.objectStore('state').clear();
+      transaction.objectStore('outbox').clear();
+      transaction.oncomplete = resolve;
+      transaction.onerror = () => reject(transaction.error);
+    });
+  },
 };

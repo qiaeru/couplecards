@@ -2,7 +2,7 @@
 // Draw screen: reveal animation, tilt, holographic effects, swipe-to-ban and
 // swipe-to-return.
 
-import { getCardById, getCardText, drawRandom, getHistory, banCard, addHistory } from '../../core/sync.js';
+import { getCardById, getCardText, drawRandom, getHistory, banCard, unbanCard, addHistory, removeHistoryByUuid } from '../../core/sync.js';
 import { emojiImgHTML, createEmojiImg, HEART_KEYS } from '../../ui/emoji.js';
 import { t } from '../../core/i18n.js';
 import { on } from '../../core/events.js';
@@ -271,6 +271,9 @@ function attachTilt() {
   let mode = 'idle';
   let startX = 0, startY = 0, startTime = 0;
   let velocitySamples = [];
+  // Tracks whether the current drag has already crossed the commit threshold,
+  // so we only vibrate on the transition (not every frame past it).
+  let swipePastThreshold = false;
 
   const banLabel = tilt.querySelector('.swipe-label-ban');
   const returnLabel = tilt.querySelector('.swipe-label-return');
@@ -289,6 +292,11 @@ function attachTilt() {
     tilt.style.setProperty('--tz', `${dx * 0.08}deg`);
     tilt.style.setProperty('--rx', '0deg');
     tilt.style.setProperty('--ry', '0deg');
+    const past = Math.abs(dx) >= CONFIG.swipe.minDistance;
+    if (past !== swipePastThreshold) {
+      swipePastThreshold = past;
+      if (past) vibrate(CONFIG.vibrations.swipeThreshold);
+    }
     const intensity = Math.min(Math.abs(dx) / SWIPE_FULL_DISTANCE, 1);
     if (dx > 0) {
       if (returnLabel) returnLabel.style.opacity = intensity;
@@ -308,6 +316,7 @@ function attachTilt() {
     startY = e.clientY;
     startTime = Date.now();
     mode = 'idle';
+    swipePastThreshold = false;
     velocitySamples = [{ x: e.clientX, t: performance.now() }];
     try { tilt.setPointerCapture(e.pointerId); } catch {}
   };
@@ -556,29 +565,42 @@ function doReturn(animated = false) {
   finishWith(animated ? 'swipe-out-right' : null, t('draw.toast.returned'));
 }
 
-function doBan(animated = false) {
+async function doBan(animated = false) {
   if (!currentCardId) return;
   const id = currentCardId;
   currentCardId = null;
   banCard(id);
-  addHistory({ cardId: id, drawnAt: new Date().toISOString(), action: 'banned' });
+  const entry = await addHistory({ cardId: id, drawnAt: new Date().toISOString(), action: 'banned' });
   vibrate(CONFIG.vibrations.banAction);
   playBan();
-  finishWith(animated ? 'swipe-out-left' : null, t('draw.toast.banned'));
+  finishWith(animated ? 'swipe-out-left' : null, {
+    message: t('draw.toast.banned'),
+    action: {
+      label: t('common.undo'),
+      onClick: () => {
+        unbanCard(id);
+        if (entry?.clientUuid) removeHistoryByUuid(entry.clientUuid);
+      },
+    },
+  });
 }
 
 function doRedraw() {
   if (!currentCardId) return;
-  const card = getCardById(currentCardId);
+  const id = currentCardId;
+  const card = getCardById(id);
   const pile = card ? card.pile : null;
   currentCardId = null;
+  addHistory({ cardId: id, drawnAt: new Date().toISOString(), action: 'returned' });
   vibrate(CONFIG.vibrations.redrawAction);
   playRedraw();
   stopHearts();
   if (pile) startDraw(pile);
 }
 
-function finishWith(swipeClass, toastMsg) {
+// toastArg is either a string (plain toast) or { message, action } for a
+// snackbar with an action button.
+function finishWith(swipeClass, toastArg) {
   stopHearts();
   refreshHomeCounts();
   releaseWakeLock();
@@ -588,7 +610,8 @@ function finishWith(swipeClass, toastMsg) {
   const backToHome = () => {
     if (tilt) tilt.classList.remove('swipe-out-right', 'swipe-out-left');
     navigate('home');
-    if (toastMsg) toast(toastMsg);
+    if (typeof toastArg === 'string') toast(toastArg);
+    else if (toastArg) toast(toastArg.message, { action: toastArg.action });
   };
   if (swipeClass && tilt) {
     tilt.classList.add(swipeClass);

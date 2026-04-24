@@ -12,8 +12,17 @@ function escapeHtml(s) {
   }[c]));
 }
 
+let allUsers = [];
+let usersQuery = '';
+
 async function loadUsers() {
   return request('/api/admin/users');
+}
+
+function filterUsers() {
+  const q = usersQuery.trim().toLowerCase();
+  if (!q) return allUsers;
+  return allUsers.filter((u) => u.username.toLowerCase().includes(q));
 }
 
 function renderUsersList(users) {
@@ -29,7 +38,7 @@ function renderUsersList(users) {
     const isLocked = locked && locked > new Date();
     const badges = [];
     if (isAdmin) badges.push(`<span class="action-tag admin-role">${escapeHtml(t('admin.users.admin'))}</span>`);
-    if (isDemo) badges.push(`<span class="action-tag returned">${escapeHtml(t('admin.users.demo'))}</span>`);
+    if (isDemo) badges.push(`<span class="action-tag demo-role">${escapeHtml(t('admin.users.demo'))}</span>`);
     if (isLocked) badges.push(`<span class="action-tag banned">${escapeHtml(t('admin.users.locked'))}</span>`);
     if (u.mustChangePassword) badges.push(`<span class="action-tag returned">${escapeHtml(t('admin.users.mustChange'))}</span>`);
     // Demo account can only be deleted — its password, username and lock state
@@ -37,19 +46,18 @@ function renderUsersList(users) {
     const showUnlock = isLocked && !isAdmin && !isDemo;
     const showReset = !isAdmin && !isDemo;
     const showDelete = !isAdmin;
+    const actions = [
+      showUnlock ? `<button class="btn btn-sm" data-action="unlock" data-id="${u.id}">${escapeHtml(t('admin.users.unlock'))}</button>` : '',
+      showReset ? `<button class="btn btn-sm" data-action="reset" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('admin.users.reset'))}</button>` : '',
+      showDelete ? `<button class="btn btn-sm btn-danger" data-action="delete" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('admin.users.delete'))}</button>` : '',
+    ].filter(Boolean).join('');
     row.innerHTML = `
-      <div class="list-item-row">
-        <div class="list-item-main">
-          <div class="list-item-title">${escapeHtml(u.username)}</div>
-          <div class="list-item-meta">${escapeHtml(t('admin.users.createdAt', { when: fmtDateLong(u.createdAt) }))}</div>
-          <div class="list-item-badges">${badges.join('')}</div>
-        </div>
-        <div class="list-item-right">
-          ${showUnlock ? `<button class="btn" data-action="unlock" data-id="${u.id}">${escapeHtml(t('admin.users.unlock'))}</button>` : ''}
-          ${showReset ? `<button class="btn" data-action="reset" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('admin.users.reset'))}</button>` : ''}
-          ${showDelete ? `<button class="btn btn-danger" data-action="delete" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('admin.users.delete'))}</button>` : ''}
-        </div>
+      <div class="list-item-main">
+        <div class="list-item-title">${escapeHtml(u.username)}</div>
+        <div class="list-item-meta">${escapeHtml(t('admin.users.createdAt', { when: fmtDateLong(u.createdAt) }))}</div>
+        <div class="list-item-badges">${badges.join('')}</div>
       </div>
+      ${actions ? `<div class="list-item-actions">${actions}</div>` : ''}
     `;
     host.appendChild(row);
   }
@@ -88,8 +96,8 @@ function showInitialPassword(username, password) {
 }
 
 export async function renderUsers() {
-  const users = await loadUsers();
-  renderUsersList(users);
+  allUsers = await loadUsers();
+  renderUsersList(filterUsers());
 }
 
 async function createUser(username) {
@@ -150,6 +158,11 @@ export async function mount() {
   });
 
   on('i18n:change', () => { renderUsers().catch(() => {}); });
+
+  document.getElementById('admin-users-search')?.addEventListener('input', (e) => {
+    usersQuery = e.target.value;
+    renderUsersList(filterUsers());
+  });
 
   document.getElementById('admin-users-list')?.addEventListener('click', async (e) => {
     const btn = e.target.closest('button[data-action]');

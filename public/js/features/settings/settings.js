@@ -3,6 +3,7 @@
 
 import { areVibrationsEnabled, setVibrationsEnabled, areSoundsEnabled, setSoundsEnabled, canInstall, triggerInstall, toast, showConfirm } from '../../ui/shell.js';
 import { logout, setPreferences, getCachedUser, me, changePassword, getPasswordPolicy } from '../../core/auth.js';
+import { resetUserData } from '../../core/sync.js';
 import { setLocale, getLocale, supportedLocales, t } from '../../core/i18n.js';
 import { navigate } from '../../core/router.js';
 import { bindPasswordStrength } from '../../ui/password-strength.js';
@@ -46,6 +47,32 @@ export async function mount() {
   document.addEventListener('pwa-install-available', refreshInstall);
   document.addEventListener('pwa-installed', refreshInstall);
   installBtn?.addEventListener('click', async () => { await triggerInstall(); refreshInstall(); });
+
+  // Reset data (history + bans). Hidden for the shared demo account: its
+  // state is already wiped server-side at each sign-in.
+  const resetRow = document.getElementById('reset-data-row');
+  const resetBtn = document.getElementById('btn-reset-data');
+  const cachedUser = getCachedUser();
+  if (cachedUser?.isDemo) {
+    resetRow?.setAttribute('hidden', '');
+  } else {
+    resetBtn?.addEventListener('click', async () => {
+      const ok = await showConfirm({
+        title: t('settings.resetData'),
+        body: t('settings.resetData.confirm'),
+        confirmLabel: t('settings.resetData.action'),
+        cancelLabel: t('common.cancel'),
+        danger: true,
+      });
+      if (!ok) return;
+      try {
+        await resetUserData();
+        toast(t('settings.resetData.toast'));
+      } catch {
+        toast(t('errors.generic'));
+      }
+    });
+  }
 
   // Logout.
   document.getElementById('btn-logout')?.addEventListener('click', async () => {

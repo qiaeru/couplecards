@@ -1,0 +1,16 @@
+# Normalize all text files to LF in the repository.
+# Overrides core.autocrlf on Windows contributors so LF is stored and
+# checked out everywhere, matching the existing tree.
+* text=auto eol=lf
+
+# Binary assets: git should not touch these even if it guesses wrong.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.zip binary
+*.pdf binary

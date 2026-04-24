@@ -27,9 +27,13 @@ export function refreshHomeCounts() {
     }
     if (btn) {
       const empty = remaining[pile] === 0;
+      const low = !empty && remaining[pile] <= 3;
       btn.classList.toggle('empty', empty);
+      btn.classList.toggle('low', low);
       btn.disabled = empty;
     }
+    const hint = document.getElementById(`low-${pile}`);
+    if (hint) hint.hidden = !(remaining[pile] > 0 && remaining[pile] <= 3);
   }
 }
 

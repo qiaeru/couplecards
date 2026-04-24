@@ -3,47 +3,16 @@
 body { padding: 20px 16px calc(env(safe-area-inset-bottom, 0px) + 24px); }
 
 .admin-header {
-  display: grid;
-  grid-template-columns: 1fr auto;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 16px;
   max-width: 720px;
-  margin: 0 auto 16px;
+  margin: 0 auto 22px;
 }
 .admin-header .title {
-  text-align: left;
   font-size: 2rem;
+  text-align: center;
 }
-.admin-header-actions {
-  display: inline-flex;
-  align-items: center;
-  gap: 18px;
-  justify-self: end;
-}
-.admin-language-select {
-  padding: 8px 34px 8px 16px;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 999px;
-  background-color: rgba(255, 255, 255, 0.06);
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 8 10 12 14 8'/></svg>");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  background-size: 14px;
-  -webkit-appearance: none;
-  appearance: none;
-  cursor: pointer;
-  transition: background-color 0.15s, border-color 0.15s;
-}
-.admin-language-select:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.18);
-}
-.admin-language-select:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
 .admin-tabs {
   display: flex;
   gap: 6px;
@@ -69,6 +38,27 @@ body { padding: 20px 16px calc(env(safe-area-inset-bottom, 0px) + 24px); }
 .admin-tab.active {
   color: var(--text);
   background: rgba(255, 94, 149, 0.12);
+}
+.admin-tab-right {
+  margin-left: auto;
+}
+
+.admin-search {
+  display: block;
+}
+.admin-search input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--surface-border);
+  color: var(--text);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+.admin-search input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .admin-panel {
@@ -215,12 +205,18 @@ body { padding: 20px 16px calc(env(safe-area-inset-bottom, 0px) + 24px); }
   margin-top: 4px;
 }
 .deck-tools-row {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 8px;
 }
+.deck-tools-row-primary {
+  grid-template-columns: 1fr;
+}
 .deck-tools-row-primary .btn {
-  flex: 1 1 100%;
+  width: 100%;
+}
+.deck-tools-row .btn {
+  width: 100%;
 }
 
 .btn-with-icon {
@@ -234,8 +230,8 @@ body { padding: 20px 16px calc(env(safe-area-inset-bottom, 0px) + 24px); }
   flex-shrink: 0;
 }
 #admin-create-card-btn {
-  align-self: flex-start;
-  margin-top: 4px;
+  align-self: flex-end;
+  margin: 14px 0;
 }
 
 .field-group {

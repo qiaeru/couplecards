@@ -16,6 +16,10 @@ const usernameSchema = {
 };
 
 const passwordSchema = { type: 'string', minLength: 8, maxLength: 200 };
+// Login accepts any non-empty password length: the strength policy is enforced
+// at change-password time, and short legacy/demo passwords must still be able
+// to authenticate.
+const loginPasswordSchema = { type: 'string', minLength: 1, maxLength: 200 };
 
 export default async function authRoutes(app) {
   // Token used by the frontend for the x-csrf-token header on mutating requests.
@@ -54,7 +58,7 @@ export default async function authRoutes(app) {
         additionalProperties: false,
         properties: {
           username: usernameSchema,
-          password: passwordSchema,
+          password: loginPasswordSchema,
         },
       },
     },

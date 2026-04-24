@@ -102,7 +102,7 @@ function render() {
       const right = document.createElement('div');
       right.className = 'list-item-right';
       const tag = document.createElement('span');
-      tag.className = `action-tag ${entry.action === 'returned' ? 'returned' : 'banned'}`;
+      tag.className = `stamp ${entry.action === 'returned' ? 'stamp-returned' : 'stamp-banned'}`;
       tag.textContent = t(entry.action === 'returned' ? 'history.action.returned' : 'history.action.banned');
       right.appendChild(tag);
 

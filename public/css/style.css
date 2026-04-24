@@ -308,6 +308,41 @@ body::before {
 }
 .btn-success:hover { box-shadow: 0 18px 46px rgba(47, 207, 138, 0.4); }
 
+.btn-sm {
+  padding: 7px 14px;
+  min-height: 34px;
+  font-size: 0.85rem;
+  gap: 6px;
+}
+
+.stamp {
+  display: inline-block;
+  padding: 3px 9px;
+  border: 2px solid;
+  border-radius: 6px;
+  font-family: var(--font);
+  font-weight: 900;
+  font-size: 0.58rem;
+  line-height: 1.15;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: pre-line;
+  user-select: none;
+}
+.stamp-banned {
+  color: #ff6680;
+  border-color: #ff6680;
+  transform: rotate(-8deg);
+  text-shadow: 0 1px 4px rgba(255, 102, 128, 0.35);
+}
+.stamp-returned {
+  color: #4ee09a;
+  border-color: #4ee09a;
+  transform: rotate(-8deg);
+  text-shadow: 0 1px 4px rgba(78, 224, 154, 0.35);
+}
+
 .btn-ghost {
   background: var(--surface);
   box-shadow: var(--shadow-sm);
@@ -351,11 +386,11 @@ body::before {
 .piles {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 20px;
+  gap: 24px;
   flex: 1;
   align-content: center;
   padding: 8px 0;
-  max-width: 300px;
+  max-width: 186px;
   margin: 0 auto;
   width: 100%;
 }
@@ -379,7 +414,7 @@ body::before {
   position: relative;
   display: block;
   aspect-ratio: 3 / 4;
-  min-height: 240px;
+  min-height: 140px;
   transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 @media (hover: hover) {
@@ -535,6 +570,20 @@ body::before {
 .pile-count.count-changed {
   animation: count-pop 0.5s var(--ease-out);
 }
+.pile.low .pile-count {
+  background: rgba(255, 176, 80, 0.22);
+  color: #ffd089;
+}
+.pile-low-hint {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #ffd089;
+  text-shadow: 0 1px 4px rgba(255, 176, 80, 0.4);
+}
 @keyframes count-pop {
   0%   { transform: scale(1); background: rgba(255, 94, 149, 0.5); }
   40%  { transform: scale(1.15); background: rgba(255, 94, 149, 0.45); }
@@ -592,9 +641,9 @@ body::before {
 .list-item-title { font-weight: 700; letter-spacing: -0.005em; }
 .list-item-meta {
   color: var(--text-soft);
-  font-size: 0.87rem;
+  font-size: 0.72rem;
   margin-top: 2px;
-  line-height: 1.4;
+  line-height: 1.3;
 }
 .pile-badge {
   display: inline-block;
@@ -627,7 +676,8 @@ body::before {
   background: rgba(217, 50, 68, 0.15);
   color: var(--danger);
 }
-.action-tag.admin-role {
+.action-tag.admin-role,
+.action-tag.demo-role {
   background: rgba(255, 215, 140, 0.14);
   color: #ffd37a;
 }
@@ -663,6 +713,47 @@ body::before {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+.setting-select {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  border: 1px solid var(--surface-border);
+  padding: 7px 10px;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.85rem;
+}
+
+.scroll-to-top {
+  position: fixed;
+  right: calc(16px + env(safe-area-inset-right, 0px));
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--surface-border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 999px;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 40;
+  -webkit-appearance: none;
+  appearance: none;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.scroll-to-top svg { width: 20px; height: 20px; }
+.scroll-to-top.visible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
 }
 .setting-row {
   background-image: var(--tile-surface);
@@ -705,24 +796,13 @@ body::before {
 }
 .switch input:checked + .slider::before { transform: translateX(20px); }
 
-.rules-text {
-  max-width: 560px;
-  margin: 0 auto;
-  line-height: 1.65;
-  color: var(--text-soft);
-}
-.rules-text p { margin: 0 0 14px; }
-.rules-text ul { padding-left: 22px; margin: 0 0 14px; }
-.rules-text li { margin-bottom: 6px; }
-.rules-text strong { color: var(--text); }
-
 /* Rules view container: the parchment-like panel the user liked. Its
    background and border have been promoted to a reusable custom property
    (--tile-surface) so every tile across the app can adopt the same finish. */
 .manual {
   max-width: 620px;
   margin: 8px auto 0;
-  padding: 24px clamp(20px, 5vw, 36px);
+  padding: 18px clamp(18px, 5vw, 36px);
   background-image: var(--tile-surface);
   background-color: var(--surface);
   border: 1px solid var(--surface-border);
@@ -731,12 +811,12 @@ body::before {
   position: relative;
   font-family: var(--font);
   color: var(--text);
-  line-height: 1.65;
-  font-size: 1rem;
+  line-height: 1.5;
+  font-size: 0.95rem;
   overflow: hidden;
 }
 
-.manual > p { margin: 0 0 12px; }
+.manual > p { margin: 0 0 10px; }
 .manual > p:first-of-type { margin-top: 0; }
 .manual > p:last-child { margin-bottom: 0; }
 
@@ -769,7 +849,7 @@ body::before {
   align-items: center;
   justify-content: center;
   gap: 12px;
-  margin: 22px 0;
+  margin: 14px 0;
 }
 .manual-divider-rule {
   flex: 1;
@@ -799,6 +879,24 @@ body::before {
   animation: toast-in 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
   max-width: calc(100vw - 32px);
   text-align: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.toast-action {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: none;
+  color: var(--accent);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  padding: 2px 4px;
 }
 
 /* History grouping by date */
@@ -1030,12 +1128,27 @@ select option:hover {
   gap: 4px;
   margin-bottom: 4px;
 }
+.list-item-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--surface-border);
+  flex-wrap: wrap;
+}
 .list-item-right {
   display: flex;
   flex-direction: column;
   gap: 6px;
   align-items: flex-end;
   flex-shrink: 0;
+}
+/* Stamps (history list) have varying widths across actions; center them so
+   the shorter "Bannie" lines up with "Remise dans la pioche". */
+.list-item-right:has(.stamp) {
+  align-items: center;
+  min-width: 96px;
 }
 .list-item-badges {
   display: flex;
@@ -1047,12 +1160,6 @@ select option:hover {
   opacity: 0.6;
   font-family: ui-monospace, 'Menlo', 'Courier New', monospace;
 }
-.btn-compact {
-  padding: 6px 14px;
-  min-height: 32px;
-  font-size: 0.82rem;
-}
-
 /* Password strength meter */
 .pw-strength { margin: 4px 0 8px; }
 .pw-strength-bar {

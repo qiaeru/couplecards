@@ -19,6 +19,10 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
 }
 
+.scroll-to-top-above-nav {
+  bottom: calc(88px + env(safe-area-inset-bottom, 0px));
+}
+
 .app-bottom-nav {
   position: sticky;
   bottom: 0;
@@ -48,11 +52,15 @@
   list-style: none;
   margin: 0;
   padding: 10px 10px calc(env(safe-area-inset-bottom, 0px) + 10px);
-  display: flex;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 4px;
 }
-.app-bottom-nav-list li { display: contents; }
+.app-bottom-nav-list li {
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+}
 .app-bottom-nav a {
   display: inline-flex;
   flex-direction: column;
@@ -60,7 +68,10 @@
   gap: 4px;
   color: var(--text-soft);
   text-decoration: none;
-  padding: 8px 14px 6px;
+  padding: 8px 6px;
+  min-width: 0;
+  max-width: 100%;
+  font-size: 0.72rem;
   border-radius: var(--radius-sm);
   font-weight: 600;
   line-height: 1.15;
@@ -74,18 +85,18 @@
   flex-shrink: 0;
   transition: transform 0.18s ease;
 }
-.app-bottom-nav a:hover {
-  color: var(--text);
-  background-color: rgba(255, 255, 255, 0.05);
+@media (hover: hover) {
+  .app-bottom-nav a:hover {
+    color: var(--text);
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  .app-bottom-nav a:hover .nav-icon { transform: translateY(-2px); }
 }
-.app-bottom-nav a:hover .nav-icon { transform: translateY(-2px); }
 .app-bottom-nav a:active { transform: scale(0.97); }
 
 .app-bottom-nav a[aria-current='page'] {
   color: var(--accent);
-  background:
-    radial-gradient(ellipse at 50% 130%, rgba(255, 94, 149, 0.22), transparent 70%),
-    linear-gradient(180deg, rgba(255, 94, 149, 0.14), rgba(255, 94, 149, 0.05));
+  background: radial-gradient(ellipse 70% 110% at 50% 0%, rgba(255, 94, 149, 0.10), transparent 80%);
 }
 .app-bottom-nav a[aria-current='page']::before {
   content: '';
@@ -108,12 +119,3 @@
   .app-bottom-nav a .nav-icon { transition: none; }
 }
 
-.setting-select {
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--text);
-  border: 1px solid var(--surface-border);
-  padding: 8px 12px;
-  border-radius: var(--radius-sm);
-  font-family: inherit;
-  font-size: 0.95rem;
-}
