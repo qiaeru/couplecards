@@ -6,7 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
-_Nothing released yet._
+### Changed
+
+- Swap the serif Literata for **Fraunces** as the display font. The CoupleCards wordmark on the home header, login screen, boot splash, and draw screen now uses Fraunces' soft-and-wonky variant (`font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 144`) with a soft pink glow. Section headings (Settings, Rules, Bans, History, Administration) are demoted to the body Inter face so they no longer compete visually with the wordmark, and `.auth-title` ("Sign in", "Change your password") follows the same neutral style. Card text keeps a serif feel by using the standard rendering of Fraunces. The 14 Literata WOFF2 files are removed; Fraunces ships with Latin, Latin Extended, and Vietnamese subsets. Greek and Cyrillic are not part of the Fraunces upstream, so locales using those scripts now fall back to Georgia / serif.
+- Consolidate the wordmark CSS into a single rule shared across all four locations so size, weight, letter-spacing, glow and variation axes stay in sync. Section-title overrides for `.app-header` and `.admin-header` collapse into the base `.title` rule.
+- Add a magnifying-glass icon inside the Users and Cards search inputs in the admin panel, so the affordance reads as a search box rather than a generic text input.
+- Tighten the admin panels: remove the redundant `<h2>` subtitles ("Users", "Cards", "Settings") that duplicated the active tab label, drop the now-orphaned `.admin-panel h2` style, and normalise every gap inside `.admin-panel` to 14 px. The previous `.list` internal padding and the manual `margin-top` on the "Add a card" button were compensating for each other; both are gone.
+- Login form: hide the empty error region (`.auth-error:empty`) so the gap between the password input and the "Sign in" button is no longer doubled by an invisible flex item.
+- Service Worker bumped to `couplecards-v15` and the precache shell list updated to point at the Fraunces WOFF2 files (variable + italic across Latin, Latin Extended and Vietnamese) instead of the dropped Literata subsets.
+
+### Fixed
+
+- Surface the right error message when the two new passwords disagree on the change-password screen. The client emitted the correct key (`changePassword.mismatch`) but `showError` rewrapped any code that did not start with `login.errors.` under the `errors.` namespace, turning the key into the missing `errors.changePassword.mismatch` and falling through to the generic "Une erreur est survenue.". The resolver now passes any code that already contains a dot through unchanged and only prefixes bare server enums.
+
+### Documentation
+
+- README screenshots replaced with the current home-with-piles and revealed-card captures, and the Highlights section split into a "What it does" block (the user-facing flow, deck memory, household control, responsive PWA) and an "Under the hood" block (the existing technical bullets), so the page reads as a product introduction before becoming a tech overview.
+- `CREDITS.md`, `CONTRIBUTING.md` and `docs/i18n.md` updated to list Fraunces in place of Literata, document the new Latin / Latin Extended / Vietnamese coverage, and call out the Greek / Cyrillic fallback so future translators are not surprised.
 
 ## [1.2.2] - 2026-04-24
 

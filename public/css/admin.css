@@ -9,10 +9,6 @@ body { padding: 20px 16px calc(env(safe-area-inset-bottom, 0px) + 24px); }
   max-width: 720px;
   margin: 0 auto 22px;
 }
-.admin-header .title {
-  font-size: 2rem;
-  text-align: center;
-}
 .admin-tabs {
   display: flex;
   gap: 6px;
@@ -46,12 +42,21 @@ body { padding: 20px 16px calc(env(safe-area-inset-bottom, 0px) + 24px); }
 .admin-search {
   display: block;
 }
+.admin-panel .list {
+  padding: 0;
+  mask-image: none;
+  -webkit-mask-image: none;
+}
 .admin-search input {
   width: 100%;
-  background: rgba(255, 255, 255, 0.06);
+  background-color: rgba(255, 255, 255, 0.06);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff80' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='11' cy='11' r='8'/><line x1='21' y1='21' x2='16.65' y2='16.65'/></svg>");
+  background-repeat: no-repeat;
+  background-position: 14px center;
+  background-size: 16px 16px;
   border: 1px solid var(--surface-border);
   color: var(--text);
-  padding: 8px 14px;
+  padding: 8px 14px 8px 38px;
   border-radius: 999px;
   font-family: inherit;
   font-size: 0.9rem;
@@ -68,12 +73,6 @@ body { padding: 20px 16px calc(env(safe-area-inset-bottom, 0px) + 24px); }
   flex-direction: column;
   gap: 14px;
 }
-.admin-panel h2 {
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  margin: 6px 0 0;
-}
-
 .admin-inline-form,
 .admin-form {
   display: flex;
@@ -231,12 +230,6 @@ body { padding: 20px 16px calc(env(safe-area-inset-bottom, 0px) + 24px); }
 }
 #admin-create-card-btn {
   align-self: flex-end;
-  /* The admin panel adds a 14px flex gap between every pair of children,
-     and the list below has 12px of internal top padding (for its fade
-     mask). That made the visual gap above the button (14) smaller than
-     the gap below it (14 + 12). Offset the button by 12px on top only,
-     so both sides settle at 26px. */
-  margin-top: 12px;
 }
 
 .field-group {
