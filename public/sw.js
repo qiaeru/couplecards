@@ -4,7 +4,7 @@
 //   * /api/cards — stale-while-revalidate (allows offline viewing)
 //   * all other /api/* — network only, never cached (auth-sensitive)
 
-const VERSION = 'couplecards-v14';
+const VERSION = 'couplecards-v15';
 const SHELL = [
   '/',
   '/index.html',
@@ -53,10 +53,12 @@ const SHELL = [
   '/locales/en.json',
   '/locales/fr.json',
   '/fonts/InterVariable.woff2',
-  '/fonts/literata/normal-latin.woff2',
-  '/fonts/literata/normal-latin-ext.woff2',
-  '/fonts/literata/italic-latin.woff2',
-  '/fonts/literata/italic-latin-ext.woff2',
+  '/fonts/fraunces/variable-latin.woff2',
+  '/fonts/fraunces/variable-latin-ext.woff2',
+  '/fonts/fraunces/variable-vietnamese.woff2',
+  '/fonts/fraunces/italic-latin.woff2',
+  '/fonts/fraunces/italic-latin-ext.woff2',
+  '/fonts/fraunces/italic-vietnamese.woff2',
   '/icons/icon.svg',
   '/icons/icon-maskable.svg',
   '/icons/favicon.ico',

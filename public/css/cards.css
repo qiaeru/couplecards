@@ -19,19 +19,8 @@
   left: 0;
   right: 0;
   margin: 0;
-  font-family: var(--font-display);
-  font-size: 2.2rem;
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  color: var(--accent);
   z-index: 102;
   pointer-events: none;
-  font-optical-sizing: auto;
-  line-height: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.25em;
 }
 
 .draw-stage {

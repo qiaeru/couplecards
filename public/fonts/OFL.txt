@@ -2,6 +2,6 @@ This folder ships open source fonts released under the SIL Open Font License v1.
 
 Bundled fonts:
   * Inter — Copyright (c) 2020 The Inter Project Authors (https://github.com/rsms/inter). Covers Latin (extended), Cyrillic, Greek, and Vietnamese.
-  * Literata — Copyright (c) 2017 The Literata Project Authors (https://github.com/googlefonts/literata). Variable font shipped as unicode-range WOFF2 subsets sourced from Google Fonts v40. Covers Latin (extended), Cyrillic, Greek, and Vietnamese.
+  * Fraunces — Copyright (c) 2020 The Fraunces Project Authors (https://github.com/undercasetype/Fraunces). Variable font shipped as unicode-range WOFF2 subsets sourced from Google Fonts v38. Covers Latin (extended) and Vietnamese; the upstream font does not include Greek or Cyrillic glyphs.
 
 The unmodified OFL text applies to each font in this directory. See the respective upstream repositories for attribution and derivative rules.

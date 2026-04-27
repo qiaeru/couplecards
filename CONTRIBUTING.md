@@ -74,7 +74,7 @@ The full workflow lives in [docs/i18n.md](./docs/i18n.md). The short version:
 
 ## Fonts and non-Latin scripts
 
-The bundled fonts (Inter for sans-serif and Literata for serif) both cover Latin extended, Cyrillic, Greek and Vietnamese. Any translation that uses one of these scripts works without extra work. Scripts outside this range, such as CJK, Arabic, Hebrew, Thai or the Indic family, require an additional font. Add a new `@font-face` entry in `public/css/fonts.css` along with the matching WOFF2 file in `public/fonts/`.
+The bundled fonts are Inter for the sans-serif stack and Fraunces for the serif and display stack. Inter covers Latin Extended, Cyrillic, Greek and Vietnamese. Fraunces covers Latin Extended and Vietnamese; Greek and Cyrillic are not part of the Fraunces upstream, so locales using those scripts will fall back to Georgia / system serif on the wordmark, headings and card text. Scripts outside the Latin and Vietnamese range (CJK, Arabic, Hebrew, Thai, the Indic family) require an additional font. Add a new `@font-face` entry in `public/css/fonts.css` along with the matching WOFF2 file in `public/fonts/`.
 
 ## Commit and pull request style
 
