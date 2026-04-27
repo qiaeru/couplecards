@@ -31,7 +31,7 @@ function showError(scope, code, extra = {}) {
     else input.removeAttribute('aria-invalid');
   }
   if (!code) { el.textContent = ''; return; }
-  const key = code.startsWith('login.errors.') ? code : `errors.${code}`;
+  const key = code.includes('.') ? code : `errors.${code}`;
   const fallback = t('errors.generic');
   el.textContent = t(key, extra) === key ? fallback : t(key, extra);
 }
