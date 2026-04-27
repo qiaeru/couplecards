@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+_Nothing released yet._
+
+## [1.3.0] - 2026-04-27
+
 ### Changed
 
 - Swap the serif Literata for **Fraunces** as the display font. The CoupleCards wordmark on the home header, login screen, boot splash, and draw screen now uses Fraunces' soft-and-wonky variant (`font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 144`) with a soft pink glow. Section headings (Settings, Rules, Bans, History, Administration) are demoted to the body Inter face so they no longer compete visually with the wordmark, and `.auth-title` ("Sign in", "Change your password") follows the same neutral style. Card text keeps a serif feel by using the standard rendering of Fraunces. The 14 Literata WOFF2 files are removed; Fraunces ships with Latin, Latin Extended, and Vietnamese subsets. Greek and Cyrillic are not part of the Fraunces upstream, so locales using those scripts now fall back to Georgia / serif.
