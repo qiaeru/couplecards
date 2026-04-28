@@ -19,9 +19,9 @@ const bundles = [
     outfile: resolve(outDir, 'zxcvbn.js'),
   },
   {
-    name: 'jszip',
-    entry: resolve(root, 'scripts/vendor-entry-jszip.js'),
-    outfile: resolve(outDir, 'jszip.js'),
+    name: 'fflate',
+    entry: resolve(root, 'scripts/vendor-entry-fflate.js'),
+    outfile: resolve(outDir, 'fflate.js'),
   },
 ];
 

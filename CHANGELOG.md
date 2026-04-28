@@ -6,7 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
-_Nothing released yet._
+### Changed
+
+- Replace `jszip` (last release March 2023) with `fflate` for the admin deck export and import paths. fflate is actively maintained, MIT-licensed, and ~18x smaller in the lazy-loaded vendor bundle (5.3 KB versus ~96 KB). The ZIP wire format is unchanged, so previously downloaded `couplecards-deck-*.zip` backups remain importable. The `public/vendor/jszip.js` artefact is replaced by `public/vendor/fflate.js`.
+- Service Worker bumped to `couplecards-v16` to invalidate caches that still hold the old `deck-sync.js` referencing `/vendor/jszip.js`.
 
 ## [1.3.0] - 2026-04-27
 

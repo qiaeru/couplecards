@@ -23,6 +23,7 @@ The full OFL text ships with the repository at `public/fonts/OFL.txt`.
 - [@fastify/static](https://github.com/fastify/fastify-static). MIT licence.
 - [hash-wasm](https://github.com/Daninet/hash-wasm). MIT licence. Provides Argon2id through a pure WebAssembly implementation, so the backend needs no native compilation.
 - [@zxcvbn-ts/core and its dictionaries](https://github.com/zxcvbn-ts/zxcvbn) (`language-common`, `language-en`, `language-fr`). MIT licence.
+- [fflate](https://github.com/101arrowz/fflate). MIT licence. Used to build and parse the deck export ZIP on the backend, and bundled into `public/vendor/fflate.js` for the admin import dialog.
 
 The SQLite engine is the one bundled with Node.js itself, exposed as the `node:sqlite` module, and covered by the [Node.js MIT licence](https://github.com/nodejs/node/blob/main/LICENSE).
 

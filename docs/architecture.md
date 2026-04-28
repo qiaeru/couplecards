@@ -122,7 +122,7 @@ The procedure to add a third language is documented end-to-end in [i18n.md](./i1
 
 ## Why vanilla JavaScript and no build step for source
 
-A zero client-side toolchain keeps the contribution barrier low. A text editor and a browser are enough to edit any feature. The only build step is the vendor bundle produced by `scripts/build-vendor.mjs`, which currently packages the zxcvbn core and the JSZip library used by the admin deck import dialog. Both are invoked automatically during the Docker build.
+A zero client-side toolchain keeps the contribution barrier low. A text editor and a browser are enough to edit any feature. The only build step is the vendor bundle produced by `scripts/build-vendor.mjs`, which currently packages the zxcvbn core and the fflate library used by the admin deck import dialog. Both are invoked automatically during the Docker build.
 
 ## Seeding and upgrades
 
