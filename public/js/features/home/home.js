@@ -18,11 +18,16 @@ export function refreshHomeCounts() {
     const btn = document.querySelector(`.pile-${pile}`);
     if (countEl) {
       const next = `${remaining[pile]} / ${totals[pile]}`;
-      if (countEl.textContent !== next) {
+      const prev = countEl.textContent;
+      if (prev !== next) {
         countEl.textContent = next;
-        countEl.classList.remove('count-changed');
-        void countEl.offsetWidth;
-        countEl.classList.add('count-changed');
+        // Skip the pop animation on the first paint, when prev is the
+        // dash placeholder. Otherwise every cold load flashes pink.
+        if (prev !== '—') {
+          countEl.classList.remove('count-changed');
+          void countEl.offsetWidth;
+          countEl.classList.add('count-changed');
+        }
       }
     }
     if (btn) {
