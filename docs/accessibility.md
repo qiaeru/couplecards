@@ -30,7 +30,7 @@ Every modal uses `role="dialog"`, `aria-modal="true"` and `aria-labelledby` poin
 
 ### Navigation
 
-The bottom navigation is a `<nav>` element with a translated `aria-label` in English and French, wrapping an `<ul>` / `<li>` structure so assistive technology announces it as "Main navigation, list of N items". `aria-current="page"` is set on the link of the currently mounted route, updated by the SPA router on every navigation.
+The bottom navigation is a `<nav>` element with a translated `aria-label` in every supported locale, wrapping an `<ul>` / `<li>` structure so assistive technology announces it as "Main navigation, list of N items". `aria-current="page"` is set on the link of the currently mounted route, updated by the SPA router on every navigation.
 
 The admin page exposes a `role="tablist"` that follows the WAI-ARIA APG tabs pattern: the active tab carries `tabindex="0"` and the others `tabindex="-1"`, so `Tab` moves from the tablist straight into the visible panel rather than cycling across the three headers. `ArrowLeft` / `ArrowRight` wrap around the tablist, `Home` jumps to the first tab and `End` to the last, and every move also focuses the newly selected tab.
 

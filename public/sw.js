@@ -4,7 +4,7 @@
 //   * /api/cards — stale-while-revalidate (allows offline viewing)
 //   * all other /api/* — network only, never cached (auth-sensitive)
 
-const VERSION = 'couplecards-v16';
+const VERSION = 'couplecards-v21';
 const SHELL = [
   '/',
   '/index.html',
@@ -52,6 +52,9 @@ const SHELL = [
   '/views/rules.html',
   '/locales/en.json',
   '/locales/fr.json',
+  '/locales/de.json',
+  '/locales/it.json',
+  '/locales/es.json',
   '/fonts/InterVariable.woff2',
   '/fonts/fraunces/variable-latin.woff2',
   '/fonts/fraunces/variable-latin-ext.woff2',

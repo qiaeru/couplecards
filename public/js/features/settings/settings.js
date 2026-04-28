@@ -14,8 +14,12 @@ export async function mount() {
   // Language selector.
   const langSelect = document.getElementById('setting-language');
   if (langSelect) {
+    // Sort by native language name so the picker order is stable across UI
+    // locales and predictable for users (Deutsch, English, Español, ...).
     langSelect.innerHTML = supportedLocales()
-      .map((l) => `<option value="${l}">${t(`settings.language.${l}`)}</option>`)
+      .map((l) => ({ code: l, label: t(`settings.language.${l}`) }))
+      .sort((a, b) => a.label.localeCompare(b.label))
+      .map(({ code, label }) => `<option value="${code}">${label}</option>`)
       .join('');
     langSelect.value = getLocale();
     langSelect.addEventListener('change', async () => {
@@ -77,8 +81,8 @@ export async function mount() {
   // Logout.
   document.getElementById('btn-logout')?.addEventListener('click', async () => {
     const ok = await showConfirm({
-      title: t('nav.logout'),
-      confirmLabel: t('nav.logout'),
+      title: t('settings.logout'),
+      confirmLabel: t('settings.logout'),
       cancelLabel: t('common.cancel'),
       danger: false,
     });

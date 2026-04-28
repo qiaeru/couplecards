@@ -44,13 +44,13 @@ Deleting a user removes the account together with their history and their bans. 
 
 ## Managing cards
 
-The **Cards** tab lists every card in the deck. Each card belongs to one of two piles: `home` or `outdoor`. These internal keys are stable and are translated for display as "Home" and "Outdoor" in English, or "Domicile" and "Extérieur" in French.
+The **Cards** tab lists every card in the deck. Each card belongs to one of two piles: `home` or `outdoor`. These internal keys are stable and are translated per locale for display ("Home" / "Outdoor" in English, "Domicile" / "Extérieur" in French, "Zuhause" / "Draußen" in German, "Casa" / "Fuori" in Italian, "Casa" / "Fuera" in Spanish).
 
 ### Create a card
 
 1. Click **Add a card**.
 2. Pick an ID made of lowercase letters, digits and dashes. The ID must be unique across the deck.
-3. Select a pile, write a title and write a description. Enable the **foil** flag to have the reveal use the rare-card treatment.
+3. Select a pile, write a title and write a description. Enable the **foil** flag to mark the card as a rare variant: it gets the gold-lined reveal treatment and is intentionally drawn less often than standard cards (see [architecture.md](./architecture.md) for the draw weighting).
 4. Click **Save**.
 
 ### Edit or delete a card
@@ -104,7 +104,7 @@ Because a well-known credential exists while the flag is on, only enable the dem
 
 ## Changing the default language
 
-Each user picks their own language on the settings screen, and the backend stores the preference per user. The admin account has its own language selector in the **Settings** tab of `/admin.html` (alongside the logout button), so the admin UI can be flipped between French and English without going through a player account or editing the database.
+Each user picks their own language on the settings screen, and the backend stores the preference per user. The admin account has its own language selector in the **Settings** tab of `/admin.html` (alongside the logout button), so the admin UI can be flipped between any supported locale without going through a player account or editing the database.
 
 There is no instance-wide default beyond the initial locale detected at first boot. That initial value is set by the `SEED_LOCALE` environment variable (see [configuration.md](./configuration.md)). It is applied to the admin account at creation time and becomes the default for any user account seeded afterwards, until the user changes it.
 

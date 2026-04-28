@@ -49,7 +49,7 @@ function renderUsersList(users) {
     const actions = [
       showUnlock ? `<button class="btn btn-sm" data-action="unlock" data-id="${u.id}">${escapeHtml(t('admin.users.unlock'))}</button>` : '',
       showReset ? `<button class="btn btn-sm" data-action="reset" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('admin.users.reset'))}</button>` : '',
-      showDelete ? `<button class="btn btn-sm btn-danger" data-action="delete" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('admin.users.delete'))}</button>` : '',
+      showDelete ? `<button class="btn btn-sm btn-danger" data-action="delete" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('common.delete'))}</button>` : '',
     ].filter(Boolean).join('');
     row.innerHTML = `
       <div class="list-item-main">
@@ -123,7 +123,7 @@ async function deleteUser(id, username) {
   const ok = await showConfirm({
     title: t('admin.users.delete.confirm', { username }),
     body: t('admin.users.delete.body'),
-    confirmLabel: t('admin.users.delete'),
+    confirmLabel: t('common.delete'),
     cancelLabel: t('common.cancel'),
     danger: true,
   });

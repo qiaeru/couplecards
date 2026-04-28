@@ -1,0 +1,16 @@
+{
+  "name": "CoupleCards",
+  "short_name": "CoupleCards",
+  "description": "Web app self-hosted che permette alle coppie di pescare carte attività per spezzare la routine e ravvivare le giornate.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f0820",
+  "theme_color": "#1a0f35",
+  "lang": "it",
+  "icons": [
+    { "src": "/icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icons/icon-maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}

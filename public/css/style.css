@@ -195,7 +195,7 @@ body::before {
   width: 1.25em;
   height: 1.25em;
   flex-shrink: 0;
-  filter: drop-shadow(0 2px 10px rgba(236, 90, 158, 0.35));
+  filter: drop-shadow(0 2px 8px rgba(236, 90, 158, 0.25));
   user-select: none;
   -webkit-user-drag: none;
 }
@@ -207,7 +207,7 @@ body::before {
 .boot-logo,
 .draw-title {
   font-family: var(--font-display);
-  font-size: clamp(2.1rem, 6vw, 2.7rem);
+  font-size: clamp(1.9rem, 5.4vw, 2.45rem);
   font-weight: 400;
   letter-spacing: -0.025em;
   color: var(--accent);
@@ -218,7 +218,7 @@ body::before {
   justify-content: center;
   align-items: center;
   gap: 0.25em;
-  text-shadow: 0 2px 16px rgba(236, 90, 158, 0.45), 0 0 28px rgba(236, 90, 158, 0.22);
+  text-shadow: 0 2px 8px rgba(236, 90, 158, 0.30), 0 0 22px rgba(236, 90, 158, 0.14);
 }
 /* Fraunces' descenders push the glyph mass above the line-box center, so
    nudge the text down to land it on the icon's geometric center. */
@@ -1102,8 +1102,8 @@ select option,
 }
 select option:checked,
 select option:hover {
-  background-color: var(--accent-soft);
-  color: var(--text);
+  background-color: var(--accent);
+  color: var(--accent-contrast);
 }
 .card-form .field small,
 .auth-form .field small {

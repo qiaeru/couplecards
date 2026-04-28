@@ -8,6 +8,9 @@ import { zxcvbnOptions, zxcvbn } from '@zxcvbn-ts/core';
 import * as zxcvbnCommonPackage from '@zxcvbn-ts/language-common';
 import * as zxcvbnEnPackage from '@zxcvbn-ts/language-en';
 import * as zxcvbnFrPackage from '@zxcvbn-ts/language-fr';
+import * as zxcvbnDePackage from '@zxcvbn-ts/language-de';
+import * as zxcvbnItPackage from '@zxcvbn-ts/language-it';
+import * as zxcvbnEsPackage from '@zxcvbn-ts/language-es-es';
 
 zxcvbnOptions.setOptions({
   translations: zxcvbnEnPackage.translations,
@@ -16,6 +19,9 @@ zxcvbnOptions.setOptions({
     ...zxcvbnCommonPackage.dictionary,
     ...zxcvbnEnPackage.dictionary,
     ...zxcvbnFrPackage.dictionary,
+    ...zxcvbnDePackage.dictionary,
+    ...zxcvbnItPackage.dictionary,
+    ...zxcvbnEsPackage.dictionary,
   },
 });
 

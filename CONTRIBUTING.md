@@ -54,13 +54,13 @@ See [docs/architecture.md](./docs/architecture.md) for the full breakdown.
 Only bring in dependencies that ship under a permissive licence. The allowed list is:
 
 ```text
-MIT, Apache-2.0, BSD-2-Clause, BSD-3-Clause, ISC, OFL-1.1, CC0-1.0, Unlicense, 0BSD
+MIT, Apache-2.0, BSD-2-Clause, BSD-3-Clause, ISC, OFL-1.1, CC0-1.0, Unlicense, 0BSD, BlueOak-1.0.0
 ```
 
 Before adding a new package, run the licence check from the project root and inside `server/`:
 
 ```bash
-npx license-checker --production --onlyAllow 'MIT;Apache-2.0;BSD-2-Clause;BSD-3-Clause;ISC;OFL-1.1;CC0-1.0;Unlicense;0BSD'
+npx license-checker --production --onlyAllow 'MIT;Apache-2.0;BSD-2-Clause;BSD-3-Clause;ISC;OFL-1.1;CC0-1.0;Unlicense;0BSD;BlueOak-1.0.0'
 ```
 
 The GitHub Actions workflow enforces this check automatically on every pull request.
@@ -70,7 +70,7 @@ The GitHub Actions workflow enforces this check automatically on every pull requ
 The full workflow lives in [docs/i18n.md](./docs/i18n.md). The short version:
 
 - Never hardcode a natural-language string inside code or HTML. Always go through a key from `public/locales/en.json`.
-- Any pull request that adds a string must add it to both `en.json` and `fr.json`. The two files share the same key set.
+- Any pull request that adds a string must add it to every locale file under `public/locales/` (currently `fr`, `en`, `de`, `it`, `es`). The files share the same key set in the same canonical order.
 
 ## Fonts and non-Latin scripts
 

@@ -5,7 +5,7 @@ Audience: admins who self-host the app and want a clear picture of the measures 
 ## Authentication
 
 - Passwords are hashed with Argon2id (`t=3`, `m=19 MiB`, `p=1`), one iteration above the OWASP 2024 minimum.
-- The password policy is enforced on the server, with the client mirroring it for live feedback. The hard rules are a minimum length of 12 characters, at least one uppercase letter, one lowercase letter, one digit and one special character, no whitespace, and no inclusion of the username. Each password must also reach a zxcvbn score of 4 for the admin account and 3 for a regular user, with both English and French dictionaries loaded.
+- The password policy is enforced on the server, with the client mirroring it for live feedback. The hard rules are a minimum length of 12 characters, at least one uppercase letter, one lowercase letter, one digit and one special character, no whitespace, and no inclusion of the username. Each password must also reach a zxcvbn score of 4 for the admin account and 3 for a regular user, with one dictionary loaded per supported locale (English, French, German, Italian, Spanish).
 - Initial user passwords are generated with `crypto.randomBytes` and enforced character classes. The admin sees the value once; only the hash is stored.
 - A user account with a pending password change cannot reach any protected endpoint until the password has been updated.
 

@@ -9,6 +9,9 @@ function pickLocale(acceptLanguage) {
   if (!acceptLanguage) return 'en';
   const normalized = acceptLanguage.toLowerCase();
   if (normalized.startsWith('fr')) return 'fr';
+  if (normalized.startsWith('de')) return 'de';
+  if (normalized.startsWith('it')) return 'it';
+  if (normalized.startsWith('es')) return 'es';
   return 'en';
 }
 

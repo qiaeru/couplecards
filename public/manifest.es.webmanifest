@@ -1,0 +1,16 @@
+{
+  "name": "CoupleCards",
+  "short_name": "CoupleCards",
+  "description": "App web autoalojada que permite a las parejas robar cartas de actividades para romper la rutina y darle chispa al día a día.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f0820",
+  "theme_color": "#1a0f35",
+  "lang": "es",
+  "icons": [
+    { "src": "/icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icons/icon-maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}

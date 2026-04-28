@@ -83,6 +83,10 @@ The SPA router lives in `public/js/core/router.js` and is roughly sixty lines of
 
 `public/js/core/sync.js` is the single entry point for state. Feature modules never talk to the API directly. Each card exposes a `translations` object keyed by locale, and the helper `getCardText(card, locale)` picks the right title and description for the current user language with an English fallback.
 
+## Card draw
+
+`drawRandom(pile, recentIds)` in `public/js/core/sync.js` picks the next card for a pile. It first removes the user's banned cards (`availableCards`), then excludes the most recently drawn ids in that pile (`CONFIG.recentExclude`, three by default) so the same card does not come back two draws in a row. From the remaining pool it does a weighted random pick: standard cards weigh `1.0`, foil cards weigh `FOIL_WEIGHT = 0.3`. The constant lives at the top of `sync.js` and exists to keep the appearance rate of foil cards (the rare, explicitly sexual variant) low even when their share of the deck is non-trivial. With the current FR deck (28 foil out of 142), the effective foil draw rate is around 9.7% on the home pile and 4.4% on the outdoor pile, well below what the raw counts would suggest.
+
 ## Internationalisation
 
 The backend has a single source of truth for supported locales in `server/src/lib/locales.js`. The frontend mirrors this list in `SUPPORTED` inside `public/js/core/i18n.js`.

@@ -1,0 +1,885 @@
+{
+  "version": 1,
+  "cards": [
+    {
+      "id": "home-001",
+      "pile": "home",
+      "title": "Salonadel",
+      "description": "Kerzen und hochmütige Mienen. Wer zuerst lacht, schrubbt das Geschirr wie ein Bürgerlicher."
+    },
+    {
+      "id": "home-002",
+      "pile": "home",
+      "title": "Spiele in böser Absicht",
+      "description": "Brettduell mit Schummelpflicht. Der Verlierer schuldet einen unvernünftigen Gefallen."
+    },
+    {
+      "id": "home-003",
+      "pile": "home",
+      "title": "Wandermassage",
+      "description": "Massage, die schnell entgleist. Sobald ein Kleidungsstück fällt, geht es direkt weiter."
+    },
+    {
+      "id": "home-004",
+      "pile": "home",
+      "title": "Fleischige Filmkunst",
+      "description": "Erotikfilm für „die Handlung\". Wie viele Minuten, bis wir den Bildschirm loslassen?",
+      "foil": true
+    },
+    {
+      "id": "home-005",
+      "pile": "home",
+      "title": "Würde im Stand-by",
+      "description": "Tonmasken und Monstergesichter. Wer zuerst lacht, verliert den Sexappeal für die Nacht."
+    },
+    {
+      "id": "home-006",
+      "pile": "home",
+      "title": "Gähnduell",
+      "description": "Wer beim Film zuerst einnickt, bereitet das Frühstück im Bett zu."
+    },
+    {
+      "id": "home-007",
+      "pile": "home",
+      "title": "Lyrisches Massaker",
+      "description": "Falsch singen mit Diven-Arroganz. Der Schlechteste schuldet eine erzwungene Umarmung."
+    },
+    {
+      "id": "home-008",
+      "pile": "home",
+      "title": "Ölsardinen",
+      "description": "Bad zu zweit mit Knie im Rücken und Seife im Auge. Unbequem, aber schön."
+    },
+    {
+      "id": "home-009",
+      "pile": "home",
+      "title": "Blindes Vertrauen",
+      "description": "Augen verbunden, Mund offen. Du probierst, was ich biete, und stehst zu jedem Gesicht."
+    },
+    {
+      "id": "home-010",
+      "pile": "home",
+      "title": "Rechtsfreier Raum",
+      "description": "Kissenfestung im Wohnzimmer. Ein enger Raum für recht unkatholische Annäherungen."
+    },
+    {
+      "id": "home-011",
+      "pile": "home",
+      "title": "Belastendes Material",
+      "description": "Improvisiertes Fotoshooting. Wir starten mit Porträts und enden mit brisanten Akten.",
+      "foil": true
+    },
+    {
+      "id": "home-012",
+      "pile": "home",
+      "title": "Schienbein-Schule",
+      "description": "Eleganter Walzer oder wilder Rock. Möbel sind deine Gegner, meine Arme dein Refugium."
+    },
+    {
+      "id": "home-013",
+      "pile": "home",
+      "title": "Blindtest mit Strafe",
+      "description": "Errate den Künstler oder akzeptiere das Pfand. Deine Musiklücken werden teuer."
+    },
+    {
+      "id": "home-014",
+      "pile": "home",
+      "title": "Textile Stochastik",
+      "description": "Die Würfel entscheiden über deinen Striptease. Mathe war noch nie so aufregend.",
+      "foil": true
+    },
+    {
+      "id": "home-015",
+      "pile": "home",
+      "title": "Lektüre für Erwachsene",
+      "description": "Lies mir einen frechen Text mit ernstem Gesicht vor. Lachst du, fängst du mit Pfand neu an.",
+      "foil": true
+    },
+    {
+      "id": "home-016",
+      "pile": "home",
+      "title": "Schrankalchemie",
+      "description": "Improvisierte Cocktails, garantierter Rausch. Geschmack zweifelhaft, Küsse vorrangig."
+    },
+    {
+      "id": "home-017",
+      "pile": "home",
+      "title": "Digital-Entzug",
+      "description": "Handys eingezogen. Jetzt heißt es handgemachte Spiele improvisieren, viel fesselnder."
+    },
+    {
+      "id": "home-018",
+      "pile": "home",
+      "title": "Teigkneten",
+      "description": "Hausgemachte Pizza, Mehl überall. Der schlechtere Koch gleicht es mit Beweglichkeit aus."
+    },
+    {
+      "id": "home-019",
+      "pile": "home",
+      "title": "Hartes Verhör",
+      "description": "Indiskrete Fragen, kein Joker. Antworte oder nimm eine Konsequenz hin, die rot werden lässt."
+    },
+    {
+      "id": "home-020",
+      "pile": "home",
+      "title": "Sonntags-Kamasutra",
+      "description": "Zu ehrgeiziges Paaryoga. Gleichgewicht ist optional, Hautkontakt ist Pflicht.",
+      "foil": true
+    },
+    {
+      "id": "home-021",
+      "pile": "home",
+      "title": "Stimmungsstrategie",
+      "description": "Kerzen und gedimmtes Licht. Wir richten die Bühne für eine Nacht ohne Ausgehen ein."
+    },
+    {
+      "id": "home-022",
+      "pile": "home",
+      "title": "Honig und Klischees",
+      "description": "Kitschige Lovestory für überschwängliches Kuscheln. Tücher bereit halten (oder Eimer)."
+    },
+    {
+      "id": "home-023",
+      "pile": "home",
+      "title": "Frührente",
+      "description": "Kräutertee und Decke, Oma-und-Opa-Modus. Flaute vor dem Sturm unter der Bettdecke."
+    },
+    {
+      "id": "home-024",
+      "pile": "home",
+      "title": "Musikprozess",
+      "description": "Lasst uns die aktuellen Hits zerlegen. Bösgläubigkeit Pflicht, Snobismus ermutigt."
+    },
+    {
+      "id": "home-026",
+      "pile": "home",
+      "title": "Picasso auf Haut",
+      "description": "Fingerfarbe und Pinselschlacht. Je verkorkster das Bild, desto besser."
+    },
+    {
+      "id": "home-027",
+      "pile": "home",
+      "title": "Museum der Schande",
+      "description": "Alte Fotos im Schnelldurchlauf. Lachen wir über frühere Looks wie alte Veteranen."
+    },
+    {
+      "id": "home-029",
+      "pile": "home",
+      "title": "Puzzle-Verhandlung",
+      "description": "Geduld und Konzentration. Letztes Teil gegen einen unverhandelbaren Gefallen."
+    },
+    {
+      "id": "home-030",
+      "pile": "home",
+      "title": "Ferne Aromen",
+      "description": "Exotisches Menü blind bestellt. Wer sich verschluckt, hat wirklich gereist."
+    },
+    {
+      "id": "home-031",
+      "pile": "home",
+      "title": "Schürze als Outfit",
+      "description": "Kochen mit der Schürze als einzigem Kleidungsstück. Am Herd steigt die Temperatur.",
+      "foil": true
+    },
+    {
+      "id": "home-032",
+      "pile": "home",
+      "title": "Strategisches Ausziehen",
+      "description": "Eine indiskrete Frage. Kneifst du, fällt eine Schicht. Geheimnisse haben ihren Preis.",
+      "foil": true
+    },
+    {
+      "id": "home-033",
+      "pile": "home",
+      "title": "Vergängliche Tattoos",
+      "description": "Dein Körper ist meine Leinwand. Ich male meine Wünsche, du deutest sie mit Inbrunst.",
+      "foil": true
+    },
+    {
+      "id": "home-034",
+      "pile": "home",
+      "title": "Fleischbuffet",
+      "description": "Sinnliche Verkostung direkt auf der Haut. Wir genießen ohne Hände, aber mit Appetit.",
+      "foil": true
+    },
+    {
+      "id": "home-035",
+      "pile": "home",
+      "title": "Sinnliche Pediküre",
+      "description": "Fußmassage mit Podologen-Allüren. Die Entspannung weicht schnell etwas anderem."
+    },
+    {
+      "id": "home-036",
+      "pile": "home",
+      "title": "Erzwungenes Loslassen",
+      "description": "Einer ergibt sich, der andere führt. Gehorsam Pflicht, Lust nicht optional.",
+      "foil": true
+    },
+    {
+      "id": "home-037",
+      "pile": "home",
+      "title": "Folter mit der Feder",
+      "description": "Langsames Spiel der Sinne. Deine Ungeduld, mich zu berühren, wird dein schönstes Problem.",
+      "foil": true
+    },
+    {
+      "id": "home-038",
+      "pile": "home",
+      "title": "Unreine Geständnisse",
+      "description": "Wahrheit oder Pflicht ohne Tabus. Ablehnen ist heute Abend keine Option.",
+      "foil": true
+    },
+    {
+      "id": "home-039",
+      "pile": "home",
+      "title": "Sehr privates Studio",
+      "description": "Gewagte visuelle Erinnerungen schaffen. Hoffen wir, dein Cloud-Speicher ist sicher.",
+      "foil": true
+    },
+    {
+      "id": "home-040",
+      "pile": "home",
+      "title": "Ausschließliche Hingabe",
+      "description": "Vergiss dein eigenes Vergnügen. Mein einziges Ziel ist, dich Sterne sehen zu lassen.",
+      "foil": true
+    },
+    {
+      "id": "home-041",
+      "pile": "home",
+      "title": "Affen-Krauleinheiten",
+      "description": "Endloses Kopf-Kraulen. Wir lassen alle Menschlichkeit fallen und werden wieder Affen."
+    },
+    {
+      "id": "home-042",
+      "pile": "home",
+      "title": "Teppich-Biwak",
+      "description": "Wohnzimmer-Picknick. Weniger Komfort und Krümel auf deinem Hintern."
+    },
+    {
+      "id": "home-043",
+      "pile": "home",
+      "title": "Taktische Schauer",
+      "description": "Horrorfilm im Dunkeln. Eine Ausrede, sich richtig fest aneinander zu klammern."
+    },
+    {
+      "id": "home-044",
+      "pile": "home",
+      "title": "Pixel-Duell",
+      "description": "Videospielturnier. Der Sieger wird König, der Verlierer sein demütiger Diener."
+    },
+    {
+      "id": "home-045",
+      "pile": "home",
+      "title": "Kunstrohwerkstatt",
+      "description": "Wir basteln zusammen etwas Sinnloses. Wegwerfen werden wir es, aber wir lachen viel."
+    },
+    {
+      "id": "home-046",
+      "pile": "home",
+      "title": "Resteküche-Alchemie",
+      "description": "Totale Improvisation mit dem Kühlschrank. Ist es essbar, haben wir irgendwo geschummelt."
+    },
+    {
+      "id": "home-047",
+      "pile": "home",
+      "title": "Unerträgliche Langsamkeit",
+      "description": "Jede Geste extrem verlangsamen. Langsamkeit ist die süßeste Provokation.",
+      "foil": true
+    },
+    {
+      "id": "home-048",
+      "pile": "home",
+      "title": "Privatstunde",
+      "description": "Klassisches Rollenspiel. Wer Strafe verdient oder Sehr-gut, sehen wir gleich.",
+      "foil": true
+    },
+    {
+      "id": "home-049",
+      "pile": "home",
+      "title": "Erobertes Territorium",
+      "description": "Knutschflecken, Bisse, Kussspuren. Bedecke mich mit sichtbaren Beweisen.",
+      "foil": true
+    },
+    {
+      "id": "home-050",
+      "pile": "home",
+      "title": "Verbotene Worte",
+      "description": "Dirty Talk ohne Hemmungen während des Akts. Kein Wort tabu, sag alles, was dir kommt.",
+      "foil": true
+    },
+    {
+      "id": "home-051",
+      "pile": "home",
+      "title": "Fettkritik",
+      "description": "Bewerten wir geliefertes Fast Food wie ein Sternehotel. Pompöse Worte zum Cholesterin Pflicht."
+    },
+    {
+      "id": "home-052",
+      "pile": "home",
+      "title": "Jüngstes Gericht",
+      "description": "Zweifelhafter Reinheitstest aus dem Netz. Lach über deine Vergangenheit mit Stil."
+    },
+    {
+      "id": "home-053",
+      "pile": "home",
+      "title": "Schubladenarchäologie",
+      "description": "Wir leeren die Schränke und lachen über unsere kaputten, abgelaufenen, sinnlosen Schätze."
+    },
+    {
+      "id": "home-054",
+      "pile": "home",
+      "title": "Schule des Lachens",
+      "description": "Quiz auf Grundschulniveau. Achtung, dein Ego riskiert einen tödlichen Treffer."
+    },
+    {
+      "id": "home-055",
+      "pile": "home",
+      "title": "Verbotene Wetten",
+      "description": "Wir setzen unvernünftige Pfänder auf Kopf oder Zahl. Der Verlierer steht bis zum Ende."
+    },
+    {
+      "id": "home-056",
+      "pile": "home",
+      "title": "Tödliche Mischungen",
+      "description": "Leeren wir vergessene Flaschenreste. Klassiker entdecken oder einfach umkippen."
+    },
+    {
+      "id": "home-057",
+      "pile": "home",
+      "title": "Daumenkampf",
+      "description": "Brutal und effizient. Der Verlierer räumt ab oder leistet sofort einen Gefallen."
+    },
+    {
+      "id": "home-058",
+      "pile": "home",
+      "title": "Sonntags-Shakespeare",
+      "description": "Spiel eine unmögliche Szene mit Ernst. Wer zuerst rausfällt, verliert die Ehre."
+    },
+    {
+      "id": "home-059",
+      "pile": "home",
+      "title": "Damen-Duell",
+      "description": "Jeder geschlagene Stein ist Vorwand für eine kleine, sehr persönliche Forderung."
+    },
+    {
+      "id": "home-060",
+      "pile": "home",
+      "title": "Augenhypnose",
+      "description": "Wer zuerst blinzelt, verliert. Sinnlose Spannung, die meist in einem Kuss endet."
+    },
+    {
+      "id": "home-061",
+      "pile": "home",
+      "title": "Subversiver Hausputz",
+      "description": "Aufgaben zu zweit auf Zeit. Jedes Schimpfen oder Seufzen ist sofort ein Pfand."
+    },
+    {
+      "id": "home-062",
+      "pile": "home",
+      "title": "Wohnzimmer-Karaoke",
+      "description": "Improvisiertes Mikro auf YouTube. Der Schiefer-Singer bezahlt die Wasserrunde."
+    },
+    {
+      "id": "home-063",
+      "pile": "home",
+      "title": "Paar-Quiz",
+      "description": "Fangfragen über den anderen. Der Schlechtinformierte beweist Liebe mit einem Gefallen."
+    },
+    {
+      "id": "home-064",
+      "pile": "home",
+      "title": "Astrologie-Pleite",
+      "description": "Tageshoroskop mit Ernst vorlesen. Wir reißen jede Vorhersage gnadenlos auseinander."
+    },
+    {
+      "id": "home-065",
+      "pile": "home",
+      "title": "Briefe an die Zukunft",
+      "description": "Brief an euch in zehn Jahren. Vorlesen Pflicht, mit Cringe rechnen."
+    },
+    {
+      "id": "home-066",
+      "pile": "home",
+      "title": "IKEA-Aufbau",
+      "description": "Möbelaufbau zu zweit. Wer die Anleitung übersteht, übersteht alles."
+    },
+    {
+      "id": "home-067",
+      "pile": "home",
+      "title": "Wikipedia-Roulette",
+      "description": "Zufällige Wikipedia-Seite. Vortrag mit der Würde einer Doktorandin."
+    },
+    {
+      "id": "home-068",
+      "pile": "home",
+      "title": "Memeschlacht",
+      "description": "Drei Memes übereinander in zehn Minuten. Der Unlustigste zahlt den Morgenkaffee."
+    },
+    {
+      "id": "home-069",
+      "pile": "home",
+      "title": "Roman in Tag-Team",
+      "description": "Eine Geschichte Satz für Satz im Wechsel. Je verdrehter, desto besser."
+    },
+    {
+      "id": "home-070",
+      "pile": "home",
+      "title": "Schlechte Witze",
+      "description": "Jeder erzählt seine drei schlimmsten Witze. Der Unlustigste räumt ab."
+    },
+    {
+      "id": "out-001",
+      "pile": "outdoor",
+      "title": "Italiener",
+      "description": "Pasta und schwere Blicke. Wir spielen das große Spiel mit fetten Andeutungen."
+    },
+    {
+      "id": "out-002",
+      "pile": "outdoor",
+      "title": "Kino und Verachtung",
+      "description": "Zufallsfilm. Das wahre Vergnügen ist, ihn danach wie verbitterte Kritiker zu zerlegen."
+    },
+    {
+      "id": "out-003",
+      "pile": "outdoor",
+      "title": "Museumsbesuch",
+      "description": "Wir erfinden hanebüchene Erklärungen zur abstrakten Kunst. Je prätentiöser, desto besser."
+    },
+    {
+      "id": "out-004",
+      "pile": "outdoor",
+      "title": "Klischee-Horizont",
+      "description": "Sonnenuntergang ohne Scham. Wir tun tief, denken aber längst an den Nachtisch."
+    },
+    {
+      "id": "out-005",
+      "pile": "outdoor",
+      "title": "Hässlich-Safari",
+      "description": "Das hässlichste Stück im Schaufenster finden. Königliche, grundlose Verachtung pflegen."
+    },
+    {
+      "id": "out-006",
+      "pile": "outdoor",
+      "title": "IQ-Test",
+      "description": "Eine Stunde Escape Room, um nicht dumm zu wirken, oder um anständig zu streiten."
+    },
+    {
+      "id": "out-007",
+      "pile": "outdoor",
+      "title": "Ameisenbankett",
+      "description": "Brot, Wein und Erde. Wir essen am Boden mit unverschämter Klasse."
+    },
+    {
+      "id": "out-008",
+      "pile": "outdoor",
+      "title": "Beschämungsgeschenk",
+      "description": "Mini-Budget. Jeder sucht das absurdeste Objekt, wir tauschen auf der Terrasse."
+    },
+    {
+      "id": "out-009",
+      "pile": "outdoor",
+      "title": "Groupies für einen Abend",
+      "description": "Konzert eines lokalen Niemands. Werden wir Fan Nummer eins eines Triangelspielers."
+    },
+    {
+      "id": "out-010",
+      "pile": "outdoor",
+      "title": "Waldflucht",
+      "description": "Frische Luft schnappen, dann tief im Wald verstecken. Weit weg von Stadt und Blicken.",
+      "foil": true
+    },
+    {
+      "id": "out-011",
+      "pile": "outdoor",
+      "title": "Großstadt-Snobismus",
+      "description": "Graffiti-Jagd. Analysieren wir Gekritzel wie hohe Kunst."
+    },
+    {
+      "id": "out-012",
+      "pile": "outdoor",
+      "title": "Metzger-Lehrlinge",
+      "description": "Kochkurs, lass den Finger dran. Das Ergebnis essen wir aus Stolz."
+    },
+    {
+      "id": "out-013",
+      "pile": "outdoor",
+      "title": "Loser-Bowling",
+      "description": "Duell in hässlichen Schuhen. Wer daneben wirft, zahlt Runde und Würde."
+    },
+    {
+      "id": "out-014",
+      "pile": "outdoor",
+      "title": "Tropische Dämpfe",
+      "description": "Sauna und feuchte Hitze. Schlapp gehen wir raus, mit dringendem Bett-Bedürfnis."
+    },
+    {
+      "id": "out-015",
+      "pile": "outdoor",
+      "title": "Bobo-Bummel",
+      "description": "Auf dem Markt vergessene Gemüse kaufen, die wir nie kochen werden."
+    },
+    {
+      "id": "out-016",
+      "pile": "outdoor",
+      "title": "Bordstein-Luxus",
+      "description": "Eine Bank, eine Aussicht, eine Flasche. Die beste Terrasse der Welt für Kleingeld."
+    },
+    {
+      "id": "out-017",
+      "pile": "outdoor",
+      "title": "Ledernoten",
+      "description": "Snobistische Verkostung. Schwenk dein Glas und droppe komplizierte Worte vor dem Rausch."
+    },
+    {
+      "id": "out-018",
+      "pile": "outdoor",
+      "title": "Kakao-Overdose",
+      "description": "Tour der Chocolatiers. Stopfen wir uns voll wie schlecht erzogene Kinder."
+    },
+    {
+      "id": "out-019",
+      "pile": "outdoor",
+      "title": "Tour de France",
+      "description": "Fahrrad durch die Stadt. Bus meiden, sonnigste Terrasse jagen."
+    },
+    {
+      "id": "out-020",
+      "pile": "outdoor",
+      "title": "Glutenkrieg",
+      "description": "Ultimativer Croissant-Test. Drei probieren, dann den Butterkönig krönen."
+    },
+    {
+      "id": "out-021",
+      "pile": "outdoor",
+      "title": "Höhencocktail",
+      "description": "Überteuertes Glas auf einer sonnigen Dachterrasse. Die Aussicht ist eine Niere wert."
+    },
+    {
+      "id": "out-022",
+      "pile": "outdoor",
+      "title": "Pflanzenkiller",
+      "description": "Eine Pflanze wählen und auf ihren Todestag wetten. Geben wir ihr einen lächerlichen Namen."
+    },
+    {
+      "id": "out-023",
+      "pile": "outdoor",
+      "title": "Welt-Reparatur",
+      "description": "Spaziergang am Wasser. Langsam, schön, und macht müde."
+    },
+    {
+      "id": "out-024",
+      "pile": "outdoor",
+      "title": "Sinnliche Töpferei",
+      "description": "Mit Ton spielen wie in Ghost. Hässlich, aber der Kontakt ist sexy."
+    },
+    {
+      "id": "out-025",
+      "pile": "outdoor",
+      "title": "Halsfeuer",
+      "description": "Spirituosen-Verkostung. Gemeinsam grimmig dreinblicken und so tun, als verstünden wir alles."
+    },
+    {
+      "id": "out-026",
+      "pile": "outdoor",
+      "title": "Lokales Bier",
+      "description": "Die Biere aus der Nachbarschaft testen. Mit Sixpack und scharfer Meinung zurück."
+    },
+    {
+      "id": "out-027",
+      "pile": "outdoor",
+      "title": "Schatzsuche",
+      "description": "Geocaching mit Detektiv-Ernst. Suchen wir Kisten wie merkwürdige Erwachsene."
+    },
+    {
+      "id": "out-028",
+      "pile": "outdoor",
+      "title": "Spider-Paar",
+      "description": "Klettern zu zweit. Fällst du, fang ich dich (nach dem Lachen über den Sturz)."
+    },
+    {
+      "id": "out-029",
+      "pile": "outdoor",
+      "title": "Sonntags-Hooligans",
+      "description": "Lokales Match. Schreien für ein unbekanntes Team, Hauptsache laut."
+    },
+    {
+      "id": "out-030",
+      "pile": "outdoor",
+      "title": "Dessous-Show",
+      "description": "Ich wähle, du probierst. Die richtige Session findet ohnehin zu Hause statt."
+    },
+    {
+      "id": "out-031",
+      "pile": "outdoor",
+      "title": "Strategie und Schnaps",
+      "description": "Spielebar. Wir verstehen die Regeln nicht, gewinnen aber durch böse Absicht."
+    },
+    {
+      "id": "out-032",
+      "pile": "outdoor",
+      "title": "Fremde auf der Terrasse",
+      "description": "Zufallscafé, wir kommen getrennt an. Bagger mich an wie ein reiches, leichtes Ziel."
+    },
+    {
+      "id": "out-033",
+      "pile": "outdoor",
+      "title": "Waldpause",
+      "description": "Auto im Wald, Sitze gekippt. Die Scheiben beschlagen rein zufällig.",
+      "foil": true
+    },
+    {
+      "id": "out-034",
+      "pile": "outdoor",
+      "title": "Wissenschaftliche Neugier",
+      "description": "Besuch eines schicken Sexshops. Begutachten wir das Zubehör mit Ingenieursernst.",
+      "foil": true
+    },
+    {
+      "id": "out-035",
+      "pile": "outdoor",
+      "title": "Libertinerkundung",
+      "description": "Besuch eines Swingerclubs als Touristen. Schauen ist schon ein wirksames Vorspiel.",
+      "foil": true
+    },
+    {
+      "id": "out-036",
+      "pile": "outdoor",
+      "title": "Absolute Diskretion",
+      "description": "Wandernde Hände im Restaurant. Bleib steinern, ich kümmere mich um dich.",
+      "foil": true
+    },
+    {
+      "id": "out-037",
+      "pile": "outdoor",
+      "title": "Geheimkommando",
+      "description": "Ohne Unterwäsche ausgehen. Das Geheimnis macht jeden Blick brennend.",
+      "foil": true
+    },
+    {
+      "id": "out-038",
+      "pile": "outdoor",
+      "title": "Öffentlicher Nervenkitzel",
+      "description": "Eine versteckte Ecke draußen finden. Risiko ist das beste Aphrodisiakum.",
+      "foil": true
+    },
+    {
+      "id": "out-039",
+      "pile": "outdoor",
+      "title": "Wilder Wikinger",
+      "description": "Axtwerfen. Lassen wir Dampf ab, bevor wir zu Hause unsere Triebe stillen."
+    },
+    {
+      "id": "out-040",
+      "pile": "outdoor",
+      "title": "Beredter Titel",
+      "description": "Such in der Buchhandlung ein Buch, dessen Titel zusammenfasst, was du heute willst."
+    },
+    {
+      "id": "out-041",
+      "pile": "outdoor",
+      "title": "Retro-Spielhalle",
+      "description": "Pac-Man und Beat-em-ups. Zehnjährig sein und die legendäre Bösgläubigkeit hervorholen."
+    },
+    {
+      "id": "out-042",
+      "pile": "outdoor",
+      "title": "Straßengastronomie",
+      "description": "Fettiges im Stehen essen. Schweinerei, lecker, null Glamour, wir lieben es."
+    },
+    {
+      "id": "out-043",
+      "pile": "outdoor",
+      "title": "Weinhandel-Roulette",
+      "description": "Zufälliger Weinhandel, wir wählen die Flasche mit dem dümmsten Namen. Sei es drum."
+    },
+    {
+      "id": "out-044",
+      "pile": "outdoor",
+      "title": "Stilpolizei",
+      "description": "Auf der Terrasse Outfits gnadenlos beurteilen. Gemein, aber gemeinsam."
+    },
+    {
+      "id": "out-045",
+      "pile": "outdoor",
+      "title": "Doppelkinn",
+      "description": "Wettbewerb ums hässlichste Foto in der Öffentlichkeit. Wer am wenigsten Würde hat, gewinnt."
+    },
+    {
+      "id": "out-046",
+      "pile": "outdoor",
+      "title": "Anstößiges Eis",
+      "description": "Eiscreme im Hörnchen, Stadtspaziergang. Lecke mit unanständiger Hingabe."
+    },
+    {
+      "id": "out-047",
+      "pile": "outdoor",
+      "title": "Sexting auf Distanz",
+      "description": "Mitten in der Menge schick mir eine freche Nachricht. Bloß nicht erröten.",
+      "foil": true
+    },
+    {
+      "id": "out-048",
+      "pile": "outdoor",
+      "title": "Verbotener Fotoautomat",
+      "description": "Vier Posen, null Anstand. Hoffentlich behält die Maschine keine Kopien.",
+      "foil": true
+    },
+    {
+      "id": "out-049",
+      "pile": "outdoor",
+      "title": "Schicksal ergeben",
+      "description": "Lass den Kellner das ganze Menü wählen. Wir nehmen das Dorschleber-Risiko in Kauf."
+    },
+    {
+      "id": "out-050",
+      "pile": "outdoor",
+      "title": "Rückbank",
+      "description": "Parkplatz im Wald am hellichten Nachmittag, Rückbank. Unbequem und furchtbar gut.",
+      "foil": true
+    },
+    {
+      "id": "out-051",
+      "pile": "outdoor",
+      "title": "Menschen-Safari",
+      "description": "Auf einer Bank wetten wir auf den Beruf der Passanten. Bonus für jeden Paarstreit."
+    },
+    {
+      "id": "out-053",
+      "pile": "outdoor",
+      "title": "Parkkritik",
+      "description": "Suchen wir das schlimmste Parkversagen, um es zu verspotten. Vergnügen der Verbitterten."
+    },
+    {
+      "id": "out-054",
+      "pile": "outdoor",
+      "title": "Käse und Popcorn",
+      "description": "Der mieseste Film. Ziel ist, den Eimer vor dem Titel leer zu haben."
+    },
+    {
+      "id": "out-055",
+      "pile": "outdoor",
+      "title": "Brunch der Überlebenden",
+      "description": "Fettiges um 15 Uhr nach einer wilden Nacht. Verdiente Belohnung der Krieger."
+    },
+    {
+      "id": "out-056",
+      "pile": "outdoor",
+      "title": "Frühlingsrollen satt",
+      "description": "Den China-Buffet rentabel machen. Die Würde endet beim dritten Gang."
+    },
+    {
+      "id": "out-057",
+      "pile": "outdoor",
+      "title": "Symbol-Wanderung",
+      "description": "Zwei Kilometer laufen, um den riesigen Aperitif zu rechtfertigen. Reine Psycho-Mühe."
+    },
+    {
+      "id": "out-058",
+      "pile": "outdoor",
+      "title": "Darts und Whisky",
+      "description": "Wir zielen aufs Zentrum, treffen die Wand. Der Schlechteste zahlt die Runde."
+    },
+    {
+      "id": "out-059",
+      "pile": "outdoor",
+      "title": "Millionärsträume",
+      "description": "Preise im Immobilienbüro begutachten. Lachen wir elegant über unsere Armut."
+    },
+    {
+      "id": "out-060",
+      "pile": "outdoor",
+      "title": "Erfundene Leben",
+      "description": "Erfinden wir die schamhaftesten Geheimnisse der Fremden. Je trashiger, desto besser."
+    },
+    {
+      "id": "out-061",
+      "pile": "outdoor",
+      "title": "Tapas-Tour",
+      "description": "Mehrere Gerichte naschen und unzählige verstohlene Berührungen unter dem Tisch."
+    },
+    {
+      "id": "out-062",
+      "pile": "outdoor",
+      "title": "Gastronomische Tafel",
+      "description": "Wir zücken das große Besteck und das Snob-Vokabular. Genießen, bevor das Konto leer ist."
+    },
+    {
+      "id": "out-063",
+      "pile": "outdoor",
+      "title": "Austern und Weißwein",
+      "description": "Wir prüfen den Aphrodisiakum-Mythos mit verdächtigem Ernst. Jodig und sexy."
+    },
+    {
+      "id": "out-064",
+      "pile": "outdoor",
+      "title": "Food Truck",
+      "description": "Triefender Burger auf dem Bürgersteig. Wild, schmutzig, kompromisslos."
+    },
+    {
+      "id": "out-065",
+      "pile": "outdoor",
+      "title": "Patisserie-Demolition",
+      "description": "Eine komplizierte Torte mit dem Teelöffel zerlegen. Der Konditor wäre beleidigt."
+    },
+    {
+      "id": "out-066",
+      "pile": "outdoor",
+      "title": "Aquarium",
+      "description": "Fisch-Tour. Jeder erfindet den dümmsten Spitznamen für jede Art."
+    },
+    {
+      "id": "out-067",
+      "pile": "outdoor",
+      "title": "Schäm-Secondhand",
+      "description": "Wir wählen das absurdeste Outfit für den anderen. Foto in der Kabine Pflicht."
+    },
+    {
+      "id": "out-068",
+      "pile": "outdoor",
+      "title": "Lasertag",
+      "description": "Todeskampf gegen Fremde. Wer den anderen aus Versehen trifft, zahlt sofort ein Pfand."
+    },
+    {
+      "id": "out-069",
+      "pile": "outdoor",
+      "title": "Synchron-Tretboot",
+      "description": "Treten zu zweit ohne jede Koordination. Echtes Risiko ist die öffentliche Demütigung."
+    },
+    {
+      "id": "out-070",
+      "pile": "outdoor",
+      "title": "Schräges Minigolf",
+      "description": "Wackliges Putten. Bösgläubigkeit Pflicht, Mogeln erlaubt, solange wir lachen."
+    },
+    {
+      "id": "out-071",
+      "pile": "outdoor",
+      "title": "Trödelstrategie",
+      "description": "Jeder Fund muss dem anderen verteidigt werden. Der Unüberzeugende geht leer aus."
+    },
+    {
+      "id": "out-072",
+      "pile": "outdoor",
+      "title": "Verirrte Touristen",
+      "description": "Eigene Stadt als Touristen, schlechter Akzent Pflicht. Bonus für Wegfrage an Einheimische."
+    },
+    {
+      "id": "out-073",
+      "pile": "outdoor",
+      "title": "Kartfahren",
+      "description": "Rennen zu zweit. Der Verlierer geht zu Fuß und zahlt den Aperitif zur Rückkehr."
+    },
+    {
+      "id": "out-074",
+      "pile": "outdoor",
+      "title": "Flussbootfahrt",
+      "description": "Flusskreuzfahrt mit dummem Audio-Kommentar. Flüstere deine Spitzen den Touristen zu."
+    },
+    {
+      "id": "out-075",
+      "pile": "outdoor",
+      "title": "Influencer für einen Tag",
+      "description": "Lächerliche Posen in der Stadt für zehn Story-Fotos. Ernst und Unschärfe Pflicht."
+    }
+  ]
+}

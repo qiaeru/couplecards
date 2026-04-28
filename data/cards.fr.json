@@ -17,13 +17,14 @@
       "id": "home-003",
       "pile": "home",
       "title": "Massage peu thérapeutique",
-      "description": "L'intention est relaxante, la pratique va déraper. Dès qu'un vêtement tombe, on arrête tout."
+      "description": "Massage qui dérape vite. Dès qu'un vêtement tombe, on passe carrément à autre chose."
     },
     {
       "id": "home-004",
       "pile": "home",
       "title": "Cinématographie charnelle",
-      "description": "Un film érotique pour « l'intrigue ». On parie combien de minutes avant de lâcher l'écran ?"
+      "description": "Un film érotique pour « l'intrigue ». On parie combien de minutes avant de lâcher l'écran ?",
+      "foil": true
     },
     {
       "id": "home-005",
@@ -35,13 +36,13 @@
       "id": "home-006",
       "pile": "home",
       "title": "Lutte contre le sommeil",
-      "description": "Le premier qui s'endort admet sa vieillesse et prépare le petit-déjeuner au lit."
+      "description": "Devant le film, le premier qui pique du nez prépare le petit-déjeuner au lit."
     },
     {
       "id": "home-007",
       "pile": "home",
       "title": "Massacre lyrique",
-      "description": "Chantez faux avec l'arrogance d'une diva. Le plus mauvais gagne un bonus physique injuste."
+      "description": "Chantez faux avec l'arrogance d'une diva. Le plus mauvais gagne un câlin imposé."
     },
     {
       "id": "home-008",
@@ -65,7 +66,8 @@
       "id": "home-011",
       "pile": "home",
       "title": "Preuves compromettantes",
-      "description": "Séance photo improvisée. On commence par des portraits, on finit par des dossiers brûlants."
+      "description": "Séance photo improvisée. On commence par des portraits, on finit par des dossiers brûlants.",
+      "foil": true
     },
     {
       "id": "home-012",
@@ -83,13 +85,15 @@
       "id": "home-014",
       "pile": "home",
       "title": "Probabilités textiles",
-      "description": "Les dés décident de ton effeuillage. Les maths n'ont jamais été aussi excitantes."
+      "description": "Les dés décident de ton effeuillage. Les maths n'ont jamais été aussi excitantes.",
+      "foil": true
     },
     {
       "id": "home-015",
       "pile": "home",
       "title": "Lecture pour adultes",
-      "description": "Lis-moi un texte osé avec le sérieux d'un notaire. Si tu ris, tu recommences avec un gage."
+      "description": "Lis-moi un texte osé avec le sérieux d'un notaire. Si tu ris, tu recommences avec un gage.",
+      "foil": true
     },
     {
       "id": "home-016",
@@ -119,7 +123,8 @@
       "id": "home-020",
       "pile": "home",
       "title": "Kamasutra du dimanche",
-      "description": "Yoga duo trop ambitieux. L'équilibre est une option, le contact cutané est obligatoire."
+      "description": "Yoga duo trop ambitieux. L'équilibre est une option, le contact cutané est obligatoire.",
+      "foil": true
     },
     {
       "id": "home-021",
@@ -146,28 +151,16 @@
       "description": "Démolissons les tubes du moment. Mauvaise foi exigée et snobisme encouragé."
     },
     {
-      "id": "home-025",
-      "pile": "home",
-      "title": "Argile et sérieux",
-      "description": "Visages tartinés et dignité au placard. Le premier qui craque a perdu son honneur."
-    },
-    {
       "id": "home-026",
       "pile": "home",
       "title": "Picasso sur peau",
-      "description": "Une toile, zéro talent. Le but est de finir avec plus de peinture sur toi que sur le tableau."
+      "description": "Peinture au doigt et bataille de pinceaux. Plus la toile est ratée, mieux c'est."
     },
     {
       "id": "home-027",
       "pile": "home",
       "title": "Musée de la honte",
-      "description": "Rions de nos looks sur nos vieilles photos tout en s'aimant encore plus."
-    },
-    {
-      "id": "home-028",
-      "pile": "home",
-      "title": "Bivouac de salon",
-      "description": "Cabane de draps pour adultes. Un espace réduit pour des activités sans vêtements."
+      "description": "Vieilles photos en rafale. Rions de nos looks d'avant en mode anciens combattants."
     },
     {
       "id": "home-029",
@@ -179,37 +172,41 @@
       "id": "home-030",
       "pile": "home",
       "title": "Saveurs lointaines",
-      "description": "Repas exotique pour pimenter les papilles. On voyage sans bouger avant la suite."
+      "description": "Repas exotique commandé au hasard. Si on s'étouffe, c'est qu'on a voyagé pour de vrai."
     },
     {
       "id": "home-031",
       "pile": "home",
       "title": "Chef en tenue légère",
-      "description": "Cuisiner avec le tablier pour seul vêtement. La température grimpe aux fourneaux."
+      "description": "Cuisiner avec le tablier pour seul vêtement. La température grimpe aux fourneaux.",
+      "foil": true
     },
     {
       "id": "home-032",
       "pile": "home",
       "title": "Dépouillement stratégique",
-      "description": "Une question indiscrète. Si tu te dégonfles, tu perds une couche. Tes secrets coûtent cher."
+      "description": "Une question indiscrète. Si tu te dégonfles, tu perds une couche. Tes secrets coûtent cher.",
+      "foil": true
     },
     {
       "id": "home-033",
       "pile": "home",
       "title": "Tatouages éphémères",
-      "description": "Ton corps est ma toile. Je dessine mes envies, à toi de les interpréter avec ferveur."
+      "description": "Ton corps est ma toile. Je dessine mes envies, à toi de les interpréter avec ferveur.",
+      "foil": true
     },
     {
       "id": "home-034",
       "pile": "home",
       "title": "Buffet charnel",
-      "description": "Dégustation sensuelle à même la peau. On savoure sans les mains, mais avec appétit."
+      "description": "Dégustation sensuelle à même la peau. On savoure sans les mains, mais avec appétit.",
+      "foil": true
     },
     {
       "id": "home-035",
       "pile": "home",
       "title": "Pédicurie sensuelle",
-      "description": "Massage des pieds pour relâcher la pression. Le chemin le plus court vers la détente."
+      "description": "Massage des pieds, prétention de podologue. La détente cède vite à autre chose."
     },
     {
       "id": "home-036",
@@ -268,8 +265,7 @@
       "id": "home-044",
       "pile": "home",
       "title": "Duel de pixels",
-      "description": "Tournoi de jeu vidéo. Le vainqueur devient le roi, le perdant devient son humble serviteur.",
-      "foil": true
+      "description": "Tournoi de jeu vidéo. Le vainqueur devient le roi, le perdant devient son humble serviteur."
     },
     {
       "id": "home-045",
@@ -281,7 +277,7 @@
       "id": "home-046",
       "pile": "home",
       "title": "Alchimie des restes",
-      "description": "Improvisation totale avec le frigo. Si c'est mangeable, c'est un miracle de l'amour."
+      "description": "Improvisation totale avec le frigo. Si c'est mangeable, on a triché quelque part."
     },
     {
       "id": "home-047",
@@ -301,21 +297,21 @@
       "id": "home-049",
       "pile": "home",
       "title": "Territoire conquis",
-      "description": "Baisers ou marques, je veux voir mes traces partout sur toi.",
+      "description": "Suçons, morsures, marques de baisers. Couvre-moi de preuves visibles.",
       "foil": true
     },
     {
       "id": "home-050",
       "pile": "home",
       "title": "Mots interdits",
-      "description": "Les paroles se libèrent et brûlent autant que l'acte. Pas de tabous.",
+      "description": "Dirty talk assumé pendant l'acte. Aucun mot interdit, dis tout ce qui te passe.",
       "foil": true
     },
     {
       "id": "home-051",
       "pile": "home",
       "title": "Critique de gras",
-      "description": "Jugeons un fast-food livré à domicile comme un palace. Sortez les mots pompeux pour le cholestérol."
+      "description": "Notons un fast-food livré comme un palace étoilé. Mots pompeux obligatoires sur le cholestérol."
     },
     {
       "id": "home-052",
@@ -339,13 +335,13 @@
       "id": "home-055",
       "pile": "home",
       "title": "Enchères interdites",
-      "description": "Misons sur des idées déraisonnables. On gagne et on assume jusqu'au bout."
+      "description": "On parie des gages déraisonnables sur un pile ou face. Le perdant assume jusqu'au bout."
     },
     {
       "id": "home-056",
       "pile": "home",
       "title": "Mélanges mortels",
-      "description": "Finissons les fonds de bouteilles. Le cocktail sera soit génial, soit illégal."
+      "description": "Vidons les fonds de bouteilles oubliés. Soit on découvre un classique, soit on s'évanouit."
     },
     {
       "id": "home-057",
@@ -370,6 +366,66 @@
       "pile": "home",
       "title": "Hypnose oculaire",
       "description": "Le premier qui cille a perdu. Une tension inutile qui finit souvent en baiser."
+    },
+    {
+      "id": "home-061",
+      "pile": "home",
+      "title": "Ménage subversif",
+      "description": "Corvées chronométrées en duo. Chaque râle ou soupir devient un gage immédiat."
+    },
+    {
+      "id": "home-062",
+      "pile": "home",
+      "title": "Karaoké de salon",
+      "description": "Micro improvisé sur YouTube. Le moins juste paie sa tournée d'eau."
+    },
+    {
+      "id": "home-063",
+      "pile": "home",
+      "title": "Quiz de couple",
+      "description": "Questions pièges sur l'autre. Le moins informé prouve son amour par un service à rendre."
+    },
+    {
+      "id": "home-064",
+      "pile": "home",
+      "title": "Astrologie foireuse",
+      "description": "Lecture de l'horoscope du jour, avec sérieux. On démolit chaque prédiction sans pitié."
+    },
+    {
+      "id": "home-065",
+      "pile": "home",
+      "title": "Lettres anticipées",
+      "description": "Lettre au couple dans 10 ans. Lecture à voix haute obligatoire, prévoir le malaise."
+    },
+    {
+      "id": "home-066",
+      "pile": "home",
+      "title": "Bricolage IKEA",
+      "description": "Montage d'un meuble en duo. Le couple qui survit aux notices peut survivre à tout."
+    },
+    {
+      "id": "home-067",
+      "pile": "home",
+      "title": "Wikipedia roulette",
+      "description": "Page Wikipedia au hasard. Présentation à l'autre avec sérieux d'universitaire."
+    },
+    {
+      "id": "home-068",
+      "pile": "home",
+      "title": "Battle de mèmes",
+      "description": "Chacun crée 3 mèmes sur l'autre en 10 minutes. Le moins drôle paie le café du matin."
+    },
+    {
+      "id": "home-069",
+      "pile": "home",
+      "title": "Roman à quatre mains",
+      "description": "Une histoire écrite à tour de phrases. Plus c'est tordu, mieux c'est."
+    },
+    {
+      "id": "home-070",
+      "pile": "home",
+      "title": "Blagues nulles",
+      "description": "Chacun raconte ses 3 pires blagues. Le moins drôle débarrasse."
     },
     {
       "id": "out-001",
@@ -417,7 +473,7 @@
       "id": "out-008",
       "pile": "outdoor",
       "title": "Cadeau de la honte",
-      "description": "Budget minimal. Trouve l'objet le plus ridicule à découvrir au café."
+      "description": "Budget minimal. Chacun cherche l'objet le plus ridicule, on échange en terrasse."
     },
     {
       "id": "out-009",
@@ -429,7 +485,8 @@
       "id": "out-010",
       "pile": "outdoor",
       "title": "Évasion sylvestre",
-      "description": "Prendre l'air pour mieux s'isoler en forêt à l'abri de la ville (et des regards)."
+      "description": "Prendre l'air pour mieux s'isoler en forêt à l'abri de la ville (et des regards).",
+      "foil": true
     },
     {
       "id": "out-011",
@@ -483,7 +540,7 @@
       "id": "out-019",
       "pile": "outdoor",
       "title": "Tour de France",
-      "description": "Vélo en ville : on évite les bus et on cherche la terrasse la plus ensoleillée."
+      "description": "Vélo en ville. On évite les bus, on chasse la terrasse la plus ensoleillée."
     },
     {
       "id": "out-020",
@@ -495,7 +552,7 @@
       "id": "out-021",
       "pile": "outdoor",
       "title": "Cocktail en altitude",
-      "description": "Verre trop cher sur un rooftop. La vue justifie de payer le prix d'un rein."
+      "description": "Verre trop cher sur un rooftop ensoleillé. La vue justifie de payer le prix d'un rein."
     },
     {
       "id": "out-022",
@@ -519,7 +576,7 @@
       "id": "out-025",
       "pile": "outdoor",
       "title": "Feu de gorge",
-      "description": "Dégustation de spiritueux. On cherche l'étincelle dans les yeux et la brûlure."
+      "description": "Dégustation de spiritueux. On grimace ensemble en feignant de comprendre quelque chose."
     },
     {
       "id": "out-026",
@@ -531,7 +588,7 @@
       "id": "out-027",
       "pile": "outdoor",
       "title": "Chasse au trésor",
-      "description": "Geocaching : chercher des boîtes avec un sérieux de détective. Pour adultes bizarres."
+      "description": "Geocaching avec sérieux de détective. Cherchons des boîtes comme des adultes bizarres."
     },
     {
       "id": "out-028",
@@ -543,7 +600,7 @@
       "id": "out-029",
       "pile": "outdoor",
       "title": "Hooligans du dimanche",
-      "description": "Match local : on hurle pour une équipe dont on ignore tout. L'important, c'est de crier."
+      "description": "Match local. On hurle pour une équipe inconnue, l'essentiel est de gueuler fort."
     },
     {
       "id": "out-030",
@@ -560,26 +617,28 @@
     {
       "id": "out-032",
       "pile": "outdoor",
-      "title": "Inconnu du bar",
-      "description": "On arrive séparément. Drague-moi comme si j'étais une cible riche et facile."
+      "title": "Inconnu en terrasse",
+      "description": "Café au hasard, on arrive séparément. Drague-moi comme une cible riche et facile."
     },
     {
       "id": "out-033",
       "pile": "outdoor",
-      "title": "Drive-in improvisé",
-      "description": "Tablette en voiture et sièges inclinés. Attention à la buée aux vitres."
+      "title": "Pause sauvage",
+      "description": "Voiture en forêt, sièges inclinés. Les vitres se brouillent par accident.",
+      "foil": true
     },
     {
       "id": "out-034",
       "pile": "outdoor",
       "title": "Curiosité scientifique",
-      "description": "Visite d'un sex-shop chic. Regardons les accessoires avec le sérieux d'un ingénieur."
+      "description": "Visite d'un sex-shop chic. Regardons les accessoires avec le sérieux d'un ingénieur.",
+      "foil": true
     },
     {
       "id": "out-035",
       "pile": "outdoor",
       "title": "Exploration libertine",
-      "description": "Découvrir un univers inconnu. Regarder est déjà un préliminaire efficace.",
+      "description": "Visite d'un club libertin en touriste. Regarder est déjà un préliminaire efficace.",
       "foil": true
     },
     {
@@ -613,7 +672,7 @@
       "id": "out-040",
       "pile": "outdoor",
       "title": "Titre évocateur",
-      "description": "Choisis un livre dont le titre résume ce que tu veux me faire ce soir."
+      "description": "En librairie, choisis un livre dont le titre résume ce que tu veux me faire ce soir."
     },
     {
       "id": "out-041",
@@ -630,8 +689,8 @@
     {
       "id": "out-043",
       "pile": "outdoor",
-      "title": "Roulette russe de bar",
-      "description": "Bar inconnu, on commande la bouteille au nom le plus stupide. Advienne que pourra."
+      "title": "Roulette russe de caviste",
+      "description": "Caviste au hasard, on choisit la bouteille au nom le plus stupide. Advienne que pourra."
     },
     {
       "id": "out-044",
@@ -649,13 +708,13 @@
       "id": "out-046",
       "pile": "outdoor",
       "title": "Léchouille glacée",
-      "description": "Marcher en léchant son cornet avec une application indécente."
+      "description": "Glace en cornet, balade en ville. Lèche avec une application indécente."
     },
     {
       "id": "out-047",
       "pile": "outdoor",
       "title": "Sexting à distance",
-      "description": "Envoie-moi un message osé alors qu'on est entourés de gens. Ne rougis pas.",
+      "description": "Pendant qu'on est dans la foule, envoie-moi un texto osé. Ne rougis surtout pas.",
       "foil": true
     },
     {
@@ -669,27 +728,20 @@
       "id": "out-049",
       "pile": "outdoor",
       "title": "Destin subi",
-      "description": "Laisse le serveur choisir tout le repas. On accepte le risque du foie de morue.",
-      "foil": true
+      "description": "Laisse le serveur choisir tout le repas. On accepte le risque du foie de morue."
     },
     {
       "id": "out-050",
       "pile": "outdoor",
       "title": "Banquette arrière",
-      "description": "Retour à l'adolescence sur un parking. Inconfortable, risqué et terriblement bon.",
+      "description": "Parking en forêt en plein après-midi, banquette arrière. Inconfortable et terriblement bon.",
       "foil": true
     },
     {
       "id": "out-051",
       "pile": "outdoor",
       "title": "Safari humain",
-      "description": "Sur un banc, on parie sur les passants. Bonus pour chaque engueulade de couple."
-    },
-    {
-      "id": "out-052",
-      "pile": "outdoor",
-      "title": "Grands prix du bowling",
-      "description": "Chaussures suspectes et boules lourdes. Le perdant paie la tournée et garde ses pompes."
+      "description": "Sur un banc, on parie sur le métier des passants. Bonus pour chaque engueulade de couple."
     },
     {
       "id": "out-053",
@@ -749,7 +801,7 @@
       "id": "out-062",
       "pile": "outdoor",
       "title": "Table gastronomique",
-      "description": "Sortez le grand jeu et le vocabulaire snob. On savoure avant de craquer le PEL."
+      "description": "Sortons le grand jeu et le vocabulaire snob. On savoure avant de craquer le PEL."
     },
     {
       "id": "out-063",
@@ -767,7 +819,67 @@
       "id": "out-065",
       "pile": "outdoor",
       "title": "Défi haute pâtisserie",
-      "description": "Démolir un gâteau complexe à la petite cuillère. Pur moment de gourmandise."
+      "description": "Démolir un gâteau complexe à la petite cuillère. Le pâtissier serait insulté."
+    },
+    {
+      "id": "out-066",
+      "pile": "outdoor",
+      "title": "Aquarium",
+      "description": "Tournée des poissons. Chacun invente le surnom le plus crétin pour chaque espèce."
+    },
+    {
+      "id": "out-067",
+      "pile": "outdoor",
+      "title": "Friperie de la honte",
+      "description": "On choisit la tenue la plus ridicule pour l'autre. Photo obligatoire en cabine."
+    },
+    {
+      "id": "out-068",
+      "pile": "outdoor",
+      "title": "Laser game",
+      "description": "Combat à mort contre des inconnus. Si on se touche par accident, gage immédiat."
+    },
+    {
+      "id": "out-069",
+      "pile": "outdoor",
+      "title": "Pédalo synchronisé",
+      "description": "Pédaler en duo sans coordination. Le seul vrai risque est l'humiliation publique."
+    },
+    {
+      "id": "out-070",
+      "pile": "outdoor",
+      "title": "Mini-golf bancal",
+      "description": "Putting hasardeux. Mauvaise foi exigée et triche acceptée si on rit ensemble."
+    },
+    {
+      "id": "out-071",
+      "pile": "outdoor",
+      "title": "Brocante stratégique",
+      "description": "Chaque trouvaille doit être plaidée à l'autre. Le moins convaincant rentre bredouille."
+    },
+    {
+      "id": "out-072",
+      "pile": "outdoor",
+      "title": "Touristes paumés",
+      "description": "Visite de sa ville en touristes, mauvais accent obligatoire. Demander son chemin compris."
+    },
+    {
+      "id": "out-073",
+      "pile": "outdoor",
+      "title": "Karting",
+      "description": "Course en duo. Le perdant rentre à pied et achète l'apéro du retour."
+    },
+    {
+      "id": "out-074",
+      "pile": "outdoor",
+      "title": "Bateau-mouche",
+      "description": "Tour fluvial avec commentaires audio idiots. Chuchote tes critiques aux touristes voisins."
+    },
+    {
+      "id": "out-075",
+      "pile": "outdoor",
+      "title": "Influenceur d'un jour",
+      "description": "Poses ridicules en ville pour 10 photos style story. Sérieux et flou artistique exigés."
     }
   ]
 }

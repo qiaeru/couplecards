@@ -158,13 +158,25 @@ export function totalByPile() {
   return counts;
 }
 
+// Foil cards (the "rare" variant reserved for explicitly sexual content) are
+// intentionally drawn less often than standard cards so the rarity stays
+// earned even when their share of the deck is large. Effective draw rate of
+// foils ≈ (foilCount × FOIL_WEIGHT) / (standardCount + foilCount × FOIL_WEIGHT).
+const FOIL_WEIGHT = 0.3;
+
 export function drawRandom(pile, recentIds = []) {
   const pool = availableCards(pile);
   if (pool.length === 0) return null;
   const recent = new Set(recentIds);
   const filtered = pool.filter((c) => !recent.has(c.id));
   const finalPool = filtered.length > 0 ? filtered : pool;
-  return finalPool[Math.floor(Math.random() * finalPool.length)];
+  const totalWeight = finalPool.reduce((s, c) => s + (c.foil ? FOIL_WEIGHT : 1), 0);
+  let r = Math.random() * totalWeight;
+  for (const c of finalPool) {
+    r -= c.foil ? FOIL_WEIGHT : 1;
+    if (r <= 0) return c;
+  }
+  return finalPool[finalPool.length - 1];
 }
 
 export async function banCard(cardId) {
