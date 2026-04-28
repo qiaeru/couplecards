@@ -29,15 +29,15 @@ A hosted demo is available at **<https://couplecards.qiaeru.com/>**. Sign in wit
 - **Two piles, one ritual.** The deck splits into a "Home" pile and an "Outdoor" pile. Tap a pile, the top card flips with a foil-shimmer reveal, and a swipe sends it back to the deck or bans it from future draws.
 - **Personal deck memory.** Each player gets their own history, their own ban list, and a low-pile warning when a stack runs thin. Banned cards can be restored with one tap. Drawing a second time from the same pile returns the previous card so the deck stays balanced.
 - **One household, full control.** The built-in admin creates accounts for each player, manages the shared card library (create, edit, ban, export, import, sync from JSON), and sets the activity language. No registration, no third-party identity provider.
-- **Responsive PWA, English and French.** Works on phone, tablet and desktop with a dark theme, a foil-and-glow visual language, full keyboard and screen-reader support, install-to-home-screen on iOS and Android, and offline use after the first load.
+- **Responsive PWA, five languages.** French, English, German, Italian and Spanish all ship out of the box. Works on phone, tablet and desktop with a dark theme, a foil-and-glow visual language, full keyboard and screen-reader support, install-to-home-screen on iOS and Android, and offline use after the first load.
 
 ### Under the hood
 
 - **Backend.** Node.js 24 and Fastify 5, with SQLite through the built-in `node:sqlite` module. The entire database is a single file on disk (`var/couplecards.db`). Password hashing uses `hash-wasm` (pure WebAssembly), so the server has zero native dependencies and no compilation step.
 - **Authentication.** Argon2id password hashes, session cookies flagged `HttpOnly` and `SameSite=Strict`, CSRF protection, per-route rate limiting, account lockout after repeated failures, and a forced password change on first sign-in.
-- **Frontend.** Vanilla ES modules organised into `core`, `features` and `ui`. No client-side build step is required to edit a feature. The only bundled asset is the zxcvbn vendor script, produced by esbuild during the Docker build.
+- **Frontend.** Vanilla ES modules organised into `core`, `features` and `ui`. No client-side build step is required to edit a feature. Two vendor bundles produced by esbuild during the Docker build (zxcvbn for password strength, fflate for the deck export/import) are the only artefacts that need a build step.
 - **Offline first.** IndexedDB caches the deck, an outbox replays mutations on reconnect, and a Service Worker serves the shell with a stale-while-revalidate strategy for the card list.
-- **Internationalised.** English and French ship out of the box, with English as the fallback. Every user-facing string lives in `public/locales/{en,fr}.json`. The bundled fonts (Inter and Fraunces) cover Latin Extended and Vietnamese; Greek and Cyrillic fall back to Georgia / system serif.
+- **Internationalised.** Five locales ship out of the box (French is the source of truth, English is the fallback, German, Italian and Spanish are full naturalisations). Every user-facing string lives in `public/locales/<locale>.json`. The bundled fonts (Inter and Fraunces) cover Latin Extended and Vietnamese; Greek and Cyrillic fall back to Georgia / system serif.
 - **Ready for public release.** MIT licensed, no CDN, no analytics, strict CSP, `X-Robots-Tag: noindex`, SPDX headers on every source file, `security.txt`, Dependabot, GitHub Actions CI, and GHCR releases.
 
 ## Quick start

@@ -6,10 +6,33 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Three new locales shipped end-to-end: German, Italian and Spanish. Each comes with a full UI catalogue (`public/locales/<locale>.json`), a card deck (`data/cards.<locale>.json`), a translated web manifest, an entry in the in-app language selector, and a SQLite migration (`002_locales_de_it_es.sql`) that widens the locale CHECK constraint on `users.locale` and `card_translations.locale`. Translations follow the FR-source, target-language-naturalised rule.
+- 20 new French cards (10 home, 10 outdoor) covering activities the deck did not yet have, all of them naturalised into the four other locales.
+- Foil cards are now drawn less often than standard cards. `FOIL_WEIGHT = 0.3` in `public/js/core/sync.js` keeps the effective draw rate around 9.7% on the home pile and 4.4% on the outdoor pile, regardless of how many foil cards are in the deck.
+- zxcvbn now loads a dictionary per supported locale (`@zxcvbn-ts/language-de`, `language-it`, `language-es-es` joining the existing `language-en` and `language-fr`), so the password strength meter catches weak patterns specific to each language. Loaded both server-side in `server/src/lib/password.js` and bundled into `public/vendor/zxcvbn.js`.
+- New paragraph in the in-app Rules screen explaining that some cards are rare, spicier and drawn less often (`rules.foil`).
+
 ### Changed
 
-- Replace `jszip` (last release March 2023) with `fflate` for the admin deck export and import paths. fflate is actively maintained, MIT-licensed, and ~18x smaller in the lazy-loaded vendor bundle (5.3 KB versus ~96 KB). The ZIP wire format is unchanged, so previously downloaded `couplecards-deck-*.zip` backups remain importable. The `public/vendor/jszip.js` artefact is replaced by `public/vendor/fflate.js`.
-- Service Worker bumped to `couplecards-v16` to invalidate caches that still hold the old `deck-sync.js` referencing `/vendor/jszip.js`.
+- French deck pass on the carried-over 125 cards: 30 rewritten and 3 removed for tone (humorous, second-degree), action clarity, pile-aware timing (post-bedtime evenings for `home`, daytime for `outdoor`), and consistent punctuation (no colons, em-dashes or slashes). Net FR deck size is 142 cards (122 carried over plus the 20 new ones).
+- Foil flag rationalised to mean exactly "explicitly sexual content": twelve cards promoted, two demoted.
+- English deck rewritten end-to-end so it follows the new authoring rules and reads as idiomatic English rather than a literal calque of the French (`grimper au rideau` → `see stars`, `Local foams` → `Local brews`, etc.).
+- English UI catalogue naturalised: nine phrasings rewritten so the strings read as native English.
+- Locale catalogues reorganised into a canonical section order (app/common, navigation, authentication, piles, draw, history, bans, settings, rules, demo, admin, errors). 14 duplicate keys merged into their canonical name (e.g. `nav.history` → `history.title`, `home.draw.home` → `piles.home.label`, `admin.cards.save` → `common.save`), 9 pure orphans removed. Every locale now has the same 216 keys in the same order.
+- Replace `jszip` (last release March 2023) with the actively maintained `fflate` for the deck export and import paths. The lazy-loaded vendor bundle drops from ~96 KB to 5.3 KB. The ZIP wire format is unchanged, so existing backups remain importable.
+- Wordmark glow softened, font-size shrunk ~10%, and the primary blur radius now matches between the wordmark text and the heart icon next to it.
+- Bright accent colour applied to the selected and hovered option of every `<select>` dropdown so the highlight is clearly visible (was previously a muted dark-pink barely distinguishable from the option background).
+- README and screenshots refreshed to reflect the five-locale lineup.
+- Service Worker bumped to `couplecards-v19` to invalidate caches holding the old `sync.js`, `deck-sync.js`, and the previous locale catalogues.
+
+### Fixed
+
+- Language picker order. Both the settings page and the admin language selector now sort by native name (Deutsch, English, Español, Français, Italiano) instead of insertion order, so the order is stable across UI locales and predictable for users.
+- Admin "Edit card" dialog and the deck import dialog only listed `en` and `fr` translation fields (and only accepted `cards.{en,fr}.json` inside zip backups). The hardcoded `SUPPORTED_LOCALES` arrays in `cards.js` and `deck-sync.js` now read from the canonical `supportedLocales()` helper, so DE/IT/ES are recognised everywhere.
+- Pink flash on the home pile counts at first paint. The pop animation now only fires when replacing a real count, not when leaving the dash placeholder.
+- License-checker allowed list out of sync with CI: `BlueOak-1.0.0` is now documented in `CONTRIBUTING.md` and `CREDITS.md` (the CI workflow already accepted it for transitive Fastify deps such as `glob`, `lru-cache`, `minimatch`).
 
 ## [1.3.0] - 2026-04-27
 

@@ -22,7 +22,7 @@ The full OFL text ships with the repository at `public/fonts/OFL.txt`.
 - [@fastify/helmet](https://github.com/fastify/fastify-helmet). MIT licence.
 - [@fastify/static](https://github.com/fastify/fastify-static). MIT licence.
 - [hash-wasm](https://github.com/Daninet/hash-wasm). MIT licence. Provides Argon2id through a pure WebAssembly implementation, so the backend needs no native compilation.
-- [@zxcvbn-ts/core and its dictionaries](https://github.com/zxcvbn-ts/zxcvbn) (`language-common`, `language-en`, `language-fr`). MIT licence.
+- [@zxcvbn-ts/core and its dictionaries](https://github.com/zxcvbn-ts/zxcvbn) (`language-common`, `language-en`, `language-fr`, `language-de`, `language-it`, `language-es-es`). MIT licence.
 - [fflate](https://github.com/101arrowz/fflate). MIT licence. Used to build and parse the deck export ZIP on the backend, and bundled into `public/vendor/fflate.js` for the admin import dialog.
 
 The SQLite engine is the one bundled with Node.js itself, exposed as the `node:sqlite` module, and covered by the [Node.js MIT licence](https://github.com/nodejs/node/blob/main/LICENSE).
@@ -40,7 +40,7 @@ The SQLite engine is the one bundled with Node.js itself, exposed as the `node:s
 Before adding a new dependency, run the licence check from the project root and inside `server/`:
 
 ```bash
-npx license-checker --production --onlyAllow 'MIT;Apache-2.0;BSD-2-Clause;BSD-3-Clause;ISC;OFL-1.1;CC0-1.0;Unlicense;0BSD'
+npx license-checker --production --onlyAllow 'MIT;Apache-2.0;BSD-2-Clause;BSD-3-Clause;ISC;OFL-1.1;CC0-1.0;Unlicense;0BSD;BlueOak-1.0.0'
 ```
 
 The GitHub Actions workflow runs this check automatically on every pull request.

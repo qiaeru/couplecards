@@ -16,7 +16,7 @@ Every value below is read from an environment variable by the server at start ti
 | `DATA_DIR` | `var/` locally, `/app/var` inside Docker | Directory that holds the SQLite file and runtime state. |
 | `DB_PATH` | `$DATA_DIR/couplecards.db` | Absolute path to the SQLite file. Override when you need a different filename. |
 | `PUBLIC_DIR` | `../public` | Directory served as static content. Do not change unless you relocate the frontend. |
-| `DATA_SEED_DIR` | `../data` | Folder that holds `cards.en.json` and `cards.fr.json` for first-boot seeding. |
+| `DATA_SEED_DIR` | `../data` | Folder that holds `cards.<locale>.json` (one file per supported locale) for first-boot seeding. |
 
 ## Log redaction
 
