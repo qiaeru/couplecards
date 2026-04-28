@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+_Nothing released yet._
+
+## [1.4.0] - 2026-04-28
+
 ### Added
 
 - Three new locales shipped end-to-end: German, Italian and Spanish. Each comes with a full UI catalogue (`public/locales/<locale>.json`), a card deck (`data/cards.<locale>.json`), a translated web manifest, an entry in the in-app language selector, and a SQLite migration (`002_locales_de_it_es.sql`) that widens the locale CHECK constraint on `users.locale` and `card_translations.locale`. Translations follow the FR-source, target-language-naturalised rule.
