@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 // Deck maintenance flows: export (ZIP), sync from server-side JSON files,
-// import an uploaded backup. JSZip is loaded lazily when importing.
+// import an uploaded backup. fflate is loaded lazily when importing.
 
 import { request, ApiError } from '../../core/api.js';
 import { t } from '../../core/i18n.js';
@@ -8,7 +8,7 @@ import { toast } from '../../ui/shell.js';
 
 const MAX_IMPORT_BYTES = 2 * 1024 * 1024;
 const SUPPORTED_LOCALES = ['en', 'fr'];
-let jszipPromise = null;
+let fflatePromise = null;
 
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, (c) => ({
@@ -24,11 +24,11 @@ function errorMessage(err) {
   return t('errors.generic');
 }
 
-async function loadJSZip() {
-  if (!jszipPromise) {
-    jszipPromise = import('/vendor/jszip.js').then((m) => m.default);
+async function loadFflate() {
+  if (!fflatePromise) {
+    fflatePromise = import('/vendor/fflate.js');
   }
-  return jszipPromise;
+  return fflatePromise;
 }
 
 export async function exportDeck() {
@@ -345,16 +345,16 @@ async function parseBackup(file) {
   if (file.size > MAX_IMPORT_BYTES) throw new Error('INVALID_DECK');
   const lower = file.name.toLowerCase();
   if (lower.endsWith('.zip') || file.type === 'application/zip') {
-    const JSZip = await loadJSZip();
-    const zip = await JSZip.loadAsync(await file.arrayBuffer());
+    const { unzipSync, strFromU8 } = await loadFflate();
+    const bytes = new Uint8Array(await file.arrayBuffer());
+    const entries = unzipSync(bytes);
     const cardsByLocale = {};
-    for (const [name, entry] of Object.entries(zip.files)) {
+    for (const [name, data] of Object.entries(entries)) {
       const match = /^cards\.([a-z]{2})\.json$/i.exec(name.split('/').pop());
       if (!match) continue;
       const locale = match[1].toLowerCase();
       if (!SUPPORTED_LOCALES.includes(locale)) continue;
-      const text = await entry.async('string');
-      const payload = JSON.parse(text);
+      const payload = JSON.parse(strFromU8(data));
       if (!Array.isArray(payload?.cards)) throw new Error('INVALID_DECK');
       cardsByLocale[locale] = payload.cards;
     }

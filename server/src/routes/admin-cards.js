@@ -4,7 +4,8 @@
 // the database from the seed files shipped under data/, or import an uploaded
 // backup (already parsed into the internal multilingual shape by the client).
 
-import JSZip from 'jszip';
+import { promisify } from 'node:util';
+import { zip as zipCb, strToU8 } from 'fflate';
 import { requireAdmin } from '../lib/auth.js';
 import {
   readSeedDecks,
@@ -16,6 +17,7 @@ import {
 } from '../lib/deckSync.js';
 import { SUPPORTED_LOCALES } from '../lib/locales.js';
 
+const zipAsync = promisify(zipCb);
 const DECK_ERRORS = new Set(['SEED_FILE_NOT_FOUND', 'INVALID_DECK', 'INVALID_MODE']);
 
 function handleDeckError(err, reply) {
@@ -28,16 +30,13 @@ function handleDeckError(err, reply) {
 export default async function adminCardRoutes(app) {
   app.get('/cards/export', { preHandler: requireAdmin }, async (_request, reply) => {
     const byLocale = serialiseForExport();
-    const zip = new JSZip();
+    const entries = {};
     for (const locale of SUPPORTED_LOCALES) {
       const payload = { version: 1, cards: byLocale[locale] ?? [] };
-      zip.file(`cards.${locale}.json`, `${JSON.stringify(payload, null, 2)}\n`);
+      entries[`cards.${locale}.json`] = strToU8(`${JSON.stringify(payload, null, 2)}\n`);
     }
-    const buffer = await zip.generateAsync({
-      type: 'nodebuffer',
-      compression: 'DEFLATE',
-      compressionOptions: { level: 6 },
-    });
+    const zipped = await zipAsync(entries, { level: 6 });
+    const buffer = Buffer.from(zipped);
     const stamp = new Date().toISOString().slice(0, 10);
     reply.header('Content-Type', 'application/zip');
     reply.header('Content-Disposition', `attachment; filename="couplecards-deck-${stamp}.zip"`);
