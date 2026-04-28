@@ -3,11 +3,11 @@
 // import an uploaded backup. fflate is loaded lazily when importing.
 
 import { request, ApiError } from '../../core/api.js';
-import { t } from '../../core/i18n.js';
+import { t, supportedLocales } from '../../core/i18n.js';
 import { toast } from '../../ui/shell.js';
 
 const MAX_IMPORT_BYTES = 2 * 1024 * 1024;
-const SUPPORTED_LOCALES = ['en', 'fr'];
+const SUPPORTED_LOCALES = supportedLocales();
 let fflatePromise = null;
 
 function escapeHtml(s) {
@@ -179,7 +179,7 @@ function openSyncDialog() {
     ${renderModeOptions(mode)}
     <div class="deck-sync-backup">
       <p class="deck-sync-backup-hint">${escapeHtml(t('admin.deckSync.backupHint'))}</p>
-      <button type="button" class="btn" id="deck-sync-backup-btn">${escapeHtml(t('admin.deckSync.backupAction'))}</button>
+      <button type="button" class="btn" id="deck-sync-backup-btn">${escapeHtml(t('admin.cards.tools.export'))}</button>
     </div>
     <div class="deck-sync-actions">
       <button type="button" class="btn" id="deck-sync-preview-btn">${escapeHtml(t('admin.deckSync.preview'))}</button>

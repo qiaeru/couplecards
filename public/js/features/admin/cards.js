@@ -3,13 +3,13 @@
 // per supported locale so both translations can be filled in a single pass.
 
 import { request } from '../../core/api.js';
-import { t, getLocale } from '../../core/i18n.js';
+import { t, getLocale, supportedLocales } from '../../core/i18n.js';
 import { getCardText } from '../../core/sync.js';
 import { on } from '../../core/events.js';
 import { toast, showConfirm } from '../../ui/shell.js';
 import { mountDeckTools } from './deck-sync.js';
 
-const SUPPORTED_LOCALES = ['en', 'fr'];
+const SUPPORTED_LOCALES = supportedLocales();
 const TITLE_MAX = 200;
 const DESCRIPTION_MAX = 1000;
 
@@ -146,7 +146,7 @@ function openCardDialog({ card = null } = {}) {
       <div class="cp-error" id="card-error" role="alert"></div>
     </form>
   `;
-  confirmBtn.textContent = t('admin.cards.save');
+  confirmBtn.textContent = t('common.save');
   confirmBtn.classList.add('btn-primary');
   confirmBtn.classList.remove('btn-danger');
   cancelBtn.hidden = false;
@@ -206,7 +206,7 @@ function openCardDialog({ card = null } = {}) {
         await request('/api/cards', { method: 'POST', body: payload });
       }
       close();
-      toast(t('admin.cards.save'));
+      toast(t('common.save'));
       await renderCards();
     } catch (e) {
       err.textContent = t(`errors.${e.code}`) || t('errors.generic');

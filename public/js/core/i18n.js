@@ -5,7 +5,7 @@
 import { emit } from './events.js';
 
 const LOCALE_KEY = 'couplecards:locale';
-const SUPPORTED = new Set(['en', 'fr']);
+const SUPPORTED = new Set(['en', 'fr', 'de', 'it', 'es']);
 const FALLBACK = 'en';
 
 let current = FALLBACK;

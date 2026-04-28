@@ -66,7 +66,9 @@ async function init() {
   const langSelect = document.getElementById('admin-language');
   if (langSelect) {
     langSelect.innerHTML = supportedLocales()
-      .map((l) => `<option value="${l}">${t(`settings.language.${l}`)}</option>`)
+      .map((l) => ({ code: l, label: t(`settings.language.${l}`) }))
+      .sort((a, b) => a.label.localeCompare(b.label))
+      .map(({ code, label }) => `<option value="${code}">${label}</option>`)
       .join('');
     langSelect.value = getLocale();
     langSelect.addEventListener('change', async () => {

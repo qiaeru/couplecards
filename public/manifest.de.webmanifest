@@ -1,0 +1,16 @@
+{
+  "name": "CoupleCards",
+  "short_name": "CoupleCards",
+  "description": "Selbst gehostete Web-App, mit der Paare Aktivitätskarten ziehen, um aus der Routine auszubrechen und den Alltag aufzulockern.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0f0820",
+  "theme_color": "#1a0f35",
+  "lang": "de",
+  "icons": [
+    { "src": "/icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icons/icon-maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}

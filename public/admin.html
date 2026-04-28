@@ -27,12 +27,12 @@
     <nav class="admin-tabs" role="tablist">
       <button type="button" id="admin-tab-users" class="admin-tab" role="tab" aria-selected="true"  tabindex="0"  data-i18n="admin.tabs.users">Users</button>
       <button type="button" id="admin-tab-cards" class="admin-tab" role="tab" aria-selected="false" tabindex="-1" data-i18n="admin.tabs.cards">Cards</button>
-      <button type="button" id="admin-tab-settings" class="admin-tab admin-tab-right" role="tab" aria-selected="false" tabindex="-1" data-i18n="admin.tabs.settings">Settings</button>
+      <button type="button" id="admin-tab-settings" class="admin-tab admin-tab-right" role="tab" aria-selected="false" tabindex="-1" data-i18n="settings.title">Settings</button>
     </nav>
 
     <section id="admin-panel-users" class="admin-panel" role="tabpanel" aria-labelledby="admin-tab-users">
       <form id="admin-create-user-form" class="admin-inline-form">
-        <label for="admin-create-user-input" class="admin-inline-form-label" data-i18n="admin.users.create.usernameLabel">Username</label>
+        <label for="admin-create-user-input" class="admin-inline-form-label" data-i18n="login.username">Username</label>
         <div class="admin-inline-form-row">
           <input type="text" id="admin-create-user-input" required minlength="3" maxlength="32" pattern="[a-z0-9._\-]+">
           <button type="submit" class="btn btn-primary" data-i18n="admin.users.create.submit">Create</button>
