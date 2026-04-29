@@ -52,6 +52,19 @@ export async function requireAdmin(request, reply) {
   await enforcePasswordChange(request, reply);
 }
 
+// Player-only routes: an authenticated session is required and the admin role
+// is rejected. The admin UI lands on /admin.html and never plays cards, so the
+// /api/state, /api/bans, /api/history and /api/state/reset endpoints have no
+// reason to be reachable with an admin cookie.
+export async function requireUser(request, reply) {
+  await requireSession(request, reply);
+  if (reply.sent) return;
+  if (request.currentUser.role === 'admin') {
+    return reply.code(403).send({ error: 'FORBIDDEN' });
+  }
+  await enforcePasswordChange(request, reply);
+}
+
 // Must stay async: Fastify 5 silently stalls routes that mix sync and async
 // preHandlers in the same chain. /api/auth/change-password calls requireSession
 // directly so it can run even with must_change_password = 1.

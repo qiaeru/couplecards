@@ -8,6 +8,7 @@ Audience: admins who self-host the app and want a clear picture of the measures 
 - The password policy is enforced on the server, with the client mirroring it for live feedback. The hard rules are a minimum length of 12 characters, at least one uppercase letter, one lowercase letter, one digit and one special character, no whitespace, and no inclusion of the username. Each password must also reach a zxcvbn score of 4 for the admin account and 3 for a regular user, with one dictionary loaded per supported locale (English, French, German, Italian, Spanish).
 - Initial user passwords are generated with `crypto.randomBytes` and enforced character classes. The admin sees the value once; only the hash is stored.
 - A user account with a pending password change cannot reach any protected endpoint until the password has been updated.
+- Role separation is enforced at the API layer, not just in the UI. The admin account always lands on `/admin.html` and never plays cards, so the player-only endpoints (`/api/state`, `/api/state/reset`, `/api/bans*`, `/api/history`) reject any cookie carrying the `admin` role with `403 FORBIDDEN`. Conversely, every `/api/cards` mutation and every `/api/admin/*` route requires the admin role.
 
 ## Session management
 

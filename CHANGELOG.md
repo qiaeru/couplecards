@@ -21,6 +21,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Static `404.html` and `500.html` no longer rely on an inline `<script type="module">`, which the strict `script-src 'self'` CSP blocked in modern browsers. The boot logic moved to `public/js/error-page.js`, so the i18n strings now actually load and the **Reload** button on the 500 page actually triggers. Service Worker bumped to `couplecards-v23` to ship the new asset.
 - A demo visitor who tried to change their password got a misleading `400 VALIDATION_ERROR` because the `currentPassword` schema enforced an 8-character minimum and the demo password is 4 characters, so the request was rejected before the demo readonly check could run. The `currentPassword` field (and the existing login password field, refactored along the way) now accepts any non-empty value, and the route correctly returns `403 DEMO_READONLY` for the demo account. The strength policy still applies to `newPassword`.
 
+### Security
+
+- Player-only API endpoints (`/api/state`, `/api/state/reset`, `/api/bans*`, `/api/history`) now reject the admin role with `403 FORBIDDEN`. The admin UI lands on `/admin.html` and never plays cards, but the routes were previously gated only by `requireSession`, which left an admin cookie able to script against its own bans and history through curl or DevTools. A new `requireUser` guard in `server/src/lib/auth.js` consolidates the session check, the password-change gate and the non-admin check.
+
 ## [1.4.0] - 2026-04-28
 
 ### Added

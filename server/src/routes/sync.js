@@ -3,7 +3,7 @@
 // Mutations are idempotent so the frontend outbox can safely replay them.
 
 import { getDb, transaction } from '../db/index.js';
-import { requireSession, enforcePasswordChange } from '../lib/auth.js';
+import { requireUser } from '../lib/auth.js';
 
 const HISTORY_CAP = 500;
 
@@ -12,11 +12,7 @@ const cardIdSchema = { type: 'string', pattern: '^[a-z0-9-]{1,64}$' };
 export default async function syncRoutes(app) {
   // Single consolidated preHandler. See server/src/lib/auth.js for the
   // Fastify 5 pitfall (mixed sync/async preHandlers stall silently).
-  app.addHook('preHandler', async (request, reply) => {
-    await requireSession(request, reply);
-    if (reply.sent) return;
-    await enforcePasswordChange(request, reply);
-  });
+  app.addHook('preHandler', requireUser);
 
   app.get('/state', async (request) => {
     const db = getDb();
