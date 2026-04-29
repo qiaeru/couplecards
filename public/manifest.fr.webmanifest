@@ -1,6 +1,6 @@
 {
-  "name": "CoupleCards",
-  "short_name": "CoupleCards",
+  "name": "Couplecards",
+  "short_name": "Couplecards",
   "description": "Application web auto-hébergée permettant aux couples de piocher des cartes d'activité pour casser la routine et pimenter le quotidien.",
   "start_url": "/",
   "scope": "/",

@@ -1,4 +1,4 @@
-# CoupleCards behind nginx (HTTPS)
+# Couplecards behind nginx (HTTPS)
 
 This variant targets hosts that already run nginx and prefer to manage their Let's Encrypt certificates with `certbot`.
 

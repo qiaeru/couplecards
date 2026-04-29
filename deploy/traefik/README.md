@@ -1,4 +1,4 @@
-# CoupleCards behind Traefik (HTTPS)
+# Couplecards behind Traefik (HTTPS)
 
 This variant uses Traefik v3 with the Let's Encrypt HTTP-01 challenge and an automatic redirect from HTTP to HTTPS.
 

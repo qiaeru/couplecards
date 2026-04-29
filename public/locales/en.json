@@ -1,5 +1,5 @@
 {
-  "app.name": "CoupleCards",
+  "app.name": "Couplecards",
   "common.loading": "Loading…",
   "common.cancel": "Cancel",
   "common.undo": "Undo",
@@ -50,7 +50,7 @@
   "home.pile.home.aria": "Draw from the \"Home\" pile",
   "home.pile.outdoor.aria": "Draw from the \"Outdoor\" pile",
   "home.pile.lowHint": "Almost empty",
-  "draw.title": "CoupleCards",
+  "draw.title": "Couplecards",
   "draw.action.ban": "Ban",
   "draw.action.return": "Return to the pile",
   "draw.action.redraw": "Draw another from the same pile",

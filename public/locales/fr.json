@@ -1,5 +1,5 @@
 {
-  "app.name": "CoupleCards",
+  "app.name": "Couplecards",
   "common.loading": "Chargement…",
   "common.cancel": "Annuler",
   "common.undo": "Annuler",
@@ -50,7 +50,7 @@
   "home.pile.home.aria": "Piocher dans le tas « Domicile »",
   "home.pile.outdoor.aria": "Piocher dans le tas « Extérieur »",
   "home.pile.lowHint": "Presque vide",
-  "draw.title": "CoupleCards",
+  "draw.title": "Couplecards",
   "draw.action.ban": "Bannir",
   "draw.action.return": "Remettre dans la pioche",
   "draw.action.redraw": "Piocher une autre carte du même tas",

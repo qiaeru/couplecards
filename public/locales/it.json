@@ -1,5 +1,5 @@
 {
-  "app.name": "CoupleCards",
+  "app.name": "Couplecards",
   "common.loading": "Caricamento…",
   "common.cancel": "Annulla",
   "common.undo": "Annulla",
@@ -50,7 +50,7 @@
   "home.pile.home.aria": "Pesca dal mazzo «Casa»",
   "home.pile.outdoor.aria": "Pesca dal mazzo «Fuori»",
   "home.pile.lowHint": "Quasi vuoto",
-  "draw.title": "CoupleCards",
+  "draw.title": "Couplecards",
   "draw.action.ban": "Banna",
   "draw.action.return": "Rimetti nel mazzo",
   "draw.action.redraw": "Pesca un'altra carta dallo stesso mazzo",

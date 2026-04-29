@@ -1,6 +1,6 @@
 {
-  "name": "CoupleCards",
-  "short_name": "CoupleCards",
+  "name": "Couplecards",
+  "short_name": "Couplecards",
   "description": "A self-hosted web app that lets couples draw activity cards to break the routine and spice up their daily lives.",
   "start_url": "/",
   "scope": "/",

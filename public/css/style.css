@@ -200,7 +200,7 @@ body::before {
   -webkit-user-drag: none;
 }
 
-/* CoupleCards wordmark: home header, login screen, boot splash, draw screen.
+/* Couplecards wordmark: home header, login screen, boot splash, draw screen.
    Single rule so size / weight / glow / variation axes stay in sync. */
 .app-header.app-header-home .title,
 .brand-title,

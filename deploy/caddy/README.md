@@ -1,6 +1,6 @@
-# CoupleCards behind Caddy (HTTPS)
+# Couplecards behind Caddy (HTTPS)
 
-This is the simplest way to expose CoupleCards over HTTPS. Caddy negotiates a Let's Encrypt certificate automatically on first start, with no extra tooling.
+This is the simplest way to expose Couplecards over HTTPS. Caddy negotiates a Let's Encrypt certificate automatically on first start, with no extra tooling.
 
 ## Prerequisites
 

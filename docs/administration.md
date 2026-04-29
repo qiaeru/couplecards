@@ -84,7 +84,7 @@ Every sync or import runs inside a single database transaction, so a failure mid
 
 ## The shared demo account
 
-CoupleCards can seed an extra shared account named `demo` with the password `demo`, so visitors can try the app without touching the couple's data. This account is disabled by default and must be enabled explicitly at deploy time by setting the `ENABLE_DEMO_ACCOUNT=1` environment variable. See [configuration.md](./configuration.md) for the complete variable reference.
+Couplecards can seed an extra shared account named `demo` with the password `demo`, so visitors can try the app without touching the couple's data. This account is disabled by default and must be enabled explicitly at deploy time by setting the `ENABLE_DEMO_ACCOUNT=1` environment variable. See [configuration.md](./configuration.md) for the complete variable reference.
 
 What the demo account can do:
 

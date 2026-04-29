@@ -1,6 +1,6 @@
 {
-  "name": "CoupleCards",
-  "short_name": "CoupleCards",
+  "name": "Couplecards",
+  "short_name": "Couplecards",
   "description": "App web autoalojada que permite a las parejas robar cartas de actividades para romper la rutina y darle chispa al día a día.",
   "start_url": "/",
   "scope": "/",

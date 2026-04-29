@@ -1,5 +1,5 @@
 {
-  "app.name": "CoupleCards",
+  "app.name": "Couplecards",
   "common.loading": "Wird geladen…",
   "common.cancel": "Abbrechen",
   "common.undo": "Rückgängig",
@@ -50,7 +50,7 @@
   "home.pile.home.aria": "Aus dem Stapel „Zuhause\" ziehen",
   "home.pile.outdoor.aria": "Aus dem Stapel „Draußen\" ziehen",
   "home.pile.lowHint": "Fast leer",
-  "draw.title": "CoupleCards",
+  "draw.title": "Couplecards",
   "draw.action.ban": "Verbannen",
   "draw.action.return": "Auf den Stapel zurücklegen",
   "draw.action.redraw": "Eine weitere Karte aus demselben Stapel ziehen",

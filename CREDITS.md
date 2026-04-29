@@ -1,6 +1,6 @@
 # Credits
 
-CoupleCards is released under the [MIT License](./LICENSE). Every third-party asset and library it ships is distributed under an OSI-approved or FSF-approved open source licence. No CDN is contacted at runtime.
+Couplecards is released under the [MIT License](./LICENSE). Every third-party asset and library it ships is distributed under an OSI-approved or FSF-approved open source licence. No CDN is contacted at runtime.
 
 ## Fonts
 

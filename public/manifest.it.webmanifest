@@ -1,6 +1,6 @@
 {
-  "name": "CoupleCards",
-  "short_name": "CoupleCards",
+  "name": "Couplecards",
+  "short_name": "Couplecards",
   "description": "Web app self-hosted che permette alle coppie di pescare carte attività per spezzare la routine e ravvivare le giornate.",
   "start_url": "/",
   "scope": "/",
