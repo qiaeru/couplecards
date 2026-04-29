@@ -6,24 +6,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
-### Documentation
-
-- `docs/i18n.md` now states explicitly that locale strings are plain text. The DOM injection paths run translated values through `escapeHtml`, so HTML tags inside a locale entry render literally and contributors should structure the DOM around the text rather than embed markup in the catalogue.
-- `docs/security.md` calls out that authentication attempts are not written to a historical journal: only the per-user `failed_attempts` counter exists and it is reset on successful sign-in. Operators who need an audit trail can rely on the Pino access logs or a reverse proxy.
+## [1.4.1] - 2026-04-29
 
 ### Changed
 
-- Wordmark and brand name lowercased to **Couplecards** for a more modern feel. Applies to the home/login/boot/draw wordmark, page titles, web manifests (`name` / `short_name` across all five locales), locale catalogues (`app.name`, `draw.title`), and prose in the README, CHANGELOG header, contributing guide, credits, and `docs/`. Past CHANGELOG entries keep the original `CoupleCards` spelling. Service Worker bumped to `couplecards-v22` so the new HTML and manifests refresh on existing installs.
-- The PWA manifest negotiator now parses `Accept-Language` by quality score and reads `SUPPORTED_LOCALES` from the canonical list, instead of pattern-matching the prefix of the raw header. A request like `Accept-Language: ja, fr;q=0.9` correctly serves the French manifest now (it served English before). Adding a new locale no longer requires editing `server/src/routes/manifest.js`.
+- Wordmark and brand name lowercased to **Couplecards** across the UI, page titles, all five web manifests, locale catalogues and the project docs. Past CHANGELOG entries keep the original `CoupleCards` spelling. Service Worker bumped to `couplecards-v22` to refresh the new HTML and manifests on existing installs.
+- The PWA manifest negotiator now parses `Accept-Language` by quality score and reads `SUPPORTED_LOCALES` from the canonical list. A request like `Accept-Language: ja, fr;q=0.9` correctly serves the French manifest (it served English before), and adding a new locale no longer requires editing `server/src/routes/manifest.js`.
 
 ### Fixed
 
 - Static `404.html` and `500.html` no longer rely on an inline `<script type="module">`, which the strict `script-src 'self'` CSP blocked in modern browsers. The boot logic moved to `public/js/error-page.js`, so the i18n strings now actually load and the **Reload** button on the 500 page actually triggers. Service Worker bumped to `couplecards-v23` to ship the new asset.
-- A demo visitor who tried to change their password got a misleading `400 VALIDATION_ERROR` because the `currentPassword` schema enforced an 8-character minimum and the demo password is 4 characters, so the request was rejected before the demo readonly check could run. The `currentPassword` field (and the existing login password field, refactored along the way) now accepts any non-empty value, and the route correctly returns `403 DEMO_READONLY` for the demo account. The strength policy still applies to `newPassword`.
+- A demo visitor who tried to change their password got a misleading `400 VALIDATION_ERROR` because the `currentPassword` schema enforced an 8-character minimum while the demo password is 4 characters. The field now accepts any non-empty value and the route correctly returns `403 DEMO_READONLY`. The strength policy still applies to `newPassword`.
 
 ### Security
 
-- Player-only API endpoints (`/api/state`, `/api/state/reset`, `/api/bans*`, `/api/history`) now reject the admin role with `403 FORBIDDEN`. The admin UI lands on `/admin.html` and never plays cards, but the routes were previously gated only by `requireSession`, which left an admin cookie able to script against its own bans and history through curl or DevTools. A new `requireUser` guard in `server/src/lib/auth.js` consolidates the session check, the password-change gate and the non-admin check.
+- Player-only API endpoints (`/api/state`, `/api/state/reset`, `/api/bans*`, `/api/history`) now reject the admin role with `403 FORBIDDEN`. The admin UI lands on `/admin.html` and never plays cards, but the routes were previously gated only by `requireSession`, which left an admin cookie able to script against its own bans and history. A new `requireUser` guard in `server/src/lib/auth.js` consolidates the session check, the password-change gate and the non-admin check.
+
+### Documentation
+
+- `docs/i18n.md` states explicitly that locale strings are plain text. The DOM injection paths run translated values through `escapeHtml`, so HTML tags inside a locale entry render literally and contributors should structure the DOM around the text rather than embed markup in the catalogue.
+- `docs/security.md` calls out that authentication attempts are not written to a historical journal: only the per-user `failed_attempts` counter exists and it is reset on successful sign-in. Operators who need an audit trail can rely on the Pino access logs or a reverse proxy.
 
 ## [1.4.0] - 2026-04-28
 
