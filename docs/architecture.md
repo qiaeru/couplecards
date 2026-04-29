@@ -102,6 +102,8 @@ The procedure to add a third language is documented end-to-end in [i18n.md](./i1
 
 ## Backend routes
 
+Four guard levels are referenced below: **public** (no auth needed), **session** (any signed-in account), **user** (signed-in non-admin account, used for the player-only state and history endpoints) and **admin**.
+
 | Method | Path | Auth | Notes |
 | --- | --- | --- | --- |
 | `GET` | `/api/health` | public | Liveness probe |
@@ -117,10 +119,10 @@ The procedure to add a third language is documented end-to-end in [i18n.md](./i1
 | `GET` | `/api/admin/cards/export` | admin | Downloads a ZIP with one `cards.<locale>.json` per supported locale, pretty-printed |
 | `POST` | `/api/admin/cards/sync` | admin | Reads every `cards.<locale>.json` under `data/` and applies them together (mirror or upsert) |
 | `POST` | `/api/admin/cards/import` | admin | Applies a deck uploaded in the request body (multilingual shape) |
-| `GET` | `/api/state` | session | Returns `{ banned, history }` |
-| `POST` | `/api/state/reset` | session | Wipes the caller's bans and history in a single transaction. Rejected with 403 for demo accounts |
-| `POST`, `DELETE` | `/api/bans[/:cardId]` | session | Idempotent |
-| `POST` | `/api/history` | session | Batch endpoint, idempotent on `clientUuid` |
+| `GET` | `/api/state` | user | Returns `{ banned, history }` |
+| `POST` | `/api/state/reset` | user | Wipes the caller's bans and history in a single transaction. Rejected with 403 for demo accounts |
+| `POST`, `DELETE` | `/api/bans[/:cardId]` | user | Idempotent |
+| `POST` | `/api/history` | user | Batch endpoint, idempotent on `clientUuid` |
 | `GET`, `POST`, `PATCH`, `DELETE` | `/api/admin/users[/:id]` | admin | Full user CRUD plus unlock and reset-password |
 | `GET` | `/manifest.webmanifest` | public | Negotiated on `Accept-Language` |
 
