@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Changed
 
 - Wordmark and brand name lowercased to **Couplecards** for a more modern feel. Applies to the home/login/boot/draw wordmark, page titles, web manifests (`name` / `short_name` across all five locales), locale catalogues (`app.name`, `draw.title`), and prose in the README, CHANGELOG header, contributing guide, credits, and `docs/`. Past CHANGELOG entries keep the original `CoupleCards` spelling. Service Worker bumped to `couplecards-v22` so the new HTML and manifests refresh on existing installs.
+- The PWA manifest negotiator now parses `Accept-Language` by quality score and reads `SUPPORTED_LOCALES` from the canonical list, instead of pattern-matching the prefix of the raw header. A request like `Accept-Language: ja, fr;q=0.9` correctly serves the French manifest now (it served English before). Adding a new locale no longer requires editing `server/src/routes/manifest.js`.
 
 ## [1.4.0] - 2026-04-28
 
