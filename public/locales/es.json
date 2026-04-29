@@ -1,5 +1,5 @@
 {
-  "app.name": "CoupleCards",
+  "app.name": "Couplecards",
   "common.loading": "Cargando…",
   "common.cancel": "Cancelar",
   "common.undo": "Deshacer",
@@ -50,7 +50,7 @@
   "home.pile.home.aria": "Robar del montón «Casa»",
   "home.pile.outdoor.aria": "Robar del montón «Fuera»",
   "home.pile.lowHint": "Casi vacío",
-  "draw.title": "CoupleCards",
+  "draw.title": "Couplecards",
   "draw.action.ban": "Vetar",
   "draw.action.return": "Devolver al montón",
   "draw.action.redraw": "Robar otra carta del mismo montón",

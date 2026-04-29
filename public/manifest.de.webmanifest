@@ -1,6 +1,6 @@
 {
-  "name": "CoupleCards",
-  "short_name": "CoupleCards",
+  "name": "Couplecards",
+  "short_name": "Couplecards",
   "description": "Selbst gehostete Web-App, mit der Paare Aktivitätskarten ziehen, um aus der Routine auszubrechen und den Alltag aufzulockern.",
   "start_url": "/",
   "scope": "/",

@@ -1,4 +1,4 @@
-# Contributing to CoupleCards
+# Contributing to Couplecards
 
 Thank you for considering a contribution. The project is intentionally small and must stay approachable to non-technical maintainers who run their own instance. Changes that keep it simple are the ones most likely to land.
 

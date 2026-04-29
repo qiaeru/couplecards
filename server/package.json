@@ -3,7 +3,7 @@
   "version": "1.4.0",
   "private": true,
   "type": "module",
-  "description": "CoupleCards backend — Fastify + node:sqlite",
+  "description": "Couplecards backend — Fastify + node:sqlite",
   "license": "MIT",
   "repository": {
     "type": "git",

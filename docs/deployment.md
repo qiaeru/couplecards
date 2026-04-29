@@ -1,6 +1,6 @@
 # Deployment
 
-Audience: self-hosters running CoupleCards on their own server.
+Audience: self-hosters running Couplecards on their own server.
 
 ## Prerequisites
 

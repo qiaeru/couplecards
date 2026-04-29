@@ -6,7 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
-_Nothing released yet._
+### Changed
+
+- Wordmark and brand name lowercased to **Couplecards** for a more modern feel. Applies to the home/login/boot/draw wordmark, page titles, web manifests (`name` / `short_name` across all five locales), locale catalogues (`app.name`, `draw.title`), and prose in the README, CHANGELOG header, contributing guide, credits, and `docs/`. Past CHANGELOG entries keep the original `CoupleCards` spelling. Service Worker bumped to `couplecards-v22` so the new HTML and manifests refresh on existing installs.
 
 ## [1.4.0] - 2026-04-28
 
@@ -166,3 +168,9 @@ _Nothing released yet._
 ### Fixed
 
 - Container crashed on startup with `ADDON_NOT_FOUND` for `sodium-native` (pulled in by `@fastify/secure-session`). Switched the Docker image from `node:24-alpine` (musl) to `node:24-slim` (glibc) on all three build stages, since sodium-native's musl prebuilds are not reliably fetched by npm. Package manager calls (`apk` → `apt-get`), user creation (`adduser -S` → `useradd --system`), and the `tini` path (`/sbin/tini` → `/usr/bin/tini`) were adapted accordingly.
+
+## [1.0.0] - 2026-04-23
+
+### Added
+
+- Initial release.

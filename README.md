@@ -1,4 +1,4 @@
-# CoupleCards
+# Couplecards
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![Release](https://img.shields.io/github/v/release/qiaeru/couplecards)](https://github.com/qiaeru/couplecards/releases)
@@ -19,7 +19,7 @@ A hosted demo is available at **<https://couplecards.qiaeru.com/>**. Sign in wit
 
 | Home | Reveal |
 | :--: | :----: |
-| ![CoupleCards home screen with the two piles](./docs/assets/screenshot1.png) | ![A drawn CoupleCards card](./docs/assets/screenshot2.png) |
+| ![Couplecards home screen with the two piles](./docs/assets/screenshot1.png) | ![A drawn Couplecards card](./docs/assets/screenshot2.png) |
 | *The two piles on the home screen* | *A card revealed from the deck* |
 
 ## Highlights
