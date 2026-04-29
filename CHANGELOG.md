@@ -6,9 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Documentation
+
+- `docs/i18n.md` now states explicitly that locale strings are plain text. The DOM injection paths run translated values through `escapeHtml`, so HTML tags inside a locale entry render literally and contributors should structure the DOM around the text rather than embed markup in the catalogue.
+- `docs/security.md` calls out that authentication attempts are not written to a historical journal: only the per-user `failed_attempts` counter exists and it is reset on successful sign-in. Operators who need an audit trail can rely on the Pino access logs or a reverse proxy.
+
 ### Changed
 
 - Wordmark and brand name lowercased to **Couplecards** for a more modern feel. Applies to the home/login/boot/draw wordmark, page titles, web manifests (`name` / `short_name` across all five locales), locale catalogues (`app.name`, `draw.title`), and prose in the README, CHANGELOG header, contributing guide, credits, and `docs/`. Past CHANGELOG entries keep the original `CoupleCards` spelling. Service Worker bumped to `couplecards-v22` so the new HTML and manifests refresh on existing installs.
+- The PWA manifest negotiator now parses `Accept-Language` by quality score and reads `SUPPORTED_LOCALES` from the canonical list, instead of pattern-matching the prefix of the raw header. A request like `Accept-Language: ja, fr;q=0.9` correctly serves the French manifest now (it served English before). Adding a new locale no longer requires editing `server/src/routes/manifest.js`.
 
 ### Fixed
 

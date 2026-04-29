@@ -71,6 +71,7 @@ The optional `demo` account, enabled with `ENABLE_DEMO_ACCOUNT=1`, is a delibera
 
 - Fastify's Pino logger runs at `info` in production.
 - Password fields (`req.body.password`, `req.body.newPassword`, `req.body.currentPassword`) and the generated initial password are redacted from every log line.
+- The login route increments a per-user `failed_attempts` counter (used for lockout) but does not write a historical journal of authentication attempts. After a successful sign-in the counter is reset, so a compromised account leaves no in-app trace of when or from where the attacker connected. This is an explicit trade-off for the small-scale, two-person threat model the app targets. Operators who need an audit trail can mine the Pino access logs (timestamps, IP via Fastify's `request.ip`, `req.url`) shipped on stdout, or front the app with a reverse proxy that records its own access log.
 
 ## Vulnerability disclosure
 
