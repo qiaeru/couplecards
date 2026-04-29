@@ -17,10 +17,6 @@
     <p data-i18n="errors.page.404.body"></p>
     <a class="btn btn-primary" href="/" data-i18n="errors.page.404.back">Back to home</a>
   </main>
-  <script type="module">
-    // SPDX-License-Identifier: MIT
-    import { initI18n, applyI18n } from '/js/core/i18n.js';
-    initI18n().then(() => applyI18n(document)).catch(() => {});
-  </script>
+  <script type="module" src="/js/error-page.js"></script>
 </body>
 </html>
