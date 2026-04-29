@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Wordmark and brand name lowercased to **Couplecards** for a more modern feel. Applies to the home/login/boot/draw wordmark, page titles, web manifests (`name` / `short_name` across all five locales), locale catalogues (`app.name`, `draw.title`), and prose in the README, CHANGELOG header, contributing guide, credits, and `docs/`. Past CHANGELOG entries keep the original `CoupleCards` spelling. Service Worker bumped to `couplecards-v22` so the new HTML and manifests refresh on existing installs.
 
+### Fixed
+
+- Static `404.html` and `500.html` no longer rely on an inline `<script type="module">`, which the strict `script-src 'self'` CSP blocked in modern browsers. The boot logic moved to `public/js/error-page.js`, so the i18n strings now actually load and the **Reload** button on the 500 page actually triggers. Service Worker bumped to `couplecards-v23` to ship the new asset.
+
 ## [1.4.0] - 2026-04-28
 
 ### Added

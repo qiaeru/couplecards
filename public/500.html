@@ -17,11 +17,6 @@
     <p data-i18n="errors.page.500.body"></p>
     <button type="button" class="btn btn-primary" id="reload-btn" data-i18n="common.reload">Reload</button>
   </main>
-  <script type="module">
-    // SPDX-License-Identifier: MIT
-    import { initI18n, applyI18n } from '/js/core/i18n.js';
-    initI18n().then(() => applyI18n(document)).catch(() => {});
-    document.getElementById('reload-btn').addEventListener('click', () => location.reload());
-  </script>
+  <script type="module" src="/js/error-page.js"></script>
 </body>
 </html>
