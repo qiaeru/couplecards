@@ -125,6 +125,7 @@
   "admin.users.reset.body": "Es wird ein neues Einmalpasswort erzeugt. Der Benutzer muss es bei der nächsten Anmeldung ändern.",
   "admin.users.delete.confirm": "{{username}} löschen?",
   "admin.users.delete.body": "Verlauf und verbannte Karten werden ebenfalls gelöscht.",
+  "admin.users.delete.toast": "Benutzer gelöscht",
   "admin.users.unlock": "Entsperren",
   "admin.users.locked": "Gesperrt",
   "admin.users.mustChange": "Passwortwechsel erforderlich",

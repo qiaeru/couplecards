@@ -16,11 +16,15 @@ export async function mount() {
   if (langSelect) {
     // Sort by native language name so the picker order is stable across UI
     // locales and predictable for users (Deutsch, English, Español, ...).
-    langSelect.innerHTML = supportedLocales()
+    const options = supportedLocales()
       .map((l) => ({ code: l, label: t(`settings.language.${l}`) }))
-      .sort((a, b) => a.label.localeCompare(b.label))
-      .map(({ code, label }) => `<option value="${code}">${label}</option>`)
-      .join('');
+      .sort((a, b) => a.label.localeCompare(b.label));
+    langSelect.replaceChildren(...options.map(({ code, label }) => {
+      const opt = document.createElement('option');
+      opt.value = code;
+      opt.textContent = label;
+      return opt;
+    }));
     langSelect.value = getLocale();
     langSelect.addEventListener('change', async () => {
       await setLocale(langSelect.value);
@@ -69,11 +73,14 @@ export async function mount() {
         danger: true,
       });
       if (!ok) return;
+      resetBtn.disabled = true;
       try {
         await resetUserData();
         toast(t('settings.resetData.toast'));
       } catch {
         toast(t('errors.generic'));
+      } finally {
+        resetBtn.disabled = false;
       }
     });
   }

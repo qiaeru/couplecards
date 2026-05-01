@@ -129,7 +129,7 @@ async function deleteUser(id, username) {
   });
   if (!ok) return;
   await request(`/api/admin/users/${id}`, { method: 'DELETE' });
-  toast(t('common.copied'));
+  toast(t('admin.users.delete.toast'));
   await renderUsers();
 }
 

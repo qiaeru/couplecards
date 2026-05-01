@@ -13,6 +13,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - `POST /api/auth/preferences` accepted only `fr` and `en` because of a hardcoded enum, so users on de, it or es could not persist their language choice to the server (the locale still applied client-side). The schema now reads from the canonical `SUPPORTED_LOCALES` list and accepts every shipped locale.
 - Boot error pages (shown when the SPA or admin shell fails to start) now display localised strings instead of hardcoded English. Three new keys added to all five locale files. If the failure happens before the catalogue loads, English is used as fallback.
 - Admin language picker rebuilds its options through `createElement` instead of an `innerHTML` string, aligning with the rest of the admin UI's CSP-defensive DOM construction. Service Worker bumped to `couplecards-v26`.
+- Deleting an admin user showed a "Copied" toast instead of a deletion confirmation (copy-paste leftover from the clipboard handler). A new `admin.users.delete.toast` key is shipped in the five locale catalogues and the right one is now displayed.
+- The user-facing language picker in Settings now builds its `<option>` list with `createElement` instead of an `innerHTML` template string, matching the admin picker fix from the previous patch.
+- Reset Data button in Settings now disables itself during the request, so a double-tap can no longer fire two `POST /api/state/reset` calls in a row. Service Worker bumped to `couplecards-v27`.
 
 ## [1.4.1] - 2026-04-29
 

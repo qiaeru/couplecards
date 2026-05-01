@@ -125,6 +125,7 @@
   "admin.users.reset.body": "Un nouveau mot de passe à usage unique sera généré. L'utilisateur devra le modifier à sa prochaine connexion.",
   "admin.users.delete.confirm": "Supprimer {{username}} ?",
   "admin.users.delete.body": "Son historique et ses bannissements seront également supprimés.",
+  "admin.users.delete.toast": "Utilisateur supprimé",
   "admin.users.unlock": "Déverrouiller",
   "admin.users.locked": "Verrouillé",
   "admin.users.mustChange": "Changement de mot de passe requis",
