@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+- Home screen and revealed card now fit on short phone viewports (around 640 to 720px tall) without scrolling. The two stacked piles shrink and tighten their gap on small heights, and on the draw screen the card itself, its typography and the action buttons step down so the description stays readable above the **Bannir / Remettre / Nouvelle carte** row instead of being covered by it. Service Worker bumped to `couplecards-v24` to ship the new CSS.
+
 ## [1.4.1] - 2026-04-29
 
 ### Changed
