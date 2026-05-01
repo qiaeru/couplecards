@@ -65,11 +65,15 @@ async function init() {
 
   const langSelect = document.getElementById('admin-language');
   if (langSelect) {
-    langSelect.innerHTML = supportedLocales()
+    const options = supportedLocales()
       .map((l) => ({ code: l, label: t(`settings.language.${l}`) }))
-      .sort((a, b) => a.label.localeCompare(b.label))
-      .map(({ code, label }) => `<option value="${code}">${label}</option>`)
-      .join('');
+      .sort((a, b) => a.label.localeCompare(b.label));
+    langSelect.replaceChildren(...options.map(({ code, label }) => {
+      const opt = document.createElement('option');
+      opt.value = code;
+      opt.textContent = label;
+      return opt;
+    }));
     langSelect.value = getLocale();
     langSelect.addEventListener('change', async () => {
       await setLocale(langSelect.value);
@@ -93,6 +97,13 @@ async function init() {
   initScrollToTop();
 }
 
+// Fall back to English if the catalogue never loaded (init crashed before
+// `initI18n` resolved). `t()` returns the key itself in that case.
+const tOr = (key, fallback) => {
+  const value = t(key);
+  return value === key ? fallback : value;
+};
+
 init().catch((err) => {
   console.error(err);
   document.body.replaceChildren();
@@ -100,13 +111,13 @@ init().catch((err) => {
   main.className = 'error-page';
   const h = document.createElement('h1');
   h.className = 'title';
-  h.textContent = 'Administration failed to load';
+  h.textContent = tOr('errors.page.bootFailed.adminTitle', 'Administration failed to load');
   const p = document.createElement('p');
   p.textContent = String(err?.message || err);
   const link = document.createElement('a');
   link.className = 'btn btn-primary';
   link.href = '/';
-  link.textContent = 'Back';
+  link.textContent = tOr('common.back', 'Back');
   main.append(h, p, link);
   document.body.append(main);
 });

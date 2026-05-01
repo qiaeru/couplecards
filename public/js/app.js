@@ -68,6 +68,13 @@ function wireBottomNav() {
   document.addEventListener('route:mounted', (event) => update(event.detail.route));
 }
 
+// Fall back to English if the catalogue never loaded (boot crashed before
+// `initI18n` resolved). `t()` returns the key itself in that case.
+const tOr = (key, fallback) => {
+  const value = t(key);
+  return value === key ? fallback : value;
+};
+
 boot().catch((err) => {
   console.error(err);
   const message = String(err?.message || err || 'Unknown error');
@@ -77,13 +84,13 @@ boot().catch((err) => {
   main.className = 'error-page';
   const h = document.createElement('h1');
   h.className = 'title';
-  h.textContent = 'Unexpected error';
+  h.textContent = tOr('errors.page.bootFailed.title', 'Couplecards failed to load');
   const p = document.createElement('p');
   p.textContent = message;
   const link = document.createElement('a');
   link.className = 'btn btn-primary';
   link.href = '/login.html';
-  link.textContent = 'Back to sign in';
+  link.textContent = tOr('errors.page.bootFailed.signIn', 'Back to sign in');
   main.append(h, p, link);
   document.body.append(main);
 });
