@@ -75,9 +75,25 @@
   border-radius: var(--radius-sm);
   font-weight: 600;
   line-height: 1.15;
+  text-align: center;
   position: relative;
   transition: color 0.18s ease, background-color 0.18s ease, transform 0.18s ease;
   -webkit-tap-highlight-color: transparent;
+}
+.app-bottom-nav a > span {
+  display: block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+/* Narrow phones: the longer locale labels (e.g. "Bannissements",
+   "Verbannte Karten", "Cartas vetadas") need a smaller font and tighter
+   gutters to fit the four-column grid without pushing into neighbours. */
+@media (max-width: 380px) {
+  .app-bottom-nav-list { gap: 2px; padding-left: 6px; padding-right: 6px; }
+  .app-bottom-nav a { font-size: 0.66rem; padding: 8px 3px; gap: 4px; }
+  .app-bottom-nav a .nav-icon { width: 24px; height: 24px; }
 }
 .app-bottom-nav a .nav-icon {
   width: 26px;

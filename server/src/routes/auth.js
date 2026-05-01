@@ -4,6 +4,7 @@
 import { getDb } from '../db/index.js';
 import { hashPassword, verifyPassword, validatePassword, POLICY } from '../lib/password.js';
 import { readSessionUser, writeSessionUser, clearSession, requireSession } from '../lib/auth.js';
+import { SUPPORTED_LOCALES } from '../lib/locales.js';
 
 const LOCKOUT_THRESHOLD = 10;
 const LOCKOUT_MINUTES = 15;
@@ -196,7 +197,7 @@ export default async function authRoutes(app) {
         type: 'object',
         additionalProperties: false,
         properties: {
-          locale: { type: 'string', enum: ['fr', 'en'] },
+          locale: { type: 'string', enum: [...SUPPORTED_LOCALES] },
         },
       },
     },
