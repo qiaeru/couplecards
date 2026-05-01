@@ -8,7 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
-- Home screen and revealed card now fit on short phone viewports (around 640 to 720px tall) without scrolling. The two stacked piles shrink and tighten their gap on small heights, and on the draw screen the card itself, its typography and the action buttons step down so the description stays readable above the **Bannir / Remettre / Nouvelle carte** row instead of being covered by it. Service Worker bumped to `couplecards-v24` to ship the new CSS.
+- Home screen and revealed card now fit on short phone viewports (around 640 to 720px tall) without scrolling. The two stacked piles shrink and tighten their gap on small heights, and on the draw screen the card itself, its typography and the action buttons step down so the description stays readable above the action row. Service Worker bumped to `couplecards-v24` to ship the new CSS.
+- Bottom navigation no longer mangles long localised labels on narrow phones. Two-line entries ("Bannissements", "Verbannte Karten", "Cartas vetadas", "Carte bannite", "Impostazioni") are now centered under their icon, can wrap mid-word when needed, and step down to a smaller font under 380px wide. Service Worker bumped to `couplecards-v25`.
 
 ## [1.4.1] - 2026-04-29
 
