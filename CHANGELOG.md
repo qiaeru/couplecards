@@ -6,16 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.4.2] - 2026-05-01
+
 ### Fixed
 
-- Home screen and revealed card now fit on short phone viewports (around 640 to 720px tall) without scrolling. The two stacked piles shrink and tighten their gap on small heights, and on the draw screen the card itself, its typography and the action buttons step down so the description stays readable above the action row.
+- Home screen and revealed card now fit on short phone viewports (around 640 to 720px tall) without scrolling. The stacked piles shrink and tighten their gap on small heights, and on the draw screen the card and the action buttons step down so the description stays readable above them.
 - Bottom navigation no longer mangles long localised labels on narrow phones. Two-line entries ("Bannissements", "Verbannte Karten", "Cartas vetadas", "Carte bannite", "Impostazioni") are now centered under their icon, can wrap mid-word when needed, and step down to a smaller font under 380px wide.
 - `POST /api/auth/preferences` accepted only `fr` and `en` because of a hardcoded enum, so users on de, it or es could not persist their language choice to the server (the locale still applied client-side). The schema now reads from the canonical `SUPPORTED_LOCALES` list and accepts every shipped locale.
-- Boot error pages (shown when the SPA or admin shell fails to start) now display localised strings instead of hardcoded English. Three new keys added to all five locale files. If the failure happens before the catalogue loads, English is used as fallback.
-- Admin language picker rebuilds its options through `createElement` instead of an `innerHTML` string, aligning with the rest of the admin UI's CSP-defensive DOM construction.
-- Deleting an admin user showed a "Copied" toast instead of a deletion confirmation (copy-paste leftover from the clipboard handler). A new `admin.users.delete.toast` key is shipped in the five locale catalogues and the right one is now displayed.
-- The user-facing language picker in Settings now builds its `<option>` list with `createElement` instead of an `innerHTML` template string, matching the admin picker fix from the previous patch.
 - Reset Data button in Settings now disables itself during the request, so a double-tap can no longer fire two `POST /api/state/reset` calls in a row.
+- Deleting an admin user showed a "Copied" toast instead of a deletion confirmation (copy-paste leftover from the clipboard handler). A new `admin.users.delete.toast` key now ships in the five locale catalogues and is displayed instead.
+- Boot error pages (shown when the SPA or admin shell fails to start) now display localised strings instead of hardcoded English, falling back to English only when the catalogue itself never loaded.
+- Both language pickers (Settings and admin) build their `<option>` lists with `createElement` instead of `innerHTML` template strings, matching the rest of the codebase's CSP-defensive DOM construction.
 
 ## [1.4.1] - 2026-04-29
 
