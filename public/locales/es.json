@@ -125,6 +125,7 @@
   "admin.users.reset.body": "Se generará una contraseña nueva de un solo uso. El usuario deberá cambiarla en su próximo inicio de sesión.",
   "admin.users.delete.confirm": "¿Eliminar a {{username}}?",
   "admin.users.delete.body": "También se eliminarán su historial y sus cartas vetadas.",
+  "admin.users.delete.toast": "Usuario eliminado",
   "admin.users.unlock": "Desbloquear",
   "admin.users.locked": "Bloqueado",
   "admin.users.mustChange": "Cambio de contraseña obligatorio",

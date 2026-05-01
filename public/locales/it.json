@@ -125,6 +125,7 @@
   "admin.users.reset.body": "Verrà generata una nuova password monouso. L'utente dovrà cambiarla al prossimo accesso.",
   "admin.users.delete.confirm": "Eliminare {{username}}?",
   "admin.users.delete.body": "Verranno eliminati anche cronologia e carte bannate.",
+  "admin.users.delete.toast": "Utente eliminato",
   "admin.users.unlock": "Sblocca",
   "admin.users.locked": "Bloccato",
   "admin.users.mustChange": "Cambio password obbligatorio",

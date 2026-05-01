@@ -8,22 +8,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
-- Home screen and revealed card now fit on short phone viewports (around 640 to 720px tall) without scrolling. The two stacked piles shrink and tighten their gap on small heights, and on the draw screen the card itself, its typography and the action buttons step down so the description stays readable above the action row. Service Worker bumped to `couplecards-v24` to ship the new CSS.
-- Bottom navigation no longer mangles long localised labels on narrow phones. Two-line entries ("Bannissements", "Verbannte Karten", "Cartas vetadas", "Carte bannite", "Impostazioni") are now centered under their icon, can wrap mid-word when needed, and step down to a smaller font under 380px wide. Service Worker bumped to `couplecards-v25`.
+- Home screen and revealed card now fit on short phone viewports (around 640 to 720px tall) without scrolling. The two stacked piles shrink and tighten their gap on small heights, and on the draw screen the card itself, its typography and the action buttons step down so the description stays readable above the action row.
+- Bottom navigation no longer mangles long localised labels on narrow phones. Two-line entries ("Bannissements", "Verbannte Karten", "Cartas vetadas", "Carte bannite", "Impostazioni") are now centered under their icon, can wrap mid-word when needed, and step down to a smaller font under 380px wide.
 - `POST /api/auth/preferences` accepted only `fr` and `en` because of a hardcoded enum, so users on de, it or es could not persist their language choice to the server (the locale still applied client-side). The schema now reads from the canonical `SUPPORTED_LOCALES` list and accepts every shipped locale.
 - Boot error pages (shown when the SPA or admin shell fails to start) now display localised strings instead of hardcoded English. Three new keys added to all five locale files. If the failure happens before the catalogue loads, English is used as fallback.
-- Admin language picker rebuilds its options through `createElement` instead of an `innerHTML` string, aligning with the rest of the admin UI's CSP-defensive DOM construction. Service Worker bumped to `couplecards-v26`.
+- Admin language picker rebuilds its options through `createElement` instead of an `innerHTML` string, aligning with the rest of the admin UI's CSP-defensive DOM construction.
+- Deleting an admin user showed a "Copied" toast instead of a deletion confirmation (copy-paste leftover from the clipboard handler). A new `admin.users.delete.toast` key is shipped in the five locale catalogues and the right one is now displayed.
+- The user-facing language picker in Settings now builds its `<option>` list with `createElement` instead of an `innerHTML` template string, matching the admin picker fix from the previous patch.
+- Reset Data button in Settings now disables itself during the request, so a double-tap can no longer fire two `POST /api/state/reset` calls in a row.
 
 ## [1.4.1] - 2026-04-29
 
 ### Changed
 
-- Wordmark and brand name lowercased to **Couplecards** across the UI, page titles, all five web manifests, locale catalogues and the project docs. Past CHANGELOG entries keep the original `CoupleCards` spelling. Service Worker bumped to `couplecards-v22` to refresh the new HTML and manifests on existing installs.
+- Wordmark and brand name lowercased to **Couplecards** across the UI, page titles, all five web manifests, locale catalogues and the project docs. Past CHANGELOG entries keep the original `CoupleCards` spelling.
 - The PWA manifest negotiator now parses `Accept-Language` by quality score and reads `SUPPORTED_LOCALES` from the canonical list. A request like `Accept-Language: ja, fr;q=0.9` correctly serves the French manifest (it served English before), and adding a new locale no longer requires editing `server/src/routes/manifest.js`.
 
 ### Fixed
 
-- Static `404.html` and `500.html` no longer rely on an inline `<script type="module">`, which the strict `script-src 'self'` CSP blocked in modern browsers. The boot logic moved to `public/js/error-page.js`, so the i18n strings now actually load and the **Reload** button on the 500 page actually triggers. Service Worker bumped to `couplecards-v23` to ship the new asset.
+- Static `404.html` and `500.html` no longer rely on an inline `<script type="module">`, which the strict `script-src 'self'` CSP blocked in modern browsers. The boot logic moved to `public/js/error-page.js`, so the i18n strings now actually load and the **Reload** button on the 500 page actually triggers.
 - A demo visitor who tried to change their password got a misleading `400 VALIDATION_ERROR` because the `currentPassword` schema enforced an 8-character minimum while the demo password is 4 characters. The field now accepts any non-empty value and the route correctly returns `403 DEMO_READONLY`. The strength policy still applies to `newPassword`.
 
 ### Security
@@ -56,7 +59,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Wordmark glow softened, font-size shrunk ~10%, and the primary blur radius now matches between the wordmark text and the heart icon next to it.
 - Bright accent colour applied to the selected and hovered option of every `<select>` dropdown so the highlight is clearly visible (was previously a muted dark-pink barely distinguishable from the option background).
 - README and screenshots refreshed to reflect the five-locale lineup.
-- Service Worker bumped to `couplecards-v19` to invalidate caches holding the old `sync.js`, `deck-sync.js`, and the previous locale catalogues.
 
 ### Fixed
 
@@ -74,7 +76,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Add a magnifying-glass icon inside the Users and Cards search inputs in the admin panel, so the affordance reads as a search box rather than a generic text input.
 - Tighten the admin panels: remove the redundant `<h2>` subtitles ("Users", "Cards", "Settings") that duplicated the active tab label, drop the now-orphaned `.admin-panel h2` style, and normalise every gap inside `.admin-panel` to 14 px. The previous `.list` internal padding and the manual `margin-top` on the "Add a card" button were compensating for each other; both are gone.
 - Login form: hide the empty error region (`.auth-error:empty`) so the gap between the password input and the "Sign in" button is no longer doubled by an invisible flex item.
-- Service Worker bumped to `couplecards-v15` and the precache shell list updated to point at the Fraunces WOFF2 files (variable + italic across Latin, Latin Extended and Vietnamese) instead of the dropped Literata subsets.
 
 ### Fixed
 

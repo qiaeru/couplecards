@@ -125,6 +125,7 @@
   "admin.users.reset.body": "A new one-time password will be generated. The user will have to change it on next sign-in.",
   "admin.users.delete.confirm": "Delete {{username}}?",
   "admin.users.delete.body": "Their history and bans will also be deleted.",
+  "admin.users.delete.toast": "User deleted",
   "admin.users.unlock": "Unlock",
   "admin.users.locked": "Locked",
   "admin.users.mustChange": "Password change required",
