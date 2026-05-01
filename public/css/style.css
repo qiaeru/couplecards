@@ -419,6 +419,24 @@ body::before {
     max-width: 500px;
   }
 }
+/* Short phone viewports: shrink the stacked piles so the home screen fits
+   without scrolling on devices around 640-720px tall. */
+@media (max-width: 539px) and (max-height: 720px) {
+  #screen-home { gap: 12px; }
+  .piles {
+    max-width: 152px;
+    gap: 12px;
+    padding: 0;
+  }
+  .pile {
+    min-height: 110px;
+    padding: 12px 10px 16px;
+  }
+  .pile-emoji { font-size: 1.9rem; }
+  .pile-name { font-size: 0.95rem; }
+  .pile-count { font-size: 0.72rem; padding: 3px 10px; }
+  .pile-low-hint { margin-top: 4px; font-size: 0.65rem; }
+}
 
 /* Piles = empilements de cartes */
 .pile {
