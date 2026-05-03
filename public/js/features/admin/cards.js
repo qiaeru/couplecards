@@ -8,16 +8,11 @@ import { getCardText } from '../../core/sync.js';
 import { on } from '../../core/events.js';
 import { toast, showConfirm } from '../../ui/shell.js';
 import { mountDeckTools } from './deck-sync.js';
+import { escapeHtml } from '../../core/dom.js';
 
 const SUPPORTED_LOCALES = supportedLocales();
 const TITLE_MAX = 200;
 const DESCRIPTION_MAX = 1000;
-
-function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, (c) => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-  }[c]));
-}
 
 function localeLabel(locale) {
   return t(`settings.language.${locale}`);

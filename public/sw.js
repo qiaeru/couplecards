@@ -25,6 +25,7 @@ const SHELL = [
   '/js/error-page.js',
   '/js/config.js',
   '/js/core/api.js',
+  '/js/core/dom.js',
   '/js/core/auth.js',
   '/js/core/events.js',
   '/js/core/i18n.js',

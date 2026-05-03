@@ -6,14 +6,9 @@ import { getHistory, getCardById, getCardText } from '../../core/sync.js';
 import { navigate } from '../../core/router.js';
 import { t, fmtDateLong } from '../../core/i18n.js';
 import { on } from '../../core/events.js';
+import { escapeHtml } from '../../core/dom.js';
 
 let unsubscribe = null;
-
-function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, (c) => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-  }[c]));
-}
 
 function startOfDay(date) {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
