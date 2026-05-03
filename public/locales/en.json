@@ -13,6 +13,8 @@
   "common.dateAtTime": "{{date}} at {{time}}",
   "common.skipToContent": "Skip to main content",
   "common.scrollTop": "Back to top",
+  "common.offline": "Offline. Changes will sync when you are back online.",
+  "common.syncPending": "Syncing your changes…",
   "nav.main": "Main navigation",
   "login.title": "Sign in",
   "login.subtitle": "Sign in with the credentials provided by the instance administrator.",

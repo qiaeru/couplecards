@@ -13,6 +13,8 @@
   "common.dateAtTime": "{{date}} à {{time}}",
   "common.skipToContent": "Aller au contenu principal",
   "common.scrollTop": "Revenir en haut",
+  "common.offline": "Hors ligne. Vos changements seront synchronisés au retour du réseau.",
+  "common.syncPending": "Synchronisation en cours…",
   "nav.main": "Navigation principale",
   "login.title": "Connexion",
   "login.subtitle": "Connectez-vous avec les identifiants fournis par l'administrateur de l'instance.",

@@ -13,6 +13,8 @@
   "common.dateAtTime": "{{date}} um {{time}}",
   "common.skipToContent": "Zum Hauptinhalt springen",
   "common.scrollTop": "Nach oben",
+  "common.offline": "Offline. Änderungen werden synchronisiert, sobald wieder Verbindung besteht.",
+  "common.syncPending": "Änderungen werden synchronisiert…",
   "nav.main": "Hauptnavigation",
   "login.title": "Anmeldung",
   "login.subtitle": "Melde dich mit den Zugangsdaten an, die dir die Person gegeben hat, die diese Instanz verwaltet.",

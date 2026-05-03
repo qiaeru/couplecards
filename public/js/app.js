@@ -5,7 +5,7 @@ import { me } from './core/auth.js';
 import { initI18n, applyI18n, t } from './core/i18n.js';
 import { initSync } from './core/sync.js';
 import { registerFeature, setOutlet, startRouter } from './core/router.js';
-import { registerServiceWorker } from './ui/shell.js';
+import { registerServiceWorker, initSyncBanner } from './ui/shell.js';
 import { initScrollToTop } from './ui/scroll-to-top.js';
 
 async function boot() {
@@ -52,6 +52,7 @@ async function boot() {
 
   startRouter();
   initScrollToTop();
+  initSyncBanner();
   registerServiceWorker();
 }
 

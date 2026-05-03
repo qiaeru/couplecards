@@ -13,6 +13,8 @@
   "common.dateAtTime": "{{date}} a las {{time}}",
   "common.skipToContent": "Saltar al contenido principal",
   "common.scrollTop": "Volver arriba",
+  "common.offline": "Sin conexión. Los cambios se sincronizarán cuando vuelvas a tener red.",
+  "common.syncPending": "Sincronizando los cambios…",
   "nav.main": "Navegación principal",
   "login.title": "Iniciar sesión",
   "login.subtitle": "Inicia sesión con las credenciales que te haya dado quien administra esta instancia.",

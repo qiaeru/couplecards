@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Banned-card management is folded into the card preview: tap any drawn or banned card from Collection or History and the preview offers a Ban or Restore button next to Close. Banning from the preview now also surfaces an Undo action in the toast.
 - Bottom navigation entry `Bans` is replaced by `Collection`. Closing the card preview now returns to the previous screen instead of always going Home.
 - Card preview opened from Collection or History no longer plays the floating-hearts ambience; that animation stays on the live draw, where it belongs.
+- New offline / pending-sync banner pinned above the bottom nav: surfaces "Offline" while the network is gone, "Syncing your changes…" while the IndexedDB outbox still has writes to flush, hidden once everything settles.
 
 ### Removed
 

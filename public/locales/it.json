@@ -13,6 +13,8 @@
   "common.dateAtTime": "{{date}} alle {{time}}",
   "common.skipToContent": "Vai al contenuto principale",
   "common.scrollTop": "Torna su",
+  "common.offline": "Offline. Le modifiche verranno sincronizzate al ritorno della connessione.",
+  "common.syncPending": "Sincronizzazione in corso…",
   "nav.main": "Navigazione principale",
   "login.title": "Accesso",
   "login.subtitle": "Accedi con le credenziali fornite da chi amministra l'istanza.",

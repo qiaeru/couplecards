@@ -136,3 +136,52 @@
   .app-bottom-nav a .nav-icon { transition: none; }
 }
 
+/* Sync banner: shows above the bottom nav while offline or while pending
+   writes are still queued in the outbox. Hidden when everything has flushed. */
+.sync-banner {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: calc(94px + env(safe-area-inset-bottom, 0px));
+  z-index: 45;
+  padding: 8px 14px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text);
+  background: rgba(15, 8, 32, 0.92);
+  border: 1px solid var(--surface-border);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  margin: 0 auto;
+  width: max-content;
+  max-width: calc(100% - 24px);
+}
+.sync-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: #9aa3b8;
+}
+.sync-banner.is-offline .sync-dot {
+  background: #ff7a7a;
+  box-shadow: 0 0 8px rgba(255, 122, 122, 0.6);
+}
+.sync-banner.is-syncing .sync-dot {
+  background: #6bd0ff;
+  box-shadow: 0 0 8px rgba(107, 208, 255, 0.6);
+  animation: sync-pulse 1.4s ease-in-out infinite;
+}
+@keyframes sync-pulse {
+  0%, 100% { opacity: 0.5; transform: scale(0.85); }
+  50%      { opacity: 1;   transform: scale(1.1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sync-banner.is-syncing .sync-dot { animation: none; }
+}
+

@@ -3,6 +3,8 @@
 // PWA install prompt, service worker registration and update banner.
 
 import { t } from '../core/i18n.js';
+import { on } from '../core/events.js';
+import { pendingOutboxCount } from '../core/sync.js';
 
 const VIBRATION_KEY = 'couplecards:vibrations-enabled';
 const SOUND_KEY = 'couplecards:sounds-enabled';
@@ -205,4 +207,42 @@ function showUpdateBanner(worker) {
   document.getElementById('update-reload')?.addEventListener('click', () => {
     worker.postMessage({ type: 'SKIP_WAITING' });
   }, { once: true });
+}
+
+// Sync banner: shows "Offline" when navigator reports no connection, or
+// "Syncing your changes…" when the outbox has pending writes that have not
+// reached the server yet. Hidden once everything settles.
+let syncPending = 0;
+
+function refreshSyncBanner() {
+  const banner = document.getElementById('sync-banner');
+  const text = document.getElementById('sync-banner-text');
+  if (!banner || !text) return;
+  const offline = !navigator.onLine;
+  if (offline) {
+    text.textContent = t('common.offline');
+    banner.classList.remove('is-syncing');
+    banner.classList.add('is-offline');
+    banner.hidden = false;
+    return;
+  }
+  if (syncPending > 0) {
+    text.textContent = t('common.syncPending');
+    banner.classList.remove('is-offline');
+    banner.classList.add('is-syncing');
+    banner.hidden = false;
+    return;
+  }
+  banner.hidden = true;
+}
+
+export function initSyncBanner() {
+  pendingOutboxCount().then((count) => { syncPending = count; refreshSyncBanner(); });
+  window.addEventListener('online', refreshSyncBanner);
+  window.addEventListener('offline', refreshSyncBanner);
+  on('sync:outbox-changed', ({ count } = { count: 0 }) => {
+    syncPending = count;
+    refreshSyncBanner();
+  });
+  on('i18n:change', refreshSyncBanner);
 }
