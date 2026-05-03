@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: MIT
 // History list grouped by relative date. Entries are clickable to replay a
-// card in preview mode. Restoring banned cards lives in the Bans view.
+// card in preview mode. Banned-card restoration lives in the card preview
+// opened from the Collection screen.
 
 import { getHistory, getCardById, getCardText } from '../../core/sync.js';
 import { navigate } from '../../core/router.js';

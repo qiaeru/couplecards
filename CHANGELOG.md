@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+
+- New **Collection** screen showing every card in the deck as a grid: drawn cards reveal their full design, banned cards carry a red cross, undiscovered cards stay as dark silhouettes with a "?". A `X / Y cards discovered` counter (with a slot-machine cipher reveal), filters by pile plus a Rare-only filter, and a pulse outline that follows the most recently drawn card so it is easy to locate after a draw. Rare silhouettes wear a soft breathing rainbow halo so they stand out without revealing the title.
+
+### Changed
+
+- Banned-card management is folded into the card preview: tap any drawn or banned card from Collection or History and the preview offers a Ban or Restore button next to Close. Banning from the preview now also surfaces an Undo action in the toast.
+- Bottom navigation entry `Bans` is replaced by `Collection`. Closing the card preview now returns to the previous screen instead of always going Home.
+- Card preview opened from Collection or History no longer plays the floating-hearts ambience; that animation stays on the live draw, where it belongs.
+
+### Removed
+
+- `#/bans` route and view. Old bookmarks fall through to the default home redirect.
+
 ## [1.4.2] - 2026-05-01
 
 ### Fixed

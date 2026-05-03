@@ -41,7 +41,7 @@ No automated accessibility tooling ships with the repo; contributor tooling is k
 - `/` (home)
 - `/#/draw?pile=home`
 - `/#/history`
-- `/#/bans`
+- `/#/collection`
 - `/#/settings`
 - `/#/rules`
 - `/login.html` (both the login and forced-change stages)

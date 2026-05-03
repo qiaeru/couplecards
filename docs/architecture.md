@@ -27,7 +27,7 @@ couplecards/
 │   ├── js/
 │   │   ├── app.js, login.js, admin.js       page entry points
 │   │   ├── core/                 api, auth, events, i18n, idb, router, sync
-│   │   ├── features/             home, deck, history, bans, settings, rules, admin, auth
+│   │   ├── features/             home, deck, history, collection, settings, rules, admin, auth
 │   │   └── ui/                   shell, emoji, password-strength, sound
 │   ├── css/, fonts/, icons/, locales/, vendor/
 │   └── sw.js                     Service Worker
@@ -86,6 +86,10 @@ The SPA router lives in `public/js/core/router.js` and is roughly sixty lines of
 ## Card draw
 
 `drawRandom(pile, recentIds)` in `public/js/core/sync.js` picks the next card for a pile. It first removes the user's banned cards (`availableCards`), then excludes the most recently drawn ids in that pile (`CONFIG.recentExclude`, three by default) so the same card does not come back two draws in a row. From the remaining pool it does a weighted random pick: standard cards weigh `1.0`, foil cards weigh `FOIL_WEIGHT = 0.3`. The constant lives at the top of `sync.js` and exists to keep the appearance rate of foil cards (the rare, explicitly sexual variant) low even when their share of the deck is non-trivial. With the current FR deck (28 foil out of 142), the effective foil draw rate is around 9.7% on the home pile and 4.4% on the outdoor pile, well below what the raw counts would suggest.
+
+## Collection screen
+
+`public/js/features/collection/collection.js` renders the deck as a grid mirrored on the user's history. A card is "discovered" once it appears in the local history (returned or banned). Drawn tiles open the existing draw screen in preview mode (`#/draw?preview=<cardId>`), where Ban or Restore buttons mutate the banned set without leaving the screen. Banned tiles carry a red cross overlay; undiscovered tiles show a "?" silhouette and ignore clicks. Foil cards wear a subtle static rainbow border regardless of state. The screen is fully derived from `getCards()`, `getHistory()` and `isBanned(id)` from `core/sync.js`, so there is no dedicated backend endpoint.
 
 ## Internationalisation
 
