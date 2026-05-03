@@ -1,0 +1,18 @@
+<!-- SPDX-License-Identifier: MIT -->
+<header class="app-header">
+  <button class="icon-btn" id="btn-back-home" data-i18n-attr="aria-label:common.back" type="button">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <h2 class="title" data-i18n="collection.title">Collection</h2>
+  <span></span>
+</header>
+<div class="collection-toolbar">
+  <div class="collection-counter" id="collection-counter"></div>
+  <div class="collection-filters" role="tablist" data-i18n-attr="aria-label:collection.title">
+    <button type="button" class="chip" role="tab" data-filter="all" aria-selected="true" data-i18n="collection.filter.all">All</button>
+    <button type="button" class="chip" role="tab" data-filter="home" aria-selected="false" data-i18n="piles.home.label">Home</button>
+    <button type="button" class="chip" role="tab" data-filter="outdoor" aria-selected="false" data-i18n="piles.outdoor.label">Outdoor</button>
+    <button type="button" class="chip" role="tab" data-filter="rare" aria-selected="false" data-i18n="collection.filter.rare">Rare</button>
+  </div>
+</div>
+<div class="collection-grid" id="collection-grid"></div>

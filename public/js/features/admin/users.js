@@ -5,12 +5,7 @@ import { request } from '../../core/api.js';
 import { t, fmtDateLong } from '../../core/i18n.js';
 import { on } from '../../core/events.js';
 import { toast, showConfirm } from '../../ui/shell.js';
-
-function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, (c) => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-  }[c]));
-}
+import { escapeHtml } from '../../core/dom.js';
 
 let allUsers = [];
 let usersQuery = '';

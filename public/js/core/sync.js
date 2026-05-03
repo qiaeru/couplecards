@@ -179,12 +179,24 @@ export function drawRandom(pile, recentIds = []) {
   return finalPool[finalPool.length - 1];
 }
 
+// Read-only getter so feature modules can render an offline / pending-sync
+// indicator without reaching into the outbox store directly.
+export async function pendingOutboxCount() {
+  try { return (await idb.listOutbox()).length; }
+  catch { return 0; }
+}
+
+async function notifyOutboxChanged() {
+  emit('sync:outbox-changed', { count: await pendingOutboxCount() });
+}
+
 export async function banCard(cardId) {
   // Optimistic timestamp; server truth lands on the next state load.
   banned.set(cardId, new Date().toISOString());
   await idb.setBanned(bannedToList());
   emit('state:banned-changed');
   await idb.enqueue({ kind: 'ban', cardId });
+  notifyOutboxChanged();
   flushOutbox().catch(() => {});
 }
 
@@ -193,6 +205,7 @@ export async function unbanCard(cardId) {
   await idb.setBanned(bannedToList());
   emit('state:banned-changed');
   await idb.enqueue({ kind: 'unban', cardId });
+  notifyOutboxChanged();
   flushOutbox().catch(() => {});
 }
 
@@ -207,6 +220,7 @@ export async function addHistory(entry) {
   await idb.setHistory(history);
   emit('state:history-changed');
   await idb.enqueue({ kind: 'history', entry: full });
+  notifyOutboxChanged();
   flushOutbox().catch(() => {});
   return full;
 }
@@ -281,6 +295,7 @@ async function flushOutbox() {
       }
     }
     emit('sync:flushed');
+    notifyOutboxChanged();
   } finally {
     flushing = false;
   }

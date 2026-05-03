@@ -52,15 +52,15 @@
           </a>
         </li>
         <li>
-          <a href="#/history" data-nav-route="history">
-            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>
-            <span data-i18n="history.title">History</span>
+          <a href="#/collection" data-nav-route="collection">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+            <span data-i18n="collection.title">Collection</span>
           </a>
         </li>
         <li>
-          <a href="#/bans" data-nav-route="bans">
-            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><line x1="5.6" y1="5.6" x2="18.4" y2="18.4"/></svg>
-            <span data-i18n="bans.title">Bans</span>
+          <a href="#/history" data-nav-route="history">
+            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>
+            <span data-i18n="history.title">History</span>
           </a>
         </li>
         <li>
@@ -88,6 +88,11 @@
           <button type="button" class="btn btn-primary" id="modal-confirm" data-i18n="common.confirm"></button>
         </div>
       </div>
+    </div>
+
+    <div id="sync-banner" class="sync-banner" role="status" aria-live="polite" hidden>
+      <span class="sync-dot" aria-hidden="true"></span>
+      <span id="sync-banner-text"></span>
     </div>
 
     <div id="update-banner" class="update-banner" role="status" hidden>

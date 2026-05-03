@@ -5,16 +5,11 @@
 import { request, ApiError } from '../../core/api.js';
 import { t, supportedLocales } from '../../core/i18n.js';
 import { toast } from '../../ui/shell.js';
+import { escapeHtml } from '../../core/dom.js';
 
 const MAX_IMPORT_BYTES = 2 * 1024 * 1024;
 const SUPPORTED_LOCALES = supportedLocales();
 let fflatePromise = null;
-
-function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, (c) => ({
-    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-  }[c]));
-}
 
 function errorMessage(err) {
   if (err instanceof ApiError) {

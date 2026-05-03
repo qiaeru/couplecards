@@ -5,7 +5,7 @@ import { me } from './core/auth.js';
 import { initI18n, applyI18n, t } from './core/i18n.js';
 import { initSync } from './core/sync.js';
 import { registerFeature, setOutlet, startRouter } from './core/router.js';
-import { registerServiceWorker } from './ui/shell.js';
+import { registerServiceWorker, initSyncBanner } from './ui/shell.js';
 import { initScrollToTop } from './ui/scroll-to-top.js';
 
 async function boot() {
@@ -28,12 +28,12 @@ async function boot() {
   await initSync();
   applyI18n(document);
 
-  registerFeature('home',     () => import('./features/home/home.js'));
-  registerFeature('draw',     () => import('./features/deck/draw.js'));
-  registerFeature('history',  () => import('./features/history/history.js'));
-  registerFeature('bans',     () => import('./features/bans/bans.js'));
-  registerFeature('settings', () => import('./features/settings/settings.js'));
-  registerFeature('rules',    () => import('./features/rules/rules.js'));
+  registerFeature('home',       () => import('./features/home/home.js'));
+  registerFeature('draw',       () => import('./features/deck/draw.js'));
+  registerFeature('history',    () => import('./features/history/history.js'));
+  registerFeature('collection', () => import('./features/collection/collection.js'));
+  registerFeature('settings',   () => import('./features/settings/settings.js'));
+  registerFeature('rules',      () => import('./features/rules/rules.js'));
 
   const outlet = document.getElementById('view');
   setOutlet(outlet);
@@ -52,6 +52,7 @@ async function boot() {
 
   startRouter();
   initScrollToTop();
+  initSyncBanner();
   registerServiceWorker();
 }
 

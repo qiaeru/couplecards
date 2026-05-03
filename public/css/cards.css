@@ -287,8 +287,11 @@
   100% { background-position: 250% 0%, 0 0; }
 }
 
-/* Holographic heart pattern confined to the illustration panel */
+/* Holographic heart pattern confined to the illustration panel. The 2px
+   inset keeps the hearts inside the panel's gold ring (1.5px box-shadow),
+   so the rim stays clean and preserves the 3D feel. */
 .card-front.is-foil .card-art::before {
+  inset: 2px;
   background:
     url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'%3E%3Cpath d='M22 33 C 11 26, 5 18, 12 12 C 16 8, 21 10, 22 15 C 23 10, 28 8, 32 12 C 39 18, 33 26, 22 33 Z' fill='%23ffffff' fill-opacity='0.35'/%3E%3C/svg%3E") 0 0 / 44px 44px repeat;
   mix-blend-mode: overlay;
@@ -955,3 +958,304 @@
     100% { transform: rotateY(180deg) scale(1); }
   }
 }
+
+/* Collection screen: deck-wide grid with discovered, banned and locked tiles. */
+.collection-toolbar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 0 14px 12px;
+}
+.collection-filters {
+  display: inline-flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.collection-filters .chip {
+  border: 1px solid var(--surface-border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-soft);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+.collection-filters .chip[aria-selected='true'] {
+  background: linear-gradient(135deg, rgba(236, 90, 158, 0.22), rgba(140, 90, 220, 0.22));
+  color: var(--text);
+  border-color: rgba(236, 90, 158, 0.55);
+}
+.collection-filters .chip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.collection-counter {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.counter-num {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--accent);
+  text-shadow: 0 0 14px rgba(236, 90, 158, 0.35);
+  min-width: 1.6ch;
+  text-align: right;
+}
+.counter-sep {
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: var(--text-soft);
+  opacity: 0.5;
+  margin: 0 1px;
+}
+.counter-total {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+  opacity: 0.85;
+}
+.counter-label {
+  margin-left: 6px;
+  font-size: 0.66rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--text-soft);
+}
+
+.collection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
+  gap: 10px;
+  padding: 0 14px 24px;
+}
+@media (min-width: 720px) {
+  .collection-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 14px; }
+}
+
+.coll-tile {
+  position: relative;
+  aspect-ratio: 5 / 7;
+  border-radius: 12px;
+  isolation: isolate;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.coll-tile[role='button'] { cursor: pointer; }
+@media (hover: hover) {
+  .coll-tile[role='button']:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
+  }
+}
+.coll-tile[role='button']:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Mini card front embedded in a tile: same markup as the draw screen, but
+   neutralised (no flip transform, scaled-down typography, no animations). */
+.coll-tile .card-front {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  transform: none;
+  overflow: hidden;
+}
+.coll-tile .card-frame {
+  inset: 5px;
+  padding: 6px 8px 5px;
+  border-radius: 9px;
+}
+.coll-tile .card-pile-label {
+  font-size: 0.42rem;
+  letter-spacing: 0.18em;
+  margin-bottom: 4px;
+}
+.coll-tile .card-pile-label::before,
+.coll-tile .card-pile-label::after { margin: 0 4px; }
+.coll-tile .card-art {
+  margin-bottom: 4px;
+  border-radius: 6px;
+  min-height: 32%;
+}
+.coll-tile .card-art-emoji { font-size: 2.2rem; }
+.coll-tile .card-title {
+  font-size: 0.62rem;
+  line-height: 1.15;
+  margin-bottom: 2px;
+}
+.coll-tile .card-divider {
+  height: 7px;
+  margin: 1px 0 3px;
+}
+.coll-tile .card-divider-ornament img { width: 7px; height: 7px; }
+.coll-tile .card-description {
+  font-size: 0.5rem;
+  line-height: 1.25;
+  -webkit-line-clamp: 4;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.coll-tile .card-footer-mark {
+  font-size: 0.45rem;
+  padding-top: 2px;
+}
+@media (min-width: 720px) {
+  .coll-tile .card-pile-label { font-size: 0.52rem; }
+  .coll-tile .card-art-emoji { font-size: 3rem; }
+  .coll-tile .card-title { font-size: 0.78rem; }
+  .coll-tile .card-description { font-size: 0.62rem; -webkit-line-clamp: 5; }
+}
+
+/* Locked silhouette: dark backdrop with a centered "?" placeholder. The dark
+   fill lives on a pseudo so the foil halo (rendered behind it) can show
+   through the perimeter on locked rare cards. */
+.coll-tile.is-locked {
+  background: transparent;
+  border: 1px solid var(--surface-border);
+  cursor: default;
+}
+.coll-tile.is-locked::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(ellipse at center, rgba(40, 25, 70, 0.85), rgba(8, 4, 20, 0.95));
+  pointer-events: none;
+  z-index: 0;
+}
+.coll-tile-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.22);
+  z-index: 1;
+}
+
+/* Foil silhouette: fixed rainbow halo that breathes slowly so undiscovered
+   rare cards stand out without the disorienting feel of a rotating gradient.
+   The conic stays put; only the glow's opacity and blur pulse. */
+.coll-tile.is-foil.is-locked { border-color: transparent; }
+.coll-tile.is-foil.is-locked::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 13px;
+  background: conic-gradient(
+    from 135deg,
+    #ff8aa3, #ffce8a, #fff0a3, #b3f5c5, #a3d8ff, #d3a3ff, #ff8aa3
+  );
+  z-index: -1;
+  pointer-events: none;
+  animation: coll-foil-breathe 7s ease-in-out infinite;
+}
+@keyframes coll-foil-breathe {
+  0%, 100% { opacity: 0.35; filter: blur(2px); }
+  50%      { opacity: 0.6;  filter: blur(4px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .coll-tile.is-foil.is-locked::before {
+    animation: none;
+    opacity: 0.5;
+    filter: blur(3px);
+  }
+}
+
+/* Banned: dim the card a touch and overlay a red cross on top. */
+.coll-tile.is-banned .card-front { opacity: 0.55; filter: saturate(0.65); }
+.coll-tile-cross {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 2;
+}
+.coll-tile-cross svg {
+  width: 55%;
+  height: 55%;
+  color: #ff5560;
+  filter: drop-shadow(0 0 6px rgba(255, 60, 80, 0.55));
+}
+
+/* Foil tiles: keep the gold border baked into .card-front.is-foil but stop
+   the loud animations inside the collection scope. The heart-pattern slide
+   on .card-art::before stays alive so the illustration panel keeps its
+   subtle motion, the rest is frozen. */
+.coll-tile .card-front.is-foil,
+.coll-tile .card-front.is-foil .card-frame::before,
+.coll-tile .card-front.is-foil::after {
+  animation: none !important;
+}
+/* The pulsing halo and twinkling sparkles also belong to the full-size
+   card; hide them at this scale, the gold border alone signals rarity. */
+.coll-tile .card-front.is-foil::after { display: none; }
+.coll-tile .foil-sparkles { display: none; }
+/* The "· Rare" suffix on the pile label crowds the tiny label area. */
+.coll-tile .card-front.is-foil .card-pile-label::after { content: ''; }
+/* The heart-pattern overlay on the illustration panel uses 44px tiles at
+   full size; in the mini card we scale it down so the density matches, and
+   slow the slide so the perceptual speed lines up with the revealed card. */
+.coll-tile .card-front.is-foil .card-art::before {
+  background-size: 14px 14px;
+  animation-duration: 70s;
+}
+@media (min-width: 720px) {
+  .coll-tile .card-front.is-foil .card-art::before {
+    background-size: 18px 18px;
+  }
+}
+
+/* The most recently drawn tile pulses so the user can locate it the moment
+   they enter the Collection. Four cycles of ~2.2s gives ~9s of visibility,
+   long enough to be obvious without becoming a permanent distraction. The
+   pulse uses a coloured outline ring so it survives even when the tile is
+   hovered (which overrides box-shadow). */
+.coll-tile.is-fresh {
+  animation: coll-tile-fresh 2.2s ease-in-out 4;
+}
+@keyframes coll-tile-fresh {
+  0%, 100% {
+    outline: 2px solid rgba(236, 90, 158, 0.55);
+    outline-offset: 1px;
+    box-shadow: 0 0 0 0 rgba(236, 90, 158, 0), 0 4px 14px rgba(0, 0, 0, 0.35);
+  }
+  50% {
+    outline: 2px solid rgba(236, 90, 158, 0.95);
+    outline-offset: 3px;
+    box-shadow: 0 0 18px 4px rgba(236, 90, 158, 0.55), 0 4px 14px rgba(0, 0, 0, 0.35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coll-tile { transition: none; }
+  .coll-tile.is-fresh {
+    animation: none;
+    outline: 2px solid rgba(236, 90, 158, 0.85);
+    outline-offset: 2px;
+  }
+}
+
+/* Ban/unban button reused on the draw preview screen. */
+.preview-actions .btn-danger,
+.preview-actions .btn-success { min-width: 120px; }
+

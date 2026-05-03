@@ -4,7 +4,7 @@
 //   * /api/cards — stale-while-revalidate (allows offline viewing)
 //   * all other /api/* — network only, never cached (auth-sensitive)
 
-const VERSION = 'couplecards-v27';
+const VERSION = 'couplecards-v28';
 const SHELL = [
   '/',
   '/index.html',
@@ -25,6 +25,7 @@ const SHELL = [
   '/js/error-page.js',
   '/js/config.js',
   '/js/core/api.js',
+  '/js/core/dom.js',
   '/js/core/auth.js',
   '/js/core/events.js',
   '/js/core/i18n.js',
@@ -33,7 +34,7 @@ const SHELL = [
   '/js/core/sync.js',
   '/js/features/home/home.js',
   '/js/features/history/history.js',
-  '/js/features/bans/bans.js',
+  '/js/features/collection/collection.js',
   '/js/features/settings/settings.js',
   '/js/features/rules/rules.js',
   '/js/features/deck/draw.js',
@@ -48,7 +49,7 @@ const SHELL = [
   '/views/home.html',
   '/views/draw.html',
   '/views/history.html',
-  '/views/bans.html',
+  '/views/collection.html',
   '/views/settings.html',
   '/views/rules.html',
   '/locales/en.json',

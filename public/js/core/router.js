@@ -6,9 +6,14 @@ import { applyI18n } from './i18n.js';
 
 const partialCache = new Map();
 const features = new Map();
+// Per-route scroll positions, restored only when the navigation comes from
+// the browser history (back/forward). Fresh nav (link click, navigate())
+// always lands at the top.
+const scrollPositions = new Map();
 let currentRoute = null;
 let currentModule = null;
 let outlet = null;
+let isHistoryNav = false;
 
 export function registerFeature(name, loader) {
   features.set(name, loader);
@@ -52,6 +57,12 @@ export async function render() {
   const { segment, params } = parsePath();
   if (!features.has(segment)) return;
 
+  // Snapshot the scroll position of the screen we are about to leave, so a
+  // future browser back can restore it.
+  if (currentRoute) scrollPositions.set(currentRoute, window.scrollY);
+  const restoreScroll = isHistoryNav;
+  isHistoryNav = false;
+
   if (currentModule && typeof currentModule.unmount === 'function') {
     try { currentModule.unmount(); } catch (err) { console.error('unmount failed', err); }
   }
@@ -67,7 +78,9 @@ export async function render() {
     await module.mount({ params, outlet });
   }
   document.dispatchEvent(new CustomEvent('route:mounted', { detail: { route: segment } }));
-  window.scrollTo(0, 0);
+
+  const targetY = restoreScroll ? (scrollPositions.get(segment) ?? 0) : 0;
+  window.scrollTo(0, targetY);
 
   // Reset focus to the new view so screen readers pick up the change.
   // <main id="main-content"> carries tabindex="-1" so it can receive focus
@@ -76,6 +89,11 @@ export async function render() {
 }
 
 export function startRouter() {
+  // popstate fires before hashchange when the user navigates the history
+  // (browser back / forward, in-app history.back). Capturing it lets us
+  // distinguish "go back" from "fresh link click" and decide whether to
+  // restore the previous scroll position or land at the top.
+  window.addEventListener('popstate', () => { isHistoryNav = true; });
   window.addEventListener('hashchange', render);
   if (!location.hash) {
     location.replace('#/home');

@@ -2,7 +2,7 @@
 // Draw screen: reveal animation, tilt, holographic effects, swipe-to-ban and
 // swipe-to-return.
 
-import { getCardById, getCardText, drawRandom, getHistory, banCard, unbanCard, addHistory, removeHistoryByUuid } from '../../core/sync.js';
+import { getCardById, getCardText, drawRandom, getHistory, banCard, unbanCard, addHistory, removeHistoryByUuid, isBanned } from '../../core/sync.js';
 import { emojiImgHTML, createEmojiImg, HEART_KEYS } from '../../ui/emoji.js';
 import { t } from '../../core/i18n.js';
 import { on } from '../../core/events.js';
@@ -14,6 +14,7 @@ import { refreshHomeCounts } from '../home/home.js';
 
 let currentCardId = null;
 let previewMode = false;
+let previewCardId = null;
 
 const $ = (id) => document.getElementById(id);
 
@@ -627,12 +628,26 @@ function finishWith(swipeClass, toastArg) {
   }
 }
 
+// In preview mode the ban/unban controls reflect the card's current state.
+// Toggling them mutates state without leaving the screen, so the button
+// swaps in place and the close button takes the user back to where they
+// came from (history, collection, etc.).
+function updatePreviewActions(cardId) {
+  const banBtn = document.getElementById('preview-action-ban');
+  const unbanBtn = document.getElementById('preview-action-unban');
+  if (!banBtn || !unbanBtn) return;
+  const banned = isBanned(cardId);
+  banBtn.hidden = banned;
+  unbanBtn.hidden = !banned;
+}
+
 // Invoked from the history feature to open a card in read-only preview.
 export function showCardDirectly(cardId) {
   const card = getCardById(cardId);
   if (!card) return;
   previewMode = true;
   currentCardId = null;
+  previewCardId = cardId;
   const pile = card.pile;
   applyCardText(card);
   $('card-emoji').innerHTML = emojiImgHTML(pile === 'home' ? 'house' : 'city');
@@ -652,8 +667,42 @@ export function showCardDirectly(cardId) {
   frontEl.classList.add('idle-shine');
   announceCard(card);
   if (preview) preview.hidden = false;
+  updatePreviewActions(cardId);
   attachTilt();
-  startHearts();
+  // Skip the floating hearts and ambient ripples in preview mode: those are
+  // tuned for the dramatic reveal flow, and replaying them every time the
+  // user opens an already-known card from Collection or History feels heavy.
+}
+
+async function previewBan() {
+  const id = previewCardId;
+  if (!id || !previewMode) return;
+  await banCard(id);
+  vibrate(CONFIG.vibrations.banAction);
+  playBan();
+  updatePreviewActions(id);
+  refreshHomeCounts();
+  toast(t('collection.toast.banned'), {
+    action: {
+      label: t('common.undo'),
+      onClick: async () => {
+        await unbanCard(id);
+        if (previewMode && previewCardId === id) updatePreviewActions(id);
+        refreshHomeCounts();
+      },
+    },
+  });
+}
+
+async function previewUnban() {
+  const id = previewCardId;
+  if (!id || !previewMode) return;
+  await unbanCard(id);
+  vibrate(CONFIG.vibrations.returnAction);
+  playReturn();
+  updatePreviewActions(id);
+  refreshHomeCounts();
+  toast(t('collection.toast.restored'));
 }
 
 // ArrowLeft bans, ArrowRight returns to the pile. Preview mode is read-only,
@@ -698,7 +747,7 @@ const inactivityListeners = ['pointerdown', 'pointermove', 'keydown', 'touchstar
 let unsubscribeLocale = null;
 
 function onLocaleChange() {
-  const id = currentCardId;
+  const id = currentCardId || previewCardId;
   if (!id) return;
   const card = getCardById(id);
   if (!card) return;
@@ -710,7 +759,12 @@ export async function mount({ params }) {
   document.getElementById('action-ban')?.addEventListener('click', () => doBan(false));
   document.getElementById('action-return')?.addEventListener('click', () => doReturn(false));
   document.getElementById('action-redraw')?.addEventListener('click', doRedraw);
-  document.getElementById('action-close')?.addEventListener('click', () => navigate('home'));
+  document.getElementById('action-close')?.addEventListener('click', () => {
+    if (window.history.length > 1) window.history.back();
+    else navigate('home');
+  });
+  document.getElementById('preview-action-ban')?.addEventListener('click', previewBan);
+  document.getElementById('preview-action-unban')?.addEventListener('click', previewUnban);
 
   const pile = params.get ? params.get('pile') : params.pile;
   const preview = params.get ? params.get('preview') : params.preview;
@@ -738,6 +792,7 @@ export function unmount() {
   releaseWakeLock();
   currentCardId = null;
   previewMode = false;
+  previewCardId = null;
   if (inactivityTimer) { clearTimeout(inactivityTimer); inactivityTimer = 0; }
   inactivityListeners.forEach((ev) => document.removeEventListener(ev, bumpInactivity));
   if (unsubscribeLocale) { unsubscribeLocale(); unsubscribeLocale = null; }
