@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-05-03
+
 ### Added
 
 - New **Collection** screen showing every card in the deck as a grid: drawn cards reveal their full design, banned cards carry a red cross, undiscovered cards stay as dark silhouettes with a "?". A `X / Y cards discovered` counter (with a slot-machine cipher reveal), filters by pile plus a Rare-only filter, and a pulse outline that follows the most recently drawn card so it is easy to locate after a draw. Rare silhouettes wear a soft breathing rainbow halo so they stand out without revealing the title.
