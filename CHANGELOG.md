@@ -16,6 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Bottom navigation entry `Bans` is replaced by `Collection`. Closing the card preview now returns to the previous screen instead of always going Home.
 - Card preview opened from Collection or History no longer plays the floating-hearts ambience; that animation stays on the live draw, where it belongs.
 - New offline / pending-sync banner pinned above the bottom nav: surfaces "Offline" while the network is gone, "Syncing your changes…" while the IndexedDB outbox still has writes to flush, hidden once everything settles.
+- The SPA router now restores scroll position when the user returns to a screen via the browser back button or the in-app `Close preview`, so opening a card from Collection or History no longer jumps back to the top of the list.
 
 ### Removed
 

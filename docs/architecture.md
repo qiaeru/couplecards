@@ -72,7 +72,7 @@ sync.banCard(id) → IndexedDB update → outbox enqueue (flush attempt fails)
 
 ## Router
 
-The SPA router lives in `public/js/core/router.js` and is roughly sixty lines of code. A route name maps to a partial HTML file in `public/views/<name>.html` and to a dynamically imported feature module at `public/js/features/<name>/<name>.js`. Each feature module exports a `mount({ params })` function and an optional `unmount()` function.
+The SPA router lives in `public/js/core/router.js` and is roughly seventy lines of code. A route name maps to a partial HTML file in `public/views/<name>.html` and to a dynamically imported feature module at `public/js/features/<name>/<name>.js`. Each feature module exports a `mount({ params })` function and an optional `unmount()` function. Scroll positions are recorded per route and restored only when the user navigates back through history (browser back, in-app `history.back()`); regular link clicks always land at the top.
 
 ## State management
 
