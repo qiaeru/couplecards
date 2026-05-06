@@ -78,7 +78,6 @@
   "history.entry.drawnAt": "Pescata il {{when}}.",
   "collection.title": "Collezione",
   "collection.counter.label": "carte scoperte",
-  
   "collection.filter.all": "Tutte",
   "collection.filter.rare": "Rare",
   "collection.empty.title": "Il mazzo è vuoto",
@@ -152,6 +151,8 @@
   "admin.cards.cardTitle": "Titolo",
   "admin.cards.description": "Descrizione",
   "admin.cards.foil": "Rara",
+  "admin.cards.emoji": "Emoji",
+  "admin.cards.emojiHint": "Slug Fluent (per esempio «pizza»). Lascia vuoto per usare l'icona della pila.",
   "admin.cards.delete.confirm": "Eliminare «{{title}}»?",
   "admin.cards.delete.body": "La carta verrà rimossa anche dalle bannate di tutti gli utenti.",
   "admin.cards.empty.title": "Il mazzo è vuoto",

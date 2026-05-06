@@ -78,7 +78,6 @@
   "history.entry.drawnAt": "Robada el {{when}}.",
   "collection.title": "Colección",
   "collection.counter.label": "cartas descubiertas",
-  
   "collection.filter.all": "Todas",
   "collection.filter.rare": "Raras",
   "collection.empty.title": "El mazo está vacío",
@@ -152,6 +151,8 @@
   "admin.cards.cardTitle": "Título",
   "admin.cards.description": "Descripción",
   "admin.cards.foil": "Rara",
+  "admin.cards.emoji": "Emoji",
+  "admin.cards.emojiHint": "Slug Fluent (por ejemplo «pizza»). Déjalo vacío para usar el icono de la pila.",
   "admin.cards.delete.confirm": "¿Eliminar «{{title}}»?",
   "admin.cards.delete.body": "La carta también se quitará de las vetadas de todos los usuarios.",
   "admin.cards.empty.title": "El mazo está vacío",

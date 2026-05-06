@@ -78,7 +78,6 @@
   "history.entry.drawnAt": "Piochée le {{when}}.",
   "collection.title": "Collection",
   "collection.counter.label": "cartes découvertes",
-  
   "collection.filter.all": "Toutes",
   "collection.filter.rare": "Rares",
   "collection.empty.title": "Le jeu de cartes est vide",
@@ -152,6 +151,8 @@
   "admin.cards.cardTitle": "Titre",
   "admin.cards.description": "Description",
   "admin.cards.foil": "Rare",
+  "admin.cards.emoji": "Émoji",
+  "admin.cards.emojiHint": "Slug Fluent (par exemple « pizza »). Laissez vide pour reprendre l'icône de la pile.",
   "admin.cards.delete.confirm": "Supprimer « {{title}} » ?",
   "admin.cards.delete.body": "La carte sera également retirée des bannissements chez tous les utilisateurs.",
   "admin.cards.empty.title": "Le jeu de cartes est vide",

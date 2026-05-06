@@ -100,7 +100,7 @@ The backend has a single source of truth for supported locales in `server/src/li
 - Static HTML uses `data-i18n="key"` and `data-i18n-attr="attr:key,attr2:key2"`.
 - Dynamic JavaScript calls `t(key, params)`.
 - An `i18n:change` event is emitted by `setLocale()`. The i18n module reapplies translations to the DOM on every change, and feature modules listen to it when they cache card text.
-- Card content lives in the database table `card_translations(card_id, locale, title, description)` so the same deck serves every supported language. The seed files under `data/cards.<locale>.json` are merged at first-run seed to populate every translation at once.
+- Card content lives in the database table `card_translations(card_id, locale, title, description)` so the same deck serves every supported language. The seed files under `data/cards.<locale>.json` are merged at first-run seed to populate every translation at once. Structural fields on the `cards` row are language-neutral (`id`, `pile`, `foil`, `emoji`) and must agree across locales; the seed aborts on a mismatch.
 
 The procedure to add a third language is documented end-to-end in [i18n.md](./i18n.md).
 

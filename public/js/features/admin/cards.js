@@ -9,6 +9,7 @@ import { on } from '../../core/events.js';
 import { toast, showConfirm } from '../../ui/shell.js';
 import { mountDeckTools } from './deck-sync.js';
 import { escapeHtml } from '../../core/dom.js';
+import { EMOJI_SLUGS } from '../../ui/emoji.js';
 
 const SUPPORTED_LOCALES = supportedLocales();
 const TITLE_MAX = 200;
@@ -138,6 +139,16 @@ function openCardDialog({ card = null } = {}) {
         <input type="checkbox" id="card-foil" ${card?.foil ? 'checked' : ''}>
         <span>${escapeHtml(t('admin.cards.foil'))}</span>
       </label>
+      <label class="field">
+        <span>${escapeHtml(t('admin.cards.emoji'))}</span>
+        <input type="text" id="card-emoji" list="card-emoji-slugs"
+               value="${card?.emoji ? escapeHtml(card.emoji) : ''}"
+               pattern="[a-z0-9\\-]{1,64}">
+        <small>${escapeHtml(t('admin.cards.emojiHint'))}</small>
+      </label>
+      <datalist id="card-emoji-slugs">
+        ${EMOJI_SLUGS.map((s) => `<option value="${escapeHtml(s)}"></option>`).join('')}
+      </datalist>
       <div class="cp-error" id="card-error" role="alert"></div>
     </form>
   `;
@@ -187,9 +198,11 @@ function openCardDialog({ card = null } = {}) {
       err.textContent = t('errors.VALIDATION_ERROR');
       return;
     }
+    const emojiValue = document.getElementById('card-emoji').value.trim();
     const payload = {
       pile: document.getElementById('card-pile').value,
       foil: document.getElementById('card-foil').checked,
+      emoji: emojiValue || null,
       translations,
     };
     confirmBtn.disabled = true;

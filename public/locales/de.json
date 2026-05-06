@@ -78,7 +78,6 @@
   "history.entry.drawnAt": "Gezogen am {{when}}.",
   "collection.title": "Sammlung",
   "collection.counter.label": "Karten entdeckt",
-  
   "collection.filter.all": "Alle",
   "collection.filter.rare": "Selten",
   "collection.empty.title": "Das Kartendeck ist leer",
@@ -152,6 +151,8 @@
   "admin.cards.cardTitle": "Titel",
   "admin.cards.description": "Beschreibung",
   "admin.cards.foil": "Selten",
+  "admin.cards.emoji": "Emoji",
+  "admin.cards.emojiHint": "Fluent-Slug (zum Beispiel „pizza“). Leer lassen, um das Pile-Symbol zu nutzen.",
   "admin.cards.delete.confirm": "„{{title}}\" löschen?",
   "admin.cards.delete.body": "Die Karte wird auch aus den verbannten Karten aller Benutzer entfernt.",
   "admin.cards.empty.title": "Das Deck ist leer",

@@ -12,6 +12,7 @@ import { SUPPORTED_LOCALES } from './locales.js';
 
 const PILES = new Set(['home', 'outdoor']);
 const ID_RE = /^[a-z0-9-]{1,64}$/;
+const EMOJI_SLUG_RE = /^[a-z0-9-]{1,64}$/;
 const TITLE_MAX = 200;
 const DESCRIPTION_MAX = 1000;
 const SEED_FILE_PATTERN = /^cards\.([a-z]{2})\.json$/i;
@@ -82,6 +83,7 @@ export function validateDeckPayload(payload) {
         id: raw.id,
         pile: raw.pile,
         foil: !!raw.foil,
+        emoji: raw.emoji ?? null,
         sortOrder: Number.isInteger(raw.sortOrder) ? raw.sortOrder : index,
         translations: out,
       };
@@ -98,7 +100,7 @@ export function validateDeckPayload(payload) {
 
 export function readDbDeck() {
   const cards = getDb().prepare(`
-    SELECT id, pile, foil, sort_order
+    SELECT id, pile, foil, emoji, sort_order
     FROM cards ORDER BY sort_order ASC, id ASC
   `).all();
   const tr = getDb().prepare(`
@@ -108,6 +110,7 @@ export function readDbDeck() {
     id: c.id,
     pile: c.pile,
     foil: c.foil === 1,
+    emoji: c.emoji ?? null,
     sortOrder: c.sort_order,
     translations: {},
   }]));
@@ -134,6 +137,7 @@ export function diffDecks(current, next) {
     if (
       c.pile !== n.pile
       || c.foil !== n.foil
+      || (c.emoji ?? null) !== (n.emoji ?? null)
       || c.sortOrder !== n.sortOrder
       || !sameTranslations(c.translations, n.translations)
     ) {
@@ -155,11 +159,11 @@ export function applyDeckSync(nextCards, mode) {
   const diff = diffDecks(current, nextCards);
   const db = getDb();
   const insertCard = db.prepare(`
-    INSERT INTO cards (id, pile, foil, sort_order)
-    VALUES (?, ?, ?, ?)
+    INSERT INTO cards (id, pile, foil, emoji, sort_order)
+    VALUES (?, ?, ?, ?, ?)
   `);
   const updateCard = db.prepare(`
-    UPDATE cards SET pile = ?, foil = ?, sort_order = ?, updated_at = datetime('now')
+    UPDATE cards SET pile = ?, foil = ?, emoji = ?, sort_order = ?, updated_at = datetime('now')
     WHERE id = ?
   `);
   const deleteCard = db.prepare('DELETE FROM cards WHERE id = ?');
@@ -173,7 +177,7 @@ export function applyDeckSync(nextCards, mode) {
     const map = new Map(nextCards.map((c) => [c.id, c]));
     for (const id of diff.added) {
       const c = map.get(id);
-      insertCard.run(c.id, c.pile, c.foil ? 1 : 0, c.sortOrder);
+      insertCard.run(c.id, c.pile, c.foil ? 1 : 0, c.emoji ?? null, c.sortOrder);
       for (const locale of SUPPORTED_LOCALES) {
         const t = c.translations[locale];
         if (t) replaceTr.run(c.id, locale, t.title, t.description);
@@ -181,7 +185,7 @@ export function applyDeckSync(nextCards, mode) {
     }
     for (const id of diff.updated) {
       const c = map.get(id);
-      updateCard.run(c.pile, c.foil ? 1 : 0, c.sortOrder, c.id);
+      updateCard.run(c.pile, c.foil ? 1 : 0, c.emoji ?? null, c.sortOrder, c.id);
       for (const locale of SUPPORTED_LOCALES) {
         const t = c.translations[locale];
         if (t) {
@@ -229,10 +233,11 @@ export function serialiseForExport() {
       const row = {
         id: card.id,
         pile: card.pile,
-        title: t.title,
-        description: t.description,
       };
       if (card.foil) row.foil = true;
+      if (card.emoji) row.emoji = card.emoji;
+      row.title = t.title;
+      row.description = t.description;
       byLocale[locale].push(row);
     }
   }
@@ -246,7 +251,11 @@ function mergeLocaleIntoMap(byId, locale, rawCards, anchor) {
     const text = readTranslation(raw);
     const existing = byId.get(raw.id);
     if (existing) {
-      if (existing.pile !== raw.pile || existing.foil !== !!raw.foil) {
+      if (
+        existing.pile !== raw.pile
+        || existing.foil !== !!raw.foil
+        || (existing.emoji ?? null) !== (raw.emoji ?? null)
+      ) {
         throw deckError('INVALID_DECK');
       }
       existing.translations[locale] = text;
@@ -256,6 +265,7 @@ function mergeLocaleIntoMap(byId, locale, rawCards, anchor) {
         id: raw.id,
         pile: raw.pile,
         foil: !!raw.foil,
+        emoji: raw.emoji ?? null,
         sortOrder: anchor ? index : Number.MAX_SAFE_INTEGER,
         translations: { [locale]: text },
       });
@@ -274,6 +284,11 @@ function ensureStructural(raw) {
   if (typeof raw.id !== 'string' || !ID_RE.test(raw.id)) throw deckError('INVALID_DECK');
   if (!PILES.has(raw.pile)) throw deckError('INVALID_DECK');
   if (raw.foil !== undefined && typeof raw.foil !== 'boolean') throw deckError('INVALID_DECK');
+  if (raw.emoji !== undefined && raw.emoji !== null) {
+    if (typeof raw.emoji !== 'string' || !EMOJI_SLUG_RE.test(raw.emoji)) {
+      throw deckError('INVALID_DECK');
+    }
+  }
 }
 
 function readTranslation(raw) {
