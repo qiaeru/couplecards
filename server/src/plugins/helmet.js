@@ -21,6 +21,10 @@ export default fp(async function helmetPlugin(app) {
         'form-action': ["'self'"],
         'frame-ancestors': ["'none'"],
         'object-src': ["'none'"],
+        // Helmet ships `upgrade-insecure-requests` by default. On a plain-HTTP
+        // LAN deployment this rewrites every asset URL to https:// and breaks
+        // the page. Keep it only when we know we are served over HTTPS.
+        'upgrade-insecure-requests': config.cookieSecure ? [] : null,
       },
     },
     crossOriginEmbedderPolicy: false,

@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+- Plain-HTTP LAN deployments no longer break with `ERR_SSL_PROTOCOL_ERROR` on every asset. The `upgrade-insecure-requests` CSP directive is now emitted only when the app knows it is served over HTTPS, instead of being added unconditionally by the security defaults.
+
 ## [1.5.0] - 2026-05-03
 
 ### Added
