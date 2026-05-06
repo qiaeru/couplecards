@@ -35,7 +35,7 @@ Audience: admins who self-host the app and want a clear picture of the measures 
 When running behind any HTTPS variant in `deploy/`, the server emits the following headers:
 
 - `Strict-Transport-Security: max-age=63072000; includeSubDomains`.
-- `Content-Security-Policy: default-src 'self'; ...; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'`. The policy uses neither `unsafe-inline` nor `unsafe-eval`.
+- `Content-Security-Policy: default-src 'self'; ...; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'`. The policy uses neither `unsafe-inline` nor `unsafe-eval`. The `upgrade-insecure-requests` directive is appended only when the server is configured for HTTPS (`COOKIE_SECURE=1` or one of the HTTPS deploy variants); a plain-HTTP LAN deployment omits it so assets are not rewritten to a scheme the server cannot serve.
 - `Permissions-Policy` denies camera, microphone, geolocation, USB, payment, magnetometer, accelerometer and the interest cohort signal. Gyroscope is allowed on the same origin so the card tilt on the draw screen works.
 - `Referrer-Policy: same-origin`.
 - `X-Content-Type-Options: nosniff`.
