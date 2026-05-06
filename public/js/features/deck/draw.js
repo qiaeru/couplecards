@@ -486,7 +486,7 @@ export async function startDraw(pile) {
   currentCardId = card.id;
 
   applyCardText(card);
-  $('card-emoji').innerHTML = emojiImgHTML(pile === 'home' ? 'house' : 'city');
+  $('card-emoji').innerHTML = emojiImgHTML(card.emoji || (pile === 'home' ? 'house' : 'city'));
   $('card-pile-label').textContent = t(`piles.${pile}.label`);
   const frontEl = document.querySelector('#card-flip .card-front');
   frontEl.classList.remove('for-home', 'for-outdoor', 'is-foil');
@@ -650,7 +650,7 @@ export function showCardDirectly(cardId) {
   previewCardId = cardId;
   const pile = card.pile;
   applyCardText(card);
-  $('card-emoji').innerHTML = emojiImgHTML(pile === 'home' ? 'house' : 'city');
+  $('card-emoji').innerHTML = emojiImgHTML(card.emoji || (pile === 'home' ? 'house' : 'city'));
   $('card-pile-label').textContent = t(`piles.${pile}.label`);
   const frontEl = document.querySelector('#card-flip .card-front');
   frontEl.classList.remove('for-home', 'for-outdoor', 'is-foil');

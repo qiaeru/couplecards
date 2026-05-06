@@ -71,8 +71,8 @@ export async function runSeed(logger) {
       return;
     }
     const insertCard = db.prepare(`
-      INSERT INTO cards (id, pile, foil, sort_order)
-      VALUES (@id, @pile, @foil, @sort_order)
+      INSERT INTO cards (id, pile, foil, emoji, sort_order)
+      VALUES (@id, @pile, @foil, @emoji, @sort_order)
     `);
     const insertTr = db.prepare(`
       INSERT INTO card_translations (card_id, locale, title, description)
@@ -84,6 +84,7 @@ export async function runSeed(logger) {
           id: card.id,
           pile: card.pile,
           foil: card.foil ? 1 : 0,
+          emoji: card.emoji ?? null,
           sort_order: card.sortOrder,
         });
         for (const [locale, text] of Object.entries(card.translations)) {
@@ -114,8 +115,8 @@ export async function maybeResetAdmin(logger) {
 }
 
 // Merges every data/cards.<locale>.json into a single deck keyed by card id.
-// A card may ship only one translation; pile and foil must agree across
-// locales for the same id.
+// A card may ship only one translation; structural fields (pile, foil, emoji)
+// must agree across locales for the same id.
 function loadSeedDeck(logger) {
   const dir = config.dataSeedDir;
   if (!existsSync(dir)) return [];
@@ -136,9 +137,15 @@ function loadSeedDeck(logger) {
       if (!raw || typeof raw.id !== 'string') return;
       const existing = byId.get(raw.id);
       if (existing) {
-        if (existing.pile !== raw.pile || !!existing.foil !== !!raw.foil) {
+        if (
+          existing.pile !== raw.pile
+          || !!existing.foil !== !!raw.foil
+          || (existing.emoji ?? null) !== (raw.emoji ?? null)
+        ) {
           throw new Error(
-            `seed card "${raw.id}": pile or foil flag differs between locales (${existing.pile}/${existing.foil} vs ${raw.pile}/${!!raw.foil})`,
+            `seed card "${raw.id}": structural fields differ between locales `
+              + `(pile=${existing.pile}/${raw.pile}, foil=${existing.foil}/${!!raw.foil}, `
+              + `emoji=${existing.emoji ?? 'null'}/${raw.emoji ?? 'null'})`,
           );
         }
         existing.translations[locale] = {
@@ -151,6 +158,7 @@ function loadSeedDeck(logger) {
           id: raw.id,
           pile: raw.pile,
           foil: !!raw.foil,
+          emoji: typeof raw.emoji === 'string' ? raw.emoji : null,
           sortOrder: order,
           translations: {
             [locale]: {

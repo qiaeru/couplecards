@@ -11,7 +11,7 @@ The full OFL text ships with the repository at `public/fonts/OFL.txt`.
 
 ## Icons
 
-- **Fluent UI Emoji (flat SVG).** Copyright © Microsoft Corporation, licensed under the [MIT License](https://github.com/microsoft/fluentui-emoji/blob/main/LICENSE). Source: <https://github.com/microsoft/fluentui-emoji>.
+- **Fluent UI Emoji (Color 3D SVG).** Copyright © Microsoft Corporation, licensed under the [MIT License](https://github.com/microsoft/fluentui-emoji/blob/main/LICENSE). Source: <https://github.com/microsoft/fluentui-emoji>.
 
 ## Backend runtime
 

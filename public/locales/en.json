@@ -78,7 +78,6 @@
   "history.entry.drawnAt": "Drawn on {{when}}.",
   "collection.title": "Collection",
   "collection.counter.label": "cards discovered",
-  
   "collection.filter.all": "All",
   "collection.filter.rare": "Rare",
   "collection.empty.title": "Deck is empty",
@@ -152,6 +151,8 @@
   "admin.cards.cardTitle": "Title",
   "admin.cards.description": "Description",
   "admin.cards.foil": "Rare",
+  "admin.cards.emoji": "Emoji",
+  "admin.cards.emojiHint": "Fluent slug (for instance \"pizza\"). Leave blank to use the pile icon.",
   "admin.cards.delete.confirm": "Delete \"{{title}}\"?",
   "admin.cards.delete.body": "This card will also be removed from every user's banned list.",
   "admin.cards.empty.title": "The deck is empty",

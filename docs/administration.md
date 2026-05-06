@@ -51,7 +51,8 @@ The **Cards** tab lists every card in the deck. Each card belongs to one of two 
 1. Click **Add a card**.
 2. Pick an ID made of lowercase letters, digits and dashes. The ID must be unique across the deck.
 3. Select a pile, write a title and write a description. Enable the **foil** flag to mark the card as a rare variant: it gets the gold-lined reveal treatment and is intentionally drawn less often than standard cards (see [architecture.md](./architecture.md) for the draw weighting).
-4. Click **Save**.
+4. Optionally pick an **emoji** slug for the card face (autocomplete lists every bundled Fluent UI Emoji). Leave it blank to fall back to the pile icon (house for home, city for outdoor).
+5. Click **Save**.
 
 ### Edit or delete a card
 

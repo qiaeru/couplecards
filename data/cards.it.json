@@ -4,880 +4,1022 @@
     {
       "id": "home-001",
       "pile": "home",
+      "emoji": "candle",
       "title": "Aristocrazia da salotto",
       "description": "Candele e arie altezzose. Il primo che ride finisce a lavare i piatti come un plebeo."
     },
     {
       "id": "home-002",
       "pile": "home",
+      "emoji": "game-die",
       "title": "Giochi disonesti",
       "description": "Duello da tavolo dove barare è un dovere. Il perdente dovrà un favore irragionevole."
     },
     {
       "id": "home-003",
       "pile": "home",
+      "emoji": "person-getting-massage",
       "title": "Massaggio fuoripista",
       "description": "Massaggio che deraglia in fretta. Appena cade un indumento, si passa ad altro."
     },
     {
       "id": "home-004",
       "pile": "home",
+      "foil": true,
+      "emoji": "clapper-board",
       "title": "Cinema carnale",
-      "description": "Film erotico per «la trama». Scommetti quanti minuti prima di mollare lo schermo?",
-      "foil": true
+      "description": "Film erotico per «la trama». Scommetti quanti minuti prima di mollare lo schermo?"
     },
     {
       "id": "home-005",
       "pile": "home",
+      "emoji": "person-in-steamy-room",
       "title": "Dignità in pausa",
       "description": "Maschere di argilla e facce da mostro. Il primo che ride perde il sex appeal per la notte."
     },
     {
       "id": "home-006",
       "pile": "home",
+      "emoji": "sleeping-face",
       "title": "Duello di sbadigli",
       "description": "Davanti al film, il primo che cala la testa prepara la colazione a letto."
     },
     {
       "id": "home-007",
       "pile": "home",
+      "emoji": "microphone",
       "title": "Massacro lirico",
       "description": "Cantate stonati con arroganza da diva. Il peggiore deve un abbraccio non richiesto."
     },
     {
       "id": "home-008",
       "pile": "home",
+      "emoji": "bathtub",
       "title": "Sardine sott'olio",
       "description": "Bagno in due con ginocchio nella schiena e sapone nell'occhio. Scomodo ma bello."
     },
     {
       "id": "home-009",
       "pile": "home",
+      "emoji": "see-no-evil-monkey",
       "title": "Fiducia cieca",
       "description": "Occhi bendati, bocca aperta. Assaggi quello che ti offro e te ne porti le smorfie."
     },
     {
       "id": "home-010",
       "pile": "home",
+      "emoji": "bed",
       "title": "Zona franca",
       "description": "Fortino di cuscini in salotto. Spazio stretto per avvicinamenti poco ortodossi."
     },
     {
       "id": "home-011",
       "pile": "home",
+      "foil": true,
+      "emoji": "camera",
       "title": "Prove compromettenti",
-      "description": "Servizio fotografico improvvisato. Si parte con ritratti, si finisce con materiale bollente.",
-      "foil": true
+      "description": "Servizio fotografico improvvisato. Si parte con ritratti, si finisce con materiale bollente."
     },
     {
       "id": "home-012",
       "pile": "home",
+      "emoji": "woman-dancing",
       "title": "Scuola di stinchi",
       "description": "Valzer elegante o rock sfrenato. I mobili sono i nemici, le mie braccia il rifugio."
     },
     {
       "id": "home-013",
       "pile": "home",
+      "emoji": "headphone",
       "title": "Blind-test punitivo",
       "description": "Indovina l'artista o accetta la penitenza. La tua scarsa cultura musicale costerà cara."
     },
     {
       "id": "home-014",
       "pile": "home",
+      "foil": true,
+      "emoji": "game-die",
       "title": "Probabilità tessili",
-      "description": "I dadi decidono il tuo spogliarello. La matematica non è mai stata così eccitante.",
-      "foil": true
+      "description": "I dadi decidono il tuo spogliarello. La matematica non è mai stata così eccitante."
     },
     {
       "id": "home-015",
       "pile": "home",
+      "foil": true,
+      "emoji": "open-book",
       "title": "Lettura per adulti",
-      "description": "Leggimi un brano osé con la faccia di un notaio. Se ridi, ricominci con una penitenza.",
-      "foil": true
+      "description": "Leggimi un brano osé con la faccia di un notaio. Se ridi, ricominci con una penitenza."
     },
     {
       "id": "home-016",
       "pile": "home",
+      "emoji": "tropical-drink",
       "title": "Alchimia da credenza",
       "description": "Cocktail improvvisati, sbornia garantita. Sapore sospetto, baci prioritari."
     },
     {
       "id": "home-017",
       "pile": "home",
+      "emoji": "no-mobile-phones",
       "title": "Detox digitale",
       "description": "Telefoni confiscati. Tocca improvvisare giochi manuali, molto più coinvolgenti."
     },
     {
       "id": "home-018",
       "pile": "home",
+      "emoji": "pizza",
       "title": "Impasto a casa",
       "description": "Pizza fatta in casa, farina ovunque. Il peggior cuoco compensa con la flessibilità."
     },
     {
       "id": "home-019",
       "pile": "home",
+      "emoji": "magnifying-glass-tilted-left",
       "title": "Interrogatorio duro",
       "description": "Domande indiscrete, niente jolly. Rispondi o accetta una conseguenza che fa arrossire."
     },
     {
       "id": "home-020",
       "pile": "home",
+      "foil": true,
+      "emoji": "person-in-lotus-position",
       "title": "Kamasutra domenicale",
-      "description": "Yoga in coppia troppo ambizioso. L'equilibrio è opzionale, il contatto pelle obbligatorio.",
-      "foil": true
+      "description": "Yoga in coppia troppo ambizioso. L'equilibrio è opzionale, il contatto pelle obbligatorio."
     },
     {
       "id": "home-021",
       "pile": "home",
+      "emoji": "candle",
       "title": "Strategia da atmosfera",
       "description": "Candele e luce soffusa. Si prepara la scena per una notte in cui uscire non è un'opzione."
     },
     {
       "id": "home-022",
       "pile": "home",
+      "emoji": "two-hearts",
       "title": "Miele e cliché",
       "description": "Romantic-com sdolcinata e coccole eccessive. Tenete pronti i fazzoletti (o il secchio)."
     },
     {
       "id": "home-023",
       "pile": "home",
+      "emoji": "teacup-without-handle",
       "title": "Pensione anticipata",
       "description": "Tisana e plaid in modalità nonni. Calma piatta prima della tempesta sotto le coperte."
     },
     {
       "id": "home-024",
       "pile": "home",
+      "emoji": "musical-notes",
       "title": "Processo musicale",
       "description": "Demoliamo i tormentoni del momento. Malafede obbligatoria, snobismo incoraggiato."
     },
     {
       "id": "home-026",
       "pile": "home",
+      "emoji": "artist-palette",
       "title": "Picasso sulla pelle",
       "description": "Pittura a dita e battaglia di pennelli. Più la tela è disastrata, meglio è."
     },
     {
       "id": "home-027",
       "pile": "home",
+      "emoji": "framed-picture",
       "title": "Museo della vergogna",
       "description": "Foto vecchie a raffica. Ridiamo dei nostri look passati come reduci della guerra."
     },
     {
       "id": "home-029",
       "pile": "home",
+      "emoji": "puzzle-piece",
       "title": "Negoziazione di puzzle",
       "description": "Pazienza e concentrazione. L'ultimo pezzo si baratta con un favore non negoziabile."
     },
     {
       "id": "home-030",
       "pile": "home",
+      "emoji": "takeout-box",
       "title": "Sapori lontani",
       "description": "Pasto esotico ordinato a caso. Se ci strozziamo, vuol dire che abbiamo viaggiato davvero."
     },
     {
       "id": "home-031",
       "pile": "home",
+      "foil": true,
+      "emoji": "man-cook",
       "title": "Solo grembiule",
-      "description": "Cucinare con il grembiule come unico capo. La temperatura sale ai fornelli.",
-      "foil": true
+      "description": "Cucinare con il grembiule come unico capo. La temperatura sale ai fornelli."
     },
     {
       "id": "home-032",
       "pile": "home",
+      "foil": true,
+      "emoji": "joker",
       "title": "Spogliarello tattico",
-      "description": "Una domanda indiscreta. Se ti tiri indietro, perdi un capo. I segreti costano caro.",
-      "foil": true
+      "description": "Una domanda indiscreta. Se ti tiri indietro, perdi un capo. I segreti costano caro."
     },
     {
       "id": "home-033",
       "pile": "home",
+      "foil": true,
+      "emoji": "kiss-mark",
       "title": "Tatuaggi effimeri",
-      "description": "Il tuo corpo è la mia tela. Disegno le mie voglie, a te interpretarle con fervore.",
-      "foil": true
+      "description": "Il tuo corpo è la mia tela. Disegno le mie voglie, a te interpretarle con fervore."
     },
     {
       "id": "home-034",
       "pile": "home",
+      "foil": true,
+      "emoji": "strawberry",
       "title": "Buffet di carne",
-      "description": "Degustazione sensuale direttamente sulla pelle. Si gusta senza mani, ma con appetito.",
-      "foil": true
+      "description": "Degustazione sensuale direttamente sulla pelle. Si gusta senza mani, ma con appetito."
     },
     {
       "id": "home-035",
       "pile": "home",
+      "emoji": "foot",
       "title": "Pedicure sensuale",
       "description": "Massaggio ai piedi con arie da podologo. Il relax cede in fretta ad altro."
     },
     {
       "id": "home-036",
       "pile": "home",
+      "foil": true,
+      "emoji": "chains",
       "title": "Resa obbligata",
-      "description": "Uno si sottomette, l'altro guida. Obbedienza richiesta, piacere non opzionale.",
-      "foil": true
+      "description": "Uno si sottomette, l'altro guida. Obbedienza richiesta, piacere non opzionale."
     },
     {
       "id": "home-037",
       "pile": "home",
+      "foil": true,
+      "emoji": "feather",
       "title": "Tortura con la piuma",
-      "description": "Gioco lento di sensazioni. La voglia impaziente di toccarmi sarà il tuo più dolce problema.",
-      "foil": true
+      "description": "Gioco lento di sensazioni. La voglia impaziente di toccarmi sarà il tuo più dolce problema."
     },
     {
       "id": "home-038",
       "pile": "home",
+      "foil": true,
+      "emoji": "shushing-face",
       "title": "Confessioni impure",
-      "description": "Obbligo o verità senza tabù. Rifiutare stasera non è proprio un'opzione.",
-      "foil": true
+      "description": "Obbligo o verità senza tabù. Rifiutare stasera non è proprio un'opzione."
     },
     {
       "id": "home-039",
       "pile": "home",
+      "foil": true,
+      "emoji": "camera-with-flash",
       "title": "Studio molto privato",
-      "description": "Creare ricordi visivi audaci. Speriamo che il tuo cloud sia ben protetto.",
-      "foil": true
+      "description": "Creare ricordi visivi audaci. Speriamo che il tuo cloud sia ben protetto."
     },
     {
       "id": "home-040",
       "pile": "home",
+      "foil": true,
+      "emoji": "crown",
       "title": "Devozione esclusiva",
-      "description": "Dimentica il tuo piacere. La mia unica missione è farti vedere le stelle.",
-      "foil": true
+      "description": "Dimentica il tuo piacere. La mia unica missione è farti vedere le stelle."
     },
     {
       "id": "home-041",
       "pile": "home",
+      "emoji": "monkey",
       "title": "Grattini da primati",
       "description": "Coccole craniche infinite. Perdiamo l'umanità per tornare a essere scimmiette."
     },
     {
       "id": "home-042",
       "pile": "home",
+      "emoji": "basket",
       "title": "Bivacco a terra",
       "description": "Picnic in salotto. Meno comodità e briciole sul fondoschiena."
     },
     {
       "id": "home-043",
       "pile": "home",
+      "emoji": "ghost",
       "title": "Brividi tattici",
       "description": "Film horror al buio. Una scusa per stringersi forte l'uno all'altra."
     },
     {
       "id": "home-044",
       "pile": "home",
+      "emoji": "video-game",
       "title": "Duello di pixel",
       "description": "Torneo di videogiochi. Il vincitore diventa re, il perdente il suo umile servo."
     },
     {
       "id": "home-045",
       "pile": "home",
+      "emoji": "scissors",
       "title": "Atelier di art brut",
       "description": "Costruiamo insieme una cosa inutile. La butteremo, ma intanto rideremo."
     },
     {
       "id": "home-046",
       "pile": "home",
+      "emoji": "bowl-with-spoon",
       "title": "Alchimia degli avanzi",
       "description": "Improvvisazione totale col frigo. Se è commestibile, abbiamo barato da qualche parte."
     },
     {
       "id": "home-047",
       "pile": "home",
+      "foil": true,
+      "emoji": "hourglass-done",
       "title": "Lentezza insostenibile",
-      "description": "Rallentare ogni gesto all'estremo. La lentezza è la più dolce delle provocazioni.",
-      "foil": true
+      "description": "Rallentare ogni gesto all'estremo. La lentezza è la più dolce delle provocazioni."
     },
     {
       "id": "home-048",
       "pile": "home",
+      "foil": true,
+      "emoji": "graduation-cap",
       "title": "Lezione privata",
-      "description": "Classico gioco di ruolo. Vedremo chi merita una punizione o una lode.",
-      "foil": true
+      "description": "Classico gioco di ruolo. Vedremo chi merita una punizione o una lode."
     },
     {
       "id": "home-049",
       "pile": "home",
+      "foil": true,
+      "emoji": "kiss-mark",
       "title": "Territorio conquistato",
-      "description": "Succhiotti, morsi, segni di baci. Coprimi di prove ben visibili.",
-      "foil": true
+      "description": "Succhiotti, morsi, segni di baci. Coprimi di prove ben visibili."
     },
     {
       "id": "home-050",
       "pile": "home",
+      "foil": true,
+      "emoji": "speech-balloon",
       "title": "Parole vietate",
-      "description": "Dirty talk senza freni durante l'atto. Nessuna parola tabù, di' tutto quello che ti viene.",
-      "foil": true
+      "description": "Dirty talk senza freni durante l'atto. Nessuna parola tabù, di' tutto quello che ti viene."
     },
     {
       "id": "home-051",
       "pile": "home",
+      "emoji": "hamburger",
       "title": "Critica al grasso",
       "description": "Recensiamo un fast-food a domicilio come un Michelin. Vocabolario pomposo sul colesterolo."
     },
     {
       "id": "home-052",
       "pile": "home",
+      "emoji": "balance-scale",
       "title": "Giudizio finale",
       "description": "Test di purezza farlocco trovato online. L'occasione per sfottere il tuo passato."
     },
     {
       "id": "home-053",
       "pile": "home",
+      "emoji": "package",
       "title": "Archeologia di cassetto",
       "description": "Svuotiamo gli armadi e ridiamo dei tesori rotti, scaduti o inutili."
     },
     {
       "id": "home-054",
       "pile": "home",
+      "emoji": "red-question-mark",
       "title": "Scuola di risate",
       "description": "Quiz da scuola elementare. Attenti, l'ego rischia un colpo fatale."
     },
     {
       "id": "home-055",
       "pile": "home",
+      "emoji": "coin",
       "title": "Aste vietate",
       "description": "Scommettiamo penitenze irragionevoli su testa o croce. Il perdente porta avanti fino in fondo."
     },
     {
       "id": "home-056",
       "pile": "home",
+      "emoji": "bottle-with-popping-cork",
       "title": "Miscele mortali",
       "description": "Svuotiamo i fondi delle bottiglie dimenticate. O troviamo un classico, o sveniamo."
     },
     {
       "id": "home-057",
       "pile": "home",
+      "emoji": "thumbs-up",
       "title": "Lotta di pollici",
       "description": "Brutale ed efficace. Il perdente sparecchia o concede un favore immediato."
     },
     {
       "id": "home-058",
       "pile": "home",
+      "emoji": "performing-arts",
       "title": "Molière domenicale",
       "description": "Recita una scena improbabile con serietà. Chi cede per primo perde l'onore."
     },
     {
       "id": "home-059",
       "pile": "home",
+      "emoji": "chess-pawn",
       "title": "Duello di dama",
       "description": "Ogni pezzo mangiato è la scusa per una piccola, personalissima richiesta."
     },
     {
       "id": "home-060",
       "pile": "home",
+      "emoji": "eyes",
       "title": "Ipnosi oculare",
       "description": "Chi sbatte le palpebre per primo perde. Tensione inutile che finisce spesso in bacio."
     },
     {
       "id": "home-061",
       "pile": "home",
+      "emoji": "broom",
       "title": "Pulizie sovversive",
       "description": "Faccende cronometrate in coppia. Ogni lamento o sospiro è subito una penitenza."
     },
     {
       "id": "home-062",
       "pile": "home",
+      "emoji": "microphone",
       "title": "Karaoke da salotto",
       "description": "Microfono improvvisato su YouTube. Il più stonato paga il giro d'acqua."
     },
     {
       "id": "home-063",
       "pile": "home",
+      "emoji": "couple-with-heart",
       "title": "Quiz di coppia",
       "description": "Domande trabocchetto sull'altro. Il meno informato dimostra l'amore con un favore."
     },
     {
       "id": "home-064",
       "pile": "home",
+      "emoji": "crystal-ball",
       "title": "Astrologia fasulla",
       "description": "Lettura seria dell'oroscopo del giorno. Demoliamo ogni previsione senza pietà."
     },
     {
       "id": "home-065",
       "pile": "home",
+      "emoji": "envelope",
       "title": "Lettere anticipate",
       "description": "Lettera alla coppia tra dieci anni. Lettura ad alta voce obbligatoria, preparati al cringe."
     },
     {
       "id": "home-066",
       "pile": "home",
+      "emoji": "hammer",
       "title": "Bricolage IKEA",
       "description": "Montaggio in coppia. La coppia che sopravvive alle istruzioni sopravvive a tutto."
     },
     {
       "id": "home-067",
       "pile": "home",
+      "emoji": "books",
       "title": "Roulette di Wikipedia",
       "description": "Pagina Wikipedia a caso. Presentazione con serietà da accademico."
     },
     {
       "id": "home-068",
       "pile": "home",
+      "emoji": "rolling-on-the-floor-laughing",
       "title": "Battle di meme",
       "description": "Ognuno fa 3 meme sull'altro in 10 minuti. Il meno divertente paga il caffè del mattino."
     },
     {
       "id": "home-069",
       "pile": "home",
+      "emoji": "writing-hand",
       "title": "Romanzo a staffetta",
       "description": "Una storia scritta a frasi alterne. Più è contorta, meglio è."
     },
     {
       "id": "home-070",
       "pile": "home",
+      "emoji": "clown-face",
       "title": "Battute pessime",
       "description": "Ognuno racconta le sue tre battute più scadenti. Il meno divertente sparecchia."
     },
     {
       "id": "out-001",
       "pile": "outdoor",
+      "emoji": "spaghetti",
       "title": "Ristorante italiano",
       "description": "Pasta e sguardi insistiti. Si gioca al meglio con doppi sensi pesantissimi."
     },
     {
       "id": "out-002",
       "pile": "outdoor",
+      "emoji": "popcorn",
       "title": "Cinema e disprezzo",
       "description": "Film scelto a caso. Il vero gusto è demolirlo dopo da critici amareggiati."
     },
     {
       "id": "out-003",
       "pile": "outdoor",
+      "emoji": "classical-building",
       "title": "Visita al museo",
       "description": "Inventiamo spiegazioni assurde sull'arte astratta. Più è pretenzioso, meglio è."
     },
     {
       "id": "out-004",
       "pile": "outdoor",
+      "emoji": "sunrise",
       "title": "Orizzonte da cliché",
       "description": "Tramonto senza vergogna. Facciamo i profondi pensando già al dolce."
     },
     {
       "id": "out-005",
       "pile": "outdoor",
+      "emoji": "shopping-bags",
       "title": "Safari del brutto",
       "description": "Trovare l'oggetto più brutto in vetrina. Giudicarlo con disprezzo regale e gratuito."
     },
     {
       "id": "out-006",
       "pile": "outdoor",
+      "emoji": "old-key",
       "title": "Test del QI",
       "description": "Un'ora di escape room per non sembrare stupidi, o per litigare in santa pace."
     },
     {
       "id": "out-007",
       "pile": "outdoor",
+      "emoji": "baguette-bread",
       "title": "Banchetto da formiche",
       "description": "Pane, vino e terra. Si mangia per terra con classe insolente."
     },
     {
       "id": "out-008",
       "pile": "outdoor",
+      "emoji": "wrapped-gift",
       "title": "Regalo della vergogna",
       "description": "Budget minimo. Ognuno cerca l'oggetto più ridicolo, ci si scambia in terrazza."
     },
     {
       "id": "out-009",
       "pile": "outdoor",
+      "emoji": "guitar",
       "title": "Groupie per una sera",
       "description": "Concerto locale sconosciuto. Diventiamo fan numero uno di un tizio col triangolo."
     },
     {
       "id": "out-010",
       "pile": "outdoor",
+      "foil": true,
+      "emoji": "evergreen-tree",
       "title": "Fuga nel bosco",
-      "description": "Prendere aria, poi sparire nel bosco. Lontano dalla città e dagli sguardi.",
-      "foil": true
+      "description": "Prendere aria, poi sparire nel bosco. Lontano dalla città e dagli sguardi."
     },
     {
       "id": "out-011",
       "pile": "outdoor",
+      "emoji": "paintbrush",
       "title": "Snobismo urbano",
       "description": "Caccia ai graffiti. Analizziamo gli scarabocchi come fossero arte alta."
     },
     {
       "id": "out-012",
       "pile": "outdoor",
+      "emoji": "kitchen-knife",
       "title": "Apprendisti macellai",
       "description": "Corso di cucina, evita di tagliarti un dito. Mangeremo il risultato per orgoglio."
     },
     {
       "id": "out-013",
       "pile": "outdoor",
+      "emoji": "bowling",
       "title": "Bowling degli sfigati",
       "description": "Duello in scarpe orrende. Chi manca il bersaglio paga il giro e la dignità."
     },
     {
       "id": "out-014",
       "pile": "outdoor",
+      "emoji": "hot-springs",
       "title": "Vapori tropicali",
       "description": "Spa e caldo umido. Si esce mosci con la voglia urgente di finire a letto."
     },
     {
       "id": "out-015",
       "pile": "outdoor",
+      "emoji": "carrot",
       "title": "Passeggiata bobo",
       "description": "Compriamo al mercato verdure dimenticate che non sapremo mai cucinare."
     },
     {
       "id": "out-016",
       "pile": "outdoor",
+      "emoji": "wine-glass",
       "title": "Lusso da marciapiede",
       "description": "Una panchina, una vista, una bottiglia. La miglior terrazza al mondo per pochi spiccioli."
     },
     {
       "id": "out-017",
       "pile": "outdoor",
+      "emoji": "grapes",
       "title": "Note di cuoio",
       "description": "Degustazione snob. Fai girare il bicchiere e infila paroloni prima dell'ebrezza."
     },
     {
       "id": "out-018",
       "pile": "outdoor",
+      "emoji": "chocolate-bar",
       "title": "Overdose di cacao",
       "description": "Tour dei cioccolatieri. Abbuffiamoci come bambini maleducati."
     },
     {
       "id": "out-019",
       "pile": "outdoor",
+      "emoji": "bicycle",
       "title": "Tour de France",
       "description": "Bici in città. Si schivano i bus, si caccia la terrazza più assolata."
     },
     {
       "id": "out-020",
       "pile": "outdoor",
+      "emoji": "croissant",
       "title": "Guerra del glutine",
       "description": "Test definitivo del cornetto. Ne assaggiamo tre e decretiamo il re del burro."
     },
     {
       "id": "out-021",
       "pile": "outdoor",
+      "emoji": "cocktail-glass",
       "title": "Cocktail in quota",
       "description": "Bicchiere troppo caro su un rooftop soleggiato. La vista vale il prezzo di un rene."
     },
     {
       "id": "out-022",
       "pile": "outdoor",
+      "emoji": "potted-plant",
       "title": "Killer di piante",
       "description": "Scegli una pianta e scommetti sulla data del decesso. Diamole un nome ridicolo."
     },
     {
       "id": "out-023",
       "pile": "outdoor",
+      "emoji": "water-wave",
       "title": "Rifare il mondo",
       "description": "Camminata sul lungo lago. È lento, è bello, mette sonno."
     },
     {
       "id": "out-024",
       "pile": "outdoor",
+      "emoji": "amphora",
       "title": "Ceramica sensuale",
       "description": "Giochiamo con l'argilla come in Ghost. È brutta, ma il contatto è sexy."
     },
     {
       "id": "out-025",
       "pile": "outdoor",
+      "emoji": "tumbler-glass",
       "title": "Fuoco in gola",
       "description": "Degustazione di superalcolici. Smorfie in coppia fingendo di capire qualcosa."
     },
     {
       "id": "out-026",
       "pile": "outdoor",
+      "emoji": "beer-mug",
       "title": "Birre locali",
       "description": "Testare le birre del quartiere. Si torna con un sixpack e un'opinione netta."
     },
     {
       "id": "out-027",
       "pile": "outdoor",
+      "emoji": "world-map",
       "title": "Caccia al tesoro",
       "description": "Geocaching con serietà da detective. Cerchiamo scatole da adulti strani."
     },
     {
       "id": "out-028",
       "pile": "outdoor",
+      "emoji": "person-climbing",
       "title": "Coppia ragno",
       "description": "Arrampicata in coppia. Se cadi, ti prendo (dopo aver riso della caduta)."
     },
     {
       "id": "out-029",
       "pile": "outdoor",
+      "emoji": "soccer-ball",
       "title": "Hooligan domenicali",
       "description": "Partita locale. Si urla per una squadra ignota, l'essenziale è gridare forte."
     },
     {
       "id": "out-030",
       "pile": "outdoor",
+      "emoji": "bikini",
       "title": "Sfilata di intimo",
       "description": "Scelgo io, provi tu. La vera scena si farà comunque a casa."
     },
     {
       "id": "out-031",
       "pile": "outdoor",
+      "emoji": "chess-pawn",
       "title": "Strategia e alcol",
       "description": "Bar dei giochi. Non capiamo le regole ma vinciamo per malafede."
     },
     {
       "id": "out-032",
       "pile": "outdoor",
+      "emoji": "hot-beverage",
       "title": "Sconosciuto in terrazza",
       "description": "Caffè a caso, si arriva separati. Rimorchiami come un bersaglio ricco e facile."
     },
     {
       "id": "out-033",
       "pile": "outdoor",
+      "foil": true,
+      "emoji": "deciduous-tree",
       "title": "Sosta selvaggia",
-      "description": "Auto nel bosco, sedili reclinati. I vetri si appannano per caso.",
-      "foil": true
+      "description": "Auto nel bosco, sedili reclinati. I vetri si appannano per caso."
     },
     {
       "id": "out-034",
       "pile": "outdoor",
+      "foil": true,
+      "emoji": "microscope",
       "title": "Curiosità scientifica",
-      "description": "Visita a un sex-shop chic. Esaminiamo gli accessori con serietà da ingegnere.",
-      "foil": true
+      "description": "Visita a un sex-shop chic. Esaminiamo gli accessori con serietà da ingegnere."
     },
     {
       "id": "out-035",
       "pile": "outdoor",
+      "foil": true,
+      "emoji": "peach",
       "title": "Esplorazione libertina",
-      "description": "Visita da turisti a un club libertino. Già guardare è un preliminare efficace.",
-      "foil": true
+      "description": "Visita da turisti a un club libertino. Già guardare è un preliminare efficace."
     },
     {
       "id": "out-036",
       "pile": "outdoor",
+      "foil": true,
+      "emoji": "fork-and-knife-with-plate",
       "title": "Discrezione assoluta",
-      "description": "Mani vaganti al ristorante. Faccia di marmo, al resto ci penso io.",
-      "foil": true
+      "description": "Mani vaganti al ristorante. Faccia di marmo, al resto ci penso io."
     },
     {
       "id": "out-037",
       "pile": "outdoor",
+      "foil": true,
+      "emoji": "zipper-mouth-face",
       "title": "Commando segreto",
-      "description": "Uscire senza biancheria intima. Il segreto rende ogni sguardo bollente.",
-      "foil": true
+      "description": "Uscire senza biancheria intima. Il segreto rende ogni sguardo bollente."
     },
     {
       "id": "out-038",
       "pile": "outdoor",
+      "foil": true,
+      "emoji": "deciduous-tree",
       "title": "Brivido pubblico",
-      "description": "Trovare un angolo discreto all'aperto. Il rischio è il miglior eccitante.",
-      "foil": true
+      "description": "Trovare un angolo discreto all'aperto. Il rischio è il miglior eccitante."
     },
     {
       "id": "out-039",
       "pile": "outdoor",
+      "emoji": "axe",
       "title": "Vichingo scatenato",
       "description": "Lancio dell'ascia. Ci sfoghiamo prima di tornare a sistemare i nostri istinti."
     },
     {
       "id": "out-040",
       "pile": "outdoor",
+      "emoji": "books",
       "title": "Titolo evocativo",
       "description": "In libreria, scegli un libro il cui titolo riassuma cosa vuoi farmi stasera."
     },
     {
       "id": "out-041",
       "pile": "outdoor",
+      "emoji": "joystick",
       "title": "Sala giochi retrò",
       "description": "Pac-Man e picchiaduro. Rispolveriamo i nostri dieci anni e la malafede leggendaria."
     },
     {
       "id": "out-042",
       "pile": "outdoor",
+      "emoji": "hot-dog",
       "title": "Cucina di strada",
       "description": "Mangiare unto in piedi. Si sporca, è buono, glamour zero, e lo adoriamo."
     },
     {
       "id": "out-043",
       "pile": "outdoor",
+      "emoji": "bottle-with-popping-cork",
       "title": "Roulette dell'enoteca",
       "description": "Enoteca a caso, scegliamo la bottiglia col nome più stupido. Sia quel che sia."
     },
     {
       "id": "out-044",
       "pile": "outdoor",
+      "emoji": "dress",
       "title": "Polizia dello stile",
       "description": "In terrazza giudichiamo i look della gente senza pietà. Cattivi, ma insieme."
     },
     {
       "id": "out-045",
       "pile": "outdoor",
+      "emoji": "selfie",
       "title": "Doppio mento",
       "description": "Gara della foto più brutta in pubblico. Chi ha meno dignità vince."
     },
     {
       "id": "out-046",
       "pile": "outdoor",
+      "emoji": "soft-ice-cream",
       "title": "Leccata gelida",
       "description": "Gelato nel cono, passeggiata in città. Lecca con un'applicazione indecente."
     },
     {
       "id": "out-047",
       "pile": "outdoor",
+      "foil": true,
+      "emoji": "love-letter",
       "title": "Sexting a distanza",
-      "description": "Mentre siamo nella folla, mandami un messaggio osé. Non arrossire per nulla.",
-      "foil": true
+      "description": "Mentre siamo nella folla, mandami un messaggio osé. Non arrossire per nulla."
     },
     {
       "id": "out-048",
       "pile": "outdoor",
+      "foil": true,
+      "emoji": "camera-with-flash",
       "title": "Photo booth proibita",
-      "description": "Quattro pose, zero pudore. Speriamo che la macchina non tenga copie.",
-      "foil": true
+      "description": "Quattro pose, zero pudore. Speriamo che la macchina non tenga copie."
     },
     {
       "id": "out-049",
       "pile": "outdoor",
+      "emoji": "fork-and-knife",
       "title": "Destino subito",
       "description": "Lascia che il cameriere scelga tutto il menu. Si accetta il rischio del fegato di merluzzo."
     },
     {
       "id": "out-050",
       "pile": "outdoor",
+      "foil": true,
+      "emoji": "automobile",
       "title": "Sedile posteriore",
-      "description": "Parcheggio nel bosco in pieno pomeriggio, sedile dietro. Scomodo e tremendamente bello.",
-      "foil": true
+      "description": "Parcheggio nel bosco in pieno pomeriggio, sedile dietro. Scomodo e tremendamente bello."
     },
     {
       "id": "out-051",
       "pile": "outdoor",
+      "emoji": "chair",
       "title": "Safari umano",
       "description": "Su una panchina scommettiamo sul lavoro dei passanti. Bonus per ogni litigata di coppia."
     },
     {
       "id": "out-053",
       "pile": "outdoor",
+      "emoji": "p-button",
       "title": "Critica al parcheggio",
       "description": "Cerchiamo l'auto peggio parcheggiata per sfotterla. Piacere da gente acida."
     },
     {
       "id": "out-054",
       "pile": "outdoor",
+      "emoji": "popcorn",
       "title": "Patacca e popcorn",
       "description": "Il film più scarso. L'obiettivo è finire il secchio prima che parta il titolo."
     },
     {
       "id": "out-055",
       "pile": "outdoor",
+      "emoji": "pancakes",
       "title": "Brunch dei reduci",
       "description": "Mangiare unto alle 15 dopo una notte movimentata. Giusto premio dei guerrieri."
     },
     {
       "id": "out-056",
       "pile": "outdoor",
+      "emoji": "takeout-box",
       "title": "Involtini a volontà",
       "description": "Sfruttiamo il buffet cinese. La dignità si ferma al terzo giro."
     },
     {
       "id": "out-057",
       "pile": "outdoor",
+      "emoji": "hiking-boot",
       "title": "Trekking simbolico",
       "description": "Camminiamo due km per giustificare l'aperitivo enorme dopo. Sforzo puramente mentale."
     },
     {
       "id": "out-058",
       "pile": "outdoor",
+      "emoji": "bullseye",
       "title": "Freccette e whisky",
       "description": "Si mira al centro, si prende il muro. Il peggior punteggio paga il giro."
     },
     {
       "id": "out-059",
       "pile": "outdoor",
+      "emoji": "money-bag",
       "title": "Sogni da milionari",
       "description": "Giudicare i prezzi in agenzia immobiliare. Ridiamo elegantemente della nostra povertà."
     },
     {
       "id": "out-060",
       "pile": "outdoor",
+      "emoji": "thinking-face",
       "title": "Vite inventate",
       "description": "Immaginiamo i segreti vergognosi degli sconosciuti. Più è trash, meglio è."
     },
     {
       "id": "out-061",
       "pile": "outdoor",
+      "emoji": "shallow-pan-of-food",
       "title": "Tour di tapas",
       "description": "Spizzicare più piatti e moltiplicare le carezze nascoste sotto il tavolo."
     },
     {
       "id": "out-062",
       "pile": "outdoor",
+      "emoji": "fork-and-knife-with-plate",
       "title": "Tavola gastronomica",
       "description": "Tiriamo fuori l'artiglieria e il vocabolario snob. Si gusta prima di prosciugare i risparmi."
     },
     {
       "id": "out-063",
       "pile": "outdoor",
+      "emoji": "oyster",
       "title": "Ostriche e vino bianco",
       "description": "Mettiamo alla prova la leggenda afrodisiaca con sospetta serietà. Iodato e sexy."
     },
     {
       "id": "out-064",
       "pile": "outdoor",
+      "emoji": "hamburger",
       "title": "Food truck",
       "description": "Burger gocciolante sul marciapiede. Selvaggio, sporco e senza scuse."
     },
     {
       "id": "out-065",
       "pile": "outdoor",
+      "emoji": "shortcake",
       "title": "Sfida da pasticceria",
       "description": "Demolire una torta complessa con il cucchiaino. Il pasticcere sarebbe offeso."
     },
     {
       "id": "out-066",
       "pile": "outdoor",
+      "emoji": "tropical-fish",
       "title": "Acquario",
       "description": "Giro dei pesci. Ognuno inventa il soprannome più cretino per ogni specie."
     },
     {
       "id": "out-067",
       "pile": "outdoor",
+      "emoji": "t-shirt",
       "title": "Vintage della vergogna",
       "description": "Scegliamo per l'altro l'outfit più ridicolo. Foto in camerino obbligatoria."
     },
     {
       "id": "out-068",
       "pile": "outdoor",
+      "emoji": "water-pistol",
       "title": "Laser tag",
       "description": "Combattimento mortale contro sconosciuti. Toccarci per sbaglio è penitenza immediata."
     },
     {
       "id": "out-069",
       "pile": "outdoor",
+      "emoji": "person-rowing-boat",
       "title": "Pedalò sincronizzato",
       "description": "Pedalare in due senza coordinazione. L'unico vero rischio è l'umiliazione pubblica."
     },
     {
       "id": "out-070",
       "pile": "outdoor",
+      "emoji": "flag-in-hole",
       "title": "Mini-golf storto",
       "description": "Putt incerto. Malafede richiesta, imbroglio ammesso se ridiamo insieme."
     },
     {
       "id": "out-071",
       "pile": "outdoor",
+      "emoji": "shopping-bags",
       "title": "Mercatino strategico",
       "description": "Ogni trovata va difesa all'altro. Il meno convincente torna a mani vuote."
     },
     {
       "id": "out-072",
       "pile": "outdoor",
+      "emoji": "world-map",
       "title": "Turisti smarriti",
       "description": "Visita la propria città da turista, accento pessimo. Bonus chiedendo indicazioni."
     },
     {
       "id": "out-073",
       "pile": "outdoor",
+      "emoji": "racing-car",
       "title": "Karting",
       "description": "Corsa in coppia. Il perdente torna a piedi e paga l'aperitivo di ritorno."
     },
     {
       "id": "out-074",
       "pile": "outdoor",
+      "emoji": "speedboat",
       "title": "Battello sul fiume",
       "description": "Giro fluviale con commento audio idiota. Sussurra le tue critiche ai turisti vicini."
     },
     {
       "id": "out-075",
       "pile": "outdoor",
+      "emoji": "selfie",
       "title": "Influencer per un giorno",
       "description": "Pose ridicole in città per dieci foto in stile story. Serietà e sfocatura artistica."
     }

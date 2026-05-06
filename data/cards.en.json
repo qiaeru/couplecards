@@ -4,880 +4,1022 @@
     {
       "id": "home-001",
       "pile": "home",
+      "emoji": "candle",
       "title": "Parlour aristocracy",
       "description": "Candles and snooty airs. First one to laugh ends up washing dishes like a commoner."
     },
     {
       "id": "home-002",
       "pile": "home",
+      "emoji": "game-die",
       "title": "Games in bad faith",
       "description": "Board-game duel where cheating is a duty. Loser owes an unreasonable favour."
     },
     {
       "id": "home-003",
       "pile": "home",
+      "emoji": "person-getting-massage",
       "title": "Wandering massage",
       "description": "Massage that goes off-script. Once a garment drops, things escalate fast."
     },
     {
       "id": "home-004",
       "pile": "home",
+      "foil": true,
+      "emoji": "clapper-board",
       "title": "Carnal cinematography",
-      "description": "An erotic film for \"the plot\". How many minutes before we abandon the screen?",
-      "foil": true
+      "description": "An erotic film for \"the plot\". How many minutes before we abandon the screen?"
     },
     {
       "id": "home-005",
       "pile": "home",
+      "emoji": "person-in-steamy-room",
       "title": "Dignity on pause",
       "description": "Clay masks and monster faces. First to laugh loses their sex appeal for the night."
     },
     {
       "id": "home-006",
       "pile": "home",
+      "emoji": "sleeping-face",
       "title": "Yawn duel",
       "description": "Whoever nods off during the film owes breakfast in bed. Parental fatigue exposed."
     },
     {
       "id": "home-007",
       "pile": "home",
+      "emoji": "microphone",
       "title": "Lyrical massacre",
       "description": "Sing out of tune with diva arrogance. Worst performer owes an unwanted hug."
     },
     {
       "id": "home-008",
       "pile": "home",
+      "emoji": "bathtub",
       "title": "Sardines in oil",
       "description": "Bath for two with a knee in the back and soap in the eye. Uncomfortable, but good."
     },
     {
       "id": "home-009",
       "pile": "home",
+      "emoji": "see-no-evil-monkey",
       "title": "Blind trust",
       "description": "Blindfold on, mouth open. Taste what I give you and own every face you pull."
     },
     {
       "id": "home-010",
       "pile": "home",
+      "emoji": "bed",
       "title": "No-man's-land",
       "description": "Cushion fort in the living room. A tight space for distinctly unholy encounters."
     },
     {
       "id": "home-011",
       "pile": "home",
+      "foil": true,
+      "emoji": "camera",
       "title": "Compromising evidence",
-      "description": "Improvised photo shoot. Starts as portraits, ends as compromising material.",
-      "foil": true
+      "description": "Improvised photo shoot. Starts as portraits, ends as compromising material."
     },
     {
       "id": "home-012",
       "pile": "home",
+      "emoji": "woman-dancing",
       "title": "The school of shins",
       "description": "Elegant waltz or wild rock. The furniture is your enemy, my arms your refuge."
     },
     {
       "id": "home-013",
       "pile": "home",
+      "emoji": "headphone",
       "title": "Punitive music quiz",
       "description": "Name the artist or accept the forfeit. Your lack of music culture is about to cost you."
     },
     {
       "id": "home-014",
       "pile": "home",
+      "foil": true,
+      "emoji": "game-die",
       "title": "Textile probabilities",
-      "description": "The dice decide your striptease. Maths has never been this exciting.",
-      "foil": true
+      "description": "The dice decide your striptease. Maths has never been this exciting."
     },
     {
       "id": "home-015",
       "pile": "home",
+      "foil": true,
+      "emoji": "open-book",
       "title": "Adult reading",
-      "description": "Read me a racy passage with a straight face. Laugh and start over with a forfeit.",
-      "foil": true
+      "description": "Read me a racy passage with a straight face. Laugh and start over with a forfeit."
     },
     {
       "id": "home-016",
       "pile": "home",
+      "emoji": "tropical-drink",
       "title": "Cupboard alchemy",
       "description": "Improvised cocktails, guaranteed buzz. The taste is suspect, the kisses have priority."
     },
     {
       "id": "home-017",
       "pile": "home",
+      "emoji": "no-mobile-phones",
       "title": "Digital detox",
       "description": "Phones confiscated. Improvise some hands-on games, far more gripping."
     },
     {
       "id": "home-018",
       "pile": "home",
+      "emoji": "pizza",
       "title": "Kneading dough",
       "description": "Homemade pizza, flour everywhere. The worst cook makes up for it with flexibility."
     },
     {
       "id": "home-019",
       "pile": "home",
+      "emoji": "magnifying-glass-tilted-left",
       "title": "Tough interrogation",
       "description": "Invasive questions, no jokers. Answer, or face a consequence that will make you blush."
     },
     {
       "id": "home-020",
       "pile": "home",
+      "foil": true,
+      "emoji": "person-in-lotus-position",
       "title": "Sunday Kamasutra",
-      "description": "Overly ambitious partner yoga. Balance is optional, skin contact is mandatory.",
-      "foil": true
+      "description": "Overly ambitious partner yoga. Balance is optional, skin contact is mandatory."
     },
     {
       "id": "home-021",
       "pile": "home",
+      "emoji": "candle",
       "title": "Mood-setting strategy",
       "description": "Candles and dimmed lights. We set the scene for a night when leaving is not an option."
     },
     {
       "id": "home-022",
       "pile": "home",
+      "emoji": "two-hearts",
       "title": "Honey and clichés",
       "description": "Sappy rom-com, excessive cuddling. Have tissues ready (or a bucket)."
     },
     {
       "id": "home-023",
       "pile": "home",
+      "emoji": "teacup-without-handle",
       "title": "Early retirement",
       "description": "Herbal tea and a blanket, grandparent mode. Dead calm before the storm under the covers."
     },
     {
       "id": "home-024",
       "pile": "home",
+      "emoji": "musical-notes",
       "title": "Music on trial",
       "description": "Demolish today's hits. Bad faith required, snobbery encouraged."
     },
     {
       "id": "home-026",
       "pile": "home",
+      "emoji": "artist-palette",
       "title": "Picasso on skin",
       "description": "Finger paint and brush battle. The worse the canvas, the better."
     },
     {
       "id": "home-027",
       "pile": "home",
+      "emoji": "framed-picture",
       "title": "Museum of shame",
       "description": "Old photos on burst mode. Mock our past looks like grizzled veterans."
     },
     {
       "id": "home-029",
       "pile": "home",
+      "emoji": "puzzle-piece",
       "title": "Puzzle negotiation",
       "description": "Patience and focus. The last piece is bartered for a non-negotiable favour."
     },
     {
       "id": "home-030",
       "pile": "home",
+      "emoji": "takeout-box",
       "title": "Distant flavours",
       "description": "Exotic meal ordered at random. If we choke, we travelled for real."
     },
     {
       "id": "home-031",
       "pile": "home",
+      "foil": true,
+      "emoji": "man-cook",
       "title": "Apron only",
-      "description": "Cooking in just an apron. The temperature rises at the stove.",
-      "foil": true
+      "description": "Cooking in just an apron. The temperature rises at the stove."
     },
     {
       "id": "home-032",
       "pile": "home",
+      "foil": true,
+      "emoji": "joker",
       "title": "Strategic undressing",
-      "description": "One invasive question. Chicken out, lose a layer. Your secrets are costly.",
-      "foil": true
+      "description": "One invasive question. Chicken out, lose a layer. Your secrets are costly."
     },
     {
       "id": "home-033",
       "pile": "home",
+      "foil": true,
+      "emoji": "kiss-mark",
       "title": "Temporary tattoos",
-      "description": "Your body is my canvas. I draw my desires, you interpret them with fervour.",
-      "foil": true
+      "description": "Your body is my canvas. I draw my desires, you interpret them with fervour."
     },
     {
       "id": "home-034",
       "pile": "home",
+      "foil": true,
+      "emoji": "strawberry",
       "title": "Flesh buffet",
-      "description": "Sensual tasting, directly on the skin. Savour hands-free, with appetite.",
-      "foil": true
+      "description": "Sensual tasting, directly on the skin. Savour hands-free, with appetite."
     },
     {
       "id": "home-035",
       "pile": "home",
+      "emoji": "foot",
       "title": "Sensual pedicure",
       "description": "Foot massage with podiatrist airs. Calm soon gives way to something else."
     },
     {
       "id": "home-036",
       "pile": "home",
+      "foil": true,
+      "emoji": "chains",
       "title": "Forced surrender",
-      "description": "One submits, the other leads. Obedience required, pleasure not optional.",
-      "foil": true
+      "description": "One submits, the other leads. Obedience required, pleasure not optional."
     },
     {
       "id": "home-037",
       "pile": "home",
+      "foil": true,
+      "emoji": "feather",
       "title": "Torture by feather",
-      "description": "A slow game of sensations. Your impatience to touch me will be your sweetest problem.",
-      "foil": true
+      "description": "A slow game of sensations. Your impatience to touch me will be your sweetest problem."
     },
     {
       "id": "home-038",
       "pile": "home",
+      "foil": true,
+      "emoji": "shushing-face",
       "title": "Impure confessions",
-      "description": "Truth or dare, no taboos. Refusing is clearly not an option tonight.",
-      "foil": true
+      "description": "Truth or dare, no taboos. Refusing is clearly not an option tonight."
     },
     {
       "id": "home-039",
       "pile": "home",
+      "foil": true,
+      "emoji": "camera-with-flash",
       "title": "A very private studio",
-      "description": "Making risqué visual memories. Let's hope your cloud is encrypted.",
-      "foil": true
+      "description": "Making risqué visual memories. Let's hope your cloud is encrypted."
     },
     {
       "id": "home-040",
       "pile": "home",
+      "foil": true,
+      "emoji": "crown",
       "title": "Exclusive devotion",
-      "description": "Forget your own pleasure. Tonight my one mission is making you see stars.",
-      "foil": true
+      "description": "Forget your own pleasure. Tonight my one mission is making you see stars."
     },
     {
       "id": "home-041",
       "pile": "home",
+      "emoji": "monkey",
       "title": "Primate grooming",
       "description": "Endless head-scratching. We drop all humanity and go back to being little monkeys."
     },
     {
       "id": "home-042",
       "pile": "home",
+      "emoji": "basket",
       "title": "Carpet bivouac",
       "description": "Living-room picnic. Less comfort, more crumbs on your behind."
     },
     {
       "id": "home-043",
       "pile": "home",
+      "emoji": "ghost",
       "title": "Tactical thrills",
       "description": "Horror film in the dark. A fine excuse to cling to each other."
     },
     {
       "id": "home-044",
       "pile": "home",
+      "emoji": "video-game",
       "title": "Pixel duel",
       "description": "Video-game tournament. Winner becomes king, loser becomes humble servant."
     },
     {
       "id": "home-045",
       "pile": "home",
+      "emoji": "scissors",
       "title": "Outsider-art workshop",
       "description": "We build something useless together. We'll toss it, but we'll have laughed."
     },
     {
       "id": "home-046",
       "pile": "home",
+      "emoji": "bowl-with-spoon",
       "title": "Leftover alchemy",
       "description": "Total improvisation with the fridge. If it's edible, someone cheated somewhere."
     },
     {
       "id": "home-047",
       "pile": "home",
+      "foil": true,
+      "emoji": "hourglass-done",
       "title": "Unbearable slowness",
-      "description": "Slow every gesture to the extreme. Slowness is the softest provocation.",
-      "foil": true
+      "description": "Slow every gesture to the extreme. Slowness is the softest provocation."
     },
     {
       "id": "home-048",
       "pile": "home",
+      "foil": true,
+      "emoji": "graduation-cap",
       "title": "Private lesson",
-      "description": "Classic role-play. Let's see who deserves punishment or high honours.",
-      "foil": true
+      "description": "Classic role-play. Let's see who deserves punishment or high honours."
     },
     {
       "id": "home-049",
       "pile": "home",
+      "foil": true,
+      "emoji": "kiss-mark",
       "title": "Conquered territory",
-      "description": "Hickeys, bites, kiss marks. Cover me in visible evidence.",
-      "foil": true
+      "description": "Hickeys, bites, kiss marks. Cover me in visible evidence."
     },
     {
       "id": "home-050",
       "pile": "home",
+      "foil": true,
+      "emoji": "speech-balloon",
       "title": "Forbidden words",
-      "description": "Full dirty talk during the act. No taboo words, say whatever crosses your mind.",
-      "foil": true
+      "description": "Full dirty talk during the act. No taboo words, say whatever crosses your mind."
     },
     {
       "id": "home-051",
       "pile": "home",
+      "emoji": "hamburger",
       "title": "Fat-food critique",
       "description": "Rate delivered fast food like a Michelin meal. Pompous words about cholesterol mandatory."
     },
     {
       "id": "home-052",
       "pile": "home",
+      "emoji": "balance-scale",
       "title": "Final judgement",
       "description": "Dubious purity test found online. An occasion to mock your past with humour."
     },
     {
       "id": "home-053",
       "pile": "home",
+      "emoji": "package",
       "title": "Drawer archaeology",
       "description": "Empty the cupboards and laugh at our broken, expired, useless treasures."
     },
     {
       "id": "home-054",
       "pile": "home",
+      "emoji": "red-question-mark",
       "title": "School of laughter",
       "description": "Primary-school-level quiz. Your ego may take a fatal hit."
     },
     {
       "id": "home-055",
       "pile": "home",
+      "emoji": "coin",
       "title": "Forbidden bids",
       "description": "Wager unreasonable forfeits on a coin flip. Loser sees it through to the end."
     },
     {
       "id": "home-056",
       "pile": "home",
+      "emoji": "bottle-with-popping-cork",
       "title": "Deadly blends",
       "description": "Empty out the forgotten bottle bottoms. Either we find a classic or we pass out."
     },
     {
       "id": "home-057",
       "pile": "home",
+      "emoji": "thumbs-up",
       "title": "Thumb war",
       "description": "Brutal and effective. Loser clears the table or offers an immediate favour."
     },
     {
       "id": "home-058",
       "pile": "home",
+      "emoji": "performing-arts",
       "title": "Sunday Shakespeare",
       "description": "Act out an improbable scene with full seriousness. First to break has lost their honour."
     },
     {
       "id": "home-059",
       "pile": "home",
+      "emoji": "chess-pawn",
       "title": "Checkers duel",
       "description": "Every captured piece is an excuse for one small, very personal demand."
     },
     {
       "id": "home-060",
       "pile": "home",
+      "emoji": "eyes",
       "title": "Staring contest",
       "description": "First to blink loses. Pointless tension that usually ends in a kiss."
     },
     {
       "id": "home-061",
       "pile": "home",
+      "emoji": "broom",
       "title": "Subversive cleanup",
       "description": "Timed chores as a duo. Every groan or sigh costs an instant forfeit."
     },
     {
       "id": "home-062",
       "pile": "home",
+      "emoji": "microphone",
       "title": "Living-room karaoke",
       "description": "Improvised mic, YouTube on. The most off-key pays for tomorrow's coffee."
     },
     {
       "id": "home-063",
       "pile": "home",
+      "emoji": "couple-with-heart",
       "title": "Couple quiz",
       "description": "Trick questions about each other. The least informed proves their love with a chore."
     },
     {
       "id": "home-064",
       "pile": "home",
+      "emoji": "crystal-ball",
       "title": "Botched astrology",
       "description": "Read today's horoscope with full seriousness. Demolish every prediction without mercy."
     },
     {
       "id": "home-065",
       "pile": "home",
+      "emoji": "envelope",
       "title": "Future-self letters",
       "description": "Write to your future selves, ten years from now. Read it aloud, brace for cringe."
     },
     {
       "id": "home-066",
       "pile": "home",
+      "emoji": "hammer",
       "title": "IKEA assembly",
       "description": "Assemble furniture as a duo. The couple that survives the manuals can survive anything."
     },
     {
       "id": "home-067",
       "pile": "home",
+      "emoji": "books",
       "title": "Wikipedia roulette",
       "description": "Random Wikipedia page. Present it with full academic seriousness."
     },
     {
       "id": "home-068",
       "pile": "home",
+      "emoji": "rolling-on-the-floor-laughing",
       "title": "Meme battle",
       "description": "We each make 3 memes about the other in 10 minutes. The least funny pays for morning coffee."
     },
     {
       "id": "home-069",
       "pile": "home",
+      "emoji": "writing-hand",
       "title": "Tag-team novel",
       "description": "A story written one sentence at a time. The weirder, the better."
     },
     {
       "id": "home-070",
       "pile": "home",
+      "emoji": "clown-face",
       "title": "Bad jokes",
       "description": "Each one tells their 3 worst jokes. The least funny clears the table."
     },
     {
       "id": "out-001",
       "pile": "outdoor",
+      "emoji": "spaghetti",
       "title": "Italian restaurant",
       "description": "Pasta and loaded glances. Bring the A-game with heavy-handed innuendos."
     },
     {
       "id": "out-002",
       "pile": "outdoor",
+      "emoji": "popcorn",
       "title": "Cinema and contempt",
       "description": "Film picked at random. The real pleasure is demolishing it afterwards like bitter critics."
     },
     {
       "id": "out-003",
       "pile": "outdoor",
+      "emoji": "classical-building",
       "title": "Museum visit",
       "description": "Invent nonsense explanations for abstract art. The more pretentious, the better."
     },
     {
       "id": "out-004",
       "pile": "outdoor",
+      "emoji": "sunrise",
       "title": "Cliché horizon",
       "description": "Unabashed sunset. Pretend to be deep while already thinking about dessert."
     },
     {
       "id": "out-005",
       "pile": "outdoor",
+      "emoji": "shopping-bags",
       "title": "Safari of the hideous",
       "description": "Find the ugliest object in a shop window. Judge it with royal, gratuitous contempt."
     },
     {
       "id": "out-006",
       "pile": "outdoor",
+      "emoji": "old-key",
       "title": "IQ test",
       "description": "One hour of escape room so we don't look stupid, or at least argue properly."
     },
     {
       "id": "out-007",
       "pile": "outdoor",
+      "emoji": "baguette-bread",
       "title": "Ants' banquet",
       "description": "Bread, wine and dirt. Eating on the ground with insolent class."
     },
     {
       "id": "out-008",
       "pile": "outdoor",
+      "emoji": "wrapped-gift",
       "title": "Gift of shame",
       "description": "Tiny budget. Each finds the most ridiculous object, swap them at a café."
     },
     {
       "id": "out-009",
       "pile": "outdoor",
+      "emoji": "guitar",
       "title": "Groupies for a night",
       "description": "Unknown local concert. Become fan number one of a guy who plays the triangle."
     },
     {
       "id": "out-010",
       "pile": "outdoor",
+      "foil": true,
+      "emoji": "evergreen-tree",
       "title": "Forest escape",
-      "description": "Get some air, mostly hide deep in the woods. Far from the city and from prying eyes.",
-      "foil": true
+      "description": "Get some air, mostly hide deep in the woods. Far from the city and from prying eyes."
     },
     {
       "id": "out-011",
       "pile": "outdoor",
+      "emoji": "paintbrush",
       "title": "Urban snobbery",
       "description": "Graffiti hunt. Analyse scribbles as if they were high art."
     },
     {
       "id": "out-012",
       "pile": "outdoor",
+      "emoji": "kitchen-knife",
       "title": "Butcher apprentices",
       "description": "Cooking class, try not to slice off a finger. We'll eat the result out of pride."
     },
     {
       "id": "out-013",
       "pile": "outdoor",
+      "emoji": "bowling",
       "title": "Bowling of the losers",
       "description": "Duel in ugly shoes. Whoever misses pays the round and their dignity."
     },
     {
       "id": "out-014",
       "pile": "outdoor",
+      "emoji": "hot-springs",
       "title": "Tropical vapours",
       "description": "Spa and humid heat. Leave floppy, with a pressing urge to end up in bed."
     },
     {
       "id": "out-015",
       "pile": "outdoor",
+      "emoji": "carrot",
       "title": "Hipster stroll",
       "description": "Buy forgotten vegetables at the market, the kind we'll never figure out how to cook."
     },
     {
       "id": "out-016",
       "pile": "outdoor",
+      "emoji": "wine-glass",
       "title": "Sidewalk luxury",
       "description": "A bench, a view, a bottle. World's best terrace for a few coins."
     },
     {
       "id": "out-017",
       "pile": "outdoor",
+      "emoji": "grapes",
       "title": "Notes of leather",
       "description": "Snobby tasting. Swirl the glass and drop complicated words before the buzz hits."
     },
     {
       "id": "out-018",
       "pile": "outdoor",
+      "emoji": "chocolate-bar",
       "title": "Cocoa overdose",
       "description": "Tour of chocolate shops. Stuff ourselves like ill-mannered children."
     },
     {
       "id": "out-019",
       "pile": "outdoor",
+      "emoji": "bicycle",
       "title": "Tour de France",
       "description": "Bike around town. Dodge the buses, chase the sunniest terrace."
     },
     {
       "id": "out-020",
       "pile": "outdoor",
+      "emoji": "croissant",
       "title": "The gluten war",
       "description": "Ultimate croissant test. Taste three and crown the king of butter."
     },
     {
       "id": "out-021",
       "pile": "outdoor",
+      "emoji": "cocktail-glass",
       "title": "Altitude cocktail",
       "description": "Overpriced drink on a sunny rooftop. The view justifies the price of a kidney."
     },
     {
       "id": "out-022",
       "pile": "outdoor",
+      "emoji": "potted-plant",
       "title": "Plant killer",
       "description": "Pick a plant and bet on its date of death. Give it a ridiculous name."
     },
     {
       "id": "out-023",
       "pile": "outdoor",
+      "emoji": "water-wave",
       "title": "Fixing the world",
       "description": "Waterside walk. It's slow, it's pretty, it'll make you sleepy."
     },
     {
       "id": "out-024",
       "pile": "outdoor",
+      "emoji": "amphora",
       "title": "Sensual pottery",
       "description": "Play with clay like in Ghost. It's ugly, but the contact is sexy."
     },
     {
       "id": "out-025",
       "pile": "outdoor",
+      "emoji": "tumbler-glass",
       "title": "Throat fire",
       "description": "Spirits tasting. Grimace together while pretending to know what we're drinking."
     },
     {
       "id": "out-026",
       "pile": "outdoor",
+      "emoji": "beer-mug",
       "title": "Local brews",
       "description": "Try the neighbourhood's beers. Leave with a pack and a sharply-held opinion."
     },
     {
       "id": "out-027",
       "pile": "outdoor",
+      "emoji": "world-map",
       "title": "Treasure hunt",
       "description": "Geocaching with detective seriousness. Hunt for boxes like very strange adults."
     },
     {
       "id": "out-028",
       "pile": "outdoor",
+      "emoji": "person-climbing",
       "title": "Spider-couple",
       "description": "Climbing as a duo. If you fall, I'll catch you (after laughing at the fall)."
     },
     {
       "id": "out-029",
       "pile": "outdoor",
+      "emoji": "soccer-ball",
       "title": "Sunday hooligans",
       "description": "Local match. Scream for an unknown team. Yelling loudly is the whole point."
     },
     {
       "id": "out-030",
       "pile": "outdoor",
+      "emoji": "bikini",
       "title": "Lingerie runway",
       "description": "I choose, you try on. The real show happens at home anyway."
     },
     {
       "id": "out-031",
       "pile": "outdoor",
+      "emoji": "chess-pawn",
       "title": "Strategy and booze",
       "description": "Games bar. We don't get the rules, but we win by sheer bad faith."
     },
     {
       "id": "out-032",
       "pile": "outdoor",
+      "emoji": "hot-beverage",
       "title": "Stranger on the terrace",
       "description": "Random café, arrive separately. Hit on me like I'm a rich, easy target."
     },
     {
       "id": "out-033",
       "pile": "outdoor",
+      "foil": true,
+      "emoji": "deciduous-tree",
       "title": "Wild detour",
-      "description": "Car parked in a forest, seats reclined. Windows fog up by accident.",
-      "foil": true
+      "description": "Car parked in a forest, seats reclined. Windows fog up by accident."
     },
     {
       "id": "out-034",
       "pile": "outdoor",
+      "foil": true,
+      "emoji": "microscope",
       "title": "Scientific curiosity",
-      "description": "Visit to a chic sex shop. Inspect the accessories with an engineer's seriousness.",
-      "foil": true
+      "description": "Visit to a chic sex shop. Inspect the accessories with an engineer's seriousness."
     },
     {
       "id": "out-035",
       "pile": "outdoor",
+      "foil": true,
+      "emoji": "peach",
       "title": "Libertine exploration",
-      "description": "Tour a libertine club like a curious tourist. Just looking is already effective foreplay.",
-      "foil": true
+      "description": "Tour a libertine club like a curious tourist. Just looking is already effective foreplay."
     },
     {
       "id": "out-036",
       "pile": "outdoor",
+      "foil": true,
+      "emoji": "fork-and-knife-with-plate",
       "title": "Absolute discretion",
-      "description": "Wandering hands at the restaurant. Keep a marble face, I'll take care of you.",
-      "foil": true
+      "description": "Wandering hands at the restaurant. Keep a marble face, I'll take care of you."
     },
     {
       "id": "out-037",
       "pile": "outdoor",
+      "foil": true,
+      "emoji": "zipper-mouth-face",
       "title": "Secret commando",
-      "description": "Go out without underwear. The secret makes every glance burn.",
-      "foil": true
+      "description": "Go out without underwear. The secret makes every glance burn."
     },
     {
       "id": "out-038",
       "pile": "outdoor",
+      "foil": true,
+      "emoji": "deciduous-tree",
       "title": "Public thrill",
-      "description": "Find a discreet corner out in the open. Risk is the best stimulant.",
-      "foil": true
+      "description": "Find a discreet corner out in the open. Risk is the best stimulant."
     },
     {
       "id": "out-039",
       "pile": "outdoor",
+      "emoji": "axe",
       "title": "Unleashed Viking",
       "description": "Axe throwing. Burn off the tension before heading home to handle our urges."
     },
     {
       "id": "out-040",
       "pile": "outdoor",
+      "emoji": "books",
       "title": "Suggestive title",
       "description": "At the bookshop, pick a book whose title sums up what you want to do to me tonight."
     },
     {
       "id": "out-041",
       "pile": "outdoor",
+      "emoji": "joystick",
       "title": "Retro arcade",
       "description": "Pac-Man and fighting games. Channel our ten-year-old selves and our legendary bad faith."
     },
     {
       "id": "out-042",
       "pile": "outdoor",
+      "emoji": "hot-dog",
       "title": "Street gastronomy",
       "description": "Eat greasy food standing up. Messy, good, zero glamour, and we love it."
     },
     {
       "id": "out-043",
       "pile": "outdoor",
+      "emoji": "bottle-with-popping-cork",
       "title": "Wine shop roulette",
       "description": "Random wine shop. Pick the bottle with the stupidest name. Come what may."
     },
     {
       "id": "out-044",
       "pile": "outdoor",
+      "emoji": "dress",
       "title": "Style police",
       "description": "From a terrace, judge passers-by with cruelty. We're mean, but together."
     },
     {
       "id": "out-045",
       "pile": "outdoor",
+      "emoji": "selfie",
       "title": "Double chin",
       "description": "Contest for the ugliest photo in public. Whoever has the least dignity wins."
     },
     {
       "id": "out-046",
       "pile": "outdoor",
+      "emoji": "soft-ice-cream",
       "title": "Indecent cone",
       "description": "Cone in hand, stroll through town. Lick with indecent focus."
     },
     {
       "id": "out-047",
       "pile": "outdoor",
+      "foil": true,
+      "emoji": "love-letter",
       "title": "Sexting at a distance",
-      "description": "While we're in the crowd, send me a racy text. Whatever you do, don't blush.",
-      "foil": true
+      "description": "While we're in the crowd, send me a racy text. Whatever you do, don't blush."
     },
     {
       "id": "out-048",
       "pile": "outdoor",
+      "foil": true,
+      "emoji": "camera-with-flash",
       "title": "Forbidden photo booth",
-      "description": "Four poses, zero modesty. Let's hope the machine keeps no copies.",
-      "foil": true
+      "description": "Four poses, zero modesty. Let's hope the machine keeps no copies."
     },
     {
       "id": "out-049",
       "pile": "outdoor",
+      "emoji": "fork-and-knife",
       "title": "Chef's mercy",
       "description": "Let the waiter choose the whole meal. We accept the risk of cod liver."
     },
     {
       "id": "out-050",
       "pile": "outdoor",
+      "foil": true,
+      "emoji": "automobile",
       "title": "Back seat",
-      "description": "Forest parking in broad daylight, back seat. Awkward and absurdly good.",
-      "foil": true
+      "description": "Forest parking in broad daylight, back seat. Awkward and absurdly good."
     },
     {
       "id": "out-051",
       "pile": "outdoor",
+      "emoji": "chair",
       "title": "Human safari",
       "description": "On a bench, bet on each passer-by's job. Bonus for every couple's argument."
     },
     {
       "id": "out-053",
       "pile": "outdoor",
+      "emoji": "p-button",
       "title": "Parking critique",
       "description": "Hunt the worst-parked car and mock it. A pleasure for bitter people."
     },
     {
       "id": "out-054",
       "pile": "outdoor",
+      "emoji": "popcorn",
       "title": "Turkey and popcorn",
       "description": "The worst film imaginable. Finish the bucket before the title appears."
     },
     {
       "id": "out-055",
       "pile": "outdoor",
+      "emoji": "pancakes",
       "title": "Survivors' brunch",
       "description": "Greasy food at 3 p.m. after a rough night. Warriors get their reward."
     },
     {
       "id": "out-056",
       "pile": "outdoor",
+      "emoji": "takeout-box",
       "title": "Spring rolls forever",
       "description": "Get value for money at the Chinese buffet. Dignity ends at the third helping."
     },
     {
       "id": "out-057",
       "pile": "outdoor",
+      "emoji": "hiking-boot",
       "title": "Symbolic hike",
       "description": "Walk 2 km to justify the massive drinks afterwards. The effort is purely psychological."
     },
     {
       "id": "out-058",
       "pile": "outdoor",
+      "emoji": "bullseye",
       "title": "Darts and whisky",
       "description": "Aim for the centre, hit the wall. Lowest score pays the round."
     },
     {
       "id": "out-059",
       "pile": "outdoor",
+      "emoji": "money-bag",
       "title": "Millionaire dreams",
       "description": "Judge prices at the estate agency. Laugh at our poverty with elegance."
     },
     {
       "id": "out-060",
       "pile": "outdoor",
+      "emoji": "thinking-face",
       "title": "Invented lives",
       "description": "Imagine strangers' shameful secrets. The trashier, the better."
     },
     {
       "id": "out-061",
       "pile": "outdoor",
+      "emoji": "shallow-pan-of-food",
       "title": "Tapas crawl",
       "description": "Hop between small plates with plenty of under-the-table touching."
     },
     {
       "id": "out-062",
       "pile": "outdoor",
+      "emoji": "fork-and-knife-with-plate",
       "title": "Gastronomic table",
       "description": "Bring out the big guns and the snob vocabulary. Savour before draining the savings."
     },
     {
       "id": "out-063",
       "pile": "outdoor",
+      "emoji": "oyster",
       "title": "Oysters and white wine",
       "description": "Test the aphrodisiac legend with suspicious seriousness. Briny and sexy."
     },
     {
       "id": "out-064",
       "pile": "outdoor",
+      "emoji": "hamburger",
       "title": "Food truck",
       "description": "Burger dripping on a sidewalk. Wild, messy, no apologies."
     },
     {
       "id": "out-065",
       "pile": "outdoor",
+      "emoji": "shortcake",
       "title": "Pastry demolition",
       "description": "Demolish a fancy cake with a teaspoon. The pastry chef would be offended."
     },
     {
       "id": "out-066",
       "pile": "outdoor",
+      "emoji": "tropical-fish",
       "title": "Aquarium",
       "description": "Fish-tank tour. Each invents the dumbest nickname for every species."
     },
     {
       "id": "out-067",
       "pile": "outdoor",
+      "emoji": "t-shirt",
       "title": "Thrift shop of shame",
       "description": "Each picks the most ridiculous outfit for the other. Photo in the fitting room mandatory."
     },
     {
       "id": "out-068",
       "pile": "outdoor",
+      "emoji": "water-pistol",
       "title": "Laser tag",
       "description": "Death match against strangers. Touching each other by accident is an instant forfeit."
     },
     {
       "id": "out-069",
       "pile": "outdoor",
+      "emoji": "person-rowing-boat",
       "title": "Synchronised pedalo",
       "description": "Pedal as a duo with zero coordination. The only real risk is public humiliation."
     },
     {
       "id": "out-070",
       "pile": "outdoor",
+      "emoji": "flag-in-hole",
       "title": "Wonky mini-golf",
       "description": "Sloppy putts. Bad faith required, cheating allowed if we laugh together."
     },
     {
       "id": "out-071",
       "pile": "outdoor",
+      "emoji": "shopping-bags",
       "title": "Strategic flea market",
       "description": "Each find has to be pitched to the other. Least convincing leaves empty-handed."
     },
     {
       "id": "out-072",
       "pile": "outdoor",
+      "emoji": "world-map",
       "title": "Lost tourists",
       "description": "Visit your own town as foreigners, bad accent required. Bonus for asking a local."
     },
     {
       "id": "out-073",
       "pile": "outdoor",
+      "emoji": "racing-car",
       "title": "Karting",
       "description": "Duel race. Loser walks home and pays for the post-race drink."
     },
     {
       "id": "out-074",
       "pile": "outdoor",
+      "emoji": "speedboat",
       "title": "River cruise",
       "description": "Boat tour with idiotic audio commentary. Whisper your hot takes to nearby tourists."
     },
     {
       "id": "out-075",
       "pile": "outdoor",
+      "emoji": "selfie",
       "title": "Influencer for a day",
       "description": "10 ridiculous story-style poses around town. Full seriousness, artistic blur required."
     }

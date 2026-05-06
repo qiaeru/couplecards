@@ -40,7 +40,7 @@ function buildCardFront(card, title, description, locale) {
   art.className = 'card-art';
   const emojiSpan = document.createElement('span');
   emojiSpan.className = 'card-art-emoji';
-  emojiSpan.appendChild(createEmojiImg(card.pile === 'home' ? 'house' : 'city'));
+  emojiSpan.appendChild(createEmojiImg(card.emoji || (card.pile === 'home' ? 'house' : 'city')));
   art.appendChild(emojiSpan);
 
   const titleEl = document.createElement('h3');

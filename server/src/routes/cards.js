@@ -7,13 +7,14 @@ import { requireSession, requireAdmin, enforcePasswordChange } from '../lib/auth
 import { SUPPORTED_LOCALES } from '../lib/locales.js';
 
 const CARD_ID_PATTERN = '^[a-z0-9-]{1,64}$';
+const EMOJI_SLUG_PATTERN = '^[a-z0-9-]{1,64}$';
 const TITLE_MAX = 200;
 const DESCRIPTION_MAX = 1000;
 
 function selectCards() {
   const db = getDb();
   const cards = db.prepare(`
-    SELECT id, pile, foil, sort_order, updated_at
+    SELECT id, pile, foil, emoji, sort_order, updated_at
     FROM cards ORDER BY sort_order ASC, id ASC
   `).all();
   const translations = db.prepare(`
@@ -23,6 +24,7 @@ function selectCards() {
     id: c.id,
     pile: c.pile,
     foil: c.foil === 1,
+    emoji: c.emoji ?? null,
     sortOrder: c.sort_order,
     updatedAt: c.updated_at,
     translations: Object.fromEntries(SUPPORTED_LOCALES.map((l) => [l, null])),
@@ -90,13 +92,14 @@ export default async function cardRoutes(app) {
           id: { type: 'string', pattern: CARD_ID_PATTERN },
           pile: { type: 'string', enum: ['home', 'outdoor'] },
           foil: { type: 'boolean' },
+          emoji: { type: ['string', 'null'], pattern: EMOJI_SLUG_PATTERN },
           sortOrder: { type: 'integer' },
           translations: translationsShape,
         },
       },
     },
   }, async (request, reply) => {
-    const { id, pile, foil = false, sortOrder, translations } = request.body;
+    const { id, pile, foil = false, emoji = null, sortOrder, translations } = request.body;
     if (!hasAnyTranslation(translations)) {
       return reply.code(400).send({ error: 'VALIDATION_ERROR' });
     }
@@ -104,9 +107,9 @@ export default async function cardRoutes(app) {
     try {
       db.exec('BEGIN');
       db.prepare(`
-        INSERT INTO cards (id, pile, foil, sort_order)
-        VALUES (?, ?, ?, ?)
-      `).run(id, pile, foil ? 1 : 0, sortOrder ?? Date.now());
+        INSERT INTO cards (id, pile, foil, emoji, sort_order)
+        VALUES (?, ?, ?, ?, ?)
+      `).run(id, pile, foil ? 1 : 0, emoji ?? null, sortOrder ?? Date.now());
       writeTranslations(db, id, translations);
       db.exec('COMMIT');
     } catch (err) {
@@ -134,6 +137,7 @@ export default async function cardRoutes(app) {
         properties: {
           pile: { type: 'string', enum: ['home', 'outdoor'] },
           foil: { type: 'boolean' },
+          emoji: { type: ['string', 'null'], pattern: EMOJI_SLUG_PATTERN },
           sortOrder: { type: 'integer' },
           translations: translationsShape,
         },
@@ -148,6 +152,7 @@ export default async function cardRoutes(app) {
     const args = [];
     if (request.body.pile !== undefined) { updates.push('pile = ?'); args.push(request.body.pile); }
     if (request.body.foil !== undefined) { updates.push('foil = ?'); args.push(request.body.foil ? 1 : 0); }
+    if (request.body.emoji !== undefined) { updates.push('emoji = ?'); args.push(request.body.emoji ?? null); }
     if (request.body.sortOrder !== undefined) { updates.push('sort_order = ?'); args.push(request.body.sortOrder); }
 
     try {
@@ -208,7 +213,7 @@ function writeTranslations(db, cardId, translations) {
 function selectCard(id) {
   const db = getDb();
   const c = db.prepare(`
-    SELECT id, pile, foil, sort_order, updated_at
+    SELECT id, pile, foil, emoji, sort_order, updated_at
     FROM cards WHERE id = ?
   `).get(id);
   if (!c) return null;
@@ -221,6 +226,7 @@ function selectCard(id) {
     id: c.id,
     pile: c.pile,
     foil: c.foil === 1,
+    emoji: c.emoji ?? null,
     sortOrder: c.sort_order,
     updatedAt: c.updated_at,
     translations,
