@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+- Existing instances upgrading to 1.6.0 stayed on the pile fallback icon for every card because the seed only runs against an empty deck. The boot sequence now back-fills `cards.emoji` from the seed JSON files for any row still at NULL, so per-card emojis appear without manual admin action. Emoji values that were already set (admin edits, custom imports) are left untouched.
+
 ## [1.6.0] - 2026-05-06
 
 ### Added

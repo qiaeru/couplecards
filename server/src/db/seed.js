@@ -94,6 +94,37 @@ export async function runSeed(logger) {
     });
     applySeed();
     logger?.info({ count: deck.length, locales: Object.keys(deck[0]?.translations || {}) }, 'seeded card deck');
+  } else {
+    backfillCardEmoji(logger);
+  }
+}
+
+// Back-fills `cards.emoji` for rows still at NULL, using whatever the seed
+// JSON files declare for that id. Runs on every boot once the deck is already
+// seeded, so an instance that pre-dates the emoji column picks up the per-card
+// icons without manual admin action. Never overwrites a non-NULL value, so
+// emoji edits made through the admin UI are preserved.
+function backfillCardEmoji(logger) {
+  const db = getDb();
+  const stillNull = db.prepare('SELECT COUNT(*) AS n FROM cards WHERE emoji IS NULL').get().n;
+  if (stillNull === 0) return;
+  const deck = loadSeedDeck(logger);
+  if (deck.length === 0) return;
+  const update = db.prepare(`
+    UPDATE cards SET emoji = ?, updated_at = datetime('now')
+    WHERE id = ? AND emoji IS NULL
+  `);
+  let patched = 0;
+  const apply = transaction(() => {
+    for (const card of deck) {
+      if (!card.emoji) continue;
+      const info = update.run(card.emoji, card.id);
+      patched += info.changes;
+    }
+  });
+  apply();
+  if (patched > 0) {
+    logger?.info({ patched }, 'back-filled cards.emoji from seed files');
   }
 }
 
