@@ -6,14 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.6.0] - 2026-05-06
+
 ### Added
 
-- Per-card emoji on the card face. Each card in the seed deck now ships an `emoji` slug (a 4th structural field alongside `id`, `pile`, `foil`) that maps to a Fluent UI Emoji SVG bundled under `public/icons/emoji/`. The drawn face and the discovered tiles in Collection use that emoji; locked silhouettes keep the pile icon. Cards without an `emoji` (legacy data, future blank rows) fall back to the pile icon.
+- Per-card emoji on the card face. Each deck card now ships its own Fluent UI Emoji icon, used on the drawn face and on discovered tiles in Collection. Locked silhouettes keep the pile icon, and cards without an emoji fall back to it as well.
 - Admin cards editor now exposes an Emoji field with autocomplete on the bundled slug list. Leaving it blank reuses the pile icon.
 
 ### Fixed
 
-- Plain-HTTP LAN deployments no longer break with `ERR_SSL_PROTOCOL_ERROR` on every asset. The `upgrade-insecure-requests` CSP directive is now emitted only when the app knows it is served over HTTPS, instead of being added unconditionally by the security defaults.
+- Plain-HTTP LAN deployments no longer break with `ERR_SSL_PROTOCOL_ERROR` on every asset. The `upgrade-insecure-requests` CSP directive is now emitted only when the app is served over HTTPS.
 
 ## [1.5.0] - 2026-05-03
 
