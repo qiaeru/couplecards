@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.6.2] - 2026-05-09
+
+### Security
+
+- Bumped the transitive `fast-uri` dependency from 3.1.0 to 3.1.2 to pull in the upstream fixes for GHSA-q3j6-qgpj-74h6 and GHSA-v39h-62p7-jpjc, two URI-parsing vulnerabilities reachable through Fastify's request handling.
+
 ## [1.6.1] - 2026-05-06
 
 ### Fixed
