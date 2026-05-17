@@ -2,7 +2,7 @@
 // Deck maintenance flows: export (ZIP), sync from server-side JSON files,
 // import an uploaded backup. fflate is loaded lazily when importing.
 
-import { request, ApiError } from '../../core/api.js';
+import { request, errorMessage } from '../../core/api.js';
 import { t, supportedLocales } from '../../core/i18n.js';
 import { toast, withModal } from '../../ui/shell.js';
 import { escapeHtml } from '../../core/dom.js';
@@ -10,14 +10,6 @@ import { escapeHtml } from '../../core/dom.js';
 const MAX_IMPORT_BYTES = 2 * 1024 * 1024;
 const SUPPORTED_LOCALES = supportedLocales();
 let fflatePromise = null;
-
-function errorMessage(err) {
-  if (err instanceof ApiError) {
-    const localised = t(`errors.${err.code}`);
-    if (localised && localised !== `errors.${err.code}`) return localised;
-  }
-  return t('errors.generic');
-}
 
 async function loadFflate() {
   if (!fflatePromise) {

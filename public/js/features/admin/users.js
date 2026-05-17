@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Admin users tab: list, create, reset password, delete, unlock.
 
-import { request } from '../../core/api.js';
+import { request, errorMessage } from '../../core/api.js';
 import { t, fmtDateLong } from '../../core/i18n.js';
 import { on } from '../../core/events.js';
 import { toast, showConfirm, withModal } from '../../ui/shell.js';
@@ -138,7 +138,7 @@ export async function mount() {
       await createUser(username);
       input.value = '';
     } catch (err) {
-      toast(t(`errors.${err.code}`) || t('errors.generic'));
+      toast(errorMessage(err));
     } finally {
       btn.disabled = false;
     }
@@ -161,7 +161,7 @@ export async function mount() {
       else if (btn.dataset.action === 'delete') await deleteUser(id, username);
       else if (btn.dataset.action === 'unlock') await unlockUser(id);
     } catch (err) {
-      toast(t(`errors.${err.code}`) || t('errors.generic'));
+      toast(errorMessage(err));
     }
   });
 

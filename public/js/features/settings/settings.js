@@ -3,6 +3,7 @@
 
 import { areVibrationsEnabled, setVibrationsEnabled, areSoundsEnabled, setSoundsEnabled, canInstall, triggerInstall, toast, showConfirm } from '../../ui/shell.js';
 import { logout, setPreferences, getCachedUser, me, changePassword, getPasswordPolicy } from '../../core/auth.js';
+import { errorMessage } from '../../core/api.js';
 import { resetUserData } from '../../core/sync.js';
 import { setLocale, getLocale, supportedLocales, t } from '../../core/i18n.js';
 import { navigate } from '../../core/router.js';
@@ -173,7 +174,7 @@ async function openChangePasswordDialog() {
       close();
       toast(t('changePassword.success'));
     } catch (e) {
-      err.textContent = t(`errors.${e.code}`) || t('errors.generic');
+      err.textContent = errorMessage(e);
     } finally {
       confirmBtn.disabled = false;
     }

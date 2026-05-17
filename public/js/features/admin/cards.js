@@ -2,7 +2,7 @@
 // Admin cards tab: list, create, edit, delete. The editor has one input block
 // per supported locale so both translations can be filled in a single pass.
 
-import { request } from '../../core/api.js';
+import { request, errorMessage } from '../../core/api.js';
 import { t, getLocale, supportedLocales } from '../../core/i18n.js';
 import { getCardText } from '../../core/sync.js';
 import { on } from '../../core/events.js';
@@ -217,7 +217,7 @@ function openCardDialog({ card = null } = {}) {
       toast(t('common.save'));
       await renderCards();
     } catch (e) {
-      err.textContent = t(`errors.${e.code}`) || t('errors.generic');
+      err.textContent = errorMessage(e);
     } finally {
       confirmBtn.disabled = false;
     }
@@ -276,7 +276,7 @@ export async function mount() {
         }
       }
     } catch (err) {
-      toast(t(`errors.${err.code}`) || t('errors.generic'));
+      toast(errorMessage(err));
     }
   });
   await renderCards();

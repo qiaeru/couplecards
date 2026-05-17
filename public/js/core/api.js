@@ -2,6 +2,8 @@
 // JSON fetch wrapper: same-origin cookies, CSRF header on mutations,
 // automatic redirect to /login on 401, typed errors from backend codes.
 
+import { t } from './i18n.js';
+
 const CSRF_METHODS = new Set(['POST', 'PUT', 'PATCH', 'DELETE']);
 
 let csrfToken = null;
@@ -76,6 +78,18 @@ export async function request(path, options = {}) {
   }
 
   return data;
+}
+
+// Localised user-facing message for an ApiError (or any thrown value). Falls
+// back to errors.generic when the server code has no matching translation,
+// so unknown codes never leak as raw "errors.SOMETHING_WEIRD" strings.
+export function errorMessage(err) {
+  if (err instanceof ApiError) {
+    const key = `errors.${err.code}`;
+    const localised = t(key);
+    if (localised !== key) return localised;
+  }
+  return t('errors.generic');
 }
 
 function redirectToLogin() {
