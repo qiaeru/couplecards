@@ -14,6 +14,7 @@
   <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
 </head>
 <body>
+  <a href="#admin-panel-users" class="skip-link" data-i18n="common.skipToContent">Skip to main content</a>
   <div id="screen-announce" class="sr-only" role="status" aria-live="polite"></div>
   <div id="admin-boot" class="boot-skeleton">
     <div class="boot-logo"><img class="title-icon" src="/icons/icon.svg" alt="" aria-hidden="true" draggable="false"><span>Couplecards</span></div>
@@ -31,7 +32,7 @@
       <button type="button" id="admin-tab-settings" class="admin-tab admin-tab-right" role="tab" aria-selected="false" tabindex="-1" data-i18n="settings.title">Settings</button>
     </nav>
 
-    <section id="admin-panel-users" class="admin-panel" role="tabpanel" aria-labelledby="admin-tab-users">
+    <section id="admin-panel-users" class="admin-panel" role="tabpanel" aria-labelledby="admin-tab-users" tabindex="-1">
       <form id="admin-create-user-form" class="admin-inline-form">
         <label for="admin-create-user-input" class="admin-inline-form-label" data-i18n="login.username">Username</label>
         <div class="admin-inline-form-row">
