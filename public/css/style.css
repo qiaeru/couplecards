@@ -469,7 +469,6 @@ body::before {
 @media (hover: hover) {
   .pile:hover { transform: translateY(-5px); filter: brightness(1.05); }
   .pile:hover .stack-card-top { box-shadow: 0 16px 40px rgba(236, 90, 158, 0.25); }
-  .btn:hover:not(:disabled) { filter: brightness(1.05); }
 }
 .pile:active { transform: scale(0.97); }
 
