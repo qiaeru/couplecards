@@ -56,7 +56,7 @@
   "draw.title": "Couplecards",
   "draw.action.ban": "Verbannen",
   "draw.action.return": "Auf den Stapel zurücklegen",
-  "draw.action.redraw": "Eine weitere Karte aus demselben Stapel ziehen",
+  "draw.action.redraw": "Noch eine aus diesem Stapel",
   "draw.action.close": "Vorschau schließen",
   "draw.swipe.ban": "Verbannen",
   "draw.swipe.return": "Zurück\nauf den Stapel",
