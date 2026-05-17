@@ -161,20 +161,6 @@ body { padding: 20px 16px calc(env(safe-area-inset-bottom, 0px) + 24px); }
   font-size: 0.82rem;
 }
 
-.pile-badge.home {
-  background: linear-gradient(135deg, var(--home-1), var(--home-2));
-}
-.pile-badge.outdoor {
-  background: linear-gradient(135deg, var(--outdoor-1), var(--outdoor-2));
-}
-
-.field-inline {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 2px;
-}
-
 .deck-tools {
   background-image: var(--tile-surface);
   background-color: var(--surface);

@@ -60,6 +60,7 @@
   "draw.action.close": "Cerrar vista previa",
   "draw.swipe.ban": "Vetar",
   "draw.swipe.return": "Devolver\nal montón",
+  "draw.foil.rare": "Rara",
   "draw.toast.returned": "Carta devuelta al montón",
   "draw.toast.banned": "Carta vetada",
   "draw.toast.empty": "No quedan cartas en este montón",

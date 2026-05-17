@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+- Visual polish pass: the foil card halo is no longer clipped by the card-face overflow and now actually pulses around the rim; the "Rare" suffix on the foil pile label is localised in en/fr/de/it/es instead of hardcoded English in CSS; the update banner sits above the bottom navigation instead of covering its rightmost links; the Collection counter, filters and tile grid align with the screen title rather than starting 14px further in; the card flip lands on the same frame inset as the back so the dashed liner stays put; modal padding is uniform so the footer buttons no longer crowd the right wall; the boot skeleton no longer flashes a flat fill against the body gradient, and its logo and bar animations now share a 1.2s cadence; the locked-foil tile halo wraps the tile flush instead of leaking a pixel of conic gradient; the .heart-icon glow stops bleeding onto the small in-card ornament; the .btn:hover brightness filter is dropped so the per-variant shadow boost reads cleanly.
+- The .action-tag.banned pill background is now tied to var(--danger) via color-mix instead of a stale literal rgba from a previous palette, so the badge fill matches its text.
+
+### Changed
+
+- Internal CSS cleanup: removed the dead `.home-nav` / `.btn-nav` block that no template emits, removed `pile-badge.home`, `pile-badge.outdoor` and `field-inline` duplicates from `admin.css` (already in `style.css`), and routed the remaining `'Fraunces'` / `'Inter'` literals through `var(--font-display)` / `var(--font)`.
+
 ### Security
 
 - Hardened the post-login `next` redirect to reject protocol-relative URLs (`//evil.example`). A crafted link like `/login.html?next=//attacker.example` previously sent the user off-origin after a successful login, opening a phishing path. The check now requires a single-slash same-origin path.

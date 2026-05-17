@@ -60,6 +60,7 @@
   "draw.action.close": "Fermer l'aperçu",
   "draw.swipe.ban": "Bannir",
   "draw.swipe.return": "Remettre\ndans la pioche",
+  "draw.foil.rare": "Rare",
   "draw.toast.returned": "Carte remise dans la pioche",
   "draw.toast.banned": "Carte bannie",
   "draw.toast.empty": "Plus de cartes dans ce tas",

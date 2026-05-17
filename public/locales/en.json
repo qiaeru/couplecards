@@ -60,6 +60,7 @@
   "draw.action.close": "Close preview",
   "draw.swipe.ban": "Ban",
   "draw.swipe.return": "Return to the pile",
+  "draw.foil.rare": "Rare",
   "draw.toast.returned": "Card returned to the pile",
   "draw.toast.banned": "Card banned",
   "draw.toast.empty": "No more cards in this pile",

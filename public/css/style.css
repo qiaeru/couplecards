@@ -17,7 +17,6 @@
   vertical-align: -0.12em;
   user-select: none;
   -webkit-user-drag: none;
-  filter: drop-shadow(0 0 10px rgba(255, 210, 140, 0.45));
 }
 
 /* Inline emoji in text */
@@ -470,7 +469,6 @@ body::before {
 @media (hover: hover) {
   .pile:hover { transform: translateY(-5px); filter: brightness(1.05); }
   .pile:hover .stack-card-top { box-shadow: 0 16px 40px rgba(236, 90, 158, 0.25); }
-  .btn:hover:not(:disabled) { filter: brightness(1.05); }
 }
 .pile:active { transform: scale(0.97); }
 
@@ -640,35 +638,14 @@ body::before {
   100% { transform: scale(1); background: rgba(0, 0, 0, 0.28); }
 }
 
-.home-nav {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-}
-.btn-nav {
-  flex-direction: column;
-  gap: 4px;
-  padding: 10px 8px;
-  font-size: 0.78rem;
-  min-height: 64px;
-  border-radius: var(--radius-md);
-}
-.btn-nav svg {
-  width: 22px;
-  height: 22px;
-  color: var(--accent);
-  flex-shrink: 0;
-}
-.btn-nav span { line-height: 1.2; }
-
 /* Lists */
 .list {
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding: 12px 0;
-  mask-image: linear-gradient(to bottom, transparent 0, black 16px, black calc(100% - 16px), transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 16px, black calc(100% - 16px), transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, black 16px, black calc(100% - 8px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 16px, black calc(100% - 8px), transparent 100%);
 }
 .list-item {
   background-image: var(--tile-surface);
@@ -723,7 +700,7 @@ body::before {
   color: #3ddb96;
 }
 .action-tag.banned {
-  background: rgba(217, 50, 68, 0.15);
+  background: color-mix(in srgb, var(--danger) 18%, transparent);
   color: var(--danger);
 }
 .action-tag.admin-role,
@@ -1000,7 +977,7 @@ body::before {
   background-color: var(--surface-solid);
   border: 1px solid var(--surface-border);
   border-radius: var(--radius-lg);
-  padding: 24px 22px 18px;
+  padding: 22px;
   max-width: 460px;
   width: 100%;
   max-height: calc(100vh - 40px);
@@ -1040,11 +1017,13 @@ body::before {
   align-items: center;
   justify-content: center;
   gap: 24px;
-  background: var(--bg-0);
   z-index: 3000;
+  /* Transparent so the body's radial+linear gradient shows through and
+     dismissing the skeleton does not flash a flat fill behind it. */
+  background: transparent;
 }
 .boot-logo {
-  animation: boot-logo-pulse 1.4s ease-in-out infinite;
+  animation: boot-logo-pulse 1.2s ease-in-out infinite;
 }
 @keyframes boot-logo-pulse {
   0%, 100% { opacity: 0.55; transform: scale(0.98); }
@@ -1067,7 +1046,7 @@ body::before {
 .update-banner {
   position: fixed;
   left: 50%;
-  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+  bottom: calc(94px + env(safe-area-inset-bottom, 0px));
   transform: translateX(-50%);
   display: flex;
   align-items: center;

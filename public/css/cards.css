@@ -200,7 +200,7 @@
 }
 .card-back-frame {
   position: absolute;
-  inset: 26px;
+  inset: 14px;
   border: 2px dashed rgba(255, 210, 140, 0.38);
   border-radius: 14px;
   display: flex;
@@ -335,12 +335,8 @@
 /* Golden "Rare" tag */
 .card-front.is-foil .card-pile-label {
   color: #ffd37a;
-  text-shadow: 0 0 10px rgba(255, 210, 140, 0.5);
-}
-.card-front.is-foil .card-pile-label::after {
-  content: " · Rare";
-  color: #ffd37a;
   font-weight: 800;
+  text-shadow: 0 0 10px rgba(255, 210, 140, 0.5);
 }
 
 /* Illustration panel with a pronounced golden halo */
@@ -406,12 +402,15 @@
   58%      { opacity: 1; transform: scale(1)   rotate(180deg); }
 }
 
-/* Golden halo pulsing around the foil card */
-.card-front.is-foil::after {
+/* Golden halo pulsing around the foil card. Placed on .card-flip (which has
+   no overflow:hidden) rather than on .card-front, whose .card-face wrapper
+   clips it to invisibility. Uses ::before so the pile-specific ::after glow
+   on .card-flip can co-exist. */
+.card-flip:has(.card-front.is-foil)::before {
   content: "";
   position: absolute;
   inset: -16px;
-  border-radius: inherit;
+  border-radius: 24px;
   box-shadow: 0 0 40px 4px rgba(255, 210, 140, 0.25);
   pointer-events: none;
   z-index: -1;
@@ -429,7 +428,7 @@
   .card-front.is-foil .card-frame::before,
   .card-front.is-foil .card-art::before,
   .foil-sparkle,
-  .card-front.is-foil::after { animation: none; }
+  .card-flip:has(.card-front.is-foil)::before { animation: none; }
   .foil-sparkle { opacity: 0.6; }
 }
 .card-frame {
@@ -874,7 +873,6 @@
   border-color: rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  font-size: 0.92rem;
 }
 .draw-actions .btn {
   padding: 12px 14px;
@@ -965,7 +963,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
-  padding: 0 14px 12px;
+  padding: 0 0 12px;
 }
 .collection-filters {
   display: inline-flex;
@@ -1001,7 +999,7 @@
   line-height: 1;
 }
 .counter-num {
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: var(--font-display);
   font-size: 1.45rem;
   font-weight: 700;
   letter-spacing: -0.01em;
@@ -1018,7 +1016,7 @@
   margin: 0 1px;
 }
 .counter-total {
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: var(--font-display);
   font-size: 1.05rem;
   font-weight: 600;
   color: var(--text);
@@ -1037,7 +1035,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
   gap: 10px;
-  padding: 0 14px 24px;
+  padding: 0 0 24px;
 }
 @media (min-width: 720px) {
   .collection-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 14px; }
@@ -1143,7 +1141,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: var(--font);
   font-size: 2.8rem;
   font-weight: 700;
   color: rgba(255, 255, 255, 0.22);
@@ -1158,7 +1156,7 @@
   content: '';
   position: absolute;
   inset: -2px;
-  border-radius: 13px;
+  border-radius: 14px;
   background: conic-gradient(
     from 135deg,
     #ff8aa3, #ffce8a, #fff0a3, #b3f5c5, #a3d8ff, #d3a3ff, #ff8aa3
@@ -1210,8 +1208,6 @@
    card; hide them at this scale, the gold border alone signals rarity. */
 .coll-tile .card-front.is-foil::after { display: none; }
 .coll-tile .foil-sparkles { display: none; }
-/* The "· Rare" suffix on the pile label crowds the tiny label area. */
-.coll-tile .card-front.is-foil .card-pile-label::after { content: ''; }
 /* The heart-pattern overlay on the illustration panel uses 44px tiles at
    full size; in the mini card we scale it down so the density matches, and
    slow the slide so the perceptual speed lines up with the revealed card. */
