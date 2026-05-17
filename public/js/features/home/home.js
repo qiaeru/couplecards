@@ -32,7 +32,7 @@ export function refreshHomeCounts() {
     }
     if (btn) {
       const empty = remaining[pile] === 0;
-      const low = !empty && remaining[pile] <= 3;
+      const low = !empty && remaining[pile] <= 2;
       btn.classList.toggle('empty', empty);
       btn.classList.toggle('low', low);
       btn.disabled = empty;
@@ -44,7 +44,7 @@ export function refreshHomeCounts() {
       else btn.removeAttribute('aria-describedby');
     }
     const hint = document.getElementById(`low-${pile}`);
-    if (hint) hint.hidden = !(remaining[pile] > 0 && remaining[pile] <= 3);
+    if (hint) hint.hidden = !(remaining[pile] > 0 && remaining[pile] <= 2);
   }
 }
 
