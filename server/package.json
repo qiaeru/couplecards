@@ -18,6 +18,7 @@
     "dev": "node --watch src/index.js"
   },
   "dependencies": {
+    "@fastify/compress": "^8.3.1",
     "@fastify/csrf-protection": "^7.1.0",
     "@fastify/helmet": "^13.0.2",
     "@fastify/rate-limit": "^10.3.0",
