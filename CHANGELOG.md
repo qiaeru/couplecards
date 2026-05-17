@@ -6,58 +6,51 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
-### Performance
-
-- `/api/cards`, `/api/state`, `/api/history` and the locale catalogues now ship with brotli or gzip negotiation (via `@fastify/compress`, threshold 1 KB). The deck payload alone drops from ~90 KB JSON to under 15 KB on the wire.
-- `/api/cards` ETag is computed once and cached in module scope; 304 responses no longer re-run two SQL queries on every stale-while-revalidate pass.
-- PWA manifest files are loaded into memory at boot instead of `readFileSync` per request.
-- Pino access logging is disabled in production so a PWA cold start no longer pays a log-encode for every static asset.
-- Draw screen: `prefers-reduced-motion` is cached and watched via `matchMedia` change events instead of re-queried on every animation frame; hearts and ripples ticks pause when the tab is backgrounded; `bumpInactivity` throttles to one re-arm per 500 ms so pointer drags don't tear down and rebuild the timer 60 times a second.
-- Outbox flush parallelises ban / unban requests across distinct `cardId`s while preserving order on the same card, so banning five cards in a row no longer costs five sequential round-trips.
-- Player JS bundles no longer parse the admin-only `EMOJI_SLUGS` list (~1 KB). Moved to `features/admin/emoji-slugs.js`.
-
-### Fixed
-
-- `PATCH /api/cards/:id` now bumps `cards.updated_at` even when only translations changed, so the `/api/cards` ETag invalidates and the service worker / IndexedDB pick up the new text instead of serving the stale title forever.
-- `history` view no longer leaks an `i18n:change` listener on each mount: a long couple-playing-for-hours session would accumulate one stale render per past visit.
-- Visual polish pass: the foil card halo is no longer clipped by the card-face overflow and now actually pulses around the rim; the "Rare" suffix on the foil pile label is localised in en/fr/de/it/es instead of hardcoded English in CSS; the update banner sits above the bottom navigation instead of covering its rightmost links; the Collection counter, filters and tile grid align with the screen title rather than starting 14px further in; the card flip lands on the same frame inset as the back so the dashed liner stays put; modal padding is uniform so the footer buttons no longer crowd the right wall; the boot skeleton no longer flashes a flat fill against the body gradient, and its logo and bar animations now share a 1.2s cadence; the locked-foil tile halo wraps the tile flush instead of leaking a pixel of conic gradient; the .heart-icon glow stops bleeding onto the small in-card ornament; the .btn:hover brightness filter is dropped so the per-variant shadow boost reads cleanly.
-- The .action-tag.banned pill background is now tied to var(--danger) via color-mix instead of a stale literal rgba from a previous palette, so the badge fill matches its text.
-
-### Changed
-
-- Internal CSS cleanup: removed the dead `.home-nav` / `.btn-nav` block that no template emits, removed `pile-badge.home`, `pile-badge.outdoor` and `field-inline` duplicates from `admin.css` (already in `style.css`), and routed the remaining `'Fraunces'` / `'Inter'` literals through `var(--font-display)` / `var(--font)`.
+## [1.7.0] - 2026-05-17
 
 ### Security
 
-- Hardened the post-login `next` redirect to reject protocol-relative URLs (`//evil.example`). A crafted link like `/login.html?next=//attacker.example` previously sent the user off-origin after a successful login, opening a phishing path. The check now requires a single-slash same-origin path.
+- Hardened the post-login `next` redirect to reject protocol-relative URLs. A crafted `/login.html?next=//attacker.example` previously sent the user off-origin after a successful login, opening a phishing path. The check now requires a same-origin single-slash path.
 
 ### Added
 
-- Skip link on the admin page, jumping to the default users panel so keyboard users no longer have to Tab past the tablist on every visit.
-- Picking a new language now announces the new locale through the shared live region, so screen-reader users get spoken feedback after the selection. Uses Intl.DisplayNames so no new translation key was needed.
-- Returning a card now surfaces an Undo button in the toast, mirroring the existing affordance after a ban so a misclick on Return is no longer a one-way trip to History.
-- Collection filters and the admin Users / Cards search lists now ship a real "no matches" empty state, distinct from the "deck is empty" copy, so an empty filter or search no longer reads as a broken screen.
-- New i18n keys for the card editor optional-translation hint, the user-unlock confirmation toast, the card-saved and card-deleted toasts, the logout confirm body, the SW update banner, and the collection / admin search empty states. All shipped across en, fr, de, it, es.
+- Returning a card surfaces an Undo button in its toast, mirroring the existing affordance after a ban so a misclick on Return is no longer a one-way trip to History.
+- Collection filters and the admin Users / Cards search lists ship a real "no matches" empty state, distinct from the "deck is empty" copy.
+- Skip link on the admin page jumps past the tablist to the default users panel.
+- Picking a new language announces the new locale through the shared live region so screen-reader users get spoken feedback after the selection.
 
 ### Changed
 
-- Deck sync (and deck import) default to the additive Upsert mode and the Apply button switches to btn-danger as soon as the preview reports rows that would be removed. Old default (Mirror with a blue Apply) made a wrong tap quietly destructive.
-- Draw screen primary actions (Ban, Return, Redraw, plus the preview row) move from btn-sm (34px) to a new btn-md (44px) so the most-tapped controls in the thumb zone meet the standard touch target. btn-sm stays for admin list rows where density matters.
+- Deck sync and deck import default to the additive Upsert mode, and the Apply button switches to red as soon as the preview reports rows that would be removed. The old default (Mirror with a blue Apply) made a wrong tap quietly destructive.
+- Draw screen primary actions (Ban, Return, Redraw, preview row) move to a 44 px touch target so they meet the standard thumb-zone size; admin list rows keep the denser 34 px variant.
 - Inactivity timeout on the draw screen rises from 10 to 30 minutes and pauses while the tab is backgrounded, so a longer conversation about a rare card no longer kicks the player back to home mid-read.
-- Logout confirmation gains a body line ("You will be signed out on this device.") and a btn-danger confirm button so the modal matches the red button on the Settings row instead of looking blank.
-- "Almost empty" pile hint on the home screen triggers at 2 cards left instead of 3, so light custom decks stop crying wolf.
-- Italian ban vocabulary swapped from "Banna / bannata / bannare / bannature" to "Escludi / esclusa / escludere / esclusioni" across every screen. The German and Italian redraw button labels are shortened to fit the button.
+- Logout confirmation gains a body line and a red confirm button so the modal matches the row that triggered it.
+- "Almost empty" pile hint triggers at 2 cards left instead of 3, so light custom decks stop crying wolf.
+- Italian "Banna / bannata / bannare / bannature" replaced by the idiomatic "Escludi / esclusa / escludere / esclusioni" across every screen, and the German and Italian redraw button labels shortened to fit. The login subtitle softened from "credentials provided by the instance administrator" to "Sign in with your Couplecards credentials." across the five locales.
 
 ### Fixed
 
-- Accessibility pass: every screen now starts at an h1 (the draw screen lifts the card title up and demotes the brand mark to a decorative div), the `<main>` landmark stays in the assistive-tech tree on older Firefox and Safari (previously stripped by `display: contents`), the language selects in Settings and admin expose a programmatic label, Collection filter chips ship as a real toggle-button group with `aria-pressed` instead of a half-implemented tablist, `role="alert"` error regions drop the contradictory `aria-live="polite"` override, the update banner now reads "A new version is available" instead of saying "Reload" twice, the home-screen pile buttons carry an explicit `type="button"`, and the card tilt animation honours `prefers-reduced-motion`.
-- Initial-password admin modal now traps focus and restores focus on close, matching the rest of the project's dialogs. Backdrop click and Escape are disabled for this specific dialog (via a new `dismissable: false` option) so a stray dismiss cannot lose the one-time generated credential. The `withModal` helper moved from `deck-sync.js` to `ui/shell.js` so both call sites share the same focus-trap implementation.
-- Admin deck sync intro displayed the literal "cards.{{locale}}.json" because the placeholder was never interpolated. Reworded across the five locales, and dropped the unused `admin.deckSync.locale` key.
-- Server error codes the client did not know about leaked as raw `errors.SOMETHING_WEIRD` strings in toasts and inline errors because the `|| t('errors.generic')` fallback was dead code (`t()` returns the key on miss). Routed every call through a shared `errorMessage()` helper.
-- Card admin save and delete now toast a meaningful confirmation. Save previously showed the literal verb "Save" / "Enregistrer" (reused from the button label), and Delete showed nothing at all.
-- Card editor stopped advertising every per-locale title and description as required. The constraint never fired (the modal confirms via JS, not native submit) and `collectTranslations` already treats partially-filled locales as missing. Replaced with an inline hint that matches the actual behaviour.
-- Boot-failure pages on the SPA and admin shell no longer dump the raw exception message (`Failed to fetch`, `Cannot read properties of null`, etc.) into the user's view. The friendly title now sits above `errors.generic`, and the exception stays in `console.error` for the implementer.
-- Login subtitle softened from the enterprise-sounding "Sign in with the credentials provided by the instance administrator." to "Sign in with your Couplecards credentials." across the five locales.
+- `PATCH /api/cards/:id` now bumps `cards.updated_at` even on translation-only edits, so the deck ETag invalidates and clients pick up the new text immediately instead of waiting for the next service-worker bump.
+- Accessibility pass: every screen starts at an h1 (the draw screen lifts the card title up and demotes the brand mark to a decorative div), the `<main>` landmark stays in the AT tree on older Firefox and Safari, the language selects in Settings and admin expose a programmatic label, the Collection filter chips ship as a real toggle-button group with `aria-pressed` instead of a half-implemented tablist, `role="alert"` regions drop the contradictory `aria-live="polite"`, the update banner reads "A new version is available" instead of "Reload" twice, the home pile buttons carry an explicit `type="button"`, and the card tilt animation honours `prefers-reduced-motion`.
+- Visual polish pass: the foil card halo pulses around the rim (was clipped to nothing), the "Rare" suffix on the foil pile label is localised in all five locales instead of hardcoded English in CSS, the update banner sits above the bottom navigation, the Collection counter and grid align with the screen title, the card flip lands on the same frame inset front and back, modal padding is uniform, the boot skeleton no longer flashes a flat fill before the body gradient resolves, the locked-foil tile halo wraps the tile flush, and the `.heart-icon` glow stops bleeding onto the small in-card ornament.
+- Initial-password admin modal traps focus and restores focus on close, and neither Escape nor a backdrop click dismisses it, so the one-time generated credential cannot be lost between create-user and Copy. The `withModal` helper moved from `deck-sync.js` to `ui/shell.js` so all admin dialogs share the same focus trap.
+- Admin deck sync intro displayed the literal `cards.{{locale}}.json` because the placeholder was never interpolated; reworded across the five locales.
+- Unknown server error codes no longer leak as raw `errors.SOMETHING_WEIRD` strings in toasts and inline errors. Routed every call through a shared `errorMessage()` helper that falls back to the generic message when the code has no localised match.
+- Card admin save and delete now toast a meaningful confirmation. Save previously showed the literal verb "Save"; Delete showed nothing at all.
+- Card editor stopped advertising every per-locale title and description as `required`. The constraint never fired (the modal confirms via JS, not native submit); replaced with an inline hint that matches the actual behaviour.
+- Boot-failure pages no longer dump the raw exception into the user's view; show `errors.generic` instead and keep the stack in `console.error`.
+- `history` view no longer leaks an `i18n:change` listener on each mount, so a long couple-playing-for-hours session stops accumulating one stale render per past visit.
+- The `.action-tag.banned` pill background is now tied to `var(--danger)` via `color-mix` instead of a stale literal rgba, so the badge fill matches its text.
+- Internal CSS cleanup: removed the dead `.home-nav` / `.btn-nav` block, dropped the duplicates between `admin.css` and `style.css`, and routed the remaining `'Fraunces'` / `'Inter'` literals through the canonical font variables.
+
+### Performance
+
+- `/api/cards`, `/api/state`, `/api/history` and the locale catalogues now negotiate brotli or gzip via `@fastify/compress`. The deck payload alone drops from ~90 KB JSON to under 15 KB on the wire.
+- `/api/cards` ETag is cached in memory and invalidated on every mutating handler, so 304 responses skip two SQL queries on every stale-while-revalidate pass.
+- PWA manifest files are loaded into memory at boot instead of `readFileSync` per request, and the per-request access log line is disabled in production so a PWA cold start no longer pays a log encode for every static asset.
+- Draw screen: `prefers-reduced-motion` is cached and watched via `matchMedia` change events instead of re-queried per animation frame; hearts and ripples pause when the tab is backgrounded; `bumpInactivity` throttles to one re-arm per 500 ms so pointer drags don't tear down and rebuild the timer 60 times a second.
+- Outbox flush parallelises ban / unban requests across distinct `cardId`s while preserving order on the same card, so banning five cards in a row no longer costs five sequential round-trips.
+- Player JS bundles no longer parse the admin-only `EMOJI_SLUGS` list.
 
 ## [1.6.2] - 2026-05-09
 
