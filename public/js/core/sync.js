@@ -251,6 +251,22 @@ export async function clearAllLocalState() {
   emit('state:cleared');
 }
 
+// Process one ban/unban item against the server, mirroring the in-memory map
+// for bans. Returns true on success so the caller can drop the outbox row.
+async function flushBanItem(item) {
+  if (item.kind === 'ban') {
+    const resp = await request('/api/bans', { method: 'POST', body: { cardId: item.cardId } });
+    if (resp && resp.bannedAt && banned.has(item.cardId)) {
+      banned.set(item.cardId, resp.bannedAt);
+      await idb.setBanned(bannedToList());
+      emit('state:banned-changed');
+    }
+  } else if (item.kind === 'unban') {
+    await request(`/api/bans/${encodeURIComponent(item.cardId)}`, { method: 'DELETE' });
+  }
+  await idb.removeOutbox(item.id);
+}
+
 async function flushOutbox() {
   if (flushing) return;
   if (!navigator.onLine) return;
@@ -258,28 +274,29 @@ async function flushOutbox() {
   try {
     const items = await idb.listOutbox();
     if (!items.length) return;
+    // Split into history (already a single batched POST) and ban/unban (group
+    // by cardId so concurrent groups don't reorder ban+unban on the same card).
     const historyBatch = [];
+    const byCard = new Map();
     for (const item of items) {
-      try {
-        if (item.kind === 'ban') {
-          const resp = await request('/api/bans', { method: 'POST', body: { cardId: item.cardId } });
-          if (resp && resp.bannedAt && banned.has(item.cardId)) {
-            banned.set(item.cardId, resp.bannedAt);
-            await idb.setBanned(bannedToList());
-            emit('state:banned-changed');
-          }
-        } else if (item.kind === 'unban') {
-          await request(`/api/bans/${encodeURIComponent(item.cardId)}`, { method: 'DELETE' });
-        } else if (item.kind === 'history') {
-          historyBatch.push({ item, entry: item.entry });
-          continue;
-        }
-        await idb.removeOutbox(item.id);
-      } catch (err) {
-        // 401 or transient failure: stop here, the next online event retries.
-        if (err?.status === 401) return;
-        return;
+      if (item.kind === 'history') {
+        historyBatch.push({ item, entry: item.entry });
+      } else if (item.kind === 'ban' || item.kind === 'unban') {
+        if (!byCard.has(item.cardId)) byCard.set(item.cardId, []);
+        byCard.get(item.cardId).push(item);
       }
+    }
+    // Each card's chain runs serially; chains across cards run in parallel.
+    // A 401 or transient error on any chain aborts the whole flush so the next
+    // online event retries the remaining items.
+    const groups = [...byCard.values()].map(async (chain) => {
+      for (const item of chain) await flushBanItem(item);
+    });
+    try {
+      await Promise.all(groups);
+    } catch (err) {
+      if (err?.status === 401) return;
+      return;
     }
     if (historyBatch.length > 0) {
       try {
