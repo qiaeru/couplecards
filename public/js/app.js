@@ -78,7 +78,6 @@ const tOr = (key, fallback) => {
 
 boot().catch((err) => {
   console.error(err);
-  const message = String(err?.message || err || 'Unknown error');
   // Built with DOM APIs (not inline styles) to respect the strict CSP.
   document.body.replaceChildren();
   const main = document.createElement('main');
@@ -87,7 +86,7 @@ boot().catch((err) => {
   h.className = 'title';
   h.textContent = tOr('errors.page.bootFailed.title', 'Couplecards failed to load');
   const p = document.createElement('p');
-  p.textContent = message;
+  p.textContent = tOr('errors.generic', 'Something went wrong.');
   const link = document.createElement('a');
   link.className = 'btn btn-primary';
   link.href = '/login.html';
