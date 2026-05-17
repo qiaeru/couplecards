@@ -78,6 +78,7 @@ function showInitialPassword(username, password) {
     `,
     confirmLabel: t('admin.users.initialPassword.close'),
     cancelLabel: null,
+    dismissable: false,
     onBodyReady: () => {
       document.getElementById('initial-password-copy')?.addEventListener('click', async () => {
         try {
