@@ -979,7 +979,7 @@ body::before {
   background-color: var(--surface-solid);
   border: 1px solid var(--surface-border);
   border-radius: var(--radius-lg);
-  padding: 24px 22px 18px;
+  padding: 22px;
   max-width: 460px;
   width: 100%;
   max-height: calc(100vh - 40px);
