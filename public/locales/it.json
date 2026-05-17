@@ -161,6 +161,8 @@
   "admin.cards.emojiHint": "Slug Fluent (per esempio «pizza»). Lascia vuoto per usare l'icona della pila.",
   "admin.cards.delete.confirm": "Eliminare «{{title}}»?",
   "admin.cards.delete.body": "La carta verrà rimossa anche dalle bannate di tutti gli utenti.",
+  "admin.cards.saved.toast": "Carta salvata",
+  "admin.cards.deleted.toast": "Carta eliminata",
   "admin.cards.empty.title": "Il mazzo è vuoto",
   "admin.cards.empty.hint": "Aggiungi una carta a mano o importa un mazzo dal blocco Manutenzione del mazzo qui sopra.",
   "admin.cards.search.empty.title": "Nessun risultato",

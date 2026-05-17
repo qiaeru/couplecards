@@ -161,6 +161,8 @@
   "admin.cards.emojiHint": "Slug Fluent (par exemple « pizza »). Laissez vide pour reprendre l'icône de la pile.",
   "admin.cards.delete.confirm": "Supprimer « {{title}} » ?",
   "admin.cards.delete.body": "La carte sera également retirée des bannissements chez tous les utilisateurs.",
+  "admin.cards.saved.toast": "Carte enregistrée",
+  "admin.cards.deleted.toast": "Carte supprimée",
   "admin.cards.empty.title": "Le jeu de cartes est vide",
   "admin.cards.empty.hint": "Ajoutez une carte manuellement ou importez un deck depuis le bloc Maintenance du jeu de cartes ci-dessus.",
   "admin.cards.search.empty.title": "Aucun résultat",

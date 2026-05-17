@@ -161,6 +161,8 @@
   "admin.cards.emojiHint": "Fluent-Slug (zum Beispiel „pizza“). Leer lassen, um das Pile-Symbol zu nutzen.",
   "admin.cards.delete.confirm": "„{{title}}\" löschen?",
   "admin.cards.delete.body": "Die Karte wird auch aus den verbannten Karten aller Benutzer entfernt.",
+  "admin.cards.saved.toast": "Karte gespeichert",
+  "admin.cards.deleted.toast": "Karte gelöscht",
   "admin.cards.empty.title": "Das Deck ist leer",
   "admin.cards.empty.hint": "Füge manuell eine Karte hinzu oder importiere ein Deck über den Bereich Deck-Wartung oben.",
   "admin.cards.search.empty.title": "Keine Treffer",

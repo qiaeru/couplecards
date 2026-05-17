@@ -217,7 +217,7 @@ function openCardDialog({ card = null } = {}) {
         await request('/api/cards', { method: 'POST', body: payload });
       }
       close();
-      toast(t('common.save'));
+      toast(t('admin.cards.saved.toast'));
       await renderCards();
     } catch (e) {
       err.textContent = errorMessage(e);
@@ -249,6 +249,7 @@ async function deleteCard(id, title) {
   });
   if (!ok) return;
   await request(`/api/cards/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  toast(t('admin.cards.deleted.toast'));
   await renderCards();
 }
 
