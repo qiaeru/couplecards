@@ -18,9 +18,13 @@ let previewCardId = null;
 
 const $ = (id) => document.getElementById(id);
 
-function prefersReducedMotion() {
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-}
+// Cached once at module load and refreshed via the MQL change event. Avoids
+// hundreds of matchMedia() calls per second when the tilt rAF loop and the
+// hearts / ripples ticks each ask whether reduced motion is on.
+const reducedMotionMQL = window.matchMedia('(prefers-reduced-motion: reduce)');
+let reducedMotion = reducedMotionMQL.matches;
+reducedMotionMQL.addEventListener('change', (e) => { reducedMotion = e.matches; });
+function prefersReducedMotion() { return reducedMotion; }
 
 function createParticles(color) {
   const host = $('particles');
@@ -748,7 +752,13 @@ function onDrawKeydown(event) {
 }
 
 let inactivityTimer = 0;
+let lastInactivityBump = 0;
 function bumpInactivity() {
+  // pointermove fires up to ~60 Hz during a tilt drag; coalesce to one bump
+  // per ~500 ms so we don't clearTimeout/setTimeout on every frame.
+  const now = performance.now();
+  if (now - lastInactivityBump < 500) return;
+  lastInactivityBump = now;
   if (inactivityTimer) clearTimeout(inactivityTimer);
   // No point starting the timer when the tab is backgrounded: the wake
   // lock is already released and there is no live activity to gate on.
@@ -762,8 +772,23 @@ function bumpInactivity() {
 const inactivityListeners = ['pointerdown', 'pointermove', 'keydown', 'touchstart'];
 
 function onVisibilityChange() {
-  if (!document.hidden) bumpInactivity();
-  else if (inactivityTimer) { clearTimeout(inactivityTimer); inactivityTimer = 0; }
+  if (document.hidden) {
+    if (inactivityTimer) { clearTimeout(inactivityTimer); inactivityTimer = 0; }
+    // Stop the ambient effects while the tab is backgrounded. Browsers
+    // throttle background timers but still execute each tick (DOM node
+    // create / setTimeout queue), and the visuals are invisible anyway.
+    stopHearts();
+    stopRipples();
+    return;
+  }
+  bumpInactivity();
+  // Resume the ambient effects when the user is back and a card has been
+  // revealed (the settled class means the flip animation has landed).
+  const settled = $('card-flip')?.classList.contains('settled');
+  if (settled) {
+    startHearts();
+    startRipples(CONFIG.ripples.normalInterval);
+  }
 }
 
 let unsubscribeLocale = null;

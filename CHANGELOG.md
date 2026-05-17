@@ -6,8 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Performance
+
+- `/api/cards`, `/api/state`, `/api/history` and the locale catalogues now ship with brotli or gzip negotiation (via `@fastify/compress`, threshold 1 KB). The deck payload alone drops from ~90 KB JSON to under 15 KB on the wire.
+- `/api/cards` ETag is computed once and cached in module scope; 304 responses no longer re-run two SQL queries on every stale-while-revalidate pass.
+- PWA manifest files are loaded into memory at boot instead of `readFileSync` per request.
+- Pino access logging is disabled in production so a PWA cold start no longer pays a log-encode for every static asset.
+- Draw screen: `prefers-reduced-motion` is cached and watched via `matchMedia` change events instead of re-queried on every animation frame; hearts and ripples ticks pause when the tab is backgrounded; `bumpInactivity` throttles to one re-arm per 500 ms so pointer drags don't tear down and rebuild the timer 60 times a second.
+- Outbox flush parallelises ban / unban requests across distinct `cardId`s while preserving order on the same card, so banning five cards in a row no longer costs five sequential round-trips.
+- Player JS bundles no longer parse the admin-only `EMOJI_SLUGS` list (~1 KB). Moved to `features/admin/emoji-slugs.js`.
+
 ### Fixed
 
+- `PATCH /api/cards/:id` now bumps `cards.updated_at` even when only translations changed, so the `/api/cards` ETag invalidates and the service worker / IndexedDB pick up the new text instead of serving the stale title forever.
+- `history` view no longer leaks an `i18n:change` listener on each mount: a long couple-playing-for-hours session would accumulate one stale render per past visit.
 - Visual polish pass: the foil card halo is no longer clipped by the card-face overflow and now actually pulses around the rim; the "Rare" suffix on the foil pile label is localised in en/fr/de/it/es instead of hardcoded English in CSS; the update banner sits above the bottom navigation instead of covering its rightmost links; the Collection counter, filters and tile grid align with the screen title rather than starting 14px further in; the card flip lands on the same frame inset as the back so the dashed liner stays put; modal padding is uniform so the footer buttons no longer crowd the right wall; the boot skeleton no longer flashes a flat fill against the body gradient, and its logo and bar animations now share a 1.2s cadence; the locked-foil tile halo wraps the tile flush instead of leaking a pixel of conic gradient; the .heart-icon glow stops bleeding onto the small in-card ornament; the .btn:hover brightness filter is dropped so the per-variant shadow boost reads cleanly.
 - The .action-tag.banned pill background is now tied to var(--danger) via color-mix instead of a stale literal rgba from a previous palette, so the badge fill matches its text.
 

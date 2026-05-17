@@ -16,6 +16,7 @@ import {
   serialiseForExport,
 } from '../lib/deckSync.js';
 import { SUPPORTED_LOCALES } from '../lib/locales.js';
+import { invalidateDeckVersion } from './cards.js';
 
 const zipAsync = promisify(zipCb);
 const DECK_ERRORS = new Set(['SEED_FILE_NOT_FOUND', 'INVALID_DECK', 'INVALID_MODE']);
@@ -69,7 +70,9 @@ export default async function adminCardRoutes(app) {
       return { dryRun: true, ...summariseDiff(readDbDeck(), next, mode) };
     }
     try {
-      return { dryRun: false, ...applyDeckSync(next, mode) };
+      const result = applyDeckSync(next, mode);
+      invalidateDeckVersion();
+      return { dryRun: false, ...result };
     } catch (err) {
       return handleDeckError(err, reply);
     }
@@ -112,7 +115,9 @@ export default async function adminCardRoutes(app) {
       return { dryRun: true, ...summariseDiff(readDbDeck(), next, mode) };
     }
     try {
-      return { dryRun: false, ...applyDeckSync(next, mode) };
+      const result = applyDeckSync(next, mode);
+      invalidateDeckVersion();
+      return { dryRun: false, ...result };
     } catch (err) {
       return handleDeckError(err, reply);
     }

@@ -4,7 +4,7 @@
 //   * /api/cards — stale-while-revalidate (allows offline viewing)
 //   * all other /api/* — network only, never cached (auth-sensitive)
 
-const VERSION = 'couplecards-v32';
+const VERSION = 'couplecards-v33';
 const SHELL = [
   '/',
   '/index.html',
@@ -41,6 +41,7 @@ const SHELL = [
   '/js/features/admin/users.js',
   '/js/features/admin/cards.js',
   '/js/features/admin/deck-sync.js',
+  '/js/features/admin/emoji-slugs.js',
   '/js/ui/emoji.js',
   '/js/ui/shell.js',
   '/js/ui/password-strength.js',

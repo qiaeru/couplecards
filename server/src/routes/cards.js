@@ -36,7 +36,16 @@ function selectCards() {
   return [...byId.values()];
 }
 
+// /api/cards is in the hot path of every client cold start and SW
+// stale-while-revalidate. The two COUNT/MAX queries are cheap individually
+// but they run on every request, including the 304 path. Cache the computed
+// version in module scope and invalidate from every mutating handler (and
+// from applyDeckSync) so the 304 response becomes a plain string compare.
+let cachedDeckVersion = null;
+export function invalidateDeckVersion() { cachedDeckVersion = null; }
+
 function deckVersion() {
+  if (cachedDeckVersion !== null) return cachedDeckVersion;
   const row = getDb().prepare(`
     SELECT
       COALESCE(MAX(strftime('%s', updated_at)), '0') AS v,
@@ -44,7 +53,8 @@ function deckVersion() {
     FROM cards
   `).get();
   const trCount = getDb().prepare('SELECT COUNT(*) AS n FROM card_translations').get().n;
-  return `${row.v}-${row.n}-${trCount}`;
+  cachedDeckVersion = `${row.v}-${row.n}-${trCount}`;
+  return cachedDeckVersion;
 }
 
 const translationSchema = {
@@ -119,6 +129,7 @@ export default async function cardRoutes(app) {
       }
       throw err;
     }
+    invalidateDeckVersion();
     return selectCard(id);
   });
 
@@ -157,7 +168,11 @@ export default async function cardRoutes(app) {
 
     try {
       db.exec('BEGIN');
-      if (updates.length > 0) {
+      // Always bump updated_at when anything changes, including a translation-
+      // only edit. card_translations has no updated_at column and an UPSERT
+      // doesn't change the row count, so without this the deck ETag would not
+      // invalidate and clients (SW + IDB) would stay on the stale text.
+      if (updates.length > 0 || request.body.translations) {
         updates.push("updated_at = datetime('now')");
         args.push(request.params.id);
         db.prepare(`UPDATE cards SET ${updates.join(', ')} WHERE id = ?`).run(...args);
@@ -170,6 +185,7 @@ export default async function cardRoutes(app) {
       db.exec('ROLLBACK');
       throw err;
     }
+    invalidateDeckVersion();
     return selectCard(request.params.id);
   });
 
@@ -186,6 +202,7 @@ export default async function cardRoutes(app) {
   }, async (request, reply) => {
     const info = getDb().prepare('DELETE FROM cards WHERE id = ?').run(request.params.id);
     if (info.changes === 0) return reply.code(404).send({ error: 'CARD_NOT_FOUND' });
+    invalidateDeckVersion();
     return { ok: true };
   });
 }

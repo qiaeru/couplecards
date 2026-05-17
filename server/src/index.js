@@ -2,6 +2,7 @@
 // Fastify bootstrap: wires plugins, runs migrations + seed, mounts routes.
 
 import Fastify from 'fastify';
+import compressPlugin from '@fastify/compress';
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { config } from './config.js';
@@ -36,6 +37,19 @@ async function buildApp() {
       ],
     },
     bodyLimit: 512 * 1024,
+    // Skip the per-request access log line in production. A PWA cold start
+    // pulls ~30 static assets and the log encoding cost dwarfs the serve
+    // cost for the deployment's single-instance / low-traffic profile.
+    // Per-route logs (errors, auth failures, deck sync) still surface.
+    disableRequestLogging: config.isProduction,
+  });
+
+  // Negotiate br / gzip on JSON, CSS, JS and the locale files. Threshold
+  // skips small bodies where the encoder overhead beats the savings.
+  await app.register(compressPlugin, {
+    global: true,
+    threshold: 1024,
+    encodings: ['br', 'gzip'],
   });
 
   await app.register(helmetPlugin);
