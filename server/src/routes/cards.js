@@ -157,7 +157,11 @@ export default async function cardRoutes(app) {
 
     try {
       db.exec('BEGIN');
-      if (updates.length > 0) {
+      // Always bump updated_at when anything changes, including a translation-
+      // only edit. card_translations has no updated_at column and an UPSERT
+      // doesn't change the row count, so without this the deck ETag would not
+      // invalidate and clients (SW + IDB) would stay on the stale text.
+      if (updates.length > 0 || request.body.translations) {
         updates.push("updated_at = datetime('now')");
         args.push(request.params.id);
         db.prepare(`UPDATE cards SET ${updates.join(', ')} WHERE id = ?`).run(...args);
