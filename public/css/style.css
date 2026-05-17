@@ -1019,11 +1019,13 @@ body::before {
   align-items: center;
   justify-content: center;
   gap: 24px;
-  background: var(--bg-0);
   z-index: 3000;
+  /* Transparent so the body's radial+linear gradient shows through and
+     dismissing the skeleton does not flash a flat fill behind it. */
+  background: transparent;
 }
 .boot-logo {
-  animation: boot-logo-pulse 1.4s ease-in-out infinite;
+  animation: boot-logo-pulse 1.2s ease-in-out infinite;
 }
 @keyframes boot-logo-pulse {
   0%, 100% { opacity: 0.55; transform: scale(0.98); }
