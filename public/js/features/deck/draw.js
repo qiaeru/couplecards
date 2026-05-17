@@ -564,14 +564,22 @@ export async function startDraw(pile) {
   startHearts();
 }
 
-function doReturn(animated = false) {
+async function doReturn(animated = false) {
   if (!currentCardId) return;
   const id = currentCardId;
   currentCardId = null;
-  addHistory({ cardId: id, drawnAt: new Date().toISOString(), action: 'returned' });
+  const entry = await addHistory({ cardId: id, drawnAt: new Date().toISOString(), action: 'returned' });
   vibrate(CONFIG.vibrations.returnAction);
   playReturn();
-  finishWith(animated ? 'swipe-out-right' : null, t('draw.toast.returned'));
+  finishWith(animated ? 'swipe-out-right' : null, {
+    message: t('draw.toast.returned'),
+    action: {
+      label: t('common.undo'),
+      onClick: () => {
+        if (entry?.clientUuid) removeHistoryByUuid(entry.clientUuid);
+      },
+    },
+  });
 }
 
 async function doBan(animated = false) {
