@@ -39,7 +39,7 @@ function showError(scope, code, extra = {}) {
 function redirectAfterAuth(user) {
   const params = new URLSearchParams(location.search);
   const next = params.get('next');
-  if (next && next.startsWith('/')) {
+  if (next && /^\/[^/\\]/.test(next)) {
     location.replace(next);
     return;
   }
