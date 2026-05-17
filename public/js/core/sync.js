@@ -7,6 +7,9 @@ import { idb } from './idb.js';
 import { emit } from './events.js';
 import { getLocale } from './i18n.js';
 
+// Mirror of server/src/routes/sync.js. The server slices history to this size
+// on every state load and remains authoritative; this client-side trim only
+// keeps the in-memory list bounded between syncs.
 const HISTORY_CAP = 500;
 const FALLBACK_LOCALE = 'en';
 

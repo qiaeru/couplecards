@@ -5,6 +5,9 @@
 import { getDb, transaction } from '../db/index.js';
 import { requireUser } from '../lib/auth.js';
 
+// Authoritative trim policy: the server slices history to this size on every
+// state load. The client mirrors the same constant in public/js/core/sync.js;
+// if you change one, change both. The server's value wins on the next reload.
 const HISTORY_CAP = 500;
 
 const cardIdSchema = { type: 'string', pattern: '^[a-z0-9-]{1,64}$' };
