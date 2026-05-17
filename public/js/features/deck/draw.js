@@ -18,9 +18,13 @@ let previewCardId = null;
 
 const $ = (id) => document.getElementById(id);
 
-function prefersReducedMotion() {
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-}
+// Cached once at module load and refreshed via the MQL change event. Avoids
+// hundreds of matchMedia() calls per second when the tilt rAF loop and the
+// hearts / ripples ticks each ask whether reduced motion is on.
+const reducedMotionMQL = window.matchMedia('(prefers-reduced-motion: reduce)');
+let reducedMotion = reducedMotionMQL.matches;
+reducedMotionMQL.addEventListener('change', (e) => { reducedMotion = e.matches; });
+function prefersReducedMotion() { return reducedMotion; }
 
 function createParticles(color) {
   const host = $('particles');
