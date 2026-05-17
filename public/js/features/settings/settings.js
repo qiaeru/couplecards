@@ -138,7 +138,7 @@ async function openChangePasswordDialog() {
         <span>${t('changePassword.confirm')}</span>
         <input type="password" id="cp-confirm" autocomplete="new-password" required minlength="12">
       </label>
-      <div class="cp-error" id="cp-error" role="alert" aria-live="polite"></div>
+      <div class="cp-error" id="cp-error" role="alert"></div>
     </form>
   `;
   confirmBtn.textContent = t('changePassword.submit');

@@ -9,6 +9,7 @@
   "common.edit": "Modifier",
   "common.back": "Retour",
   "common.reload": "Recharger",
+  "common.updateAvailable": "Une nouvelle version est disponible.",
   "common.copied": "Copié",
   "common.dateAtTime": "{{date}} à {{time}}",
   "common.skipToContent": "Aller au contenu principal",

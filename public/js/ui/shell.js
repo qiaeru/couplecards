@@ -131,6 +131,81 @@ export function showConfirm({
   });
 }
 
+// Lower-level modal helper for richer dialogs (custom body, async confirm,
+// optional cancel button). Like showConfirm but caller-driven: returns
+// { close } and the body can hold any markup. Pass cancelLabel: null to
+// hide the cancel button for one-button dialogs.
+export function withModal({ title, bodyHtml, confirmLabel, cancelLabel, danger, onConfirm, onBodyReady }) {
+  const host = document.getElementById('modal');
+  const titleEl = document.getElementById('modal-title');
+  const bodyEl = document.getElementById('modal-body');
+  const confirmBtn = document.getElementById('modal-confirm');
+  const cancelBtn = document.getElementById('modal-cancel');
+  const backdrop = host?.querySelector('[data-modal-close]');
+  if (!host) return { close: () => {} };
+
+  const previouslyFocused = document.activeElement;
+
+  titleEl.textContent = title;
+  bodyEl.innerHTML = bodyHtml;
+  confirmBtn.textContent = confirmLabel;
+  confirmBtn.classList.toggle('btn-danger', !!danger);
+  confirmBtn.classList.toggle('btn-primary', !danger);
+  confirmBtn.disabled = false;
+  const showCancel = cancelLabel != null;
+  cancelBtn.hidden = !showCancel;
+  if (showCancel) cancelBtn.textContent = cancelLabel;
+  host.hidden = false;
+
+  const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+  const getFocusables = () => Array.from(host.querySelectorAll(FOCUSABLE))
+    .filter((el) => !el.hidden && el.offsetParent !== null);
+
+  const close = () => {
+    host.hidden = true;
+    confirmBtn.removeEventListener('click', handler);
+    cancelBtn.removeEventListener('click', cancel);
+    backdrop?.removeEventListener('click', cancel);
+    document.removeEventListener('keydown', onKey);
+    if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
+      try { previouslyFocused.focus(); } catch {}
+    }
+  };
+  const cancel = () => close();
+  const handler = async () => {
+    try { await onConfirm?.({ close, confirmBtn }); }
+    catch {}
+  };
+  const onKey = (event) => {
+    if (event.key === 'Escape') { event.preventDefault(); cancel(); return; }
+    if (event.key !== 'Tab') return;
+    const items = getFocusables();
+    if (items.length === 0) return;
+    const first = items[0];
+    const last = items[items.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  };
+
+  confirmBtn.addEventListener('click', handler);
+  cancelBtn.addEventListener('click', cancel);
+  backdrop?.addEventListener('click', cancel);
+  document.addEventListener('keydown', onKey);
+  onBodyReady?.({ close });
+
+  setTimeout(() => {
+    const [first] = getFocusables();
+    (first || confirmBtn).focus();
+  }, 50);
+
+  return { close };
+}
+
 // Screen-wake lock while a draw animation is in progress.
 let wakeLockSentinel = null;
 export async function requestWakeLock() {

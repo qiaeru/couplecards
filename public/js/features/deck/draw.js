@@ -190,6 +190,7 @@ let isReturning = false;
 let returnRaf = 0;
 
 function applyTilt(rx, ry) {
+  if (prefersReducedMotion()) return;
   const tilt = $('card-tilt');
   const front = document.querySelector('#card-flip .card-front');
   if (!tilt || !front) return;
@@ -405,6 +406,7 @@ function attachTilt() {
 
 function attachOrientation() {
   if (orientationAttached) return;
+  if (prefersReducedMotion()) return;
   orientationAttached = true;
   let baseBeta = null, baseGamma = null;
   const CLAMP = CONFIG.tilt.orientationClampDeg;

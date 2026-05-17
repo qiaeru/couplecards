@@ -116,10 +116,28 @@ export function applyI18n(root = document) {
   });
 }
 
-// Re-apply static translations whenever the locale changes.
-// Import site does not need to listen explicitly.
+// Announce the new locale via the shared #screen-announce live region so a
+// screen-reader user gets feedback after picking a language. Native display
+// name is enough; no extra i18n key needed.
+function announceLocale(locale) {
+  const el = document.getElementById('screen-announce');
+  if (!el) return;
+  let name = locale;
+  try { name = new Intl.DisplayNames([locale], { type: 'language' }).of(locale) || locale; } catch {}
+  el.textContent = name;
+  setTimeout(() => { el.textContent = ''; }, 1500);
+}
+
+// Re-apply static translations whenever the locale changes, and announce the
+// new locale (after the initial boot) so screen-reader users get feedback when
+// they pick a language.
+let announceArmed = false;
 if (typeof window !== 'undefined') {
   import('./events.js').then(({ on }) => {
-    on('i18n:change', () => applyI18n(document));
+    on('i18n:change', (locale) => {
+      applyI18n(document);
+      if (announceArmed) announceLocale(locale);
+      announceArmed = true;
+    });
   });
 }

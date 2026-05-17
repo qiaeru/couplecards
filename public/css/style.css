@@ -260,7 +260,11 @@ body::before {
   top: calc(env(safe-area-inset-top, 0px) + 8px);
 }
 
-#main-content { display: contents; }
+#main-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
 
 /* Header (secondary screens) */
 .app-header {

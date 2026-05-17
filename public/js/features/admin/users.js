@@ -4,7 +4,7 @@
 import { request } from '../../core/api.js';
 import { t, fmtDateLong } from '../../core/i18n.js';
 import { on } from '../../core/events.js';
-import { toast, showConfirm } from '../../ui/shell.js';
+import { toast, showConfirm, withModal } from '../../ui/shell.js';
 import { escapeHtml } from '../../core/dom.js';
 
 let allUsers = [];
@@ -59,35 +59,27 @@ function renderUsersList(users) {
 }
 
 function showInitialPassword(username, password) {
-  const host = document.getElementById('modal');
-  const titleEl = document.getElementById('modal-title');
-  const bodyEl = document.getElementById('modal-body');
-  const confirmBtn = document.getElementById('modal-confirm');
-  const cancelBtn = document.getElementById('modal-cancel');
-  if (!host || !titleEl || !bodyEl || !confirmBtn || !cancelBtn) return;
-
-  titleEl.textContent = t('admin.users.initialPassword.title', { username });
-  bodyEl.innerHTML = `
-    <p>${escapeHtml(t('admin.users.initialPassword.warn'))}</p>
-    <div class="initial-password-box">
-      <code id="initial-password-value">${escapeHtml(password)}</code>
-      <button type="button" class="btn" id="initial-password-copy">${escapeHtml(t('admin.users.initialPassword.copy'))}</button>
-    </div>
-  `;
-  confirmBtn.textContent = t('admin.users.initialPassword.close');
-  cancelBtn.hidden = true;
-  confirmBtn.classList.add('btn-primary');
-  confirmBtn.classList.remove('btn-danger');
-  host.hidden = false;
-
-  document.getElementById('initial-password-copy').addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(password);
-      toast(t('common.copied'));
-    } catch { /* clipboard may be blocked */ }
+  withModal({
+    title: t('admin.users.initialPassword.title', { username }),
+    bodyHtml: `
+      <p>${escapeHtml(t('admin.users.initialPassword.warn'))}</p>
+      <div class="initial-password-box">
+        <code id="initial-password-value">${escapeHtml(password)}</code>
+        <button type="button" class="btn" id="initial-password-copy">${escapeHtml(t('admin.users.initialPassword.copy'))}</button>
+      </div>
+    `,
+    confirmLabel: t('admin.users.initialPassword.close'),
+    cancelLabel: null,
+    onBodyReady: () => {
+      document.getElementById('initial-password-copy')?.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(password);
+          toast(t('common.copied'));
+        } catch { /* clipboard may be blocked */ }
+      });
+    },
+    onConfirm: ({ close }) => close(),
   });
-  const onClose = () => { host.hidden = true; confirmBtn.removeEventListener('click', onClose); };
-  confirmBtn.addEventListener('click', onClose);
 }
 
 export async function renderUsers() {

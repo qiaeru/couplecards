@@ -3,7 +3,7 @@
   <button class="icon-btn" id="btn-back-home" data-i18n-attr="aria-label:common.back" type="button">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
   </button>
-  <h2 class="title" data-i18n="settings.title">Settings</h2>
+  <h1 class="title" data-i18n="settings.title">Settings</h1>
   <span></span>
 </header>
 <div class="settings">
@@ -12,8 +12,8 @@
     <button class="btn btn-sm btn-primary" id="install-btn" type="button" data-i18n="settings.install.action">Install</button>
   </div>
   <div class="setting-row">
-    <span data-i18n="settings.language">Language</span>
-    <select id="setting-language" class="setting-select"></select>
+    <span id="setting-language-label" data-i18n="settings.language">Language</span>
+    <select id="setting-language" class="setting-select" aria-labelledby="setting-language-label"></select>
   </div>
   <div class="setting-row">
     <span id="setting-sounds-label" data-i18n="settings.sounds">Sound effects</span>

@@ -192,7 +192,7 @@ function onFilterClick(event) {
   if (!btn) return;
   currentFilter = btn.dataset.filter;
   document.querySelectorAll('[data-filter]').forEach((b) => {
-    b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
+    b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
   });
   render();
 }
@@ -201,7 +201,7 @@ export function mount() {
   document.getElementById('btn-back-home')?.addEventListener('click', () => navigate('home'));
   document.querySelector('.collection-filters')?.addEventListener('click', onFilterClick);
   document.querySelectorAll('[data-filter]').forEach((b) => {
-    b.setAttribute('aria-selected', b.dataset.filter === currentFilter ? 'true' : 'false');
+    b.setAttribute('aria-pressed', b.dataset.filter === currentFilter ? 'true' : 'false');
   });
 
   // The most recently drawn card pulses so the user can spot it immediately
