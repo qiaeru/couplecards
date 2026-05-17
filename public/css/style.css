@@ -337,6 +337,16 @@ body::before {
   gap: 6px;
 }
 
+/* Medium primary actions in the thumb zone (draw screen, preview).
+   Kept above btn-sm so its 34px height stays for admin list rows where
+   density matters. */
+.btn-md {
+  padding: 10px 16px;
+  min-height: 44px;
+  font-size: 0.9rem;
+  gap: 8px;
+}
+
 .stamp {
   display: inline-block;
   padding: 3px 9px;

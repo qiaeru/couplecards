@@ -24,5 +24,5 @@ export const CONFIG = {
     redrawAction: 15,
     swipeThreshold: 8,
   },
-  inactivityTimeoutMs: 10 * 60 * 1000,
+  inactivityTimeoutMs: 30 * 60 * 1000,
 };

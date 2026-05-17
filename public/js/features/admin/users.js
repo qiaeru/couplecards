@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Admin users tab: list, create, reset password, delete, unlock.
 
-import { request } from '../../core/api.js';
+import { request, errorMessage } from '../../core/api.js';
 import { t, fmtDateLong } from '../../core/i18n.js';
 import { on } from '../../core/events.js';
 import { toast, showConfirm, withModal } from '../../ui/shell.js';
@@ -24,6 +24,14 @@ function renderUsersList(users) {
   const host = document.getElementById('admin-users-list');
   if (!host) return;
   host.innerHTML = '';
+  if (users.length === 0) {
+    host.innerHTML = `<div class="empty">
+      <div class="empty-icon" aria-hidden="true">🔍</div>
+      <div class="empty-title">${escapeHtml(t('admin.users.search.empty.title'))}</div>
+      <div class="empty-hint">${escapeHtml(t('admin.users.search.empty.hint'))}</div>
+    </div>`;
+    return;
+  }
   for (const u of users) {
     const isAdmin = u.role === 'admin';
     const isDemo = !!u.isDemo;
@@ -70,6 +78,7 @@ function showInitialPassword(username, password) {
     `,
     confirmLabel: t('admin.users.initialPassword.close'),
     cancelLabel: null,
+    dismissable: false,
     onBodyReady: () => {
       document.getElementById('initial-password-copy')?.addEventListener('click', async () => {
         try {
@@ -122,6 +131,7 @@ async function deleteUser(id, username) {
 
 async function unlockUser(id) {
   await request(`/api/admin/users/${id}/unlock`, { method: 'POST' });
+  toast(t('admin.users.unlock.toast'));
   await renderUsers();
 }
 
@@ -138,7 +148,7 @@ export async function mount() {
       await createUser(username);
       input.value = '';
     } catch (err) {
-      toast(t(`errors.${err.code}`) || t('errors.generic'));
+      toast(errorMessage(err));
     } finally {
       btn.disabled = false;
     }
@@ -161,7 +171,7 @@ export async function mount() {
       else if (btn.dataset.action === 'delete') await deleteUser(id, username);
       else if (btn.dataset.action === 'unlock') await unlockUser(id);
     } catch (err) {
-      toast(t(`errors.${err.code}`) || t('errors.generic'));
+      toast(errorMessage(err));
     }
   });
 

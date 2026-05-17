@@ -2,7 +2,7 @@
 // Deck maintenance flows: export (ZIP), sync from server-side JSON files,
 // import an uploaded backup. fflate is loaded lazily when importing.
 
-import { request, ApiError } from '../../core/api.js';
+import { request, errorMessage } from '../../core/api.js';
 import { t, supportedLocales } from '../../core/i18n.js';
 import { toast, withModal } from '../../ui/shell.js';
 import { escapeHtml } from '../../core/dom.js';
@@ -10,14 +10,6 @@ import { escapeHtml } from '../../core/dom.js';
 const MAX_IMPORT_BYTES = 2 * 1024 * 1024;
 const SUPPORTED_LOCALES = supportedLocales();
 let fflatePromise = null;
-
-function errorMessage(err) {
-  if (err instanceof ApiError) {
-    const localised = t(`errors.${err.code}`);
-    if (localised && localised !== `errors.${err.code}`) return localised;
-  }
-  return t('errors.generic');
-}
 
 async function loadFflate() {
   if (!fflatePromise) {
@@ -48,6 +40,14 @@ function triggerDownload(blob, filename) {
   a.click();
   a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+// Switch the Apply button between btn-primary and btn-danger to telegraph
+// that the next confirm will remove rows. Called after every preview.
+function markApplyDanger(btn, danger) {
+  if (!btn) return;
+  btn.classList.toggle('btn-danger', !!danger);
+  btn.classList.toggle('btn-primary', !danger);
 }
 
 function renderSummary(result) {
@@ -92,7 +92,7 @@ function renderModeOptions(selectedMode) {
 }
 
 function openSyncDialog() {
-  let mode = 'mirror';
+  let mode = 'upsert';
   let lastPreview = null;
 
   const renderBody = () => `
@@ -138,6 +138,7 @@ function openSyncDialog() {
   function wireBody(close) {
     const confirmBtn = document.getElementById('modal-confirm');
     confirmBtn.disabled = true;
+    markApplyDanger(confirmBtn, false);
 
     document.querySelectorAll('input[name="deck-sync-mode"]').forEach((el) => {
       el.addEventListener('change', () => {
@@ -164,6 +165,7 @@ function openSyncDialog() {
         });
         lastPreview = summary;
         document.getElementById('deck-sync-summary-host').innerHTML = renderSummary(summary);
+        markApplyDanger(confirmBtn, summary?.removed > 0);
         confirmBtn.disabled = false;
       } catch (err) {
         errHost.textContent = errorMessage(err);
@@ -182,7 +184,7 @@ function openSyncDialog() {
 }
 
 function openImportDialog(deck, filename) {
-  let mode = 'mirror';
+  let mode = 'upsert';
   let lastPreview = null;
 
   const renderBody = () => `
@@ -225,6 +227,7 @@ function openImportDialog(deck, filename) {
   function wireBody(close) {
     const confirmBtn = document.getElementById('modal-confirm');
     confirmBtn.disabled = true;
+    markApplyDanger(confirmBtn, false);
 
     document.querySelectorAll('input[name="deck-sync-mode"]').forEach((el) => {
       el.addEventListener('change', () => {
@@ -243,6 +246,7 @@ function openImportDialog(deck, filename) {
         });
         lastPreview = summary;
         document.getElementById('deck-sync-summary-host').innerHTML = renderSummary(summary);
+        markApplyDanger(confirmBtn, summary?.removed > 0);
         confirmBtn.disabled = false;
       } catch (err) {
         errHost.textContent = errorMessage(err);

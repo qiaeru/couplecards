@@ -2,7 +2,7 @@
 // Admin cards tab: list, create, edit, delete. The editor has one input block
 // per supported locale so both translations can be filled in a single pass.
 
-import { request } from '../../core/api.js';
+import { request, errorMessage } from '../../core/api.js';
 import { t, getLocale, supportedLocales } from '../../core/i18n.js';
 import { getCardText } from '../../core/sync.js';
 import { on } from '../../core/events.js';
@@ -49,10 +49,13 @@ function renderCardsList(cards) {
   if (!host) return;
   host.innerHTML = '';
   if (cards.length === 0) {
+    const empty = allCards.length === 0
+      ? { title: 'admin.cards.empty.title', hint: 'admin.cards.empty.hint' }
+      : { title: 'admin.cards.search.empty.title', hint: 'admin.cards.search.empty.hint' };
     host.innerHTML = `<div class="empty">
       <div class="empty-icon" aria-hidden="true">🃏</div>
-      <div class="empty-title">${escapeHtml(t('admin.cards.empty.title'))}</div>
-      <div class="empty-hint">${escapeHtml(t('admin.cards.empty.hint'))}</div>
+      <div class="empty-title">${escapeHtml(t(empty.title))}</div>
+      <div class="empty-hint">${escapeHtml(t(empty.hint))}</div>
     </div>`;
     return;
   }
@@ -83,14 +86,15 @@ function renderTranslationSection(locale, existing) {
   return `
     <fieldset class="field-group card-translation">
       <legend>${escapeHtml(localeLabel(locale))}</legend>
+      <p class="field-hint">${escapeHtml(t('admin.cards.translation.hint'))}</p>
       <label class="field">
         <span>${escapeHtml(t('admin.cards.cardTitle'))}</span>
-        <input type="text" name="title-${locale}" maxlength="${TITLE_MAX}" required
+        <input type="text" name="title-${locale}" maxlength="${TITLE_MAX}"
                value="${escapeHtml(data.title)}">
       </label>
       <label class="field">
         <span>${escapeHtml(t('admin.cards.description'))}</span>
-        <textarea name="description-${locale}" maxlength="${DESCRIPTION_MAX}" required rows="3">${escapeHtml(data.description)}</textarea>
+        <textarea name="description-${locale}" maxlength="${DESCRIPTION_MAX}" rows="3">${escapeHtml(data.description)}</textarea>
       </label>
     </fieldset>
   `;
@@ -214,10 +218,10 @@ function openCardDialog({ card = null } = {}) {
         await request('/api/cards', { method: 'POST', body: payload });
       }
       close();
-      toast(t('common.save'));
+      toast(t('admin.cards.saved.toast'));
       await renderCards();
     } catch (e) {
-      err.textContent = t(`errors.${e.code}`) || t('errors.generic');
+      err.textContent = errorMessage(e);
     } finally {
       confirmBtn.disabled = false;
     }
@@ -246,6 +250,7 @@ async function deleteCard(id, title) {
   });
   if (!ok) return;
   await request(`/api/cards/${encodeURIComponent(id)}`, { method: 'DELETE' });
+  toast(t('admin.cards.deleted.toast'));
   await renderCards();
 }
 
@@ -276,7 +281,7 @@ export async function mount() {
         }
       }
     } catch (err) {
-      toast(t(`errors.${err.code}`) || t('errors.generic'));
+      toast(errorMessage(err));
     }
   });
   await renderCards();

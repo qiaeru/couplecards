@@ -134,8 +134,11 @@ export function showConfirm({
 // Lower-level modal helper for richer dialogs (custom body, async confirm,
 // optional cancel button). Like showConfirm but caller-driven: returns
 // { close } and the body can hold any markup. Pass cancelLabel: null to
-// hide the cancel button for one-button dialogs.
-export function withModal({ title, bodyHtml, confirmLabel, cancelLabel, danger, onConfirm, onBodyReady }) {
+// hide the cancel button for one-button dialogs. Pass dismissable: false
+// to disable Escape and backdrop-click closing (used when accidental
+// dismissal would lose unrecoverable state, e.g. a generated password
+// shown only once).
+export function withModal({ title, bodyHtml, confirmLabel, cancelLabel, danger, onConfirm, onBodyReady, dismissable = true }) {
   const host = document.getElementById('modal');
   const titleEl = document.getElementById('modal-title');
   const bodyEl = document.getElementById('modal-body');
@@ -177,7 +180,12 @@ export function withModal({ title, bodyHtml, confirmLabel, cancelLabel, danger, 
     catch {}
   };
   const onKey = (event) => {
-    if (event.key === 'Escape') { event.preventDefault(); cancel(); return; }
+    if (event.key === 'Escape') {
+      if (!dismissable) return;
+      event.preventDefault();
+      cancel();
+      return;
+    }
     if (event.key !== 'Tab') return;
     const items = getFocusables();
     if (items.length === 0) return;
@@ -194,7 +202,7 @@ export function withModal({ title, bodyHtml, confirmLabel, cancelLabel, danger, 
 
   confirmBtn.addEventListener('click', handler);
   cancelBtn.addEventListener('click', cancel);
-  backdrop?.addEventListener('click', cancel);
+  if (dismissable) backdrop?.addEventListener('click', cancel);
   document.addEventListener('keydown', onKey);
   onBodyReady?.({ close });
 
