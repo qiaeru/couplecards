@@ -156,6 +156,7 @@
   "admin.cards.id": "ID",
   "admin.cards.idHint": "Lowercase letters, digits and dashes only.",
   "admin.cards.cardTitle": "Title",
+  "admin.cards.translation.hint": "Optional. Fill both fields to ship this locale.",
   "admin.cards.description": "Description",
   "admin.cards.foil": "Rare",
   "admin.cards.emoji": "Emoji",

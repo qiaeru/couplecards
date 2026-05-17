@@ -156,6 +156,7 @@
   "admin.cards.id": "Kennung",
   "admin.cards.idHint": "Nur Kleinbuchstaben, Ziffern und Bindestriche.",
   "admin.cards.cardTitle": "Titel",
+  "admin.cards.translation.hint": "Optional. Beide Felder ausfüllen, um diese Sprache auszuliefern.",
   "admin.cards.description": "Beschreibung",
   "admin.cards.foil": "Selten",
   "admin.cards.emoji": "Emoji",

@@ -156,6 +156,7 @@
   "admin.cards.id": "Identificativo",
   "admin.cards.idHint": "Solo minuscole, cifre e trattini.",
   "admin.cards.cardTitle": "Titolo",
+  "admin.cards.translation.hint": "Facoltativo. Compila entrambi i campi per pubblicare questa lingua.",
   "admin.cards.description": "Descrizione",
   "admin.cards.foil": "Rara",
   "admin.cards.emoji": "Emoji",

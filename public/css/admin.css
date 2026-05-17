@@ -247,6 +247,11 @@ body { padding: 20px 16px calc(env(safe-area-inset-bottom, 0px) + 24px); }
   font-weight: 600;
   color: var(--text-soft);
 }
+.field-hint {
+  margin: 0 0 2px;
+  font-size: 0.78rem;
+  color: var(--text-soft);
+}
 .radio-row {
   display: flex;
   align-items: flex-start;

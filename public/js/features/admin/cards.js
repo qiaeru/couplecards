@@ -86,14 +86,15 @@ function renderTranslationSection(locale, existing) {
   return `
     <fieldset class="field-group card-translation">
       <legend>${escapeHtml(localeLabel(locale))}</legend>
+      <p class="field-hint">${escapeHtml(t('admin.cards.translation.hint'))}</p>
       <label class="field">
         <span>${escapeHtml(t('admin.cards.cardTitle'))}</span>
-        <input type="text" name="title-${locale}" maxlength="${TITLE_MAX}" required
+        <input type="text" name="title-${locale}" maxlength="${TITLE_MAX}"
                value="${escapeHtml(data.title)}">
       </label>
       <label class="field">
         <span>${escapeHtml(t('admin.cards.description'))}</span>
-        <textarea name="description-${locale}" maxlength="${DESCRIPTION_MAX}" required rows="3">${escapeHtml(data.description)}</textarea>
+        <textarea name="description-${locale}" maxlength="${DESCRIPTION_MAX}" rows="3">${escapeHtml(data.description)}</textarea>
       </label>
     </fieldset>
   `;

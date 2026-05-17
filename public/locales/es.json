@@ -156,6 +156,7 @@
   "admin.cards.id": "ID",
   "admin.cards.idHint": "Solo minúsculas, dígitos y guiones.",
   "admin.cards.cardTitle": "Título",
+  "admin.cards.translation.hint": "Opcional. Rellena ambos campos para publicar este idioma.",
   "admin.cards.description": "Descripción",
   "admin.cards.foil": "Rara",
   "admin.cards.emoji": "Emoji",
