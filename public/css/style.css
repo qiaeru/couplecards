@@ -640,27 +640,6 @@ body::before {
   100% { transform: scale(1); background: rgba(0, 0, 0, 0.28); }
 }
 
-.home-nav {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-}
-.btn-nav {
-  flex-direction: column;
-  gap: 4px;
-  padding: 10px 8px;
-  font-size: 0.78rem;
-  min-height: 64px;
-  border-radius: var(--radius-md);
-}
-.btn-nav svg {
-  width: 22px;
-  height: 22px;
-  color: var(--accent);
-  flex-shrink: 0;
-}
-.btn-nav span { line-height: 1.2; }
-
 /* Lists */
 .list {
   display: flex;
