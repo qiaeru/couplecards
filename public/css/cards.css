@@ -873,7 +873,6 @@
   border-color: rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  font-size: 0.92rem;
 }
 .draw-actions .btn {
   padding: 12px 14px;
