@@ -27,7 +27,7 @@ couplecards/
 │   ├── js/
 │   │   ├── app.js, login.js, admin.js       page entry points
 │   │   ├── core/                 api, auth, events, i18n, idb, router, sync
-│   │   ├── features/             home, deck, history, collection, settings, rules, admin, auth
+│   │   ├── features/             home, deck, history, collection, settings, rules, admin
 │   │   └── ui/                   shell, emoji, password-strength, sound
 │   ├── css/, fonts/, icons/, locales/, vendor/
 │   └── sw.js                     Service Worker
