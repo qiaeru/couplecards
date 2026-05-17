@@ -17,7 +17,6 @@
   vertical-align: -0.12em;
   user-select: none;
   -webkit-user-drag: none;
-  filter: drop-shadow(0 0 10px rgba(255, 210, 140, 0.45));
 }
 
 /* Inline emoji in text */
