@@ -26,13 +26,19 @@ function pickLocale(acceptLanguage) {
   return FALLBACK_LOCALE;
 }
 
+// Read every supported manifest once at module load. Files ship with the
+// image and never change at runtime, so the per-request readFileSync was pure
+// disk I/O for no benefit.
+const manifests = new Map();
+for (const locale of SUPPORTED_LOCALES) {
+  manifests.set(locale, readFileSync(resolve(config.publicDir, `manifest.${locale}.webmanifest`), 'utf8'));
+}
+
 export default async function manifestRoutes(app) {
   app.get('/manifest.webmanifest', { config: { rateLimit: false } }, async (request, reply) => {
     const locale = pickLocale(request.headers['accept-language']);
-    const path = resolve(config.publicDir, `manifest.${locale}.webmanifest`);
-    const data = readFileSync(path, 'utf8');
     reply.type('application/manifest+json');
     reply.header('Cache-Control', 'public, max-age=3600');
-    return data;
+    return manifests.get(locale) ?? manifests.get(FALLBACK_LOCALE);
   });
 }
