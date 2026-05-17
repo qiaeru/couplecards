@@ -36,6 +36,11 @@ async function buildApp() {
       ],
     },
     bodyLimit: 512 * 1024,
+    // Skip the per-request access log line in production. A PWA cold start
+    // pulls ~30 static assets and the log encoding cost dwarfs the serve
+    // cost for the deployment's single-instance / low-traffic profile.
+    // Per-route logs (errors, auth failures, deck sync) still surface.
+    disableRequestLogging: config.isProduction,
   });
 
   await app.register(helmetPlugin);
