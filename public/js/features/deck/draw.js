@@ -746,6 +746,9 @@ function onDrawKeydown(event) {
 let inactivityTimer = 0;
 function bumpInactivity() {
   if (inactivityTimer) clearTimeout(inactivityTimer);
+  // No point starting the timer when the tab is backgrounded: the wake
+  // lock is already released and there is no live activity to gate on.
+  if (document.hidden) return;
   inactivityTimer = setTimeout(() => {
     toast(t('draw.inactivity'));
     releaseWakeLock();
@@ -753,6 +756,11 @@ function bumpInactivity() {
   }, CONFIG.inactivityTimeoutMs);
 }
 const inactivityListeners = ['pointerdown', 'pointermove', 'keydown', 'touchstart'];
+
+function onVisibilityChange() {
+  if (!document.hidden) bumpInactivity();
+  else if (inactivityTimer) { clearTimeout(inactivityTimer); inactivityTimer = 0; }
+}
 
 let unsubscribeLocale = null;
 
@@ -790,6 +798,7 @@ export async function mount({ params }) {
 
   bumpInactivity();
   inactivityListeners.forEach((ev) => document.addEventListener(ev, bumpInactivity, { passive: true }));
+  document.addEventListener('visibilitychange', onVisibilityChange);
   document.addEventListener('keydown', onDrawKeydown);
   unsubscribeLocale = on('i18n:change', onLocaleChange);
 }
@@ -805,5 +814,6 @@ export function unmount() {
   previewCardId = null;
   if (inactivityTimer) { clearTimeout(inactivityTimer); inactivityTimer = 0; }
   inactivityListeners.forEach((ev) => document.removeEventListener(ev, bumpInactivity));
+  document.removeEventListener('visibilitychange', onVisibilityChange);
   if (unsubscribeLocale) { unsubscribeLocale(); unsubscribeLocale = null; }
 }
