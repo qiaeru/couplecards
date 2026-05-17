@@ -9,7 +9,7 @@ import { on } from '../../core/events.js';
 import { toast, showConfirm } from '../../ui/shell.js';
 import { mountDeckTools } from './deck-sync.js';
 import { escapeHtml } from '../../core/dom.js';
-import { EMOJI_SLUGS } from '../../ui/emoji.js';
+import { EMOJI_SLUGS } from './emoji-slugs.js';
 
 const SUPPORTED_LOCALES = supportedLocales();
 const TITLE_MAX = 200;

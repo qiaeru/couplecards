@@ -41,6 +41,7 @@ const SHELL = [
   '/js/features/admin/users.js',
   '/js/features/admin/cards.js',
   '/js/features/admin/deck-sync.js',
+  '/js/features/admin/emoji-slugs.js',
   '/js/ui/emoji.js',
   '/js/ui/shell.js',
   '/js/ui/password-strength.js',
