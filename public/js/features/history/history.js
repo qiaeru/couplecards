@@ -9,7 +9,7 @@ import { t, fmtDateLong } from '../../core/i18n.js';
 import { on } from '../../core/events.js';
 import { escapeHtml } from '../../core/dom.js';
 
-let unsubscribe = null;
+let unsubscribers = [];
 
 function startOfDay(date) {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
@@ -112,11 +112,14 @@ function render() {
 
 export function mount() {
   render();
-  unsubscribe = on('state:history-changed', render);
+  unsubscribers = [
+    on('state:history-changed', render),
+    on('i18n:change', render),
+  ];
   document.getElementById('btn-back-home')?.addEventListener('click', () => navigate('home'));
-  on('i18n:change', render);
 }
 
 export function unmount() {
-  if (unsubscribe) { unsubscribe(); unsubscribe = null; }
+  for (const fn of unsubscribers) fn();
+  unsubscribers = [];
 }
