@@ -108,6 +108,7 @@
   "settings.resetData.confirm": "Cancella la cronologia e le carte bannate. L'operazione è irreversibile.",
   "settings.resetData.toast": "Dati reimpostati",
   "settings.logout": "Esci",
+  "settings.logout.confirm": "Verrai disconnesso da questo dispositivo.",
   "settings.logout.action": "Esci",
   "settings.install": "Installa l'app",
   "settings.install.action": "Installa",

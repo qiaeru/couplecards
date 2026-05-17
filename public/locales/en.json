@@ -108,6 +108,7 @@
   "settings.resetData.confirm": "This will erase your history and your banned cards. This action cannot be undone.",
   "settings.resetData.toast": "Your data has been reset",
   "settings.logout": "Log out",
+  "settings.logout.confirm": "You will be signed out on this device.",
   "settings.logout.action": "Log out",
   "settings.install": "Install the app",
   "settings.install.action": "Install",

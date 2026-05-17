@@ -108,6 +108,7 @@
   "settings.resetData.confirm": "Damit werden Verlauf und verbannte Karten gelöscht. Der Vorgang ist nicht umkehrbar.",
   "settings.resetData.toast": "Deine Daten wurden zurückgesetzt",
   "settings.logout": "Abmelden",
+  "settings.logout.confirm": "Du wirst auf diesem Gerät abgemeldet.",
   "settings.logout.action": "Abmelden",
   "settings.install": "App installieren",
   "settings.install.action": "Installieren",

@@ -108,6 +108,7 @@
   "settings.resetData.confirm": "Borrará tu historial y tus cartas vetadas. La acción es irreversible.",
   "settings.resetData.toast": "Tus datos se han restablecido",
   "settings.logout": "Cerrar sesión",
+  "settings.logout.confirm": "Se cerrará la sesión en este dispositivo.",
   "settings.logout.action": "Cerrar sesión",
   "settings.install": "Instalar la app",
   "settings.install.action": "Instalar",

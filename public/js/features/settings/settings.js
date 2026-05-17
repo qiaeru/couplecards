@@ -90,9 +90,10 @@ export async function mount() {
   document.getElementById('btn-logout')?.addEventListener('click', async () => {
     const ok = await showConfirm({
       title: t('settings.logout'),
+      body: t('settings.logout.confirm'),
       confirmLabel: t('settings.logout'),
       cancelLabel: t('common.cancel'),
-      danger: false,
+      danger: true,
     });
     if (!ok) return;
     await logout();
