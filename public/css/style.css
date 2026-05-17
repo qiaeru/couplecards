@@ -646,8 +646,8 @@ body::before {
   flex-direction: column;
   gap: 10px;
   padding: 12px 0;
-  mask-image: linear-gradient(to bottom, transparent 0, black 16px, black calc(100% - 16px), transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 16px, black calc(100% - 16px), transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, black 16px, black calc(100% - 8px), transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 16px, black calc(100% - 8px), transparent 100%);
 }
 .list-item {
   background-image: var(--tile-surface);
