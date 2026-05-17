@@ -1000,7 +1000,7 @@
   line-height: 1;
 }
 .counter-num {
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: var(--font-display);
   font-size: 1.45rem;
   font-weight: 700;
   letter-spacing: -0.01em;
@@ -1017,7 +1017,7 @@
   margin: 0 1px;
 }
 .counter-total {
-  font-family: 'Fraunces', Georgia, serif;
+  font-family: var(--font-display);
   font-size: 1.05rem;
   font-weight: 600;
   color: var(--text);
@@ -1142,7 +1142,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: var(--font);
   font-size: 2.8rem;
   font-weight: 700;
   color: rgba(255, 255, 255, 0.22);
