@@ -766,8 +766,23 @@ function bumpInactivity() {
 const inactivityListeners = ['pointerdown', 'pointermove', 'keydown', 'touchstart'];
 
 function onVisibilityChange() {
-  if (!document.hidden) bumpInactivity();
-  else if (inactivityTimer) { clearTimeout(inactivityTimer); inactivityTimer = 0; }
+  if (document.hidden) {
+    if (inactivityTimer) { clearTimeout(inactivityTimer); inactivityTimer = 0; }
+    // Stop the ambient effects while the tab is backgrounded. Browsers
+    // throttle background timers but still execute each tick (DOM node
+    // create / setTimeout queue), and the visuals are invisible anyway.
+    stopHearts();
+    stopRipples();
+    return;
+  }
+  bumpInactivity();
+  // Resume the ambient effects when the user is back and a card has been
+  // revealed (the settled class means the flip animation has landed).
+  const settled = $('card-flip')?.classList.contains('settled');
+  if (settled) {
+    startHearts();
+    startRipples(CONFIG.ripples.normalInterval);
+  }
 }
 
 let unsubscribeLocale = null;
