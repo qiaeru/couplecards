@@ -200,7 +200,7 @@
 }
 .card-back-frame {
   position: absolute;
-  inset: 26px;
+  inset: 14px;
   border: 2px dashed rgba(255, 210, 140, 0.38);
   border-radius: 14px;
   display: flex;
