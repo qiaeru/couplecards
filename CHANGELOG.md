@@ -14,11 +14,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Skip link on the admin page, jumping to the default users panel so keyboard users no longer have to Tab past the tablist on every visit.
 - Picking a new language now announces the new locale through the shared live region, so screen-reader users get spoken feedback after the selection. Uses Intl.DisplayNames so no new translation key was needed.
+- Returning a card now surfaces an Undo button in the toast, mirroring the existing affordance after a ban so a misclick on Return is no longer a one-way trip to History.
+- Collection filters and the admin Users / Cards search lists now ship a real "no matches" empty state, distinct from the "deck is empty" copy, so an empty filter or search no longer reads as a broken screen.
+- New i18n keys for the card editor optional-translation hint, the user-unlock confirmation toast, the card-saved and card-deleted toasts, the logout confirm body, the SW update banner, and the collection / admin search empty states. All shipped across en, fr, de, it, es.
+
+### Changed
+
+- Deck sync (and deck import) default to the additive Upsert mode and the Apply button switches to btn-danger as soon as the preview reports rows that would be removed. Old default (Mirror with a blue Apply) made a wrong tap quietly destructive.
+- Draw screen primary actions (Ban, Return, Redraw, plus the preview row) move from btn-sm (34px) to a new btn-md (44px) so the most-tapped controls in the thumb zone meet the standard touch target. btn-sm stays for admin list rows where density matters.
+- Inactivity timeout on the draw screen rises from 10 to 30 minutes and pauses while the tab is backgrounded, so a longer conversation about a rare card no longer kicks the player back to home mid-read.
+- Logout confirmation gains a body line ("You will be signed out on this device.") and a btn-danger confirm button so the modal matches the red button on the Settings row instead of looking blank.
+- "Almost empty" pile hint on the home screen triggers at 2 cards left instead of 3, so light custom decks stop crying wolf.
+- Italian ban vocabulary swapped from "Banna / bannata / bannare / bannature" to "Escludi / esclusa / escludere / esclusioni" across every screen. The German and Italian redraw button labels are shortened to fit the button.
 
 ### Fixed
 
 - Accessibility pass: every screen now starts at an h1 (the draw screen lifts the card title up and demotes the brand mark to a decorative div), the `<main>` landmark stays in the assistive-tech tree on older Firefox and Safari (previously stripped by `display: contents`), the language selects in Settings and admin expose a programmatic label, Collection filter chips ship as a real toggle-button group with `aria-pressed` instead of a half-implemented tablist, `role="alert"` error regions drop the contradictory `aria-live="polite"` override, the update banner now reads "A new version is available" instead of saying "Reload" twice, the home-screen pile buttons carry an explicit `type="button"`, and the card tilt animation honours `prefers-reduced-motion`.
 - Initial-password admin modal now traps focus, closes on Escape, and restores focus on close, matching the rest of the project's dialogs. The `withModal` helper moved from `deck-sync.js` to `ui/shell.js` so both call sites share the same focus-trap implementation.
+- Admin deck sync intro displayed the literal "cards.{{locale}}.json" because the placeholder was never interpolated. Reworded across the five locales, and dropped the unused `admin.deckSync.locale` key.
+- Server error codes the client did not know about leaked as raw `errors.SOMETHING_WEIRD` strings in toasts and inline errors because the `|| t('errors.generic')` fallback was dead code (`t()` returns the key on miss). Routed every call through a shared `errorMessage()` helper.
+- Card admin save and delete now toast a meaningful confirmation. Save previously showed the literal verb "Save" / "Enregistrer" (reused from the button label), and Delete showed nothing at all.
+- Card editor stopped advertising every per-locale title and description as required. The constraint never fired (the modal confirms via JS, not native submit) and `collectTranslations` already treats partially-filled locales as missing. Replaced with an inline hint that matches the actual behaviour.
+- Boot-failure pages on the SPA and admin shell no longer dump the raw exception message (`Failed to fetch`, `Cannot read properties of null`, etc.) into the user's view. The friendly title now sits above `errors.generic`, and the exception stays in `console.error` for the implementer.
+- Login subtitle softened from the enterprise-sounding "Sign in with the credentials provided by the instance administrator." to "Sign in with your Couplecards credentials." across the five locales.
 
 ## [1.6.2] - 2026-05-09
 
