@@ -702,7 +702,7 @@ body::before {
   color: #3ddb96;
 }
 .action-tag.banned {
-  background: rgba(217, 50, 68, 0.15);
+  background: color-mix(in srgb, var(--danger) 18%, transparent);
   color: var(--danger);
 }
 .action-tag.admin-role,
