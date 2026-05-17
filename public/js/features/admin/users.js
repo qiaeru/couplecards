@@ -130,6 +130,7 @@ async function deleteUser(id, username) {
 
 async function unlockUser(id) {
   await request(`/api/admin/users/${id}/unlock`, { method: 'POST' });
+  toast(t('admin.users.unlock.toast'));
   await renderUsers();
 }
 

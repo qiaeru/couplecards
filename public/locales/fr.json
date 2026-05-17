@@ -140,6 +140,7 @@
   "admin.users.delete.body": "Son historique et ses bannissements seront également supprimés.",
   "admin.users.delete.toast": "Utilisateur supprimé",
   "admin.users.unlock": "Déverrouiller",
+  "admin.users.unlock.toast": "Utilisateur déverrouillé",
   "admin.users.locked": "Verrouillé",
   "admin.users.mustChange": "Changement de mot de passe requis",
   "admin.users.admin": "Administrateur",

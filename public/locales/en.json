@@ -140,6 +140,7 @@
   "admin.users.delete.body": "Their history and bans will also be deleted.",
   "admin.users.delete.toast": "User deleted",
   "admin.users.unlock": "Unlock",
+  "admin.users.unlock.toast": "User unlocked",
   "admin.users.locked": "Locked",
   "admin.users.mustChange": "Password change required",
   "admin.users.admin": "Administrator",

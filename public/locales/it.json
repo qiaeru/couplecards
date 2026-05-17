@@ -140,6 +140,7 @@
   "admin.users.delete.body": "Verranno eliminati anche cronologia e carte bannate.",
   "admin.users.delete.toast": "Utente eliminato",
   "admin.users.unlock": "Sblocca",
+  "admin.users.unlock.toast": "Utente sbloccato",
   "admin.users.locked": "Bloccato",
   "admin.users.mustChange": "Cambio password obbligatorio",
   "admin.users.admin": "Amministratore",

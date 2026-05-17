@@ -140,6 +140,7 @@
   "admin.users.delete.body": "Verlauf und verbannte Karten werden ebenfalls gelöscht.",
   "admin.users.delete.toast": "Benutzer gelöscht",
   "admin.users.unlock": "Entsperren",
+  "admin.users.unlock.toast": "Konto entsperrt",
   "admin.users.locked": "Gesperrt",
   "admin.users.mustChange": "Passwortwechsel erforderlich",
   "admin.users.admin": "Administrator",
