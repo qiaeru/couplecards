@@ -83,6 +83,8 @@
   "collection.filter.rare": "Rare",
   "collection.empty.title": "Deck is empty",
   "collection.empty.hint": "Ask the administrator to add cards to the deck.",
+  "collection.empty.filter.title": "No matches",
+  "collection.empty.filter.hint": "No cards in the deck match this filter.",
   "collection.tile.locked.label": "Undiscovered card",
   "collection.tile.locked.placeholder": "?",
   "collection.tile.banned.label": "Banned card: {{title}}",

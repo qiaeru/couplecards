@@ -83,6 +83,8 @@
   "collection.filter.rare": "Selten",
   "collection.empty.title": "Das Kartendeck ist leer",
   "collection.empty.hint": "Bitte den Administrator, Karten hinzuzufügen.",
+  "collection.empty.filter.title": "Keine Treffer",
+  "collection.empty.filter.hint": "Keine Karte passt zu diesem Filter.",
   "collection.tile.locked.label": "Unentdeckte Karte",
   "collection.tile.locked.placeholder": "?",
   "collection.tile.banned.label": "Verbannte Karte: {{title}}",

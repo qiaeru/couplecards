@@ -172,11 +172,14 @@ function render() {
   buildCounter(counter, seen, total, animate);
 
   grid.innerHTML = '';
-  if (cards.length === 0) {
+  if (filtered.length === 0) {
+    const empty = cards.length === 0
+      ? { title: 'collection.empty.title', hint: 'collection.empty.hint' }
+      : { title: 'collection.empty.filter.title', hint: 'collection.empty.filter.hint' };
     grid.innerHTML = `<div class="empty">
       <div class="empty-icon" aria-hidden="true">🎴</div>
-      <div class="empty-title">${escapeHtml(t('collection.empty.title'))}</div>
-      <div class="empty-hint">${escapeHtml(t('collection.empty.hint'))}</div>
+      <div class="empty-title">${escapeHtml(t(empty.title))}</div>
+      <div class="empty-hint">${escapeHtml(t(empty.hint))}</div>
     </div>`;
     return;
   }

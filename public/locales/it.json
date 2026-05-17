@@ -83,6 +83,8 @@
   "collection.filter.rare": "Rare",
   "collection.empty.title": "Il mazzo è vuoto",
   "collection.empty.hint": "Chiedi all'amministratore di aggiungere delle carte.",
+  "collection.empty.filter.title": "Nessun risultato",
+  "collection.empty.filter.hint": "Nessuna carta corrisponde a questo filtro.",
   "collection.tile.locked.label": "Carta non ancora scoperta",
   "collection.tile.locked.placeholder": "?",
   "collection.tile.banned.label": "Carta bannata: {{title}}",

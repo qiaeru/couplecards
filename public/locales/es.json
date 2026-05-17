@@ -83,6 +83,8 @@
   "collection.filter.rare": "Raras",
   "collection.empty.title": "El mazo está vacío",
   "collection.empty.hint": "Pide al administrador que añada cartas.",
+  "collection.empty.filter.title": "Sin resultados",
+  "collection.empty.filter.hint": "Ninguna carta coincide con este filtro.",
   "collection.tile.locked.label": "Carta sin descubrir",
   "collection.tile.locked.placeholder": "?",
   "collection.tile.banned.label": "Carta vetada: {{title}}",
