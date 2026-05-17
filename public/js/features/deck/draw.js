@@ -489,7 +489,9 @@ export async function startDraw(pile) {
 
   applyCardText(card);
   $('card-emoji').innerHTML = emojiImgHTML(card.emoji || (pile === 'home' ? 'house' : 'city'));
-  $('card-pile-label').textContent = t(`piles.${pile}.label`);
+  $('card-pile-label').textContent = card.foil
+    ? `${t(`piles.${pile}.label`)} · ${t('draw.foil.rare')}`
+    : t(`piles.${pile}.label`);
   const frontEl = document.querySelector('#card-flip .card-front');
   frontEl.classList.remove('for-home', 'for-outdoor', 'is-foil');
   frontEl.classList.add(pile === 'home' ? 'for-home' : 'for-outdoor');
@@ -661,7 +663,9 @@ export function showCardDirectly(cardId) {
   const pile = card.pile;
   applyCardText(card);
   $('card-emoji').innerHTML = emojiImgHTML(card.emoji || (pile === 'home' ? 'house' : 'city'));
-  $('card-pile-label').textContent = t(`piles.${pile}.label`);
+  $('card-pile-label').textContent = card.foil
+    ? `${t(`piles.${pile}.label`)} · ${t('draw.foil.rare')}`
+    : t(`piles.${pile}.label`);
   const frontEl = document.querySelector('#card-flip .card-front');
   frontEl.classList.remove('for-home', 'for-outdoor', 'is-foil');
   frontEl.classList.add(pile === 'home' ? 'for-home' : 'for-outdoor');

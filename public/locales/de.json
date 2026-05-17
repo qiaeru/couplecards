@@ -60,6 +60,7 @@
   "draw.action.close": "Vorschau schließen",
   "draw.swipe.ban": "Verbannen",
   "draw.swipe.return": "Zurück\nauf den Stapel",
+  "draw.foil.rare": "Selten",
   "draw.toast.returned": "Karte auf den Stapel zurückgelegt",
   "draw.toast.banned": "Karte verbannt",
   "draw.toast.empty": "Keine Karten mehr in diesem Stapel",

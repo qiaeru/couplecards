@@ -335,12 +335,8 @@
 /* Golden "Rare" tag */
 .card-front.is-foil .card-pile-label {
   color: #ffd37a;
-  text-shadow: 0 0 10px rgba(255, 210, 140, 0.5);
-}
-.card-front.is-foil .card-pile-label::after {
-  content: " · Rare";
-  color: #ffd37a;
   font-weight: 800;
+  text-shadow: 0 0 10px rgba(255, 210, 140, 0.5);
 }
 
 /* Illustration panel with a pronounced golden halo */
@@ -1213,8 +1209,6 @@
    card; hide them at this scale, the gold border alone signals rarity. */
 .coll-tile .card-front.is-foil::after { display: none; }
 .coll-tile .foil-sparkles { display: none; }
-/* The "· Rare" suffix on the pile label crowds the tiny label area. */
-.coll-tile .card-front.is-foil .card-pile-label::after { content: ''; }
 /* The heart-pattern overlay on the illustration panel uses 44px tiles at
    full size; in the mini card we scale it down so the density matches, and
    slow the slide so the perceptual speed lines up with the revealed card. */
