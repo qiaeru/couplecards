@@ -406,12 +406,15 @@
   58%      { opacity: 1; transform: scale(1)   rotate(180deg); }
 }
 
-/* Golden halo pulsing around the foil card */
-.card-front.is-foil::after {
+/* Golden halo pulsing around the foil card. Placed on .card-flip (which has
+   no overflow:hidden) rather than on .card-front, whose .card-face wrapper
+   clips it to invisibility. Uses ::before so the pile-specific ::after glow
+   on .card-flip can co-exist. */
+.card-flip:has(.card-front.is-foil)::before {
   content: "";
   position: absolute;
   inset: -16px;
-  border-radius: inherit;
+  border-radius: 24px;
   box-shadow: 0 0 40px 4px rgba(255, 210, 140, 0.25);
   pointer-events: none;
   z-index: -1;
@@ -429,7 +432,7 @@
   .card-front.is-foil .card-frame::before,
   .card-front.is-foil .card-art::before,
   .foil-sparkle,
-  .card-front.is-foil::after { animation: none; }
+  .card-flip:has(.card-front.is-foil)::before { animation: none; }
   .foil-sparkle { opacity: 0.6; }
 }
 .card-frame {
