@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Security
+
+- Hardened the post-login `next` redirect to reject protocol-relative URLs (`//evil.example`). A crafted link like `/login.html?next=//attacker.example` previously sent the user off-origin after a successful login, opening a phishing path. The check now requires a single-slash same-origin path.
+
 ## [1.6.2] - 2026-05-09
 
 ### Security
