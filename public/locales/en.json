@@ -18,7 +18,7 @@
   "common.syncPending": "Syncing your changes…",
   "nav.main": "Main navigation",
   "login.title": "Sign in",
-  "login.subtitle": "Sign in with the credentials provided by the instance administrator.",
+  "login.subtitle": "Sign in with your Couplecards credentials.",
   "login.username": "Username",
   "login.password": "Password",
   "login.submit": "Sign in",

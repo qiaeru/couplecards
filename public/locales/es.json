@@ -18,7 +18,7 @@
   "common.syncPending": "Sincronizando los cambios…",
   "nav.main": "Navegación principal",
   "login.title": "Iniciar sesión",
-  "login.subtitle": "Inicia sesión con las credenciales que te haya dado quien administra esta instancia.",
+  "login.subtitle": "Inicia sesión con tus credenciales de Couplecards.",
   "login.username": "Usuario",
   "login.password": "Contraseña",
   "login.submit": "Iniciar sesión",

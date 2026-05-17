@@ -18,7 +18,7 @@
   "common.syncPending": "Sincronizzazione in corso…",
   "nav.main": "Navigazione principale",
   "login.title": "Accesso",
-  "login.subtitle": "Accedi con le credenziali fornite da chi amministra l'istanza.",
+  "login.subtitle": "Accedi con le tue credenziali Couplecards.",
   "login.username": "Nome utente",
   "login.password": "Password",
   "login.submit": "Accedi",

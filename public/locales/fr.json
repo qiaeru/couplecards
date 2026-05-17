@@ -18,7 +18,7 @@
   "common.syncPending": "Synchronisation en cours…",
   "nav.main": "Navigation principale",
   "login.title": "Connexion",
-  "login.subtitle": "Connectez-vous avec les identifiants fournis par l'administrateur de l'instance.",
+  "login.subtitle": "Connectez-vous avec vos identifiants Couplecards.",
   "login.username": "Identifiant",
   "login.password": "Mot de passe",
   "login.submit": "Se connecter",

@@ -18,7 +18,7 @@
   "common.syncPending": "Änderungen werden synchronisiert…",
   "nav.main": "Hauptnavigation",
   "login.title": "Anmeldung",
-  "login.subtitle": "Melde dich mit den Zugangsdaten an, die dir die Person gegeben hat, die diese Instanz verwaltet.",
+  "login.subtitle": "Melde dich mit deinen Couplecards-Zugangsdaten an.",
   "login.username": "Benutzername",
   "login.password": "Passwort",
   "login.submit": "Anmelden",
