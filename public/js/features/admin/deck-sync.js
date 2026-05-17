@@ -42,6 +42,14 @@ function triggerDownload(blob, filename) {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
+// Switch the Apply button between btn-primary and btn-danger to telegraph
+// that the next confirm will remove rows. Called after every preview.
+function markApplyDanger(btn, danger) {
+  if (!btn) return;
+  btn.classList.toggle('btn-danger', !!danger);
+  btn.classList.toggle('btn-primary', !danger);
+}
+
 function renderSummary(result) {
   if (!result) return '';
   const { added, updated, removed, unchanged, keptOutsideFile } = result;
@@ -84,7 +92,7 @@ function renderModeOptions(selectedMode) {
 }
 
 function openSyncDialog() {
-  let mode = 'mirror';
+  let mode = 'upsert';
   let lastPreview = null;
 
   const renderBody = () => `
@@ -130,6 +138,7 @@ function openSyncDialog() {
   function wireBody(close) {
     const confirmBtn = document.getElementById('modal-confirm');
     confirmBtn.disabled = true;
+    markApplyDanger(confirmBtn, false);
 
     document.querySelectorAll('input[name="deck-sync-mode"]').forEach((el) => {
       el.addEventListener('change', () => {
@@ -156,6 +165,7 @@ function openSyncDialog() {
         });
         lastPreview = summary;
         document.getElementById('deck-sync-summary-host').innerHTML = renderSummary(summary);
+        markApplyDanger(confirmBtn, summary?.removed > 0);
         confirmBtn.disabled = false;
       } catch (err) {
         errHost.textContent = errorMessage(err);
@@ -174,7 +184,7 @@ function openSyncDialog() {
 }
 
 function openImportDialog(deck, filename) {
-  let mode = 'mirror';
+  let mode = 'upsert';
   let lastPreview = null;
 
   const renderBody = () => `
@@ -217,6 +227,7 @@ function openImportDialog(deck, filename) {
   function wireBody(close) {
     const confirmBtn = document.getElementById('modal-confirm');
     confirmBtn.disabled = true;
+    markApplyDanger(confirmBtn, false);
 
     document.querySelectorAll('input[name="deck-sync-mode"]').forEach((el) => {
       el.addEventListener('change', () => {
@@ -235,6 +246,7 @@ function openImportDialog(deck, filename) {
         });
         lastPreview = summary;
         document.getElementById('deck-sync-summary-host').innerHTML = renderSummary(summary);
+        markApplyDanger(confirmBtn, summary?.removed > 0);
         confirmBtn.disabled = false;
       } catch (err) {
         errHost.textContent = errorMessage(err);
