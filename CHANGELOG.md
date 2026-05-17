@@ -10,6 +10,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Hardened the post-login `next` redirect to reject protocol-relative URLs (`//evil.example`). A crafted link like `/login.html?next=//attacker.example` previously sent the user off-origin after a successful login, opening a phishing path. The check now requires a single-slash same-origin path.
 
+### Added
+
+- Skip link on the admin page, jumping to the default users panel so keyboard users no longer have to Tab past the tablist on every visit.
+- Picking a new language now announces the new locale through the shared live region, so screen-reader users get spoken feedback after the selection. Uses Intl.DisplayNames so no new translation key was needed.
+
+### Fixed
+
+- Accessibility pass: every screen now starts at an h1 (the draw screen lifts the card title up and demotes the brand mark to a decorative div), the `<main>` landmark stays in the assistive-tech tree on older Firefox and Safari (previously stripped by `display: contents`), the language selects in Settings and admin expose a programmatic label, Collection filter chips ship as a real toggle-button group with `aria-pressed` instead of a half-implemented tablist, `role="alert"` error regions drop the contradictory `aria-live="polite"` override, the update banner now reads "A new version is available" instead of saying "Reload" twice, the home-screen pile buttons carry an explicit `type="button"`, and the card tilt animation honours `prefers-reduced-motion`.
+- Initial-password admin modal now traps focus, closes on Escape, and restores focus on close, matching the rest of the project's dialogs. The `withModal` helper moved from `deck-sync.js` to `ui/shell.js` so both call sites share the same focus-trap implementation.
+
 ## [1.6.2] - 2026-05-09
 
 ### Security
