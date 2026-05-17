@@ -752,7 +752,13 @@ function onDrawKeydown(event) {
 }
 
 let inactivityTimer = 0;
+let lastInactivityBump = 0;
 function bumpInactivity() {
+  // pointermove fires up to ~60 Hz during a tilt drag; coalesce to one bump
+  // per ~500 ms so we don't clearTimeout/setTimeout on every frame.
+  const now = performance.now();
+  if (now - lastInactivityBump < 500) return;
+  lastInactivityBump = now;
   if (inactivityTimer) clearTimeout(inactivityTimer);
   // No point starting the timer when the tab is backgrounded: the wake
   // lock is already released and there is no live activity to gate on.
