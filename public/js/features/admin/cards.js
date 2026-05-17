@@ -49,10 +49,13 @@ function renderCardsList(cards) {
   if (!host) return;
   host.innerHTML = '';
   if (cards.length === 0) {
+    const empty = allCards.length === 0
+      ? { title: 'admin.cards.empty.title', hint: 'admin.cards.empty.hint' }
+      : { title: 'admin.cards.search.empty.title', hint: 'admin.cards.search.empty.hint' };
     host.innerHTML = `<div class="empty">
       <div class="empty-icon" aria-hidden="true">🃏</div>
-      <div class="empty-title">${escapeHtml(t('admin.cards.empty.title'))}</div>
-      <div class="empty-hint">${escapeHtml(t('admin.cards.empty.hint'))}</div>
+      <div class="empty-title">${escapeHtml(t(empty.title))}</div>
+      <div class="empty-hint">${escapeHtml(t(empty.hint))}</div>
     </div>`;
     return;
   }

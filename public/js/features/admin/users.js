@@ -24,6 +24,14 @@ function renderUsersList(users) {
   const host = document.getElementById('admin-users-list');
   if (!host) return;
   host.innerHTML = '';
+  if (users.length === 0) {
+    host.innerHTML = `<div class="empty">
+      <div class="empty-icon" aria-hidden="true">🔍</div>
+      <div class="empty-title">${escapeHtml(t('admin.users.search.empty.title'))}</div>
+      <div class="empty-hint">${escapeHtml(t('admin.users.search.empty.hint'))}</div>
+    </div>`;
+    return;
+  }
   for (const u of users) {
     const isAdmin = u.role === 'admin';
     const isDemo = !!u.isDemo;
