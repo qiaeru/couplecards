@@ -254,8 +254,6 @@ export async function clearAllLocalState() {
   emit('state:cleared');
 }
 
-// Process one ban/unban item against the server, mirroring the in-memory map
-// for bans. Returns true on success so the caller can drop the outbox row.
 async function flushBanItem(item) {
   if (item.kind === 'ban') {
     const resp = await request('/api/bans', { method: 'POST', body: { cardId: item.cardId } });

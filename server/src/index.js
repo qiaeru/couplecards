@@ -44,8 +44,7 @@ async function buildApp() {
     disableRequestLogging: config.isProduction,
   });
 
-  // Negotiate br / gzip on JSON, CSS, JS and the locale files. Threshold
-  // skips small bodies where the encoder overhead beats the savings.
+  // Threshold below the smallest compressible response we serve.
   await app.register(compressPlugin, {
     global: true,
     threshold: 1024,

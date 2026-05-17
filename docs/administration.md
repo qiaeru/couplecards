@@ -72,10 +72,10 @@ The **Sync from the files** button reads every `cards.<locale>.json` present und
 
 The dialog offers two modes.
 
+- **Add and update** (default). New cards found in the files are inserted, existing cards with the same ID have their text updated, and any card present only in the database is kept as is. Use this mode when the admin has added bespoke cards through the UI that should survive.
 - **Full mirror.** The database becomes an exact copy of the file set. Cards that are present in the database but missing from every file are deleted, along with the ban rows that pointed to them. Use this mode when the files are the authoritative source.
-- **Add and update.** New cards found in the files are inserted, existing cards with the same ID have their text updated, and any card present only in the database is kept as is. Use this mode when the admin has added bespoke cards through the UI that should survive.
 
-The dialog requires a preview before the **Apply sync** button becomes active. The preview shows how many cards will be added, updated, removed or left unchanged, which makes accidental deletions impossible to miss. A **Download a backup** shortcut sits in the same dialog so the current deck can be saved in one click before applying.
+The dialog requires a preview before the **Apply sync** button becomes active. The preview shows how many cards will be added, updated, removed or left unchanged, which makes accidental deletions impossible to miss. When the preview reports any removal the **Apply sync** button turns red so a destructive operation is hard to fire by reflex. A **Download a backup** shortcut sits in the same dialog so the current deck can be saved in one click before applying.
 
 ### Import a backup
 

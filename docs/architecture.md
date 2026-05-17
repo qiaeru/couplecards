@@ -27,13 +27,12 @@ couplecards/
 │   ├── js/
 │   │   ├── app.js, login.js, admin.js       page entry points
 │   │   ├── core/                 api, auth, events, i18n, idb, router, sync
-│   │   ├── features/             home, deck, history, collection, settings, rules, admin, auth
+│   │   ├── features/             home, deck, history, collection, settings, rules, admin
 │   │   └── ui/                   shell, emoji, password-strength, sound
 │   ├── css/, fonts/, icons/, locales/, vendor/
 │   └── sw.js                     Service Worker
 ├── data/
-│   ├── cards.en.json             English translations, loaded at first-run seed
-│   └── cards.fr.json             French translations, loaded at first-run seed
+│   └── cards.<locale>.json       One file per supported locale (en, fr, de, it, es), loaded at first-run seed
 ├── scripts/                      build-time helpers (vendor bundle, SPDX retrofit)
 ├── deploy/                       reverse proxy presets for Caddy, Traefik and nginx
 ├── docs/                         you are here
