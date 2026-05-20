@@ -6,20 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.8.0] - 2026-05-20
+
 ### Added
 
-- Login page gains a slow parallax of card emojis drifting behind the auth card. Sizes, blur and opacity are driven by a single per-icon depth value so the layers read as actual distance, and on desktop the cursor gently repels nearby icons. The whole effect is gated by `prefers-reduced-motion` so users who opted out see a static (and silent) background.
-- New "Delete all cards" button in the admin Deck maintenance toolbar, paired with a destructive confirmation. Lets an admin wipe the seeded deck before importing a custom one without round-tripping through the JSON files.
-- Server now logs a one-shot warning when it receives a plain-HTTP request while `COOKIE_SECURE=true`. Surfaces the silent-login-loop trap that hits self-hosters who copy the Docker image (which defaults `NODE_ENV=production` and therefore `COOKIE_SECURE=true`) into a LAN deploy and forget to flip the flag. The configuration reference doc was updated to describe the symptom upfront.
+- Login page gains a slow parallax of card emojis drifting behind the auth card. A single per-icon depth value drives size, blur and opacity together so the layers read as real distance, and on desktop the cursor gently repels nearby icons. Gated by `prefers-reduced-motion`.
+- New "Delete all cards" button in the admin Deck maintenance toolbar, behind a destructive confirmation. Lets an admin wipe the seeded deck in one click before importing a custom one, instead of round-tripping through the JSON files.
+- Server logs a one-shot warning the first time it receives a plain-HTTP request while `COOKIE_SECURE=true`, surfacing the silent-login-loop trap that hits admins who copy the production Docker image into a LAN deploy without flipping the flag. Documented in `configuration.md`.
 
 ### Changed
 
-- Tightened the app icon viewBox so the heart fills the full canvas instead of sitting inside a 9 to 11 percent margin. Home-screen and tab icons now render noticeably larger next to peers. The maskable variant keeps its 15 percent safe zone so adaptive icon masks on Android do not clip the corners. The favicon.ico and apple-touch-icon.png were regenerated from the new SVG.
+- Tightened the app icon viewBox so the heart fills the full canvas instead of sitting inside a 10 percent margin. Home-screen and browser-tab icons render noticeably larger. The maskable variant keeps its safe zone so Android adaptive masks do not clip the corners. `favicon.ico` and `apple-touch-icon.png` were regenerated from the new SVG.
 
 ### Fixed
 
-- Edit and Delete buttons in the admin cards list went dead after applying a deck sync or import, only recovering on a page reload. The shared modal confirm button stayed in its disabled state across dialogs; `showConfirm` and the card editor now reset it on every open, matching what `withModal` already did.
-- "Copy password" on the new-user admin modal silently did nothing on plain-HTTP LAN deployments because `navigator.clipboard` is gated to secure contexts. Added a legacy `execCommand` fallback, and when both paths fail the password text is auto-selected with a toast asking the user to press Ctrl+C.
+- Edit and Delete buttons in the admin cards list went dead after applying a deck sync or import, only recovering on a page reload. The shared modal confirm button kept the disabled flag across dialogs. `showConfirm` and the card editor now reset it on open, matching `withModal`.
+- "Copy password" on the new-user admin modal silently did nothing on plain-HTTP LAN deployments because `navigator.clipboard` is gated to secure contexts. Added a legacy `execCommand` fallback, and when both paths fail the password is auto-selected with a toast asking for Ctrl+C.
 
 ## [1.7.0] - 2026-05-17
 
