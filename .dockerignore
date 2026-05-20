@@ -13,3 +13,4 @@ deploy/
 *.md
 !CREDITS.md
 !LICENSE
+.claude/
