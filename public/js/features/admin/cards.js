@@ -159,6 +159,7 @@ function openCardDialog({ card = null } = {}) {
   confirmBtn.textContent = t('common.save');
   confirmBtn.classList.add('btn-primary');
   confirmBtn.classList.remove('btn-danger');
+  confirmBtn.disabled = false;
   cancelBtn.hidden = false;
   cancelBtn.textContent = t('common.cancel');
   host.hidden = false;
