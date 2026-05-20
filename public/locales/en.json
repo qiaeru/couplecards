@@ -11,6 +11,7 @@
   "common.reload": "Reload",
   "common.updateAvailable": "A new version is available.",
   "common.copied": "Copied",
+  "common.copyManual": "Select the text and press Ctrl+C to copy.",
   "common.dateAtTime": "{{date}} at {{time}}",
   "common.skipToContent": "Skip to main content",
   "common.scrollTop": "Back to top",
