@@ -81,6 +81,10 @@ The dialog requires a preview before the **Apply sync** button becomes active. T
 
 The **Import a backup** button opens a file picker. Select a ZIP previously produced by the Export button (or any archive that contains `cards.<locale>.json` files) and apply it with the mode of your choice. A single JSON file in the seed format is also accepted as a legacy fallback and is treated as the English bucket. The preview step is mandatory here as well.
 
+### Delete all cards
+
+The red **Delete all cards** button wipes every card and its translations from the database in one call, after a destructive confirmation. Useful before importing a custom deck when starting from a blank slate is cleaner than mirror-syncing over the existing rows. The operation cascades to bans; history entries keep their card id and render as pointing to a removed card.
+
 Every sync or import runs inside a single database transaction, so a failure midway leaves the deck untouched. The history table is never affected by a deletion: entries that reference a removed card keep their reference and are labelled as pointing to a removed card in the history view.
 
 ## The shared demo account

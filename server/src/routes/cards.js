@@ -189,6 +189,14 @@ export default async function cardRoutes(app) {
     return selectCard(request.params.id);
   });
 
+  app.delete('/cards', {
+    preHandler: requireAdmin,
+  }, async () => {
+    const info = getDb().prepare('DELETE FROM cards').run();
+    invalidateDeckVersion();
+    return { ok: true, deleted: info.changes };
+  });
+
   app.delete('/cards/:id', {
     preHandler: requireAdmin,
     schema: {

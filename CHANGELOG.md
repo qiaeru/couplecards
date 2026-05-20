@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+
+- New "Delete all cards" button in the admin Deck maintenance toolbar, paired with a destructive confirmation. Lets an admin wipe the seeded deck before importing a custom one without round-tripping through the JSON files.
+
 ### Fixed
 
 - Edit and Delete buttons in the admin cards list went dead after applying a deck sync or import, only recovering on a page reload. The shared modal confirm button stayed in its disabled state across dialogs; `showConfirm` and the card editor now reset it on every open, matching what `withModal` already did.

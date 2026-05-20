@@ -4,7 +4,7 @@
 
 import { request, errorMessage } from '../../core/api.js';
 import { t, supportedLocales } from '../../core/i18n.js';
-import { toast, withModal } from '../../ui/shell.js';
+import { toast, withModal, showConfirm } from '../../ui/shell.js';
 import { escapeHtml } from '../../core/dom.js';
 
 const MAX_IMPORT_BYTES = 2 * 1024 * 1024;
@@ -309,6 +309,24 @@ async function pickAndImport() {
   input.click();
 }
 
+async function deleteAllCards() {
+  const ok = await showConfirm({
+    title: t('admin.cards.deleteAll.confirm'),
+    body: t('admin.cards.deleteAll.body'),
+    confirmLabel: t('admin.cards.deleteAll.action'),
+    cancelLabel: t('common.cancel'),
+    danger: true,
+  });
+  if (!ok) return;
+  try {
+    await request('/api/cards', { method: 'DELETE' });
+    toast(t('admin.cards.deleteAll.toast'));
+    window.dispatchEvent(new CustomEvent('admin:cards-refresh'));
+  } catch (err) {
+    toast(errorMessage(err));
+  }
+}
+
 export function mountDeckTools(onAfterChange) {
   document.getElementById('admin-deck-export')?.addEventListener('click', async () => {
     try { await exportDeck(); }
@@ -316,6 +334,7 @@ export function mountDeckTools(onAfterChange) {
   });
   document.getElementById('admin-deck-sync')?.addEventListener('click', () => openSyncDialog());
   document.getElementById('admin-deck-import')?.addEventListener('click', () => pickAndImport());
+  document.getElementById('admin-deck-delete-all')?.addEventListener('click', () => deleteAllCards());
 
   window.addEventListener('admin:cards-refresh', () => onAfterChange?.());
 }
