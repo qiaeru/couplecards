@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - New "Delete all cards" button in the admin Deck maintenance toolbar, paired with a destructive confirmation. Lets an admin wipe the seeded deck before importing a custom one without round-tripping through the JSON files.
 
+### Changed
+
+- Tightened the app icon viewBox so the heart fills the full canvas instead of sitting inside a 9 to 11 percent margin. Home-screen and tab icons now render noticeably larger next to peers. The maskable variant keeps its 15 percent safe zone so adaptive icon masks on Android do not clip the corners. The favicon.ico and apple-touch-icon.png were regenerated from the new SVG.
+
 ### Fixed
 
 - Edit and Delete buttons in the admin cards list went dead after applying a deck sync or import, only recovering on a page reload. The shared modal confirm button stayed in its disabled state across dialogs; `showConfirm` and the card editor now reset it on every open, matching what `withModal` already did.
