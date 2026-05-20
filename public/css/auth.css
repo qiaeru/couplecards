@@ -51,3 +51,40 @@ body { font-family: var(--font); }
 .auth-form { display: flex; flex-direction: column; gap: 14px; }
 .auth-error:empty { display: none; }
 .auth-form .btn { margin-top: 6px; }
+
+.floating-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.auth-shell { position: relative; z-index: 1; }
+.floating-icon {
+  position: absolute;
+  opacity: var(--repel-opacity, var(--base-opacity, 0.25));
+  animation:
+    float-y var(--duration, 22s) ease-in-out infinite,
+    float-fade var(--duration, 22s) ease-in-out infinite;
+  filter: blur(var(--blur, 0.3px));
+  transition: opacity 0.3s ease;
+  will-change: transform, opacity;
+}
+.floating-icon > img {
+  display: block;
+  transform: translate3d(var(--repel-x, 0), var(--repel-y, 0), 0);
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes float-y {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50%      { transform: translate3d(var(--drift, 0), -28px, 0) rotate(var(--rotate, 0deg)); }
+}
+@keyframes float-fade {
+  0%, 100% { opacity: var(--base-opacity, 0.25); }
+  50%      { opacity: calc(var(--base-opacity, 0.25) + 0.18); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-icon { animation: none; }
+}

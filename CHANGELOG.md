@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- Login page gains a slow parallax of card emojis drifting behind the auth card. Sizes, blur and opacity are driven by a single per-icon depth value so the layers read as actual distance, and on desktop the cursor gently repels nearby icons. The whole effect is gated by `prefers-reduced-motion` so users who opted out see a static (and silent) background.
 - New "Delete all cards" button in the admin Deck maintenance toolbar, paired with a destructive confirmation. Lets an admin wipe the seeded deck before importing a custom one without round-tripping through the JSON files.
 - Server now logs a one-shot warning when it receives a plain-HTTP request while `COOKIE_SECURE=true`. Surfaces the silent-login-loop trap that hits self-hosters who copy the Docker image (which defaults `NODE_ENV=production` and therefore `COOKIE_SECURE=true`) into a LAN deploy and forget to flip the flag. The configuration reference doc was updated to describe the symptom upfront.
 
