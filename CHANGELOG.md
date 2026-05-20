@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Added
 
 - New "Delete all cards" button in the admin Deck maintenance toolbar, paired with a destructive confirmation. Lets an admin wipe the seeded deck before importing a custom one without round-tripping through the JSON files.
+- Server now logs a one-shot warning when it receives a plain-HTTP request while `COOKIE_SECURE=true`. Surfaces the silent-login-loop trap that hits self-hosters who copy the Docker image (which defaults `NODE_ENV=production` and therefore `COOKIE_SECURE=true`) into a LAN deploy and forget to flip the flag. The configuration reference doc was updated to describe the symptom upfront.
 
 ### Changed
 
