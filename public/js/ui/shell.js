@@ -81,6 +81,7 @@ export function showConfirm({
     cancelBtn.textContent = cancelLabel ?? t('common.cancel');
     confirmBtn.classList.toggle('btn-danger', danger);
     confirmBtn.classList.toggle('btn-primary', !danger);
+    confirmBtn.disabled = false;
     cancelBtn.hidden = !cancelLabel && cancelLabel !== undefined
       ? false
       : cancelLabel === '' ? true : false;

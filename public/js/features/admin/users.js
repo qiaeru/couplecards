@@ -5,7 +5,7 @@ import { request, errorMessage } from '../../core/api.js';
 import { t, fmtDateLong } from '../../core/i18n.js';
 import { on } from '../../core/events.js';
 import { toast, showConfirm, withModal } from '../../ui/shell.js';
-import { escapeHtml } from '../../core/dom.js';
+import { escapeHtml, copyToClipboard, selectText } from '../../core/dom.js';
 
 let allUsers = [];
 let usersQuery = '';
@@ -81,10 +81,12 @@ function showInitialPassword(username, password) {
     dismissable: false,
     onBodyReady: () => {
       document.getElementById('initial-password-copy')?.addEventListener('click', async () => {
-        try {
-          await navigator.clipboard.writeText(password);
+        if (await copyToClipboard(password)) {
           toast(t('common.copied'));
-        } catch { /* clipboard may be blocked */ }
+        } else {
+          selectText(document.getElementById('initial-password-value'));
+          toast(t('common.copyManual'));
+        }
       });
     },
     onConfirm: ({ close }) => close(),
