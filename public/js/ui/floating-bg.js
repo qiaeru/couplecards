@@ -47,8 +47,8 @@ export function mountFloatingBackground(count = 22) {
     item.style.zIndex = String(Math.round((1 - depth) * 10));
 
     const img = createEmojiImg(slug);
-    img.width = size;
-    img.height = size;
+    img.style.width = `${size}px`;
+    img.style.height = `${size}px`;
     item.appendChild(img);
     wrap.appendChild(item);
     items.push(item);
