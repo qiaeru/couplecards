@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+
+- The Collection screen gains a search field that filters discovered cards by title and description, plus a completion bar above the counter that fills with the active pile or rarity filter.
+
 ## [1.8.0] - 2026-05-20
 
 ### Added

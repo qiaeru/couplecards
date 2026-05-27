@@ -1031,6 +1031,55 @@
   color: var(--text-soft);
 }
 
+.collection-progress-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+.collection-progress {
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+.collection-progress-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  box-shadow: 0 0 12px rgba(236, 90, 158, 0.45);
+  transition: width var(--dur-slow) var(--ease-out);
+}
+@media (prefers-reduced-motion: reduce) {
+  .collection-progress-fill { transition: none; }
+}
+
+.collection-search {
+  display: block;
+  width: 100%;
+}
+.collection-search input {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.06);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff80' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='11' cy='11' r='8'/><line x1='21' y1='21' x2='16.65' y2='16.65'/></svg>");
+  background-repeat: no-repeat;
+  background-position: 14px center;
+  background-size: 16px 16px;
+  border: 1px solid var(--surface-border);
+  color: var(--text);
+  padding: 8px 14px 8px 38px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.9rem;
+}
+.collection-search input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .collection-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));

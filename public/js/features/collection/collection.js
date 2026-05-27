@@ -12,6 +12,7 @@ import { escapeHtml } from '../../core/dom.js';
 
 let unsubscribe = [];
 let currentFilter = 'all';
+let currentQuery = '';
 let lastSeenCount = null;
 let freshIds = new Set();
 
@@ -153,6 +154,15 @@ function buildCounter(host, seen, total, animate) {
   if (animate) cipherIn(numEl, seen);
 }
 
+// The counter and progress bar always reflect the pile/rare filter scope, so
+// they measure collection completion. The search query only narrows the grid,
+// the way the admin search does, and never moves the progress bar.
+function updateProgress(seen, total) {
+  const fill = document.getElementById('collection-progress-fill');
+  if (!fill) return;
+  fill.style.width = `${total ? Math.round((seen / total) * 100) : 0}%`;
+}
+
 function render() {
   const grid = document.getElementById('collection-grid');
   const counter = document.getElementById('collection-counter');
@@ -160,22 +170,36 @@ function render() {
 
   const cards = getCards();
   const discovered = discoveredIds();
-  let filtered;
-  if (currentFilter === 'all') filtered = cards;
-  else if (currentFilter === 'rare') filtered = cards.filter((c) => c.foil);
-  else filtered = cards.filter((c) => c.pile === currentFilter);
+  let scoped;
+  if (currentFilter === 'all') scoped = cards;
+  else if (currentFilter === 'rare') scoped = cards.filter((c) => c.foil);
+  else scoped = cards.filter((c) => c.pile === currentFilter);
 
-  const total = filtered.length;
-  const seen = filtered.filter((c) => discovered.has(c.id)).length;
+  const total = scoped.length;
+  const seen = scoped.filter((c) => discovered.has(c.id)).length;
   const animate = lastSeenCount !== seen;
   lastSeenCount = seen;
   buildCounter(counter, seen, total, animate);
+  updateProgress(seen, total);
+
+  // A locked card has no visible text, so a non-empty query can only match a
+  // card the user has already discovered.
+  const q = currentQuery.trim().toLowerCase();
+  let visible = scoped;
+  if (q) {
+    visible = scoped.filter((c) => {
+      if (!discovered.has(c.id)) return false;
+      const { title, description } = getCardText(c);
+      return title.toLowerCase().includes(q) || description.toLowerCase().includes(q);
+    });
+  }
 
   grid.innerHTML = '';
-  if (filtered.length === 0) {
-    const empty = cards.length === 0
-      ? { title: 'collection.empty.title', hint: 'collection.empty.hint' }
-      : { title: 'collection.empty.filter.title', hint: 'collection.empty.filter.hint' };
+  if (visible.length === 0) {
+    let empty;
+    if (q) empty = { title: 'collection.search.empty.title', hint: 'collection.search.empty.hint' };
+    else if (cards.length === 0) empty = { title: 'collection.empty.title', hint: 'collection.empty.hint' };
+    else empty = { title: 'collection.empty.filter.title', hint: 'collection.empty.filter.hint' };
     grid.innerHTML = `<div class="empty">
       <div class="empty-icon" aria-hidden="true">🎴</div>
       <div class="empty-title">${escapeHtml(t(empty.title))}</div>
@@ -184,7 +208,7 @@ function render() {
     return;
   }
   const frag = document.createDocumentFragment();
-  for (const card of filtered) {
+  for (const card of visible) {
     frag.appendChild(buildTile(card, discovered.has(card.id)));
   }
   grid.appendChild(frag);
@@ -205,6 +229,14 @@ export function mount() {
   document.querySelector('.collection-filters')?.addEventListener('click', onFilterClick);
   document.querySelectorAll('[data-filter]').forEach((b) => {
     b.setAttribute('aria-pressed', b.dataset.filter === currentFilter ? 'true' : 'false');
+  });
+
+  // The search field is re-injected empty on every mount, so reset the query
+  // to match it and avoid carrying a stale filter across visits.
+  currentQuery = '';
+  document.getElementById('collection-search')?.addEventListener('input', (e) => {
+    currentQuery = e.target.value;
+    render();
   });
 
   // The most recently drawn card pulses so the user can spot it immediately

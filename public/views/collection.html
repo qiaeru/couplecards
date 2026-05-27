@@ -7,7 +7,17 @@
   <span></span>
 </header>
 <div class="collection-toolbar">
-  <div class="collection-counter" id="collection-counter"></div>
+  <div class="collection-progress-wrap">
+    <div class="collection-counter" id="collection-counter"></div>
+    <div class="collection-progress" aria-hidden="true">
+      <span class="collection-progress-fill" id="collection-progress-fill"></span>
+    </div>
+  </div>
+  <label class="collection-search">
+    <span class="sr-only" data-i18n="collection.search">Search a card</span>
+    <input type="search" id="collection-search" autocomplete="off"
+           data-i18n-attr="placeholder:collection.search">
+  </label>
   <div class="collection-filters" role="group" data-i18n-attr="aria-label:collection.title">
     <button type="button" class="chip" data-filter="all" aria-pressed="true" data-i18n="collection.filter.all">All</button>
     <button type="button" class="chip" data-filter="home" aria-pressed="false" data-i18n="piles.home.label">Home</button>
