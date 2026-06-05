@@ -9,7 +9,7 @@ A self-hosted web app that lets couples draw activity cards to break the routine
 
 The deck is split into two piles, "Home" and "Outdoor". Each instance hosts a dedicated administrator plus as many user accounts as the couple needs, and account management stays entirely in the admin's hands.
 
-The app is fully offline-capable once loaded.
+The app works offline once loaded.
 
 > **One Docker instance, one couple.** Start it, sign in, then invite both partners. There is no telemetry and no external network call at runtime.
 

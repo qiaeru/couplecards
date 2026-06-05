@@ -5,7 +5,7 @@ Thank you for considering a contribution. The project is intentionally small and
 ## Ground rules
 
 - **English everywhere in the source tree.** This applies to comments, commit messages, pull request descriptions, documentation, identifiers (variables, functions, route paths, SQL columns), and anything else a reviewer reads. The only French strings allowed in the codebase live in `public/locales/fr.json`.
-- **No external network calls at runtime.** The app is fully self-contained and a fresh install must work offline after the initial boot.
+- **No external network calls at runtime.** The app is self-contained and a fresh install must work offline after the initial boot.
 - **No new mandatory tooling** such as linters, formatters or test frameworks that a non-technical maintainer would have to run locally. Build-time tools like esbuild are fine as long as they remain invisible inside the Docker build.
 - **No telemetry, no analytics, no third-party trackers.** Ever.
 
