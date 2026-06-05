@@ -191,7 +191,7 @@
   "admin.deckSync.mode.mirror.hint": "The database exactly mirrors the file. Cards present in the database but missing from the file are deleted (along with their bans).",
   "admin.deckSync.mode.upsert": "Add and update",
   "admin.deckSync.mode.upsert.hint": "Adds new cards and updates existing ones. Cards missing from the file are kept as-is.",
-  "admin.deckSync.backupHint": "It is recommended to export a backup before applying a full mirror sync.",
+  "admin.deckSync.backupHint": "Export a backup before applying a full mirror sync.",
   "admin.deckSync.backupDone": "Backup exported",
   "admin.deckSync.preview": "Preview",
   "admin.deckSync.apply": "Apply sync",
