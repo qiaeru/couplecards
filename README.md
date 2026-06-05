@@ -18,7 +18,7 @@ The app works offline once loaded.
 A hosted demo is available at **<https://couplecards.qiaeru.com/>**. Sign in with `demo` / `demo`. The demo account's state is wiped on every sign-in, so feel free to click anything.
 
 | Home | Reveal |
-| :--: | :----: |
+| :--: | :--: |
 | ![Couplecards home screen with the two piles](./docs/assets/screenshot1.png) | ![A drawn Couplecards card](./docs/assets/screenshot2.png) |
 | *The two piles on the home screen* | *A card revealed from the deck* |
 
