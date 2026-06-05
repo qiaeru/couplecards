@@ -23,7 +23,7 @@ Open <http://localhost:3000>.
 
 ## HTTPS with a reverse proxy
 
-Three battle-tested variants are provided in [`deploy/`](../deploy/). Each one ships its own `docker-compose.*.yml` file and a README with step-by-step instructions:
+Three variants live in [`deploy/`](../deploy/). Each one ships its own `docker-compose.*.yml` file and a README with step-by-step instructions:
 
 - [Caddy](../deploy/caddy/README.md) is the recommended option for newcomers to reverse proxies. Caddy handles the ACME challenge on its own.
 - [Traefik](../deploy/traefik/README.md) is a good fit when you already host other services behind Traefik labels.
