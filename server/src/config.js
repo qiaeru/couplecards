@@ -33,12 +33,14 @@ const SESSION_SECRET = NODE_ENV === 'production'
   ? required('SESSION_SECRET')
   : (process.env.SESSION_SECRET || 'dev-secret-change-me-0123456789abcdef0123456789abcdef');
 
-// @fastify/secure-session requires at least 32 bytes.
+// @fastify/secure-session requires an exactly 32-byte key. Truncate in bytes,
+// not characters: a multi-byte (accented) character inside the first 32
+// characters would otherwise yield an oversized buffer and crash the boot.
 function sessionKey(secret) {
   if (secret.length < 32) {
     throw new Error('SESSION_SECRET must be at least 32 characters');
   }
-  return Buffer.from(secret.slice(0, 32), 'utf8');
+  return Buffer.from(secret, 'utf8').subarray(0, 32);
 }
 
 const DATA_DIR = process.env.DATA_DIR || resolve(process.cwd(), 'var');
