@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Offline support no longer breaks silently when a single asset fails to precache: the Service Worker caches each shell file individually instead of abandoning the whole batch, and logs what failed.
 - "Reset my data" no longer discards the cached deck version, which forced a needless full deck re-download on the next load.
 - A `SESSION_SECRET` containing multi-byte characters (accents, emoji) in its first 32 characters no longer crashes the server at startup: the session key is now truncated in bytes, not characters.
+- The client no longer announces a clean sync when the history upload fails: the entries stay queued and retry on the next online event, only the pending counter refreshes.
 
 ## [1.9.0] - 2026-05-27
 
