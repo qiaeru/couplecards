@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - API error responses now use the documented shape (`VALIDATION_ERROR`, error codes): the custom error handler was registered after the route scopes, so Fastify's default handler answered instead and leaked technical messages in the body. Client errors (4xx) are also logged as warnings now, keeping the `error` level for real server faults.
 - Offline support no longer breaks silently when a single asset fails to precache: the Service Worker caches each shell file individually instead of abandoning the whole batch, and logs what failed.
+- "Reset my data" no longer discards the cached deck version, which forced a needless full deck re-download on the next load.
 
 ## [1.9.0] - 2026-05-27
 
