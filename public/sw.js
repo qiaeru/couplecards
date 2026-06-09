@@ -4,7 +4,7 @@
 //   * /api/cards — stale-while-revalidate (allows offline viewing)
 //   * all other /api/* — network only, never cached (auth-sensitive)
 
-const VERSION = 'couplecards-v37';
+const VERSION = 'couplecards-v38';
 const SHELL = [
   '/',
   '/index.html',
@@ -84,7 +84,13 @@ const SHELL = [
 self.addEventListener('install', (event) => {
   event.waitUntil((async () => {
     const cache = await caches.open(VERSION);
-    await cache.addAll(SHELL).catch(() => {});
+    // Cache each asset individually: with addAll a single failing asset
+    // would silently abandon the whole shell and break offline support.
+    const results = await Promise.allSettled(SHELL.map((url) => cache.add(url)));
+    const failed = SHELL.filter((_, i) => results[i].status === 'rejected');
+    if (failed.length > 0) {
+      console.warn(`[sw] shell precache: ${failed.length}/${SHELL.length} assets failed:`, failed.join(', '));
+    }
   })());
 });
 

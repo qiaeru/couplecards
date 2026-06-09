@@ -308,8 +308,12 @@ async function flushOutbox() {
         for (const { item } of historyBatch) {
           await idb.removeOutbox(item.id);
         }
-      } catch (err) {
-        if (err?.status === 401) return;
+      } catch {
+        // The ban chains above may have drained, so refresh the pending badge,
+        // but don't announce a clean flush while history entries are still
+        // queued. The next online event retries them.
+        notifyOutboxChanged();
+        return;
       }
     }
     emit('sync:flushed');

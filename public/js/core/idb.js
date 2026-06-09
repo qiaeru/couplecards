@@ -100,7 +100,11 @@ export const idb = {
     const db = await openDb();
     return new Promise((resolve, reject) => {
       const transaction = db.transaction(['state', 'outbox'], 'readwrite');
-      transaction.objectStore('state').clear();
+      // Keep `cardsVersion`: the deck cache is not user state, and wiping the
+      // version would force a full deck re-download on the next load.
+      const state = transaction.objectStore('state');
+      state.delete('banned');
+      state.delete('history');
       transaction.objectStore('outbox').clear();
       transaction.oncomplete = resolve;
       transaction.onerror = () => reject(transaction.error);
