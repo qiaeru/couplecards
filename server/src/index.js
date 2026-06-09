@@ -56,6 +56,25 @@ async function buildApp() {
   await app.register(sessionPlugin);
   await app.register(csrfPlugin);
 
+  // Must be set before the route plugins are registered: encapsulated scopes
+  // inherit the error handler that exists at their creation, so a handler set
+  // afterwards never applies to them and Fastify's default (which leaks the
+  // technical error message in the response body) takes over.
+  app.setErrorHandler((error, request, reply) => {
+    // Client errors (validation, CSRF, bad input) are expected traffic: log
+    // them as warnings so `error` stays reserved for actual server faults.
+    if (error.validation) {
+      request.log.warn({ err: error }, 'request failed');
+      return reply.code(400).send({ error: 'VALIDATION_ERROR', details: error.validation });
+    }
+    if (error.statusCode && error.statusCode < 500) {
+      request.log.warn({ err: error }, 'request failed');
+      return reply.code(error.statusCode).send({ error: error.code || 'REQUEST_FAILED' });
+    }
+    request.log.error({ err: error }, 'request failed');
+    return reply.code(500).send({ error: 'INTERNAL_ERROR' });
+  });
+
   // Mounted at root so <link rel="manifest"> resolves without the /api prefix.
   await app.register(manifestRoutes);
 
@@ -70,17 +89,6 @@ async function buildApp() {
     await scope.register(userRoutes);
     await scope.register(adminCardRoutes);
   }, { prefix: '/api/admin' });
-
-  app.setErrorHandler((error, _request, reply) => {
-    app.log.error({ err: error }, 'request failed');
-    if (error.validation) {
-      return reply.code(400).send({ error: 'VALIDATION_ERROR', details: error.validation });
-    }
-    if (error.statusCode && error.statusCode < 500) {
-      return reply.code(error.statusCode).send({ error: error.code || 'REQUEST_FAILED' });
-    }
-    return reply.code(500).send({ error: 'INTERNAL_ERROR' });
-  });
 
   await app.register(staticPlugin);
 
