@@ -15,6 +15,7 @@ let currentFilter = 'all';
 let currentQuery = '';
 let lastSeenCount = null;
 let freshIds = new Set();
+let searchDebounce = 0;
 
 // A card is "discovered" once it has appeared at least once in the user's
 // history, regardless of whether that draw ended in a return or a ban.
@@ -236,7 +237,10 @@ export function mount() {
   currentQuery = '';
   document.getElementById('collection-search')?.addEventListener('input', (e) => {
     currentQuery = e.target.value;
-    render();
+    // Debounce: rebuilding the full grid on every keystroke is wasteful on
+    // low-end phones, and 150 ms is below the perception threshold.
+    clearTimeout(searchDebounce);
+    searchDebounce = setTimeout(render, 150);
   });
 
   // The most recently drawn card pulses so the user can spot it immediately
@@ -257,4 +261,6 @@ export function unmount() {
   unsubscribe.forEach((u) => u && u());
   unsubscribe = [];
   freshIds = new Set();
+  clearTimeout(searchDebounce);
+  searchDebounce = 0;
 }

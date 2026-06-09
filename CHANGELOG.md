@@ -14,6 +14,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - A `SESSION_SECRET` containing multi-byte characters (accents, emoji) in its first 32 characters no longer crashes the server at startup: the session key is now truncated in bytes, not characters.
 - The client no longer announces a clean sync when the history upload fails: the entries stay queued and retry on the next online event, only the pending counter refreshes.
 
+### Changed
+
+- The Collection search waits 150 ms after the last keystroke before re-rendering the grid, sparing low-end phones a full rebuild per typed letter.
+
 ## [1.9.0] - 2026-05-27
 
 ### Added
