@@ -11,7 +11,7 @@
   font-display: swap;
 }
 
-/* Fraunces — display font for headings, the Couplecards wordmark, and card
+/* Fraunces: display font for headings, the Couplecards wordmark, and card
    text. Variable axes: wght / opsz / SOFT / WONK (the wordmark uses the soft
    and wonky variant; everything else gets the standard rendering).
    Coverage: Latin, Latin Extended, Vietnamese. Fraunces upstream does NOT

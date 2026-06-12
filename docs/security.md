@@ -5,7 +5,7 @@ Audience: admins who self-host the app and want a clear picture of the measures 
 ## Authentication
 
 - Passwords are hashed with Argon2id (`t=3`, `m=19 MiB`, `p=1`), one iteration above the OWASP 2024 minimum.
-- The password policy is enforced on the server, with the client mirroring it for live feedback. The hard rules are a minimum length of 12 characters, at least one uppercase letter, one lowercase letter, one digit and one special character, no whitespace, and no inclusion of the username. Each password must also reach a zxcvbn score of 4 for the admin account and 3 for a regular user, with one dictionary loaded per supported locale (English, French, German, Italian, Spanish).
+- The password policy is enforced on the server, with the client mirroring it for live feedback. The hard rules are a minimum length of 12 characters, at least one uppercase letter, one lowercase letter, one digit, and one special character, no whitespace, and no inclusion of the username. Each password must also reach a zxcvbn score of 4 for the admin account and 3 for a regular user, with one dictionary loaded per supported locale (English, French, German, Italian, Spanish).
 - Initial user passwords are generated with `crypto.randomBytes` and enforced character classes. The admin sees the value once; only the hash is stored.
 - A user account with a pending password change cannot reach any protected endpoint until the password has been updated.
 - Role separation is enforced at the API layer, not just in the UI. The admin account always lands on `/admin.html` and never plays cards, so the player-only endpoints (`/api/state`, `/api/state/reset`, `/api/bans*`, `/api/history`) reject any cookie carrying the `admin` role with `403 FORBIDDEN`. Conversely, every `/api/cards` mutation and every `/api/admin/*` route requires the admin role.
@@ -19,7 +19,7 @@ Audience: admins who self-host the app and want a clear picture of the measures 
 ## CSRF and input validation
 
 - Every mutating request under `/api/*` requires a CSRF token bound to the session cookie (`@fastify/csrf-protection`). The check is wired as a global hook so all mutating routes are covered by default. The login endpoint is exempt because it has no session cookie yet; it relies on `SameSite=Strict` and its own rate limit instead.
-- Every request body, query and params object is validated against a JSON schema with `additionalProperties: false`. Unknown fields produce a `400 VALIDATION_ERROR` rather than being silently ignored.
+- Every request body, query, and params object is validated against a JSON schema with `additionalProperties: false`. Unknown fields produce a `400 VALIDATION_ERROR` rather than being silently ignored.
 - The server does not accept cross-origin requests.
 
 ## Rate limiting and lockout
@@ -36,7 +36,7 @@ When running behind any HTTPS variant in `deploy/`, the server emits the followi
 
 - `Strict-Transport-Security: max-age=63072000; includeSubDomains`.
 - `Content-Security-Policy: default-src 'self'; ...; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'`. The policy uses neither `unsafe-inline` nor `unsafe-eval`. The `upgrade-insecure-requests` directive is appended only when the server is configured for HTTPS (`COOKIE_SECURE=1` or one of the HTTPS deploy variants); a plain-HTTP LAN deployment omits it so assets are not rewritten to a scheme the server cannot serve.
-- `Permissions-Policy` denies camera, microphone, geolocation, USB, payment, magnetometer, accelerometer and the interest cohort signal. Gyroscope is allowed on the same origin so the card tilt on the draw screen works.
+- `Permissions-Policy` denies camera, microphone, geolocation, USB, payment, magnetometer, accelerometer, and the interest cohort signal. Gyroscope is allowed on the same origin so the card tilt on the draw screen works.
 - `Referrer-Policy: same-origin`.
 - `X-Content-Type-Options: nosniff`.
 - `X-Robots-Tag: noindex, nofollow` on every response.

@@ -103,7 +103,7 @@ async function start() {
   const vendorBundle = resolve(config.publicDir, 'vendor/zxcvbn.js');
   if (!existsSync(vendorBundle)) {
     console.warn(
-      '[warn] public/vendor/zxcvbn.js is missing — password strength meter will be inactive.',
+      '[warn] public/vendor/zxcvbn.js is missing: password strength meter will be inactive.',
     );
     console.warn(
       '[warn] Build it once from the project root with: npm install && npm run build:vendor',

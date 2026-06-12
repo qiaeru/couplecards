@@ -1,13 +1,13 @@
 # Accessibility
 
-Audience: maintainers and contributors. This page summarises what the app implements today and how to keep it that way.
+Audience: maintainers and contributors. This page summarizes what the app implements today and how to keep it that way.
 
 ## Goals
 
 - Meet WCAG 2.1 AA contrast ratios for text and interactive elements.
 - Guarantee full keyboard operability. No screen in the app relies on a mouse-only interaction path.
-- Respect `prefers-reduced-motion` by disabling the 3D tilt, sparkle animations and ripple effects.
-- Respect `prefers-color-scheme`. The dark theme is the default and no screen forces a specific colour scheme.
+- Respect `prefers-reduced-motion` by disabling the 3D tilt, sparkle animations, and ripple effects.
+- Respect `prefers-color-scheme`. The dark theme is the default and no screen forces a specific color scheme.
 - Announce important state changes to screen readers through `aria-live` regions.
 
 ## Implementation notes
@@ -18,15 +18,15 @@ The `<html lang>` attribute is updated whenever the i18n locale changes, and the
 
 ### Forms
 
-Every `<input>` has an explicit `<label>`. Error messages render inside a `role="alert"` region with `aria-live`; on the sign-in and change-password forms, each input points at that region via `aria-describedby` and carries `aria-invalid="true"` while the form holds an error. Required fields use the standard `required` attribute. The password strength meter is purely informational: the form never blocks submission based on a visual score alone, because the server is the authority on password validity. The meter's current tier is exposed as an `aria-live="polite"` region that only mutates when the tier actually changes, so screen readers hear each transition between Weak, Fair, Good and Strong without spamming every keystroke.
+Every `<input>` has an explicit `<label>`. Error messages render inside a `role="alert"` region with `aria-live`; on the sign-in and change-password forms, each input points at that region via `aria-describedby` and carries `aria-invalid="true"` while the form holds an error. Required fields use the standard `required` attribute. The password strength meter is purely informational: the form never blocks submission based on a visual score alone, because the server is the authority on password validity. The meter's current tier is exposed as an `aria-live="polite"` region that only mutates when the tier actually changes, so screen readers hear each transition between Weak, Fair, Good, and Strong without spamming every keystroke.
 
 ### Draw screen
 
-The card title and description are announced through `#card-announce`, and both elements are tagged with a `lang` attribute reflecting the translation that was actually used, so screen readers switch voice when a card falls back to English under a non-English UI. Every swipe gesture has a visible button equivalent (Ban, Return and Redraw) that is keyboard-friendly. Arrow keys act as shortcuts while the card is revealed: left arrow bans it, right arrow returns it to the pile. The shortcuts are ignored in preview mode, while the reveal animation is playing, and whenever focus sits inside a text input. Screen readers are informed through `aria-keyshortcuts` on the matching buttons, and the shortcuts honour `prefers-reduced-motion` by skipping the swipe-out animation. `Escape` closes the read-only preview opened from the history screen.
+The card title and description are announced through `#card-announce`, and both elements are tagged with a `lang` attribute reflecting the translation that was actually used, so screen readers switch voice when a card falls back to English under a non-English UI. Every swipe gesture has a visible button equivalent (Ban, Return, and Redraw) that is keyboard-friendly. Arrow keys act as shortcuts while the card is revealed: left arrow bans it, right arrow returns it to the pile. The shortcuts are ignored in preview mode, while the reveal animation is playing, and whenever focus sits inside a text input. Screen readers are informed through `aria-keyshortcuts` on the matching buttons, and the shortcuts honor `prefers-reduced-motion` by skipping the swipe-out animation. `Escape` closes the read-only preview opened from the history screen.
 
 ### Modals
 
-Every modal uses `role="dialog"`, `aria-modal="true"` and `aria-labelledby` pointing to the visible title. Focus is trapped inside the modal's focusables, so `Tab` cycles across every button, input, select and checkbox in the body in addition to the cancel and confirm buttons. `Escape` and a click on the backdrop close the modal, and focus is returned to the element that opened it once it closes. On the shared confirmation dialog, `Enter` also confirms when focus is not on the Cancel button.
+Every modal uses `role="dialog"`, `aria-modal="true"`, and `aria-labelledby` pointing to the visible title. Focus is trapped inside the modal's focusables, so `Tab` cycles across every button, input, select, and checkbox in the body in addition to the cancel and confirm buttons. `Escape` and a click on the backdrop close the modal, and focus is returned to the element that opened it once it closes. On the shared confirmation dialog, `Enter` also confirms when focus is not on the Cancel button.
 
 ### Navigation
 

@@ -4,7 +4,7 @@ Audience: the person who runs the instance and manages its accounts.
 
 ## Admin and user roles
 
-The **admin account** (default username `couplecards`) manages the instance, which includes users and the card deck. It does not play: the draw, ban and history screens are reserved to user accounts. The admin user interface lives at `/admin.html` and that is where admin sign-ins land.
+The **admin account** (default username `couplecards`) manages the instance, which includes users and the card deck. It does not play: the draw, ban, and history screens are reserved to user accounts. The admin user interface lives at `/admin.html` and that is where admin sign-ins land.
 
 **User accounts** are the players. Each user has their own bans and their own history.
 
@@ -14,7 +14,7 @@ A single person can take both roles if they are technically inclined. They would
 
 After `docker compose up`, open <http://localhost:3000> (or your HTTPS domain). The login page asks for credentials. Use `couplecards` as the username and `changeme` as the password. The default admin login is deliberately not `admin` to avoid attracting generic credential-stuffing probes.
 
-You are immediately asked to change the password. It must be 12 characters or longer, include at least one uppercase letter, one lowercase letter, one digit and one special character, and pass a zxcvbn score of 4 or higher (the stricter threshold applied to the admin account).
+You are immediately asked to change the password. It must be 12 characters or longer, include at least one uppercase letter, one lowercase letter, one digit, and one special character, and pass a zxcvbn score of 4 or higher (the stricter threshold applied to the admin account).
 
 Once the new password is saved, you land on the admin panel.
 
@@ -24,7 +24,7 @@ The **Users** tab in `/admin.html` lists every account on the instance.
 
 ### Create a user
 
-1. Type a username in the form. Allowed characters are lowercase letters, digits, dots, dashes and underscores, with a length between 3 and 32 characters. Reserved names such as `couplecards`, `admin`, `demo`, `root`, `system`, `me`, `anonymous`, `null` and `undefined` are blocked.
+1. Type a username in the form. Allowed characters are lowercase letters, digits, dots, dashes, and underscores, with a length between 3 and 32 characters. Reserved names such as `couplecards`, `admin`, `demo`, `root`, `system`, `me`, `anonymous`, `null`, and `undefined` are blocked.
 2. Click **Create**. A dialog shows the initial password exactly once. Copy it and hand it to the partner in person, because the admin cannot retrieve it later.
 3. The user signs in with this password and is then forced to choose a new one immediately.
 
@@ -49,14 +49,14 @@ The **Cards** tab lists every card in the deck. Each card belongs to one of two 
 ### Create a card
 
 1. Click **Add a card**.
-2. Pick an ID made of lowercase letters, digits and dashes. The ID must be unique across the deck.
+2. Pick an ID made of lowercase letters, digits, and dashes. The ID must be unique across the deck.
 3. Select a pile, write a title and write a description. Enable the **foil** flag to mark the card as a rare variant: it gets the gold-lined reveal treatment and is intentionally drawn less often than standard cards (see [architecture.md](./architecture.md) for the draw weighting).
 4. Optionally pick an **emoji** slug for the card face (autocomplete lists every bundled Fluent UI Emoji). Leave it blank to fall back to the pile icon (house for home, city for outdoor).
 5. Click **Save**.
 
 ### Edit or delete a card
 
-Use the **Edit** or **Delete** buttons next to any card. Deleting a card also removes it from every user's banned list, and the history entries that reference it remain but are labelled as pointing to a removed card.
+Use the **Edit** or **Delete** buttons next to any card. Deleting a card also removes it from every user's banned list, and the history entries that reference it remain but are labeled as pointing to a removed card.
 
 ## Deck maintenance
 
@@ -64,9 +64,9 @@ The Cards tab also exposes a **Deck maintenance** block with three operations fo
 
 ### Export a backup
 
-The **Export a backup** button downloads the full live deck as a ZIP file named `couplecards-deck-YYYY-MM-DD.zip`. The archive contains one `cards.<locale>.json` per supported language, each pretty-printed (two-space indentation) so the files stay easy to read, diff and hand-edit. The format is identical to the seed files under `data/`, which means an export can be placed back under `data/` to become the new starting point for fresh installs.
+The **Export a backup** button downloads the full live deck as a ZIP file named `couplecards-deck-YYYY-MM-DD.zip`. The archive contains one `cards.<locale>.json` per supported language, each pretty-printed (two-space indentation) so the files stay easy to read, diff, and hand-edit. The format is identical to the seed files under `data/`, which means an export can be placed back under `data/` to become the new starting point for fresh installs.
 
-### Synchronise from the files on the server
+### Synchronize from the files on the server
 
 The **Sync from the files** button reads every `cards.<locale>.json` present under the server's `data/` directory and applies them to the database in one operation. Use it after pulling new cards into the repository, or after hand-editing the files on the server.
 
@@ -75,7 +75,7 @@ The dialog offers two modes.
 - **Add and update** (default). New cards found in the files are inserted, existing cards with the same ID have their text updated, and any card present only in the database is kept as is. Use this mode when the admin has added bespoke cards through the UI that should survive.
 - **Full mirror.** The database becomes an exact copy of the file set. Cards that are present in the database but missing from every file are deleted, along with the ban rows that pointed to them. Use this mode when the files are the authoritative source.
 
-The dialog requires a preview before the **Apply sync** button becomes active. The preview shows how many cards will be added, updated, removed or left unchanged, which makes accidental deletions impossible to miss. When the preview reports any removal the **Apply sync** button turns red so a destructive operation is hard to fire by reflex. A **Download a backup** shortcut sits in the same dialog so the current deck can be saved in one click before applying.
+The dialog requires a preview before the **Apply sync** button becomes active. The preview shows how many cards will be added, updated, removed, or left unchanged, which makes accidental deletions impossible to miss. When the preview reports any removal the **Apply sync** button turns red so a destructive operation is hard to fire by reflex. A **Download a backup** shortcut sits in the same dialog so the current deck can be saved in one click before applying.
 
 ### Import a backup
 
@@ -85,7 +85,7 @@ The **Import a backup** button opens a file picker. Select a ZIP previously prod
 
 The red **Delete all cards** button wipes every card and its translations from the database in one call, after a destructive confirmation. Useful before importing a custom deck when starting from a blank slate is cleaner than mirror-syncing over the existing rows. The operation cascades to bans; history entries keep their card id and render as pointing to a removed card.
 
-Every sync or import runs inside a single database transaction, so a failure midway leaves the deck untouched. The history table is never affected by a deletion: entries that reference a removed card keep their reference and are labelled as pointing to a removed card in the history view.
+Every sync or import runs inside a single database transaction, so a failure midway leaves the deck untouched. The history table is never affected by a deletion: entries that reference a removed card keep their reference and are labeled as pointing to a removed card in the history view.
 
 ## The shared demo account
 

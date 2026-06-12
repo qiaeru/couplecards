@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Documentation and code comments now use US spelling and punctuation consistently.
+
 ## [1.10.0] - 2026-06-12
 
 ### Added

@@ -29,7 +29,7 @@ Three variants live in [`deploy/`](../deploy/). Each one ships its own `docker-c
 - [Traefik](../deploy/traefik/README.md) is a good fit when you already host other services behind Traefik labels.
 - [nginx](../deploy/nginx/README.md) targets hosts that already run nginx and prefer managing certificates with `certbot`.
 
-In every variant, `COOKIE_SECURE=true` and `TRUST_PROXY=1` are set so the session cookie carries the `Secure` flag and Fastify honours `X-Forwarded-*` headers.
+In every variant, `COOKIE_SECURE=true` and `TRUST_PROXY=1` are set so the session cookie carries the `Secure` flag and Fastify honors `X-Forwarded-*` headers.
 
 ## Environment variables
 

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 // Login page entry point: handles sign-in and the forced password change
-// on first login. Kept deliberately small — no router, no partials.
+// on first login. Kept deliberately small: no router, no partials.
 
 import { login, me, changePassword, getPasswordPolicy } from './core/auth.js';
 import { initI18n, applyI18n, t, fmtDate } from './core/i18n.js';

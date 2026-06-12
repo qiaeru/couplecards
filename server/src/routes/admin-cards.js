@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 // Admin-only deck maintenance: export the current multilingual deck as a ZIP
-// containing one cards.<locale>.json file per supported locale, synchronise
+// containing one cards.<locale>.json file per supported locale, synchronize
 // the database from the seed files shipped under data/, or import an uploaded
 // backup (already parsed into the internal multilingual shape by the client).
 

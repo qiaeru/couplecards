@@ -545,7 +545,7 @@ body::before {
 
 /* Per-pile themes. The same darkening wash as the draw-screen card back is
    applied so the home piles visually match the flip animation target. The
-   pile colour still shows through but closer to a tinted leather than a
+   pile color still shows through but closer to a tinted leather than a
    bright fondant, and the gold crest behind the top card (heart motif)
    retains contrast. */
 .pile-home .stack-card {

@@ -10,7 +10,7 @@
 
   /* Shared parchment wash used by every tile (list items, setting rows,
      admin forms, deck tools, modals, icon buttons) and by the rules panel.
-     Contains only image layers so consumers can pick their own base colour
+     Contains only image layers so consumers can pick their own base color
      via `background-color` (translucent for floating tiles, opaque for
      dialogs). */
   --tile-surface:
