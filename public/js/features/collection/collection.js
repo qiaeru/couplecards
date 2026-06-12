@@ -5,7 +5,7 @@
 
 import { getCards, getCardText, getHistory, isBanned } from '../../core/sync.js';
 import { navigate } from '../../core/router.js';
-import { t } from '../../core/i18n.js';
+import { t, tn } from '../../core/i18n.js';
 import { on } from '../../core/events.js';
 import { createEmojiImg } from '../../ui/emoji.js';
 import { escapeHtml } from '../../core/dom.js';
@@ -193,6 +193,11 @@ function render() {
       const { title, description } = getCardText(c);
       return title.toLowerCase().includes(q) || description.toLowerCase().includes(q);
     });
+    // The grid rebuild is silent for screen readers; voice the result count
+    // through the shared live region (zero included, the visual empty state
+    // has no audible counterpart).
+    const live = document.getElementById('screen-announce');
+    if (live) live.textContent = tn('collection.search.results', visible.length);
   }
 
   grid.innerHTML = '';

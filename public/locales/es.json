@@ -90,6 +90,8 @@
   "collection.search": "Buscar una carta…",
   "collection.search.empty.title": "Sin resultados",
   "collection.search.empty.hint": "Ninguna carta coincide con tu búsqueda.",
+  "collection.search.results.one": "{{count}} carta coincide con tu búsqueda",
+  "collection.search.results.other": "{{count}} cartas coinciden con tu búsqueda",
   "collection.tile.locked.label": "Carta sin descubrir",
   "collection.tile.locked.placeholder": "?",
   "collection.tile.banned.label": "Carta vetada: {{title}}",
