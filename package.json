@@ -1,6 +1,6 @@
 {
   "name": "couplecards",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "description": "A self-hosted web app that lets couples draw activity cards to break the routine and spice up their daily lives.",
   "private": true,
   "type": "module",
