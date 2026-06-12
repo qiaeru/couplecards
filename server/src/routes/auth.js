@@ -90,19 +90,17 @@ export default async function authRoutes(app) {
 
     const ok = await verifyPassword(row.password_hash, password);
     if (!ok) {
-      const attempts = row.failed_attempts + 1;
-      if (attempts >= LOCKOUT_THRESHOLD) {
-        const until = new Date(Date.now() + LOCKOUT_MINUTES * 60_000)
-          .toISOString().replace('T', ' ').slice(0, 19);
-        db.prepare(`
-          UPDATE users SET failed_attempts = ?, locked_until = ?, updated_at = datetime('now')
-          WHERE id = ?
-        `).run(attempts, until, row.id);
-      } else {
-        db.prepare(`
-          UPDATE users SET failed_attempts = ?, updated_at = datetime('now') WHERE id = ?
-        `).run(attempts, row.id);
-      }
+      // Increment in SQL, not from the row read before the (slow) password
+      // verification: concurrent failures would otherwise overwrite each
+      // other's count and delay the lockout.
+      const until = new Date(Date.now() + LOCKOUT_MINUTES * 60_000)
+        .toISOString().replace('T', ' ').slice(0, 19);
+      db.prepare(`
+        UPDATE users SET failed_attempts = failed_attempts + 1,
+          locked_until = CASE WHEN failed_attempts + 1 >= ? THEN ? ELSE locked_until END,
+          updated_at = datetime('now')
+        WHERE id = ?
+      `).run(LOCKOUT_THRESHOLD, until, row.id);
       return reply.code(401).send({ error: 'INVALID_CREDENTIALS' });
     }
 

@@ -39,6 +39,9 @@ export default async function manifestRoutes(app) {
     const locale = pickLocale(request.headers['accept-language']);
     reply.type('application/manifest+json');
     reply.header('Cache-Control', 'public, max-age=3600');
+    // The body depends on Accept-Language; without Vary a shared cache could
+    // serve one locale's manifest to every visitor.
+    reply.header('Vary', 'Accept-Language');
     return manifests.get(locale) ?? manifests.get(FALLBACK_LOCALE);
   });
 }

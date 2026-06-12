@@ -9,6 +9,10 @@ import { setLocale, getLocale, supportedLocales, t } from '../../core/i18n.js';
 import { navigate } from '../../core/router.js';
 import { bindPasswordStrength } from '../../ui/password-strength.js';
 
+// Document-level listener, removed on unmount (view-local listeners die with
+// the view's DOM, but document survives navigation).
+let refreshInstall = null;
+
 export async function mount() {
   document.getElementById('btn-back-home')?.addEventListener('click', () => navigate('home'));
 
@@ -51,7 +55,7 @@ export async function mount() {
   // Install row — visibility driven by the PWA install prompt.
   const installRow = document.getElementById('install-row');
   const installBtn = document.getElementById('install-btn');
-  const refreshInstall = () => { if (installRow) installRow.hidden = !canInstall(); };
+  refreshInstall = () => { if (installRow) installRow.hidden = !canInstall(); };
   refreshInstall();
   document.addEventListener('pwa-install-available', refreshInstall);
   document.addEventListener('pwa-installed', refreshInstall);
@@ -111,7 +115,13 @@ export async function mount() {
   }
 }
 
-export function unmount() {}
+export function unmount() {
+  if (refreshInstall) {
+    document.removeEventListener('pwa-install-available', refreshInstall);
+    document.removeEventListener('pwa-installed', refreshInstall);
+    refreshInstall = null;
+  }
+}
 
 async function openChangePasswordDialog() {
   const user = getCachedUser() || await me();

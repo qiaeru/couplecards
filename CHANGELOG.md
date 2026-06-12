@@ -13,10 +13,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - "Reset my data" no longer discards the cached deck version, which forced a needless full deck re-download on the next load.
 - A `SESSION_SECRET` containing multi-byte characters (accents, emoji) in its first 32 characters no longer crashes the server at startup: the session key is now truncated in bytes, not characters.
 - The client no longer announces a clean sync when the history upload fails: the entries stay queued and retry on the next online event, only the pending counter refreshes.
+- Failed login attempts are now counted atomically in SQL: simultaneous wrong-password attempts could each read the same counter and under-count, delaying the account lockout.
+- The PWA manifest response now sends `Vary: Accept-Language`, so a shared cache (reverse proxy, CDN) can no longer serve one visitor's localized manifest to everyone.
+- The Settings screen no longer accumulates document-level install-prompt listeners across repeat visits.
 
 ### Changed
 
 - The Collection search waits 150 ms after the last keystroke before re-rendering the grid, sparing low-end phones a full rebuild per typed letter.
+- Docker images are now built with `npm ci` against the committed lockfiles, so every build of a given commit ships the exact dependency versions that were tested. The container healthcheck uses Node's built-in `fetch` instead of shipping `wget`.
 
 ## [1.9.0] - 2026-05-27
 
