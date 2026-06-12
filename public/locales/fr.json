@@ -90,6 +90,8 @@
   "collection.search": "Rechercher une carte…",
   "collection.search.empty.title": "Aucun résultat",
   "collection.search.empty.hint": "Aucune carte ne correspond à votre recherche.",
+  "collection.search.results.one": "{{count}} carte correspond à votre recherche",
+  "collection.search.results.other": "{{count}} cartes correspondent à votre recherche",
   "collection.tile.locked.label": "Carte non découverte",
   "collection.tile.locked.placeholder": "?",
   "collection.tile.banned.label": "Carte bannie : {{title}}",

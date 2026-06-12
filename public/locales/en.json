@@ -90,6 +90,8 @@
   "collection.search": "Search a card…",
   "collection.search.empty.title": "No matches",
   "collection.search.empty.hint": "No card matches your search.",
+  "collection.search.results.one": "{{count}} card matches your search",
+  "collection.search.results.other": "{{count}} cards match your search",
   "collection.tile.locked.label": "Undiscovered card",
   "collection.tile.locked.placeholder": "?",
   "collection.tile.banned.label": "Banned card: {{title}}",

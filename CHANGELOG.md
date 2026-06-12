@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+
+- The Collection search announces its result count to screen readers, which previously had no feedback that the grid had updated.
+
 ### Fixed
 
 - API error responses now use the documented shape (`VALIDATION_ERROR`, error codes): the custom error handler was registered after the route scopes, so Fastify's default handler answered instead and leaked technical messages in the body. Client errors (4xx) are also logged as warnings now, keeping the `error` level for real server faults.

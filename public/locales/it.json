@@ -90,6 +90,8 @@
   "collection.search": "Cerca una carta…",
   "collection.search.empty.title": "Nessun risultato",
   "collection.search.empty.hint": "Nessuna carta corrisponde alla tua ricerca.",
+  "collection.search.results.one": "{{count}} carta corrisponde alla tua ricerca",
+  "collection.search.results.other": "{{count}} carte corrispondono alla tua ricerca",
   "collection.tile.locked.label": "Carta non ancora scoperta",
   "collection.tile.locked.placeholder": "?",
   "collection.tile.banned.label": "Carta esclusa: {{title}}",
