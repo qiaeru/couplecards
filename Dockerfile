@@ -9,15 +9,15 @@ ARG REVISION=unknown
 # ---- Stage 1: Backend deps ----
 FROM node:24-slim AS backend-deps
 WORKDIR /build
-COPY server/package.json ./
-RUN npm install --omit=dev --no-audit --no-fund
+COPY server/package.json server/package-lock.json ./
+RUN npm ci --omit=dev --no-audit --no-fund
 
 # ---- Stage 2: Browser vendor bundle (zxcvbn-ts) ----
 FROM node:24-slim AS vendor
 WORKDIR /build
-COPY package.json ./
+COPY package.json package-lock.json ./
 COPY scripts ./scripts
-RUN npm install --no-audit --no-fund
+RUN npm ci --no-audit --no-fund
 COPY public ./public
 RUN node scripts/build-vendor.mjs
 
@@ -35,7 +35,7 @@ LABEL org.opencontainers.image.title="couplecards" \
       org.opencontainers.image.revision="$REVISION"
 
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends tini wget \
+  && apt-get install -y --no-install-recommends tini \
   && rm -rf /var/lib/apt/lists/* \
   && groupadd --system --gid 999 app \
   && useradd --system --uid 999 --gid 999 --home-dir /app --shell /usr/sbin/nologin app
@@ -55,7 +55,7 @@ RUN mkdir -p /app/var && chown -R app:app /app
 USER app
 EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
-  CMD wget -qO- http://127.0.0.1:3000/api/health >/dev/null 2>&1 || exit 1
+  CMD ["node", "-e", "fetch('http://127.0.0.1:3000/api/health').then((r) => process.exit(r.ok ? 0 : 1), () => process.exit(1))"]
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
 CMD ["node", "server/src/index.js"]
