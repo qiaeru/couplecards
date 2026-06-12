@@ -6,20 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.10.0] - 2026-06-12
+
 ### Added
 
 - The Collection search announces its result count to screen readers, which previously had no feedback that the grid had updated.
 
 ### Fixed
 
-- API error responses now use the documented shape (`VALIDATION_ERROR`, error codes): the custom error handler was registered after the route scopes, so Fastify's default handler answered instead and leaked technical messages in the body. Client errors (4xx) are also logged as warnings now, keeping the `error` level for real server faults.
-- Offline support no longer breaks silently when a single asset fails to precache: the Service Worker caches each shell file individually instead of abandoning the whole batch, and logs what failed.
+- API error responses now use the documented shape (`VALIDATION_ERROR`, error codes) instead of leaking technical messages. Client errors (4xx) are logged as warnings, keeping the `error` level for real server faults.
+- Offline support no longer breaks silently when a single asset fails to precache: the Service Worker caches each shell file individually and logs what failed.
 - "Reset my data" no longer discards the cached deck version, which forced a needless full deck re-download on the next load.
-- A `SESSION_SECRET` containing multi-byte characters (accents, emoji) in its first 32 characters no longer crashes the server at startup: the session key is now truncated in bytes, not characters.
-- The client no longer announces a clean sync when the history upload fails: the entries stay queued and retry on the next online event, only the pending counter refreshes.
-- Failed login attempts are now counted atomically in SQL: simultaneous wrong-password attempts could each read the same counter and under-count, delaying the account lockout.
+- A `SESSION_SECRET` containing multi-byte characters (accents, emoji) in its first 32 characters no longer crashes the server at startup.
+- The client no longer announces a clean sync when the history upload fails: the entries stay queued and retry on the next online event.
+- Failed login attempts are now counted atomically, so simultaneous wrong-password attempts can no longer under-count and delay the account lockout.
 - The PWA manifest response now sends `Vary: Accept-Language`, so a shared cache (reverse proxy, CDN) can no longer serve one visitor's localized manifest to everyone.
-- The Settings screen no longer accumulates document-level install-prompt listeners across repeat visits.
+- The Settings screen no longer accumulates install-prompt listeners across repeat visits.
 
 ### Changed
 
