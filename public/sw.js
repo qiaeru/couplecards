@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 // Auth-aware service worker:
-//   * shell (HTML, CSS, JS, fonts, partials, locales) — cache-first
-//   * /api/cards — stale-while-revalidate (allows offline viewing)
-//   * all other /api/* — network only, never cached (auth-sensitive)
+//   * shell (HTML, CSS, JS, fonts, partials, locales): cache-first
+//   * /api/cards: stale-while-revalidate (allows offline viewing)
+//   * all other /api/*: network only, never cached (auth-sensitive)
 
-const VERSION = 'couplecards-v40';
+const VERSION = 'couplecards-v41';
 const SHELL = [
   '/',
   '/index.html',

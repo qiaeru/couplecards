@@ -80,7 +80,7 @@ export async function request(path, options = {}) {
   return data;
 }
 
-// Localised user-facing message for an ApiError (or any thrown value). Falls
+// Localized user-facing message for an ApiError (or any thrown value). Falls
 // back to errors.generic when the server code has no matching translation,
 // so unknown codes never leak as raw "errors.SOMETHING_WEIRD" strings.
 export function errorMessage(err) {

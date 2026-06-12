@@ -6,14 +6,14 @@ Thank you for considering a contribution. The project is intentionally small and
 
 - **English everywhere in the source tree.** This applies to comments, commit messages, pull request descriptions, documentation, identifiers (variables, functions, route paths, SQL columns), and anything else a reviewer reads. The only French strings allowed in the codebase live in `public/locales/fr.json`.
 - **No external network calls at runtime.** The app is self-contained and a fresh install must work offline after the initial boot.
-- **No new mandatory tooling** such as linters, formatters or test frameworks that a non-technical maintainer would have to run locally. Build-time tools like esbuild are fine as long as they remain invisible inside the Docker build.
+- **No new mandatory tooling** such as linters, formatters, or test frameworks that a non-technical maintainer would have to run locally. Build-time tools like esbuild are fine as long as they remain invisible inside the Docker build.
 - **No telemetry, no analytics, no third-party trackers.** Ever.
 
 ## Development setup
 
 Prerequisites:
 
-- Node.js 24 or later (the `.nvmrc` file pins `24` for tools such as `nvm`, `fnm` or `volta`).
+- Node.js 24 or later (the `.nvmrc` file pins `24` for tools such as `nvm`, `fnm`, or `volta`).
 - Docker with the Compose plugin, optional for frontend-only work.
 - A modern browser.
 
@@ -51,13 +51,13 @@ See [docs/architecture.md](./docs/architecture.md) for the full breakdown.
 
 ## Licenses and dependencies
 
-Only bring in dependencies that ship under a permissive licence. The allowed list is:
+Only bring in dependencies that ship under a permissive license. The allowed list is:
 
 ```text
 MIT, Apache-2.0, BSD-2-Clause, BSD-3-Clause, ISC, OFL-1.1, CC0-1.0, Unlicense, 0BSD, BlueOak-1.0.0
 ```
 
-Before adding a new package, run the licence check from the project root and inside `server/`:
+Before adding a new package, run the license check from the project root and inside `server/`:
 
 ```bash
 npx license-checker --production --onlyAllow 'MIT;Apache-2.0;BSD-2-Clause;BSD-3-Clause;ISC;OFL-1.1;CC0-1.0;Unlicense;0BSD;BlueOak-1.0.0'
@@ -65,7 +65,7 @@ npx license-checker --production --onlyAllow 'MIT;Apache-2.0;BSD-2-Clause;BSD-3-
 
 The GitHub Actions workflow enforces this check automatically on every pull request.
 
-## Internationalisation
+## Internationalization
 
 The full workflow lives in [docs/i18n.md](./docs/i18n.md). The short version:
 
@@ -74,7 +74,7 @@ The full workflow lives in [docs/i18n.md](./docs/i18n.md). The short version:
 
 ## Fonts and non-Latin scripts
 
-The bundled fonts are Inter for the sans-serif stack and Fraunces for the serif and display stack. Inter covers Latin Extended, Cyrillic, Greek and Vietnamese. Fraunces covers Latin Extended and Vietnamese; Greek and Cyrillic are not part of the Fraunces upstream, so locales using those scripts will fall back to Georgia / system serif on the wordmark, headings and card text. Scripts outside the Latin and Vietnamese range (CJK, Arabic, Hebrew, Thai, the Indic family) require an additional font. Add a new `@font-face` entry in `public/css/fonts.css` along with the matching WOFF2 file in `public/fonts/`.
+The bundled fonts are Inter for the sans-serif stack and Fraunces for the serif and display stack. Inter covers Latin Extended, Cyrillic, Greek, and Vietnamese. Fraunces covers Latin Extended and Vietnamese; Greek and Cyrillic are not part of the Fraunces upstream, so locales using those scripts will fall back to Georgia / system serif on the wordmark, headings, and card text. Scripts outside the Latin and Vietnamese range (CJK, Arabic, Hebrew, Thai, the Indic family) require an additional font. Add a new `@font-face` entry in `public/css/fonts.css` along with the matching WOFF2 file in `public/fonts/`.
 
 ## Commit and pull request style
 

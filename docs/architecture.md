@@ -22,7 +22,7 @@ couplecards/
 │   ├── index.html                SPA shell
 │   ├── login.html                login and forced-change flow
 │   ├── admin.html                admin panel (users, cards, deck maintenance, language toggle)
-│   ├── 404.html, 500.html        localised error pages
+│   ├── 404.html, 500.html        localized error pages
 │   ├── views/                    SPA partials loaded by the router
 │   ├── js/
 │   │   ├── app.js, login.js, admin.js       page entry points
@@ -34,7 +34,7 @@ couplecards/
 ├── data/
 │   └── cards.<locale>.json       One file per supported locale (en, fr, de, it, es), loaded at first-run seed
 ├── scripts/                      build-time helpers (vendor bundle, SPDX retrofit)
-├── deploy/                       reverse proxy presets for Caddy, Traefik and nginx
+├── deploy/                       reverse proxy presets for Caddy, Traefik, and nginx
 ├── docs/                         you are here
 └── docker-compose.yml, Dockerfile
 ```
@@ -75,9 +75,9 @@ The SPA router lives in `public/js/core/router.js` and is roughly seventy lines 
 
 ## State management
 
-- The deck, the banned set and the history all live in IndexedDB.
+- The deck, the banned set, and the history all live in IndexedDB.
 - The deck is refreshed from `GET /api/cards`, which returns an ETag-style `version` token so the client can skip the download when nothing has changed.
-- The banned set and the history are synchronised through `GET /api/state` and their respective mutation endpoints.
+- The banned set and the history are synchronized through `GET /api/state` and their respective mutation endpoints.
 - Mutations are queued in an IndexedDB `outbox` store and drained every time the page comes back online.
 
 `public/js/core/sync.js` is the single entry point for state. Feature modules never talk to the API directly. Each card exposes a `translations` object keyed by locale, and the helper `getCardText(card, locale)` picks the right title and description for the current user language with an English fallback.
@@ -88,14 +88,14 @@ The SPA router lives in `public/js/core/router.js` and is roughly seventy lines 
 
 ## Collection screen
 
-`public/js/features/collection/collection.js` renders the deck as a grid mirrored on the user's history. A card is "discovered" once it appears in the local history (returned or banned). Drawn tiles open the existing draw screen in preview mode (`#/draw?preview=<cardId>`), where Ban or Restore buttons mutate the banned set without leaving the screen. Banned tiles carry a red cross overlay; undiscovered tiles show a "?" silhouette and ignore clicks. Foil cards wear a subtle static rainbow border regardless of state. The toolbar above the grid pairs the discovered counter with a completion bar and a search field; the search narrows the visible tiles by title and description and matches only already-discovered cards (locked tiles expose no text), while the counter and bar always track the active pile or rarity filter rather than the search. The screen is derived from `getCards()`, `getHistory()` and `isBanned(id)` from `core/sync.js`, so there is no dedicated backend endpoint.
+`public/js/features/collection/collection.js` renders the deck as a grid mirrored on the user's history. A card is "discovered" once it appears in the local history (returned or banned). Drawn tiles open the existing draw screen in preview mode (`#/draw?preview=<cardId>`), where Ban or Restore buttons mutate the banned set without leaving the screen. Banned tiles carry a red cross overlay; undiscovered tiles show a "?" silhouette and ignore clicks. Foil cards wear a subtle static rainbow border regardless of state. The toolbar above the grid pairs the discovered counter with a completion bar and a search field; the search narrows the visible tiles by title and description and matches only already-discovered cards (locked tiles expose no text), while the counter and bar always track the active pile or rarity filter rather than the search. The screen is derived from `getCards()`, `getHistory()`, and `isBanned(id)` from `core/sync.js`, so there is no dedicated backend endpoint.
 
-## Internationalisation
+## Internationalization
 
 The backend has a single source of truth for supported locales in `server/src/lib/locales.js`. The frontend mirrors this list in `SUPPORTED` inside `public/js/core/i18n.js`.
 
 - User-interface strings live in flat key-to-string JSON files under `public/locales/<locale>.json`.
-- `public/js/core/i18n.js` provides `t`, `tn`, `fmtDate`, `fmtDateLong`, `fmtNumber` and `applyI18n(root)`.
+- `public/js/core/i18n.js` provides `t`, `tn`, `fmtDate`, `fmtDateLong`, `fmtNumber`, and `applyI18n(root)`.
 - Static HTML uses `data-i18n="key"` and `data-i18n-attr="attr:key,attr2:key2"`.
 - Dynamic JavaScript calls `t(key, params)`.
 - An `i18n:change` event is emitted by `setLocale()`. The i18n module reapplies translations to the DOM on every change, and feature modules listen to it when they cache card text.
@@ -105,7 +105,7 @@ The procedure to add a third language is documented end-to-end in [i18n.md](./i1
 
 ## Backend routes
 
-Four guard levels are referenced below: **public** (no auth needed), **session** (any signed-in account), **user** (signed-in non-admin account, used for the player-only state and history endpoints) and **admin**.
+Four guard levels are referenced below: **public** (no auth needed), **session** (any signed-in account), **user** (signed-in non-admin account, used for the player-only state and history endpoints), and **admin**.
 
 | Method | Path | Auth | Notes |
 | --- | --- | --- | --- |

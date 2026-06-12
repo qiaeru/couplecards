@@ -1,4 +1,4 @@
-/* Draw screen — full-screen overlay */
+/* Draw screen: full-screen overlay */
 #screen-draw.screen {
   max-width: none;
   padding: 0;
@@ -62,7 +62,7 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
   text-align: center;
-  /* Honour newlines inside the localised strings (e.g. FR "Remettre\ndans la
+  /* Honor newlines inside the localized strings (e.g. FR "Remettre\ndans la
      pioche") so the label can split onto two lines where the translator
      wanted it. */
   white-space: pre-line;
@@ -178,11 +178,11 @@
   align-items: center;
   justify-content: center;
 }
-/* Pile-themed backs. The user tapped a pile in a particular colour, so the
+/* Pile-themed backs. The user tapped a pile in a particular color, so the
    brief flash of the back face before the flip should echo that pile rather
    than reveal a neutral deep-purple back. The pile gradient is darkened by
    a semi-opaque wash so the original warm gold decorations keep enough
-   contrast to stay legible (WCAG AA) — the back still reads as the pile but
+   contrast to stay legible (WCAG AA); the back still reads as the pile but
    closer to tinted leather than bright fondant. */
 .card-back.for-home {
   background:
@@ -1273,7 +1273,7 @@
 /* The most recently drawn tile pulses so the user can locate it the moment
    they enter the Collection. Four cycles of ~2.2s gives ~9s of visibility,
    long enough to be obvious without becoming a permanent distraction. The
-   pulse uses a coloured outline ring so it survives even when the tile is
+   pulse uses a colored outline ring so it survives even when the tile is
    hovered (which overrides box-shadow). */
 .coll-tile.is-fresh {
   animation: coll-tile-fresh 2.2s ease-in-out 4;

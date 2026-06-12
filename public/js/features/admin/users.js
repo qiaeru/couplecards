@@ -44,7 +44,7 @@ function renderUsersList(users) {
     if (isDemo) badges.push(`<span class="action-tag demo-role">${escapeHtml(t('admin.users.demo'))}</span>`);
     if (isLocked) badges.push(`<span class="action-tag banned">${escapeHtml(t('admin.users.locked'))}</span>`);
     if (u.mustChangePassword) badges.push(`<span class="action-tag returned">${escapeHtml(t('admin.users.mustChange'))}</span>`);
-    // Demo account can only be deleted — its password, username and lock state
+    // Demo account can only be deleted; its password, username, and lock state
     // are managed by the seed / login logic.
     const showUnlock = isLocked && !isAdmin && !isDemo;
     const showReset = !isAdmin && !isDemo;

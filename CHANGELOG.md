@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Documentation and code comments now use US spelling and punctuation consistently.
+
+### Fixed
+
+- Harmonized a few UI strings: consistent search placeholders, the admin card form now says "Tas" like the rest of the French UI, the weak-password error reuses the strength meter's wording, and an ambiguous French rules sentence ("la retirer") now clearly means the card can come back later.
+
 ## [1.10.0] - 2026-06-12
 
 ### Added

@@ -20,7 +20,7 @@ Every value below is read from an environment variable by the server at start ti
 
 ## Log redaction
 
-Request bodies that contain password fields (`password`, `newPassword` and `currentPassword`) are redacted automatically before being written to the Fastify logger.
+Request bodies that contain password fields (`password`, `newPassword`, and `currentPassword`) are redacted automatically before being written to the Fastify logger.
 
 ## Rate limits (not configurable through environment variables)
 

@@ -77,7 +77,7 @@ export default async function authRoutes(app) {
     `).get(username);
 
     if (!row) {
-      // Generic message — do not leak which side failed.
+      // Generic message, do not leak which side failed.
       return reply.code(401).send({ error: 'INVALID_CREDENTIALS' });
     }
 

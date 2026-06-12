@@ -25,4 +25,4 @@ This variant uses Traefik v3 with the Let's Encrypt HTTP-01 challenge and an aut
 
 - Traefik listens on ports 80 and 443 and routes traffic by hostname label. The `couplecards` container is not exposed directly.
 - To add another service behind the same Traefik instance, apply the matching labels on the new service block.
-- `COOKIE_SECURE=true` and `TRUST_PROXY=1` are set, so the session cookie carries the `Secure` flag and Fastify honours `X-Forwarded-*` headers.
+- `COOKIE_SECURE=true` and `TRUST_PROXY=1` are set, so the session cookie carries the `Secure` flag and Fastify honors `X-Forwarded-*` headers.

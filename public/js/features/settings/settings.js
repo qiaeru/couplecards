@@ -52,7 +52,7 @@ export async function mount() {
     vib.addEventListener('change', () => setVibrationsEnabled(vib.checked));
   }
 
-  // Install row — visibility driven by the PWA install prompt.
+  // Install row: visibility driven by the PWA install prompt.
   const installRow = document.getElementById('install-row');
   const installBtn = document.getElementById('install-btn');
   refreshInstall = () => { if (installRow) installRow.hidden = !canInstall(); };

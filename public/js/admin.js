@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Admin page entry point. No SPA router — uses simple tab switching.
+// Admin page entry point. No SPA router, just simple tab switching.
 
 import { me, logout, setPreferences } from './core/auth.js';
 import { initI18n, applyI18n, setLocale, getLocale, supportedLocales, t } from './core/i18n.js';

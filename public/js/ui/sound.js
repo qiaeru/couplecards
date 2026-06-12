@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
-// Short effects synthesised via Web Audio (OscillatorNode + GainNode ADSR).
-// No audio files are shipped, so the bundle stays tiny and no licence tracking
+// Short effects synthesized via Web Audio (OscillatorNode + GainNode ADSR).
+// No audio files are shipped, so the bundle stays tiny and no license tracking
 // is needed. The user toggle in Settings gates every call through guard().
 
 import { areSoundsEnabled } from './shell.js';

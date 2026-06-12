@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Minimal IndexedDB wrapper. Three stores:
-//   cards  (key = id)         — cached deck + version metadata
-//   state  (key = kind)       — { banned: [...] } and { history: [...] }
-//   outbox (key = autoinc)    — queued mutations pending server sync
+//   cards  (key = id):         cached deck + version metadata
+//   state  (key = kind):       { banned: [...] } and { history: [...] }
+//   outbox (key = autoinc):    queued mutations pending server sync
 
 const DB_NAME = 'couplecards';
 const DB_VERSION = 1;

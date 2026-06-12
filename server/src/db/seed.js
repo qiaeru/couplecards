@@ -22,7 +22,7 @@ export async function runSeed(logger) {
   const probe = await hashPassword('__startup_probe__');
   const probeOk = await verifyPassword(probe, '__startup_probe__');
   if (!probeOk) {
-    throw new Error('Argon2id self-test failed — hash-wasm cannot verify its own hashes on this machine');
+    throw new Error('Argon2id self-test failed: hash-wasm cannot verify its own hashes on this machine');
   }
 
   const userCount = db.prepare('SELECT COUNT(*) AS n FROM users').get().n;
@@ -54,7 +54,7 @@ export async function runSeed(logger) {
         INSERT INTO users (username, password_hash, role, must_change_password, is_demo, locale)
         VALUES (?, ?, 'user', 0, 1, ?)
       `).run(DEMO_USERNAME, hash, locale);
-      logger?.info('seeded demo account (username=demo, password=demo) — state resets on each sign-in');
+      logger?.info('seeded demo account (username=demo, password=demo), state resets on each sign-in');
     }
   } else {
     const removed = db.prepare('DELETE FROM users WHERE is_demo = 1').run();
@@ -201,7 +201,7 @@ function loadSeedDeck(logger) {
       }
     });
   }
-  // Normalise sort order so cards introduced only by a later locale still
+  // Normalize sort order so cards introduced only by a later locale still
   // get a deterministic position.
   const deck = [...byId.values()];
   deck.sort((a, b) => a.sortOrder - b.sortOrder || a.id.localeCompare(b.id));
