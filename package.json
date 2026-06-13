@@ -26,7 +26,7 @@
     "@zxcvbn-ts/language-es-es": "^3.0.2",
     "@zxcvbn-ts/language-fr": "^3.0.2",
     "@zxcvbn-ts/language-it": "^3.0.2",
-    "esbuild": "^0.28.0",
+    "esbuild": "^0.28.1",
     "fflate": "^0.8.3"
   }
 }
