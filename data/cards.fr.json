@@ -353,7 +353,7 @@
       "foil": true,
       "emoji": "speech-balloon",
       "title": "Mots interdits",
-      "description": "Dirty talk assumé pendant l'acte. Aucun mot interdit, dis tout ce qui te passe."
+      "description": "Dirty talk assumé pendant l'acte. Aucun filtre, dis tout ce qui te passe par la tête."
     },
     {
       "id": "home-051",
@@ -387,7 +387,7 @@
       "id": "home-055",
       "pile": "home",
       "emoji": "coin",
-      "title": "Enchères interdites",
+      "title": "Pile, tu perds",
       "description": "On parie des gages déraisonnables sur un pile ou face. Le perdant assume jusqu'au bout."
     },
     {
@@ -409,7 +409,7 @@
       "pile": "home",
       "emoji": "performing-arts",
       "title": "Molière du dimanche",
-      "description": "Joue une scène improbable avec sérieux. Le premier qui décroche a perdu son honneur."
+      "description": "Joue une scène improbable, imperturbable. Le premier qui décroche a perdu son honneur."
     },
     {
       "id": "home-059",
@@ -451,7 +451,7 @@
       "pile": "home",
       "emoji": "crystal-ball",
       "title": "Astrologie foireuse",
-      "description": "Lecture de l'horoscope du jour, avec sérieux. On démolit chaque prédiction sans pitié."
+      "description": "Lecture de l'horoscope du jour, le visage grave. On descend chaque prédiction sans pitié."
     },
     {
       "id": "home-065",
@@ -486,7 +486,7 @@
       "pile": "home",
       "emoji": "writing-hand",
       "title": "Roman à quatre mains",
-      "description": "Une histoire écrite à tour de phrases. Plus c'est tordu, mieux c'est."
+      "description": "Une histoire écrite à tour de phrases. Bonus pour chaque rebondissement absurde."
     },
     {
       "id": "home-070",
@@ -916,7 +916,7 @@
       "pile": "outdoor",
       "emoji": "thinking-face",
       "title": "Vies inventées",
-      "description": "Imaginons les secrets honteux des inconnus. Plus c'est trash, mieux c'est."
+      "description": "Imaginons les secrets honteux des inconnus. Le plus glauque l'emporte."
     },
     {
       "id": "out-061",
@@ -951,7 +951,7 @@
       "pile": "outdoor",
       "emoji": "shortcake",
       "title": "Défi haute pâtisserie",
-      "description": "Démolir un gâteau complexe à la petite cuillère. Le pâtissier serait insulté."
+      "description": "Saccager un gâteau complexe à la petite cuillère. Le pâtissier serait insulté."
     },
     {
       "id": "out-066",
@@ -964,7 +964,7 @@
       "id": "out-067",
       "pile": "outdoor",
       "emoji": "t-shirt",
-      "title": "Friperie de la honte",
+      "title": "Relooking cruel",
       "description": "On choisit la tenue la plus ridicule pour l'autre. Photo obligatoire en cabine."
     },
     {
@@ -1021,7 +1021,7 @@
       "pile": "outdoor",
       "emoji": "selfie",
       "title": "Influenceur d'un jour",
-      "description": "Poses ridicules en ville pour 10 photos style story. Sérieux et flou artistique exigés."
+      "description": "Poses ridicules en ville pour 10 photos style story. Air pénétré et flou artistique exigés."
     }
   ]
 }

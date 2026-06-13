@@ -353,7 +353,7 @@
       "foil": true,
       "emoji": "speech-balloon",
       "title": "Parole vietate",
-      "description": "Dirty talk senza freni durante l'atto. Nessuna parola tabù, di' tutto quello che ti viene."
+      "description": "Dirty talk senza freni durante l'atto. Niente è tabù, di' tutto quello che ti viene."
     },
     {
       "id": "home-051",
@@ -387,7 +387,7 @@
       "id": "home-055",
       "pile": "home",
       "emoji": "coin",
-      "title": "Aste vietate",
+      "title": "Testa, perdi",
       "description": "Scommettiamo penitenze irragionevoli su testa o croce. Il perdente porta avanti fino in fondo."
     },
     {
@@ -409,7 +409,7 @@
       "pile": "home",
       "emoji": "performing-arts",
       "title": "Molière domenicale",
-      "description": "Recita una scena improbabile con serietà. Chi cede per primo perde l'onore."
+      "description": "Recita una scena improbabile senza batter ciglio. Chi cede per primo perde l'onore."
     },
     {
       "id": "home-059",
@@ -451,7 +451,7 @@
       "pile": "home",
       "emoji": "crystal-ball",
       "title": "Astrologia fasulla",
-      "description": "Lettura seria dell'oroscopo del giorno. Demoliamo ogni previsione senza pietà."
+      "description": "Lettura solenne dell'oroscopo del giorno. Smontiamo ogni previsione senza pietà."
     },
     {
       "id": "home-065",
@@ -486,7 +486,7 @@
       "pile": "home",
       "emoji": "writing-hand",
       "title": "Romanzo a staffetta",
-      "description": "Una storia scritta a frasi alterne. Più è contorta, meglio è."
+      "description": "Una storia scritta a frasi alterne. Bonus per ogni svolta assurda."
     },
     {
       "id": "home-070",
@@ -916,7 +916,7 @@
       "pile": "outdoor",
       "emoji": "thinking-face",
       "title": "Vite inventate",
-      "description": "Immaginiamo i segreti vergognosi degli sconosciuti. Più è trash, meglio è."
+      "description": "Immaginiamo i segreti vergognosi degli sconosciuti. Vince il più sordido."
     },
     {
       "id": "out-061",
@@ -951,7 +951,7 @@
       "pile": "outdoor",
       "emoji": "shortcake",
       "title": "Sfida da pasticceria",
-      "description": "Demolire una torta complessa con il cucchiaino. Il pasticcere sarebbe offeso."
+      "description": "Devastare una torta complessa con il cucchiaino. Il pasticcere sarebbe offeso."
     },
     {
       "id": "out-066",
@@ -964,7 +964,7 @@
       "id": "out-067",
       "pile": "outdoor",
       "emoji": "t-shirt",
-      "title": "Vintage della vergogna",
+      "title": "Restyling crudele",
       "description": "Scegliamo per l'altro l'outfit più ridicolo. Foto in camerino obbligatoria."
     },
     {
@@ -1021,7 +1021,7 @@
       "pile": "outdoor",
       "emoji": "selfie",
       "title": "Influencer per un giorno",
-      "description": "Pose ridicole in città per dieci foto in stile story. Serietà e sfocatura artistica."
+      "description": "Pose ridicole in città per dieci foto in stile story. Faccia di marmo e sfocatura artistica."
     }
   ]
 }

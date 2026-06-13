@@ -353,7 +353,7 @@
       "foil": true,
       "emoji": "speech-balloon",
       "title": "Palabras prohibidas",
-      "description": "Dirty talk sin filtros durante el acto. Ninguna palabra tabú, di lo que te venga."
+      "description": "Dirty talk sin filtros durante el acto. Nada es tabú, di lo que te venga."
     },
     {
       "id": "home-051",
@@ -387,7 +387,7 @@
       "id": "home-055",
       "pile": "home",
       "emoji": "coin",
-      "title": "Apuestas prohibidas",
+      "title": "Cara, pierdes",
       "description": "Apostamos prendas irrazonables a cara o cruz. El perdedor lo asume hasta el final."
     },
     {
@@ -409,7 +409,7 @@
       "pile": "home",
       "emoji": "performing-arts",
       "title": "Molière dominical",
-      "description": "Interpreta una escena inverosímil con seriedad. El primero que ceda pierde el honor."
+      "description": "Interpreta una escena inverosímil sin pestañear. El primero que ceda pierde el honor."
     },
     {
       "id": "home-059",
@@ -451,7 +451,7 @@
       "pile": "home",
       "emoji": "crystal-ball",
       "title": "Astrología cutre",
-      "description": "Lectura seria del horóscopo del día. Demolemos cada predicción sin piedad."
+      "description": "Lectura solemne del horóscopo del día. Destrozamos cada predicción sin piedad."
     },
     {
       "id": "home-065",
@@ -486,7 +486,7 @@
       "pile": "home",
       "emoji": "writing-hand",
       "title": "Novela a relevos",
-      "description": "Una historia escrita por frases alternas. Cuanto más retorcida, mejor."
+      "description": "Una historia escrita por frases alternas. Bonus por cada giro absurdo."
     },
     {
       "id": "home-070",
@@ -916,7 +916,7 @@
       "pile": "outdoor",
       "emoji": "thinking-face",
       "title": "Vidas inventadas",
-      "description": "Imaginemos los secretos vergonzosos de los desconocidos. Cuanto más trash, mejor."
+      "description": "Imaginemos los secretos vergonzosos de los desconocidos. Gana el más sórdido."
     },
     {
       "id": "out-061",
@@ -950,8 +950,8 @@
       "id": "out-065",
       "pile": "outdoor",
       "emoji": "shortcake",
-      "title": "Demolición pastelera",
-      "description": "Demoler una tarta compleja con cucharilla. El pastelero se sentiría ofendido."
+      "title": "Carnicería pastelera",
+      "description": "Destrozar una tarta compleja con cucharilla. El pastelero se sentiría ofendido."
     },
     {
       "id": "out-066",
@@ -964,7 +964,7 @@
       "id": "out-067",
       "pile": "outdoor",
       "emoji": "t-shirt",
-      "title": "Mercadillo vergonzoso",
+      "title": "Cambio de look cruel",
       "description": "Elegimos para el otro el outfit más ridículo. Foto en el probador obligatoria."
     },
     {
@@ -1021,7 +1021,7 @@
       "pile": "outdoor",
       "emoji": "selfie",
       "title": "Influencer por un día",
-      "description": "Poses ridículas por la ciudad para 10 fotos tipo story. Seriedad y desenfoque artístico."
+      "description": "Poses ridículas por la ciudad para 10 fotos tipo story. Cara de palo y desenfoque artístico."
     }
   ]
 }

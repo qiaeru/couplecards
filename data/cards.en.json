@@ -13,7 +13,7 @@
       "pile": "home",
       "emoji": "game-die",
       "title": "Games in bad faith",
-      "description": "Board-game duel where cheating is a duty. Loser owes an unreasonable favour."
+      "description": "Board-game duel where cheating is a duty. Loser owes an unreasonable favor."
     },
     {
       "id": "home-003",
@@ -28,7 +28,7 @@
       "foil": true,
       "emoji": "clapper-board",
       "title": "Carnal cinematography",
-      "description": "An erotic film for \"the plot\". How many minutes before we abandon the screen?"
+      "description": "An erotic film for \"the plot.\" How many minutes before we abandon the screen?"
     },
     {
       "id": "home-005",
@@ -78,7 +78,7 @@
       "foil": true,
       "emoji": "camera",
       "title": "Compromising evidence",
-      "description": "Improvised photo shoot. Starts as portraits, ends as compromising material."
+      "description": "Improvised photo shoot. Starts as portraits, ends as pure blackmail material."
     },
     {
       "id": "home-012",
@@ -92,7 +92,7 @@
       "pile": "home",
       "emoji": "headphone",
       "title": "Punitive music quiz",
-      "description": "Name the artist or accept the forfeit. Your lack of music culture is about to cost you."
+      "description": "Name the artist or accept the forfeit. Your lack of musical knowledge is about to cost you."
     },
     {
       "id": "home-014",
@@ -100,7 +100,7 @@
       "foil": true,
       "emoji": "game-die",
       "title": "Textile probabilities",
-      "description": "The dice decide your striptease. Maths has never been this exciting."
+      "description": "The dice decide your striptease. Math has never been this exciting."
     },
     {
       "id": "home-015",
@@ -193,7 +193,7 @@
       "pile": "home",
       "emoji": "puzzle-piece",
       "title": "Puzzle negotiation",
-      "description": "Patience and focus. The last piece is bartered for a non-negotiable favour."
+      "description": "Patience and focus. The last piece is bartered for a non-negotiable favor."
     },
     {
       "id": "home-030",
@@ -232,7 +232,7 @@
       "foil": true,
       "emoji": "strawberry",
       "title": "Flesh buffet",
-      "description": "Sensual tasting, directly on the skin. Savour hands-free, with appetite."
+      "description": "Sensual tasting, directly on the skin. Savor hands-free, with appetite."
     },
     {
       "id": "home-035",
@@ -353,7 +353,7 @@
       "foil": true,
       "emoji": "speech-balloon",
       "title": "Forbidden words",
-      "description": "Full dirty talk during the act. No taboo words, say whatever crosses your mind."
+      "description": "Full dirty talk during the act. Nothing off-limits, say whatever crosses your mind."
     },
     {
       "id": "home-051",
@@ -367,7 +367,7 @@
       "pile": "home",
       "emoji": "balance-scale",
       "title": "Final judgement",
-      "description": "Dubious purity test found online. An occasion to mock your past with humour."
+      "description": "Dubious purity test found online. A chance to mock your past with humor."
     },
     {
       "id": "home-053",
@@ -387,7 +387,7 @@
       "id": "home-055",
       "pile": "home",
       "emoji": "coin",
-      "title": "Forbidden bids",
+      "title": "Heads you lose",
       "description": "Wager unreasonable forfeits on a coin flip. Loser sees it through to the end."
     },
     {
@@ -402,14 +402,14 @@
       "pile": "home",
       "emoji": "thumbs-up",
       "title": "Thumb war",
-      "description": "Brutal and effective. Loser clears the table or offers an immediate favour."
+      "description": "Brutal and effective. Loser clears the table or offers an immediate favor."
     },
     {
       "id": "home-058",
       "pile": "home",
       "emoji": "performing-arts",
       "title": "Sunday Shakespeare",
-      "description": "Act out an improbable scene with full seriousness. First to break has lost their honour."
+      "description": "Act out an improbable scene, deadpan. First to break has lost their honour."
     },
     {
       "id": "home-059",
@@ -437,7 +437,7 @@
       "pile": "home",
       "emoji": "microphone",
       "title": "Living-room karaoke",
-      "description": "Improvised mic, YouTube on. The most off-key pays for tomorrow's coffee."
+      "description": "Improvised mic, YouTube on. The most off-key buys a round of water."
     },
     {
       "id": "home-063",
@@ -451,7 +451,7 @@
       "pile": "home",
       "emoji": "crystal-ball",
       "title": "Botched astrology",
-      "description": "Read today's horoscope with full seriousness. Demolish every prediction without mercy."
+      "description": "Read today's horoscope, po-faced. Tear every prediction apart without mercy."
     },
     {
       "id": "home-065",
@@ -486,7 +486,7 @@
       "pile": "home",
       "emoji": "writing-hand",
       "title": "Tag-team novel",
-      "description": "A story written one sentence at a time. The weirder, the better."
+      "description": "A story written one sentence at a time. Bonus points for every absurd plot twist."
     },
     {
       "id": "home-070",
@@ -571,7 +571,7 @@
       "pile": "outdoor",
       "emoji": "paintbrush",
       "title": "Urban snobbery",
-      "description": "Graffiti hunt. Analyse scribbles as if they were high art."
+      "description": "Graffiti hunt. Analyze scribbles as if they were high art."
     },
     {
       "id": "out-012",
@@ -676,7 +676,7 @@
       "pile": "outdoor",
       "emoji": "beer-mug",
       "title": "Local brews",
-      "description": "Try the neighbourhood's beers. Leave with a pack and a sharply-held opinion."
+      "description": "Try the neighborhood's beers. Leave with a pack and a sharply-held opinion."
     },
     {
       "id": "out-027",
@@ -902,21 +902,21 @@
       "pile": "outdoor",
       "emoji": "bullseye",
       "title": "Darts and whisky",
-      "description": "Aim for the centre, hit the wall. Lowest score pays the round."
+      "description": "Aim for the center, hit the wall. Lowest score pays the round."
     },
     {
       "id": "out-059",
       "pile": "outdoor",
       "emoji": "money-bag",
       "title": "Millionaire dreams",
-      "description": "Judge prices at the estate agency. Laugh at our poverty with elegance."
+      "description": "Judge prices at the real estate office. Laugh at our poverty with elegance."
     },
     {
       "id": "out-060",
       "pile": "outdoor",
       "emoji": "thinking-face",
       "title": "Invented lives",
-      "description": "Imagine strangers' shameful secrets. The trashier, the better."
+      "description": "Imagine strangers' shameful secrets. The sleaziest one wins."
     },
     {
       "id": "out-061",
@@ -930,7 +930,7 @@
       "pile": "outdoor",
       "emoji": "fork-and-knife-with-plate",
       "title": "Gastronomic table",
-      "description": "Bring out the big guns and the snob vocabulary. Savour before draining the savings."
+      "description": "Bring out the big guns and the snob vocabulary. Savor before draining the savings."
     },
     {
       "id": "out-063",
@@ -950,8 +950,8 @@
       "id": "out-065",
       "pile": "outdoor",
       "emoji": "shortcake",
-      "title": "Pastry demolition",
-      "description": "Demolish a fancy cake with a teaspoon. The pastry chef would be offended."
+      "title": "Cake carnage",
+      "description": "Wreck a fancy cake with a teaspoon. The pastry chef would be offended."
     },
     {
       "id": "out-066",
@@ -964,7 +964,7 @@
       "id": "out-067",
       "pile": "outdoor",
       "emoji": "t-shirt",
-      "title": "Thrift shop of shame",
+      "title": "Cruel makeover",
       "description": "Each picks the most ridiculous outfit for the other. Photo in the fitting room mandatory."
     },
     {
@@ -1021,7 +1021,7 @@
       "pile": "outdoor",
       "emoji": "selfie",
       "title": "Influencer for a day",
-      "description": "10 ridiculous story-style poses around town. Full seriousness, artistic blur required."
+      "description": "10 ridiculous story-style poses around town. Stone-faced, artistic blur required."
     }
   ]
 }
