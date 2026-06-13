@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
-- Documentation and code comments now use US spelling and punctuation consistently.
+- Standardized on US spelling and punctuation across the documentation, the code comments, and the card deck, and gave the card titles and descriptions a prose polish in all five languages.
 
 ### Fixed
 

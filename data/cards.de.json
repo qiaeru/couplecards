@@ -353,7 +353,7 @@
       "foil": true,
       "emoji": "speech-balloon",
       "title": "Verbotene Worte",
-      "description": "Dirty Talk ohne Hemmungen während des Akts. Kein Wort tabu, sag alles, was dir kommt."
+      "description": "Dirty Talk ohne Hemmungen während des Akts. Nichts ist tabu, sag alles, was dir kommt."
     },
     {
       "id": "home-051",
@@ -387,7 +387,7 @@
       "id": "home-055",
       "pile": "home",
       "emoji": "coin",
-      "title": "Verbotene Wetten",
+      "title": "Kopf, du verlierst",
       "description": "Wir setzen unvernünftige Pfänder auf Kopf oder Zahl. Der Verlierer steht bis zum Ende."
     },
     {
@@ -409,7 +409,7 @@
       "pile": "home",
       "emoji": "performing-arts",
       "title": "Sonntags-Shakespeare",
-      "description": "Spiel eine unmögliche Szene mit Ernst. Wer zuerst rausfällt, verliert die Ehre."
+      "description": "Spiel eine unmögliche Szene mit unbewegter Miene. Wer zuerst rausfällt, verliert die Ehre."
     },
     {
       "id": "home-059",
@@ -451,7 +451,7 @@
       "pile": "home",
       "emoji": "crystal-ball",
       "title": "Astrologie-Pleite",
-      "description": "Tageshoroskop mit Ernst vorlesen. Wir reißen jede Vorhersage gnadenlos auseinander."
+      "description": "Tageshoroskop andächtig vorlesen. Wir reißen jede Vorhersage gnadenlos auseinander."
     },
     {
       "id": "home-065",
@@ -486,7 +486,7 @@
       "pile": "home",
       "emoji": "writing-hand",
       "title": "Roman in Tag-Team",
-      "description": "Eine Geschichte Satz für Satz im Wechsel. Je verdrehter, desto besser."
+      "description": "Eine Geschichte Satz für Satz im Wechsel. Bonus für jede absurde Wendung."
     },
     {
       "id": "home-070",
@@ -916,7 +916,7 @@
       "pile": "outdoor",
       "emoji": "thinking-face",
       "title": "Erfundene Leben",
-      "description": "Erfinden wir die schamhaftesten Geheimnisse der Fremden. Je trashiger, desto besser."
+      "description": "Erfinden wir die schamhaftesten Geheimnisse der Fremden. Das Schmutzigste gewinnt."
     },
     {
       "id": "out-061",
@@ -950,7 +950,7 @@
       "id": "out-065",
       "pile": "outdoor",
       "emoji": "shortcake",
-      "title": "Patisserie-Demolition",
+      "title": "Tortenschlacht",
       "description": "Eine komplizierte Torte mit dem Teelöffel zerlegen. Der Konditor wäre beleidigt."
     },
     {
@@ -964,7 +964,7 @@
       "id": "out-067",
       "pile": "outdoor",
       "emoji": "t-shirt",
-      "title": "Schäm-Secondhand",
+      "title": "Grausames Makeover",
       "description": "Wir wählen das absurdeste Outfit für den anderen. Foto in der Kabine Pflicht."
     },
     {
@@ -1021,7 +1021,7 @@
       "pile": "outdoor",
       "emoji": "selfie",
       "title": "Influencer für einen Tag",
-      "description": "Lächerliche Posen in der Stadt für zehn Story-Fotos. Ernst und Unschärfe Pflicht."
+      "description": "Lächerliche Posen in der Stadt für zehn Story-Fotos. Versteinerte Miene und Unschärfe Pflicht."
     }
   ]
 }
