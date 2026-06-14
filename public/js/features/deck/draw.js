@@ -15,6 +15,10 @@ import { refreshHomeCounts } from '../home/home.js';
 let currentCardId = null;
 let previewMode = false;
 let previewCardId = null;
+// Bumped on each startDraw and on unmount, so an in-flight reveal animation can
+// detect that the user has left and stop before its tail (sound, vibration,
+// hearts) fires on a screen that's already gone.
+let drawGeneration = 0;
 
 const $ = (id) => document.getElementById(id);
 
@@ -67,7 +71,9 @@ function spawnHeart() {
   setTimeout(() => h.remove(), CONFIG.hearts.lifetime);
 }
 function startHearts() {
-  if (heartsInterval || prefersReducedMotion()) return;
+  // Preview is a static viewer with no ambient effects. Gating here, not just
+  // at call sites, keeps that rule in one place for every caller.
+  if (previewMode || heartsInterval || prefersReducedMotion()) return;
   const tick = () => {
     spawnHeart();
     if (Math.random() < CONFIG.hearts.doubleBeatChance) setTimeout(spawnHeart, 120);
@@ -92,6 +98,7 @@ function spawnRipple() {
   setTimeout(() => r.remove(), 1500);
 }
 function startRipples(interval) {
+  if (previewMode) return; // static preview viewer: no ambient ripples (see startHearts)
   stopRipples();
   if (prefersReducedMotion()) return;
   spawnRipple();
@@ -188,6 +195,7 @@ let tiltActive = false;
 let tiltPointerDown = null;
 let tiltPointerMove = null;
 let tiltPointerUp = null;
+let tiltPointerLeave = null;
 let orientationAttached = false;
 let orientationHandler = null;
 let isReturning = false;
@@ -411,9 +419,10 @@ function attachTilt() {
   tilt.addEventListener('pointerdown', tiltPointerDown);
   tilt.addEventListener('pointerup', tiltPointerUp);
   tilt.addEventListener('pointercancel', tiltPointerUp);
-  tilt.addEventListener('pointerleave', (e) => {
+  tiltPointerLeave = (e) => {
     if (e.pointerType === 'mouse' && !pointerDown && !orientationAttached) resetTilt();
-  });
+  };
+  tilt.addEventListener('pointerleave', tiltPointerLeave);
 
   if (orientationPermission === 'granted') attachOrientation();
 }
@@ -455,8 +464,9 @@ function detachTilt() {
     tilt.removeEventListener('pointerdown', tiltPointerDown);
     tilt.removeEventListener('pointerup', tiltPointerUp);
     tilt.removeEventListener('pointercancel', tiltPointerUp);
+    tilt.removeEventListener('pointerleave', tiltPointerLeave);
   }
-  tiltPointerMove = tiltPointerDown = tiltPointerUp = null;
+  tiltPointerMove = tiltPointerDown = tiltPointerUp = tiltPointerLeave = null;
   tiltActive = false;
   if (orientationAttached && orientationHandler) {
     window.removeEventListener('deviceorientation', orientationHandler);
@@ -488,6 +498,13 @@ function applyCardText(card) {
 
 export async function startDraw(pile) {
   previewMode = false;
+  // Claim this generation. If unmount or a newer draw bumps the counter while
+  // we await, stale() turns true and we bail; the bail itself touches no shared
+  // state (wake lock, ripples, hearts) so it can't clobber a concurrent draw,
+  // unmount having already cleaned those up. Returns true only on full
+  // completion, so mount() skips its listener setup when we bailed.
+  const myGen = ++drawGeneration;
+  const stale = () => myGen !== drawGeneration;
   const recentLimit = CONFIG.recentExclude[pile] || 3;
   const recentIds = getHistory()
     .filter((h) => { const c = getCardById(h.cardId); return c && c.pile === pile; })
@@ -497,7 +514,7 @@ export async function startDraw(pile) {
   if (!card) {
     toast(t('draw.toast.empty'));
     navigate('home');
-    return;
+    return false;
   }
   currentCardId = card.id;
 
@@ -517,6 +534,7 @@ export async function startDraw(pile) {
 
   resetStage();
   await requestWakeLock();
+  if (stale()) return false;
   playDraw();
 
   const f = $('card-flip');
@@ -535,28 +553,34 @@ export async function startDraw(pile) {
   void f.offsetWidth;
 
   await wait(30);
+  if (stale()) return false;
   f.classList.add('enter');
   await wait(reduced ? 250 : CONFIG.draw.enterDuration);
+  if (stale()) return false;
 
   if (reduced) {
     f.classList.add('flipping');
     await wait(400);
+    if (stale()) return false;
   } else {
     glow.classList.add('active');
     p.classList.add('active');
     f.classList.add('pulsing');
     startRipples(CONFIG.ripples.normalInterval);
     await wait(CONFIG.draw.pulsingDuration);
+    if (stale()) return false;
     glow.classList.add('boost');
     f.classList.remove('pulsing');
     f.classList.add('climax');
     s.classList.add('preflash');
     startRipples(CONFIG.ripples.boostInterval);
     await wait(CONFIG.draw.climaxDuration);
+    if (stale()) return false;
     stopRipples();
     f.classList.remove('climax');
     f.classList.add('flipping');
     await wait(CONFIG.draw.flipDuration);
+    if (stale()) return false;
   }
 
   f.classList.add('settled');
@@ -572,12 +596,14 @@ export async function startDraw(pile) {
   front.classList.add('idle-shine');
 
   await wait(reduced ? CONFIG.draw.reducedMotionShort : CONFIG.draw.revealDelay);
+  if (stale()) return false;
   vibrate(CONFIG.vibrations.reveal);
   playReveal(!!card.foil);
   announceCard(card);
   a.hidden = false;
   attachTilt();
   startHearts();
+  return true;
 }
 
 async function doReturn(animated = false) {
@@ -670,7 +696,7 @@ function updatePreviewActions(cardId) {
 // Invoked from the history feature to open a card in read-only preview.
 export function showCardDirectly(cardId) {
   const card = getCardById(cardId);
-  if (!card) return;
+  if (!card) return false;
   previewMode = true;
   currentCardId = null;
   previewCardId = cardId;
@@ -700,6 +726,7 @@ export function showCardDirectly(cardId) {
   // Skip the floating hearts and ambient ripples in preview mode: those are
   // tuned for the dramatic reveal flow, and replaying them every time the
   // user opens an already-known card from Collection or History feels heavy.
+  return true;
 }
 
 async function previewBan() {
@@ -764,6 +791,9 @@ function onDrawKeydown(event) {
 let inactivityTimer = 0;
 let lastInactivityBump = 0;
 function bumpInactivity() {
+  // Preview is a read-only viewer: no wake lock, no draw, so never auto-navigate
+  // the user away. The inactivity timeout is only meaningful for a live draw.
+  if (previewMode) return;
   // pointermove fires up to ~60 Hz during a tilt drag; coalesce to one bump
   // per ~500 ms so we don't clearTimeout/setTimeout on every frame.
   const now = performance.now();
@@ -794,6 +824,7 @@ function onVisibilityChange() {
   bumpInactivity();
   // Resume the ambient effects when the user is back and a card has been
   // revealed (the settled class means the flip animation has landed).
+  // startHearts/startRipples no-op in preview, so no guard is needed here.
   const settled = $('card-flip')?.classList.contains('settled');
   if (settled) {
     startHearts();
@@ -826,10 +857,13 @@ export async function mount({ params }) {
   const pile = params.get ? params.get('pile') : params.pile;
   const preview = params.get ? params.get('preview') : params.preview;
   if (preview) {
-    currentCardId = preview;
-    showCardDirectly(preview);
+    // Stale deep link or deleted card: don't strand the user on a blank screen.
+    if (!showCardDirectly(preview)) { navigate('home'); return; }
   } else if (pile === 'home' || pile === 'outdoor') {
-    await startDraw(pile);
+    // If the user navigates away mid-reveal, startDraw bails and returns false;
+    // skip the listener setup so we don't re-add document listeners after the
+    // unmount that the new navigation already ran.
+    if (!(await startDraw(pile))) return;
   } else {
     navigate('home');
     return;
@@ -848,6 +882,7 @@ export function unmount() {
   stopRipples();
   detachTilt();
   releaseWakeLock();
+  drawGeneration++; // invalidate any reveal animation still mid-await
   currentCardId = null;
   previewMode = false;
   previewCardId = null;
