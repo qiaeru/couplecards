@@ -12,6 +12,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
+- On desktop, a drawn card no longer freezes after the cursor leaves and returns: the hover tilt keeps following the pointer instead of locking up.
+- Rare (foil) cards look cleaner: the golden halo now hugs the card instead of floating with a gap around it, and the holographic rainbow loops continuously instead of flashing a flat patch and snapping back each cycle.
 - Harmonized a few UI strings: consistent search placeholders, the admin card form now says "Tas" like the rest of the French UI, the weak-password error reuses the strength meter's wording, and an ambiguous French rules sentence ("la retirer") now clearly means the card can come back later.
 
 ## [1.10.0] - 2026-06-12

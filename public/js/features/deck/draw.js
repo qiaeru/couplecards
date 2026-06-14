@@ -217,6 +217,7 @@ function smoothReturnToCenter() {
   const banLabel = tilt.querySelector('.swipe-label-ban');
   const returnLabel = tilt.querySelector('.swipe-label-return');
   if (returnRaf) cancelAnimationFrame(returnRaf);
+  returnRaf = 0;
   const parse = (name) => parseFloat(tilt.style.getPropertyValue(name) || '0');
   const rx0 = parse('--rx');
   const ry0 = parse('--ry');
@@ -232,6 +233,7 @@ function smoothReturnToCenter() {
     tilt.style.setProperty('--tz', '0deg');
     if (banLabel) banLabel.style.opacity = 0;
     if (returnLabel) returnLabel.style.opacity = 0;
+    isReturning = false;
     return;
   }
   isReturning = true;
@@ -328,15 +330,23 @@ function attachTilt() {
   };
 
   tiltPointerMove = (e) => {
-    if (isReturning) return;
     const isMouse = e.pointerType === 'mouse';
     if (isMouse && !pointerDown) {
+      // Desktop hover: the cursor is back over the card, so cancel any
+      // in-flight smooth-return and let the pointer drive the tilt again.
+      // Otherwise a return started on pointerleave keeps the isReturning
+      // guard raised and the follow effect stays frozen.
+      if (isReturning) {
+        if (returnRaf) { cancelAnimationFrame(returnRaf); returnRaf = 0; }
+        isReturning = false;
+      }
       pendingX = e.clientX;
       pendingY = e.clientY;
       if (raf) return;
       raf = requestAnimationFrame(() => { raf = 0; updateTiltFromPointer(); });
       return;
     }
+    if (isReturning) return;
     if (!pointerDown) return;
     const dx = e.clientX - startX;
     const dy = e.clientY - startY;

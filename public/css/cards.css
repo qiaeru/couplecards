@@ -267,24 +267,28 @@
 .card-front.is-foil.for-home,
 .card-front.is-foil.for-outdoor {
   background:
-    /* Horizontal holographic reflection (scrolls left to right only) */
+    /* Horizontal holographic band (scrolls left to right only). The first
+       and last stops share the same color and the band is tiled (the
+       background shorthand resets background-repeat to repeat), so scrolling
+       it by exactly one image width loops seamlessly: the rainbow flows
+       continuously instead of snapping or flashing a flat patch each cycle. */
     linear-gradient(
-      100deg,
+      90deg,
       rgba(255, 120, 150, 0.40) 0%,
       rgba(255, 200, 120, 0.40) 20%,
       rgba(140, 240, 180, 0.40) 40%,
       rgba(120, 200, 255, 0.40) 60%,
       rgba(200, 140, 255, 0.40) 80%,
-      rgba(244, 156, 197, 0.40) 100%
+      rgba(255, 120, 150, 0.40) 100%
     ),
     /* Dark base so the iridescent tones stand out */
     linear-gradient(160deg, #2a1a4a 0%, #12082c 60%, #1a0f3a 100%);
-  background-size: 250% 100%, 100% 100%;
+  background-size: 200% 100%, 100% 100%;
   animation: foil-bg-shift 10s linear infinite;
 }
 @keyframes foil-bg-shift {
   0%   { background-position: 0% 0%, 0 0; }
-  100% { background-position: 250% 0%, 0 0; }
+  100% { background-position: 200% 0%, 0 0; }
 }
 
 /* Holographic heart pattern confined to the illustration panel. The 2px
@@ -405,13 +409,15 @@
 /* Golden halo pulsing around the foil card. Placed on .card-flip (which has
    no overflow:hidden) rather than on .card-front, whose .card-face wrapper
    clips it to invisibility. Uses ::before so the pile-specific ::after glow
-   on .card-flip can co-exist. */
+   on .card-flip can co-exist. The box is aligned to the card edge (inset 0,
+   matching the .card-face radius) so the glow starts right at the card and
+   spreads outward; a negative inset left a dark gap between card and halo. */
 .card-flip:has(.card-front.is-foil)::before {
   content: "";
   position: absolute;
-  inset: -16px;
-  border-radius: 24px;
-  box-shadow: 0 0 40px 4px rgba(255, 210, 140, 0.25);
+  inset: 0;
+  border-radius: 22px;
+  box-shadow: 0 0 40px 6px rgba(255, 210, 140, 0.30);
   pointer-events: none;
   z-index: -1;
   animation: foil-halo-pulse 3s ease-in-out infinite;
