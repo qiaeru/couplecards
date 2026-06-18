@@ -4,7 +4,7 @@
 
 import { randomBytes } from 'node:crypto';
 import { argon2id, argon2Verify } from 'hash-wasm';
-import { zxcvbnOptions, zxcvbn } from '@zxcvbn-ts/core';
+import { ZxcvbnFactory } from '@zxcvbn-ts/core';
 import * as zxcvbnCommonPackage from '@zxcvbn-ts/language-common';
 import * as zxcvbnEnPackage from '@zxcvbn-ts/language-en';
 import * as zxcvbnFrPackage from '@zxcvbn-ts/language-fr';
@@ -12,7 +12,7 @@ import * as zxcvbnDePackage from '@zxcvbn-ts/language-de';
 import * as zxcvbnItPackage from '@zxcvbn-ts/language-it';
 import * as zxcvbnEsPackage from '@zxcvbn-ts/language-es-es';
 
-zxcvbnOptions.setOptions({
+const zxcvbn = new ZxcvbnFactory({
   translations: zxcvbnEnPackage.translations,
   graphs: zxcvbnCommonPackage.adjacencyGraphs,
   dictionary: {
@@ -92,7 +92,7 @@ export function validatePassword(password, { role = 'user', userInputs = [] } = 
     }
   }
 
-  const result = zxcvbn(password, userInputs.filter(Boolean));
+  const result = zxcvbn.check(password, userInputs.filter(Boolean));
   const threshold = role === 'admin' ? POLICY.zxcvbnMinScoreAdmin : POLICY.zxcvbnMinScoreUser;
   if (result.score < threshold) {
     return {
