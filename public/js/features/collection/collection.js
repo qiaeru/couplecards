@@ -42,7 +42,8 @@ function buildCardFront(card, title, description, locale) {
   art.className = 'card-art';
   const emojiSpan = document.createElement('span');
   emojiSpan.className = 'card-art-emoji';
-  emojiSpan.appendChild(createEmojiImg(card.emoji || (card.pile === 'home' ? 'house' : 'city')));
+  // Lazy: the grid can hold the whole discovered deck, so defer off-screen art.
+  emojiSpan.appendChild(createEmojiImg(card.emoji || (card.pile === 'home' ? 'house' : 'city'), '', { lazy: true }));
   art.appendChild(emojiSpan);
 
   const titleEl = document.createElement('h3');
