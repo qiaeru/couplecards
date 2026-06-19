@@ -37,9 +37,37 @@
         <label for="admin-create-user-input" class="admin-inline-form-label" data-i18n="login.username">Username</label>
         <div class="admin-inline-form-row">
           <input type="text" id="admin-create-user-input" required minlength="3" maxlength="32" pattern="[a-z0-9._\-]+">
-          <button type="submit" class="btn btn-primary" data-i18n="admin.users.create.submit">Create</button>
+          <button type="submit" class="btn btn-success btn-with-icon">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span data-i18n="admin.users.create">Create a user</span>
+          </button>
         </div>
         <small class="admin-inline-form-hint" data-i18n="admin.users.create.usernameHint"></small>
+      </form>
+      <div class="admin-inline-form">
+        <div class="admin-registration-row">
+          <span id="admin-registration-label" class="admin-inline-form-label" data-i18n="admin.registration">Public registration</span>
+          <label class="switch">
+            <input type="checkbox" id="admin-registration-toggle" aria-labelledby="admin-registration-label">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <small class="admin-inline-form-hint" data-i18n="admin.registration.hint"></small>
+      </div>
+      <form id="admin-prune-form" class="admin-inline-form">
+        <span class="admin-inline-form-label" data-i18n="admin.users.inactive.title">Inactive accounts</span>
+        <div class="admin-prune-controls">
+          <label class="admin-prune-period-label">
+            <span data-i18n="admin.users.inactive.prefix">Inactive for more than</span>
+            <select id="admin-prune-period" class="setting-select">
+              <option value="3m" data-i18n="admin.users.inactive.period.3m">3 months</option>
+              <option value="6m" data-i18n="admin.users.inactive.period.6m">6 months</option>
+              <option value="1y" data-i18n="admin.users.inactive.period.1y">1 year</option>
+            </select>
+          </label>
+          <button type="submit" class="btn btn-danger" id="admin-prune-submit" data-i18n="admin.users.inactive.delete">Delete inactive accounts</button>
+        </div>
+        <small class="admin-inline-form-hint" data-i18n="admin.users.inactive.hint"></small>
       </form>
       <label class="admin-search">
         <span class="sr-only" data-i18n="admin.users.search">Search users…</span>

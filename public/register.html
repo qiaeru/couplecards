@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#1a0f35">
-  <title>Couplecards - Sign in</title>
+  <title>Couplecards - Create an account</title>
   <link rel="stylesheet" href="/css/fonts.css">
   <link rel="stylesheet" href="/css/themes.css">
   <link rel="stylesheet" href="/css/style.css">
@@ -21,56 +21,43 @@
       <img class="title-icon" src="/icons/icon.svg" alt="" aria-hidden="true" draggable="false">
       <span data-i18n="app.name">Couplecards</span>
     </div>
-    <section class="auth-card" id="step-login" hidden>
-      <h1 class="auth-title" data-i18n="login.title">Sign in</h1>
-      <p class="auth-subtitle" data-i18n="login.subtitle"></p>
-      <form id="login-form" class="auth-form" novalidate>
+    <section class="auth-card" id="step-register" hidden>
+      <h1 class="auth-title" data-i18n="registration.title">Create your account</h1>
+      <p class="auth-subtitle" data-i18n="registration.subtitle"></p>
+      <form id="register-form" class="auth-form" novalidate>
         <label class="field">
-          <span data-i18n="login.username">Username</span>
-          <input type="text" id="login-username" name="username"
+          <span data-i18n="registration.username">Username</span>
+          <input type="text" id="register-username" name="username"
                  autocomplete="username" autocapitalize="off" spellcheck="false"
-                 aria-describedby="login-error"
+                 aria-describedby="register-username-hint register-error"
                  required minlength="3" maxlength="32" pattern="[a-z0-9._\-]+">
+          <small id="register-username-hint" class="field-hint" data-i18n="registration.usernameHint"></small>
         </label>
         <label class="field">
-          <span data-i18n="login.password">Password</span>
-          <input type="password" id="login-password" name="password"
-                 autocomplete="current-password"
-                 aria-describedby="login-error"
-                 required>
+          <span data-i18n="registration.password">Password</span>
+          <input type="password" id="register-password" name="password"
+                 autocomplete="new-password"
+                 aria-describedby="register-strength register-error"
+                 required minlength="12">
         </label>
-        <div class="auth-error" id="login-error" role="alert"></div>
-        <button type="submit" class="btn btn-primary" data-i18n="login.submit">Sign in</button>
+        <div id="register-strength"></div>
+        <label class="field">
+          <span data-i18n="registration.confirm">Confirm password</span>
+          <input type="password" id="register-confirm" name="confirm"
+                 autocomplete="new-password"
+                 aria-describedby="register-error"
+                 required minlength="12">
+        </label>
+        <div class="auth-error" id="register-error" role="alert"></div>
+        <button type="submit" class="btn btn-primary" data-i18n="registration.submit">Create account</button>
       </form>
-      <p class="auth-alt"><a href="/forgot-password.html" data-i18n="login.forgotLink">Forgot your password?</a></p>
-      <p class="auth-alt" id="login-register" hidden><a href="/register.html" data-i18n="login.registerLink">Create an account</a></p>
+      <p class="auth-alt"><a href="/login.html" data-i18n="registration.backToLogin">Back to sign in</a></p>
     </section>
 
-    <section class="auth-card" id="step-change" hidden>
-      <h1 class="auth-title" id="change-title" data-i18n="changePassword.title">Change your password</h1>
-      <p class="auth-subtitle" id="change-subtitle"></p>
-      <form id="change-form" class="auth-form" novalidate>
-        <label class="field">
-          <span data-i18n="changePassword.current">Current password</span>
-          <input type="password" id="change-current" autocomplete="current-password"
-                 aria-describedby="change-error" required>
-        </label>
-        <label class="field">
-          <span data-i18n="changePassword.new">New password</span>
-          <input type="password" id="change-new" autocomplete="new-password"
-                 aria-describedby="change-strength change-error"
-                 required minlength="12">
-        </label>
-        <div id="change-strength"></div>
-        <label class="field">
-          <span data-i18n="changePassword.confirm">Confirm new password</span>
-          <input type="password" id="change-confirm" autocomplete="new-password"
-                 aria-describedby="change-error"
-                 required minlength="12">
-        </label>
-        <div class="auth-error" id="change-error" role="alert"></div>
-        <button type="submit" class="btn btn-primary" data-i18n="changePassword.submit">Update my password</button>
-      </form>
+    <section class="auth-card" id="step-register-disabled" hidden>
+      <h1 class="auth-title" data-i18n="registration.disabled.title">Registration is closed</h1>
+      <p class="auth-subtitle" data-i18n="registration.disabled.body"></p>
+      <p class="auth-alt"><a href="/login.html" data-i18n="registration.backToLogin">Back to sign in</a></p>
     </section>
 
     <footer class="auth-footer">
@@ -85,6 +72,6 @@
       </a>
     </footer>
   </main>
-  <script type="module" src="/js/login.js"></script>
+  <script type="module" src="/js/register.js"></script>
 </body>
 </html>

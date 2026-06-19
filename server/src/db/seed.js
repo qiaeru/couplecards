@@ -5,7 +5,7 @@
 import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { config } from '../config.js';
-import { getDb, transaction } from './index.js';
+import { getDb, transaction, setSetting } from './index.js';
 import { hashPassword, verifyPassword } from '../lib/password.js';
 import { SUPPORTED_LOCALES } from '../lib/locales.js';
 
@@ -36,6 +36,11 @@ export async function runSeed(logger) {
 
     db.prepare('INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)')
       .run('seed_locale', locale);
+
+    // First-boot default for public registration. The admin GUI toggle owns
+    // this value afterward; the env var only seeds the initial state so a
+    // headless deployment can open registration without touching the panel.
+    setSetting('registration_enabled', config.enableRegistration ? '1' : '0');
 
     logger?.info({ locale }, 'seeded default admin (username=couplecards, password=changeme)');
   }

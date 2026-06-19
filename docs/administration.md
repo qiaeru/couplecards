@@ -25,7 +25,7 @@ The **Users** tab in `/admin.html` lists every account on the instance.
 ### Create a user
 
 1. Type a username in the form. Allowed characters are lowercase letters, digits, dots, dashes, and underscores, with a length between 3 and 32 characters. Reserved names such as `couplecards`, `admin`, `demo`, `root`, `system`, `me`, `anonymous`, `null`, and `undefined` are blocked.
-2. Click **Create**. A dialog shows the initial password exactly once. Copy it and hand it to the partner in person, because the admin cannot retrieve it later.
+2. Click **Create a user**. A dialog shows the initial password exactly once. Copy it and hand it to the partner in person, because the admin cannot retrieve it later.
 3. The user signs in with this password and is then forced to choose a new one immediately.
 
 ### Reset a password
@@ -41,6 +41,22 @@ After 10 failed login attempts in a row, an account is locked for 15 minutes. Cl
 ### Delete a user
 
 Deleting a user removes the account together with their history and their bans. The admin account cannot be deleted through the UI, and you cannot delete yourself.
+
+### Public registration
+
+By default, only the admin creates accounts. You can instead let people sign up themselves: flip the **Public registration** switch in the Users tab. A "Create an account" link then appears on the login page and leads to a form that asks for a username and a password.
+
+Self-registered accounts differ from admin-created ones in one way: the person picks their own password, so there is no forced change on first sign-in. Everything else is identical (same username rules, same password strength policy, the `user` role, no admin access).
+
+The switch is the live control and its state is stored in the database. The `ENABLE_REGISTRATION` environment variable only sets the initial value on the very first boot, for headless setups where the panel is not reachable yet; afterward the switch always wins. Registration is off by default and rate-limited to 5 sign-ups per hour and per address.
+
+Couplecards collects no email or other personal data, so a forgotten password cannot be recovered by the player. The login page carries a "Forgot your password?" link that explains this and points to creating a fresh account. As the admin you can still reset any account's password from the Users tab.
+
+### Last sign-in and inactive accounts
+
+Each row in the Users list shows when the account last signed in, or "Never signed in" if it never has. Use it to spot accounts nobody uses anymore.
+
+Under **Inactive accounts**, choose how long an account must have been idle (more than 3 months, 6 months, or 1 year) and click **Delete inactive accounts**. It removes, in one click, every player account whose last sign-in (or creation date, for accounts that never signed in) is older than that. A confirmation shows how many accounts will go before anything happens. The admin and demo accounts are never touched. As with a single deletion, each removed account takes its history and bans with it.
 
 ## Managing cards
 

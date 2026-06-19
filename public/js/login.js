@@ -2,7 +2,7 @@
 // Login page entry point: handles sign-in and the forced password change
 // on first login. Kept deliberately small: no router, no partials.
 
-import { login, me, changePassword, getPasswordPolicy } from './core/auth.js';
+import { login, me, changePassword, getPasswordPolicy, registrationEnabled } from './core/auth.js';
 import { initI18n, applyI18n, t, fmtDate } from './core/i18n.js';
 import { bindPasswordStrength } from './ui/password-strength.js';
 import { mountFloatingBackground } from './ui/floating-bg.js';
@@ -98,6 +98,12 @@ async function init() {
   }
 
   showStep('login');
+  // Reveal the registration link only when the admin has opened sign-ups. The
+  // "forgot password" link stays visible regardless.
+  registrationEnabled().then((enabled) => {
+    if (enabled) { const el = $('login-register'); if (el) el.hidden = false; }
+  }).catch(() => {});
+
   $('login-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     showError('login', null);

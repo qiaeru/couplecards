@@ -7,6 +7,7 @@ Audience: admins who self-host the app and want a clear picture of the measures 
 - Passwords are hashed with Argon2id (`t=3`, `m=19 MiB`, `p=1`), one iteration above the OWASP 2024 minimum.
 - The password policy is enforced on the server, with the client mirroring it for live feedback. The hard rules are a minimum length of 12 characters, at least one uppercase letter, one lowercase letter, one digit, and one special character, no whitespace, and no inclusion of the username. Each password must also reach a zxcvbn score of 4 for the admin account and 3 for a regular user, with one dictionary loaded per supported locale (English, French, German, Italian, Spanish).
 - Initial user passwords are generated with `crypto.randomBytes` and enforced character classes. The admin sees the value once; only the hash is stored.
+- Public self-registration, when the admin enables it, lets a visitor pick their own username and password. The same strength policy applies (zxcvbn score of 3, the regular-user threshold), the account is created with the `user` role and no admin access, and because the person chose the password there is no forced change on first sign-in. Registration is gated by a setting that is off by default, is rate-limited to 5 sign-ups per hour per IP, and is CSRF-exempt like login. No email or other personal data is collected, so a forgotten password can only be reset by the admin.
 - A user account with a pending password change cannot reach any protected endpoint until the password has been updated.
 - Role separation is enforced at the API layer, not just in the UI. The admin account always lands on `/admin.html` and never plays cards, so the player-only endpoints (`/api/state`, `/api/state/reset`, `/api/bans*`, `/api/history`) reject any cookie carrying the `admin` role with `403 FORBIDDEN`. Conversely, every `/api/cards` mutation and every `/api/admin/*` route requires the admin role.
 
@@ -18,7 +19,7 @@ Audience: admins who self-host the app and want a clear picture of the measures 
 
 ## CSRF and input validation
 
-- Every mutating request under `/api/*` requires a CSRF token bound to the session cookie (`@fastify/csrf-protection`). The check is wired as a global hook so all mutating routes are covered by default. The login endpoint is exempt because it has no session cookie yet; it relies on `SameSite=Strict` and its own rate limit instead.
+- Every mutating request under `/api/*` requires a CSRF token bound to the session cookie (`@fastify/csrf-protection`). The check is wired as a global hook so all mutating routes are covered by default. The login and registration endpoints are exempt because they have no session cookie yet; they rely on `SameSite=Strict` and their own rate limits instead.
 - Every request body, query, and params object is validated against a JSON schema with `additionalProperties: false`. Unknown fields produce a `400 VALIDATION_ERROR` rather than being silently ignored.
 - The server does not accept cross-origin requests.
 
@@ -26,6 +27,7 @@ Audience: admins who self-host the app and want a clear picture of the measures 
 
 - The global bucket allows 300 requests per minute per IP, counting only `/api/*` endpoints. Static assets (HTML, CSS, JS, fonts, images, the service worker, view partials) are exempt so normal browsing never burns the quota.
 - `POST /api/auth/login` is limited to 5 requests per minute per IP.
+- `POST /api/auth/register` is limited to 5 requests per hour per IP.
 - `POST /api/auth/change-password` is limited to 10 requests per hour per IP.
 - After 10 consecutive failed login attempts an account is locked for 15 minutes. The admin can unlock it earlier from the admin panel.
 - The per-IP counters read the client IP through Fastify. Enable `TRUST_PROXY=1` only behind a reverse proxy that you control and that strips inbound `X-Forwarded-*` headers, otherwise a remote caller can spoof the header and bypass these limits. All variants under [`deploy/`](../deploy/) are safe in this respect.

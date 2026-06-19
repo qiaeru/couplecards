@@ -4,11 +4,13 @@
 //   * /api/cards: stale-while-revalidate (allows offline viewing)
 //   * all other /api/*: network only, never cached (auth-sensitive)
 
-const VERSION = 'couplecards-v44';
+const VERSION = 'couplecards-v45';
 const SHELL = [
   '/',
   '/index.html',
   '/login.html',
+  '/register.html',
+  '/forgot-password.html',
   '/admin.html',
   '/404.html',
   '/500.html',
@@ -21,6 +23,8 @@ const SHELL = [
   '/css/admin.css',
   '/js/app.js',
   '/js/login.js',
+  '/js/register.js',
+  '/js/forgot-password.js',
   '/js/admin.js',
   '/js/error-page.js',
   '/js/config.js',
@@ -70,6 +74,7 @@ const SHELL = [
   '/icons/icon-maskable.svg',
   '/icons/favicon.ico',
   '/icons/apple-touch-icon.png',
+  '/icons/qiaeru.svg',
   '/icons/heart-gold.svg',
   '/icons/emoji/house.svg',
   '/icons/emoji/city.svg',

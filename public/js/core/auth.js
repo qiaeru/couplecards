@@ -18,6 +18,27 @@ export async function login(username, password) {
   return data;
 }
 
+export async function register(username, password) {
+  const data = await request('/api/auth/register', {
+    method: 'POST',
+    body: { username, password },
+    allow401: true,
+  });
+  cachedUser = data;
+  invalidateCsrf();
+  emit('auth:changed', data);
+  return data;
+}
+
+export async function registrationEnabled() {
+  try {
+    const data = await request('/api/auth/registration');
+    return !!data?.enabled;
+  } catch {
+    return false;
+  }
+}
+
 export async function logout() {
   try {
     await request('/api/auth/logout', { method: 'POST' });

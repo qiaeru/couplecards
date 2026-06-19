@@ -46,7 +46,10 @@ export async function request(path, options = {}) {
     body = JSON.stringify(body);
   }
 
-  if (CSRF_METHODS.has(method) && !path.startsWith('/api/auth/login') && !path.startsWith('/api/auth/csrf')) {
+  if (CSRF_METHODS.has(method)
+    && !path.startsWith('/api/auth/login')
+    && !path.startsWith('/api/auth/register')
+    && !path.startsWith('/api/auth/csrf')) {
     headers.set('x-csrf-token', await ensureCsrf());
   }
 
@@ -73,7 +76,9 @@ export async function request(path, options = {}) {
     throw new ApiError(code, resp.status, data?.details);
   }
 
-  if (path.startsWith('/api/auth/login') || path.startsWith('/api/auth/change-password')) {
+  if (path.startsWith('/api/auth/login')
+    || path.startsWith('/api/auth/register')
+    || path.startsWith('/api/auth/change-password')) {
     invalidateCsrf();
   }
 

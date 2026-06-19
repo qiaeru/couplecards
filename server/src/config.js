@@ -69,6 +69,7 @@ export const config = {
   seedLocale: (process.env.SEED_LOCALE || '').slice(0, 2).toLowerCase() || null,
   adminReset: bool('ADMIN_RESET', false),
   enableDemoAccount: bool('ENABLE_DEMO_ACCOUNT', false),
+  enableRegistration: bool('ENABLE_REGISTRATION', false),
   version: readPackageVersion(),
   publicDir: process.env.PUBLIC_DIR || resolve(process.cwd(), '../public'),
   dataSeedDir: process.env.DATA_SEED_DIR || resolve(process.cwd(), '../data'),
