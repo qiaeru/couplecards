@@ -7,25 +7,14 @@ import { register, registrationEnabled, me } from './core/auth.js';
 import { initI18n, applyI18n, t } from './core/i18n.js';
 import { bindPasswordStrength } from './ui/password-strength.js';
 import { mountFloatingBackground } from './ui/floating-bg.js';
+import { applyFieldError } from './ui/form-error.js';
 
 const $ = (id) => document.getElementById(id);
 
 const ERROR_FIELDS = ['register-username', 'register-password', 'register-confirm'];
 
 function showError(code, extra = {}) {
-  const el = $('register-error');
-  if (!el) return;
-  const invalid = !!code;
-  for (const id of ERROR_FIELDS) {
-    const input = $(id);
-    if (!input) continue;
-    if (invalid) input.setAttribute('aria-invalid', 'true');
-    else input.removeAttribute('aria-invalid');
-  }
-  if (!code) { el.textContent = ''; return; }
-  const key = code.includes('.') ? code : `errors.${code}`;
-  const fallback = t('errors.generic');
-  el.textContent = t(key, extra) === key ? fallback : t(key, extra);
+  applyFieldError('register-error', ERROR_FIELDS, code, extra);
 }
 
 function redirectAfterAuth(user) {
