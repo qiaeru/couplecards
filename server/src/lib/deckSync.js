@@ -9,12 +9,11 @@ import { resolve, relative, isAbsolute } from 'node:path';
 import { config } from '../config.js';
 import { getDb, transaction } from '../db/index.js';
 import { SUPPORTED_LOCALES } from './locales.js';
+import { TITLE_MAX, DESCRIPTION_MAX } from './card-limits.js';
 
 const PILES = new Set(['home', 'outdoor']);
 const ID_RE = /^[a-z0-9-]{1,64}$/;
 const EMOJI_SLUG_RE = /^[a-z0-9-]{1,64}$/;
-const TITLE_MAX = 200;
-const DESCRIPTION_MAX = 1000;
 const SEED_FILE_PATTERN = /^cards\.([a-z]{2})\.json$/i;
 
 // Reads and merges every supported cards.<locale>.json under DATA_SEED_DIR.
