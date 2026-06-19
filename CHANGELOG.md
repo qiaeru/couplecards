@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.11.0] - 2026-06-19
+
 ### Added
 
 - Public self-registration from the sign-in page. The admin opens it with a switch in the Users tab (off by default, initial state seeded from the `ENABLE_REGISTRATION` variable); a "Create an account" link then lets anyone sign up with a username and a password of their own.
