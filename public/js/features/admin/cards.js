@@ -12,6 +12,9 @@ import { escapeHtml } from '../../core/dom.js';
 import { EMOJI_SLUGS } from './emoji-slugs.js';
 
 const SUPPORTED_LOCALES = supportedLocales();
+// Mirror of server/src/lib/card-limits.js (the server is authoritative). A
+// browser module can't import server code without a build step, so keep these
+// two numbers in sync by hand if the server limits ever change.
 const TITLE_MAX = 200;
 const DESCRIPTION_MAX = 1000;
 

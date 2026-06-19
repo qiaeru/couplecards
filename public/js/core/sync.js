@@ -97,12 +97,31 @@ async function loadStateFromApiOrCache() {
   }
 }
 
+// Warm the service worker's runtime cache with the deck's emoji art so a later
+// offline session renders real icons instead of broken images. The SW stores
+// each fetched SVG (cacheFirst in sw.js); already-cached ones return without a
+// network hit. Only the emojis the deck actually uses are touched. Best effort:
+// skip when offline, run when idle, never throw. Path mirrors ui/emoji.js BASE.
+function warmEmojiCache() {
+  if (!navigator.onLine) return;
+  const slugs = new Set(['house', 'city']); // pile defaults used when a card has none
+  for (const c of cards) if (c.emoji) slugs.add(c.emoji);
+  const run = () => {
+    for (const slug of slugs) {
+      fetch(`/icons/emoji/${slug}.svg`, { credentials: 'same-origin' }).catch(() => {});
+    }
+  };
+  if (typeof requestIdleCallback === 'function') requestIdleCallback(run, { timeout: 3000 });
+  else setTimeout(run, 1500);
+}
+
 export async function initSync() {
   if (initialized) return;
   await loadCardsFromApiOrCache();
   await loadStateFromApiOrCache();
   initialized = true;
   emit('sync:ready');
+  warmEmojiCache();
   flushOutbox().catch(() => {});
   window.addEventListener('online', () => { flushOutbox().catch(() => {}); });
 }

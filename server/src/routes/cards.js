@@ -2,14 +2,13 @@
 // Cards: read by any authenticated user, CRUD reserved to admin. The deck is
 // multilingual: each card carries a `translations` map keyed by locale.
 
-import { getDb } from '../db/index.js';
+import { getDb, transaction } from '../db/index.js';
 import { requireSession, requireAdmin, enforcePasswordChange } from '../lib/auth.js';
 import { SUPPORTED_LOCALES } from '../lib/locales.js';
+import { TITLE_MAX, DESCRIPTION_MAX } from '../lib/card-limits.js';
 
 const CARD_ID_PATTERN = '^[a-z0-9-]{1,64}$';
 const EMOJI_SLUG_PATTERN = '^[a-z0-9-]{1,64}$';
-const TITLE_MAX = 200;
-const DESCRIPTION_MAX = 1000;
 
 function selectCards() {
   const db = getDb();
@@ -115,15 +114,14 @@ export default async function cardRoutes(app) {
     }
     const db = getDb();
     try {
-      db.exec('BEGIN');
-      db.prepare(`
-        INSERT INTO cards (id, pile, foil, emoji, sort_order)
-        VALUES (?, ?, ?, ?, ?)
-      `).run(id, pile, foil ? 1 : 0, emoji ?? null, sortOrder ?? Date.now());
-      writeTranslations(db, id, translations);
-      db.exec('COMMIT');
+      transaction(() => {
+        db.prepare(`
+          INSERT INTO cards (id, pile, foil, emoji, sort_order)
+          VALUES (?, ?, ?, ?, ?)
+        `).run(id, pile, foil ? 1 : 0, emoji ?? null, sortOrder ?? Date.now());
+        writeTranslations(db, id, translations);
+      })();
     } catch (err) {
-      db.exec('ROLLBACK');
       if (err.code === 'SQLITE_CONSTRAINT_PRIMARYKEY') {
         return reply.code(409).send({ error: 'CARD_ID_EXISTS' });
       }
@@ -166,8 +164,7 @@ export default async function cardRoutes(app) {
     if (request.body.emoji !== undefined) { updates.push('emoji = ?'); args.push(request.body.emoji ?? null); }
     if (request.body.sortOrder !== undefined) { updates.push('sort_order = ?'); args.push(request.body.sortOrder); }
 
-    try {
-      db.exec('BEGIN');
+    transaction(() => {
       // Always bump updated_at when anything changes, including a translation-
       // only edit. card_translations has no updated_at column and an UPSERT
       // doesn't change the row count, so without this the deck ETag would not
@@ -180,11 +177,7 @@ export default async function cardRoutes(app) {
       if (request.body.translations) {
         writeTranslations(db, request.params.id, request.body.translations);
       }
-      db.exec('COMMIT');
-    } catch (err) {
-      db.exec('ROLLBACK');
-      throw err;
-    }
+    })();
     invalidateDeckVersion();
     return selectCard(request.params.id);
   });

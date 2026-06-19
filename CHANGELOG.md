@@ -17,9 +17,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Standardized on US spelling and punctuation across the documentation, the code comments, and the card deck, and gave the card titles and descriptions a prose polish in all five languages.
 - Upgraded the password-strength engine (zxcvbn-ts) to version 4, which slightly recalibrates how a password is scored. The minimum-strength requirements are unchanged.
+- The Collection grid defers off-screen card icons until you scroll to them, easing the initial load on large decks.
 
 ### Fixed
 
+- Card icons now work offline across the whole deck. The app caches them on your first online visit, instead of only the icons of cards you had already opened online.
 - Creating a user with a name that already exists now shows the clear "username already taken" message instead of a generic server error.
 - On desktop, a drawn card no longer freezes after the cursor leaves and returns: the hover tilt keeps following the pointer instead of locking up.
 - Rare (foil) cards look cleaner: the golden halo now hugs the card instead of floating with a gap around it, and the holographic rainbow loops continuously instead of flashing a flat patch and snapping back each cycle.

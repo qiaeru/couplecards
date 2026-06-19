@@ -27,11 +27,13 @@ export function emojiImgHTML(slug, alt = '') {
   return `<img class="emoji" src="${url}" alt="${alt}" draggable="false">`;
 }
 
-export function createEmojiImg(slug, alt = '') {
+export function createEmojiImg(slug, alt = '', { lazy = false } = {}) {
   const img = document.createElement('img');
   img.className = 'emoji';
-  img.src = emojiUrl(slug);
+  // `loading` must be set before `src` for the lazy hint to take effect.
+  if (lazy) img.loading = 'lazy';
   img.alt = alt;
   img.draggable = false;
+  img.src = emojiUrl(slug);
   return img;
 }
