@@ -52,6 +52,69 @@ body { font-family: var(--font); }
 .auth-error:empty { display: none; }
 .auth-form .btn { margin-top: 6px; }
 
+/* Attribution footer, only on the auth screens. */
+.auth-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--text-soft);
+  font-size: 0.85rem;
+}
+.auth-footer-link {
+  display: inline-flex;
+  align-items: center;
+  color: inherit;
+}
+.auth-footer-link:hover { color: var(--text); }
+.auth-footer-logo {
+  height: 1.35em;
+  width: auto;
+  display: block;
+}
+.auth-footer-sep { opacity: 0.45; }
+
+/* qiae.ru lockup: the head sits on an organic orange blob, mirroring the source
+   site (CSS blob, not part of the SVG). */
+.qiaeru-logo {
+  position: relative;
+  display: inline-flex;
+  transition: transform 0.2s ease;
+}
+.qiaeru-logo:hover { transform: scale(1.08); }
+.qiaeru-logo::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  z-index: 0;
+  background-color: #e3a282;
+  border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%;
+}
+.qiaeru-logo img {
+  position: relative;
+  z-index: 1;
+}
+
+.field-hint {
+  display: block;
+  margin-top: 4px;
+  color: var(--text-soft);
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+/* Secondary links under an auth card (register, forgot password, back to sign in). */
+.auth-alt {
+  margin: 16px 0 0;
+  text-align: center;
+  font-size: 0.9rem;
+}
+.auth-alt a { color: var(--text-soft); }
+.auth-alt a:hover { color: var(--text); }
+
+#forgot-open .btn { margin-top: 10px; width: 100%; }
+
 .floating-bg {
   position: fixed;
   inset: 0;

@@ -7,11 +7,11 @@
 
 A self-hosted web app that lets couples draw activity cards to break the routine and spice up their daily lives.
 
-The deck is split into two piles, "Home" and "Outdoor". Each instance hosts a dedicated administrator plus as many user accounts as the couple needs, and account management stays entirely in the admin's hands.
+The deck is split into two piles, "Home" and "Outdoor". Each instance has one administrator and as many player accounts as you want. The admin can create accounts directly, or open public registration so anyone can sign up from the login page. In practice a couple often shares a single account.
 
 The app works offline once loaded.
 
-> **One Docker instance, one couple.** Start it, sign in, then invite both partners. There is no telemetry and no external network call at runtime.
+> **Self-hosted, your call on sign-ups.** Start it, sign in, then create accounts or open public registration from the admin panel. There is no telemetry and no external network call at runtime.
 
 ## Try the demo
 
@@ -28,13 +28,13 @@ A hosted demo is available at **<https://couplecards.qiaeru.com/>**. Sign in wit
 
 - **Two piles, one ritual.** The deck splits into a "Home" pile and an "Outdoor" pile. Tap a pile, the top card flips with a foil-shimmer reveal, and a swipe sends it back to the deck or bans it from future draws.
 - **Personal deck memory.** Each player gets their own history, their own ban list, and a low-pile warning when a stack runs thin. Banned cards can be restored with one tap. Drawing a second time from the same pile returns the previous card so the deck stays balanced.
-- **One household, full control.** The built-in admin creates accounts for each player, manages the shared card library (create, edit, ban, export, import, sync from JSON), and sets the activity language. No registration, no third-party identity provider.
+- **Accounts your way.** The built-in admin creates accounts for each player, or opens public registration so people sign up themselves from the login page. The admin also manages the shared card library (create, edit, ban, export, import, sync from JSON), sets the activity language, and can sweep away accounts left inactive for months. No third-party identity provider.
 - **Responsive PWA, five languages.** French, English, German, Italian, and Spanish all ship out of the box. Works on phone, tablet, and desktop with a dark theme, a foil-and-glow visual language, full keyboard and screen-reader support, install-to-home-screen on iOS and Android, and offline use after the first load.
 
 ### Under the hood
 
 - **Backend.** Node.js 24 and Fastify 5, with SQLite through the built-in `node:sqlite` module. The entire database is a single file on disk (`var/couplecards.db`). Password hashing uses `hash-wasm` (pure WebAssembly), so the server has zero native dependencies and no compilation step.
-- **Authentication.** Argon2id password hashes, session cookies flagged `HttpOnly` and `SameSite=Strict`, CSRF protection, per-route rate limiting, account lockout after repeated failures, and a forced password change on first sign-in.
+- **Authentication.** Argon2id password hashes, session cookies flagged `HttpOnly` and `SameSite=Strict`, CSRF protection, per-route rate limiting, account lockout after repeated failures, and a forced password change on first sign-in for admin-created accounts.
 - **Frontend.** Vanilla ES modules organized into `core`, `features`, and `ui`. No client-side build step is required to edit a feature. Two vendor bundles produced by esbuild during the Docker build (zxcvbn for password strength, fflate for the deck export/import) are the only artifacts that need a build step.
 - **Offline first.** IndexedDB caches the deck, an outbox replays mutations on reconnect, and a Service Worker serves the shell with a stale-while-revalidate strategy for the card list.
 - **Internationalized.** Five locales ship out of the box (French is the source of truth, English is the fallback, German, Italian, and Spanish are full naturalizations). Every user-facing string lives in `public/locales/<locale>.json`. The bundled fonts (Inter and Fraunces) cover Latin Extended and Vietnamese; Greek and Cyrillic fall back to Georgia / system serif.
@@ -53,7 +53,7 @@ Open <http://localhost:3000>. On the first boot:
 
 1. Sign in with `couplecards` and the password `changeme`.
 2. Pick a strong admin password when prompted.
-3. From the admin panel, create one user account per player. The initial password for each is shown exactly once; copy it somewhere safe.
+3. From the admin panel, create accounts for the players, or open public registration so they can sign up themselves from the login page. Admin-created accounts show their initial password exactly once; copy it somewhere safe.
 
 ## Documentation
 

@@ -13,6 +13,7 @@ Every value below is read from an environment variable by the server at start ti
 | `SEED_LOCALE` | auto-detected (falls back to `en` when `LANG` is not French) | Language used for the starter deck on first boot. Accepts `en` or `fr`. |
 | `ADMIN_RESET` | `0` | When set to `1`, the next boot resets the admin password to `changeme` and forces a password change on next sign-in. Remove the variable and restart once the recovery is complete. |
 | `ENABLE_DEMO_ACCOUNT` | `0` | When set to `1`, the first boot seeds a shared account with `demo` as the username and `demo` as the password. Its bans and history are wiped on every sign-in. Enable only on public demo instances because the credential is well known. |
+| `ENABLE_REGISTRATION` | `0` | Sets the initial state of public registration on the very first boot only. When `1`, the login page offers self-registration out of the box. After the first boot, the **Public registration** switch in the admin Users tab is the source of truth and this variable is ignored. Off by default. |
 | `DATA_DIR` | `var/` locally, `/app/var` inside Docker | Directory that holds the SQLite file and runtime state. |
 | `DB_PATH` | `$DATA_DIR/couplecards.db` | Absolute path to the SQLite file. Override when you need a different filename. |
 | `PUBLIC_DIR` | `../public` | Directory served as static content. Do not change unless you relocate the frontend. |
@@ -27,6 +28,7 @@ Request bodies that contain password fields (`password`, `newPassword`, and `cur
 The limits are hard-coded to keep deployment simple:
 
 - `/api/auth/login` accepts 5 requests per minute per IP.
+- `/api/auth/register` accepts 5 requests per hour per IP.
 - `/api/auth/change-password` accepts 10 requests per hour per IP.
 - Every other route shares a global bucket of 300 requests per minute per IP. `/api/health` is excluded from the limit.
 

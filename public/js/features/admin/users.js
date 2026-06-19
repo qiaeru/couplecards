@@ -2,7 +2,7 @@
 // Admin users tab: list, create, reset password, delete, unlock.
 
 import { request, errorMessage } from '../../core/api.js';
-import { t, fmtDateLong } from '../../core/i18n.js';
+import { t, tn, fmtDateLong } from '../../core/i18n.js';
 import { on } from '../../core/events.js';
 import { toast, showConfirm, withModal } from '../../ui/shell.js';
 import { escapeHtml, copyToClipboard, selectText } from '../../core/dom.js';
@@ -58,6 +58,7 @@ function renderUsersList(users) {
       <div class="list-item-main">
         <div class="list-item-title">${escapeHtml(u.username)}</div>
         <div class="list-item-meta">${escapeHtml(t('admin.users.createdAt', { when: fmtDateLong(u.createdAt) }))}</div>
+        <div class="list-item-meta">${escapeHtml(u.lastLoginAt ? t('admin.users.lastLogin', { when: fmtDateLong(u.lastLoginAt) }) : t('admin.users.neverLogged'))}</div>
         <div class="list-item-badges">${badges.join('')}</div>
       </div>
       ${actions ? `<div class="list-item-actions">${actions}</div>` : ''}
@@ -137,6 +138,42 @@ async function unlockUser(id) {
   await renderUsers();
 }
 
+// Cutoff date for a given inactivity period, mirroring the server's SQLite
+// calendar modifiers (-3 months / -6 months / -1 year).
+function inactiveCutoff(period) {
+  const d = new Date();
+  if (period === '3m') d.setMonth(d.getMonth() - 3);
+  else if (period === '6m') d.setMonth(d.getMonth() - 6);
+  else d.setFullYear(d.getFullYear() - 1);
+  return d;
+}
+
+// Preview count, computed from the already-loaded list. The server recomputes
+// authoritatively on delete; this only feeds the confirmation dialog. Activity
+// falls back to creation for accounts that never logged in, like the server.
+function countInactive(period) {
+  const cutoff = inactiveCutoff(period);
+  return allUsers.filter((u) => u.role === 'user' && !u.isDemo
+    && new Date((u.lastLoginAt || u.createdAt) + 'Z') < cutoff).length;
+}
+
+async function pruneInactive(period) {
+  const count = countInactive(period);
+  if (count === 0) { toast(t('admin.users.inactive.none')); return; }
+  const periodLabel = t(`admin.users.inactive.period.${period}`);
+  const ok = await showConfirm({
+    title: t('admin.users.inactive.confirm'),
+    body: tn('admin.users.inactive.body', count, { period: periodLabel }),
+    confirmLabel: t('common.delete'),
+    cancelLabel: t('common.cancel'),
+    danger: true,
+  });
+  if (!ok) return;
+  const res = await request('/api/admin/users/prune-inactive', { method: 'POST', body: { period } });
+  toast(tn('admin.users.inactive.toast', res.deleted));
+  await renderUsers();
+}
+
 export async function mount() {
   const form = document.getElementById('admin-create-user-form');
   form?.addEventListener('submit', async (e) => {
@@ -149,6 +186,35 @@ export async function mount() {
     try {
       await createUser(username);
       input.value = '';
+    } catch (err) {
+      toast(errorMessage(err));
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  const toggle = document.getElementById('admin-registration-toggle');
+  if (toggle) {
+    request('/api/admin/registration').then((d) => { toggle.checked = !!d.enabled; }).catch(() => {});
+    toggle.addEventListener('change', async () => {
+      const enabled = toggle.checked;
+      try {
+        await request('/api/admin/registration', { method: 'PUT', body: { enabled } });
+        toast(t(enabled ? 'admin.registration.toast.on' : 'admin.registration.toast.off'));
+      } catch (err) {
+        toggle.checked = !enabled;
+        toast(errorMessage(err));
+      }
+    });
+  }
+
+  document.getElementById('admin-prune-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const period = document.getElementById('admin-prune-period').value;
+    const btn = document.getElementById('admin-prune-submit');
+    btn.disabled = true;
+    try {
+      await pruneInactive(period);
     } catch (err) {
       toast(errorMessage(err));
     } finally {

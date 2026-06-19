@@ -113,6 +113,8 @@ Four guard levels are referenced below: **public** (no auth needed), **session**
 | `GET` | `/api/auth/csrf` | public | Issues a double-submit token |
 | `GET` | `/api/auth/password-policy` | public | Hard rules and zxcvbn thresholds |
 | `POST` | `/api/auth/login` | public | Rate-limited to 5 attempts per minute per IP |
+| `POST` | `/api/auth/register` | public | Self-registration. Gated by the registration setting, rate-limited to 5 per hour per IP, CSRF-exempt like login. Opens a session on success |
+| `GET` | `/api/auth/registration` | public | Whether public registration is open (`{ enabled }`) |
 | `POST` | `/api/auth/logout` | session | |
 | `GET` | `/api/auth/me` | public | Returns 401 when no session |
 | `POST` | `/api/auth/change-password` | session | Rotates `session_epoch` |
@@ -126,7 +128,8 @@ Four guard levels are referenced below: **public** (no auth needed), **session**
 | `POST` | `/api/state/reset` | user | Wipes the caller's bans and history in a single transaction. Rejected with 403 for demo accounts |
 | `POST`, `DELETE` | `/api/bans[/:cardId]` | user | Idempotent |
 | `POST` | `/api/history` | user | Batch endpoint, idempotent on `clientUuid` |
-| `GET`, `POST`, `PATCH`, `DELETE` | `/api/admin/users[/:id]` | admin | Full user CRUD plus unlock and reset-password |
+| `GET`, `POST`, `PATCH`, `DELETE` | `/api/admin/users[/:id]` | admin | Full user CRUD plus unlock, reset-password, and bulk removal of inactive accounts (`POST /api/admin/users/prune-inactive`) |
+| `GET`, `PUT` | `/api/admin/registration` | admin | Reads or sets the public-registration switch |
 | `GET` | `/manifest.webmanifest` | public | Negotiated on `Accept-Language` |
 
 ## Why vanilla JavaScript and no build step for source
@@ -135,6 +138,6 @@ A zero client-side toolchain keeps the contribution barrier low. A text editor a
 
 ## Seeding and upgrades
 
-- On first boot, `seed.js` inserts the default admin account and merges every `data/cards.<locale>.json` file into the `cards` and `card_translations` tables.
+- On first boot, `seed.js` inserts the default admin account, sets the initial public-registration flag from `ENABLE_REGISTRATION` (the admin switch owns it afterward), and merges every `data/cards.<locale>.json` file into the `cards` and `card_translations` tables.
 - Subsequent starts do nothing when the `users` and `cards` tables are already populated. Cards or translations added later to `data/cards.*.json` are not imported automatically. An admin can apply them through the Deck maintenance screen in the admin panel (see [administration.md](./administration.md)).
 - Database migrations live in `server/migrations/NNN_*.sql`. The runner applies any missing file in lexical order and tracks applied files in the `_migrations` table.

@@ -114,6 +114,25 @@ body { padding: 20px 16px calc(env(safe-area-inset-bottom, 0px) + 24px); }
   color: var(--text-muted);
   font-size: 0.78rem;
 }
+.admin-registration-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.admin-prune-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.admin-prune-period-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-soft);
+  font-size: 0.9rem;
+}
 
 .admin-form .field {
   display: flex;

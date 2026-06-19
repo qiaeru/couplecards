@@ -3,29 +3,21 @@
 // creation and reset produce a one-time initial password that is shown once
 // in the response and stored only as an Argon2id hash.
 
-import { getDb } from '../db/index.js';
+import { getDb, getSetting, setSetting, isUniqueViolation } from '../db/index.js';
 import { requireAdmin } from '../lib/auth.js';
 import { hashPassword, generateInitialPassword } from '../lib/password.js';
+import { RESERVED_USERNAMES, usernameSchema, normalizeUsername } from '../lib/usernames.js';
 
-const RESERVED_USERNAMES = new Set([
-  'couplecards', 'admin', 'demo', 'root', 'system', 'me', 'anonymous', 'null', 'undefined',
-]);
-
-const usernameSchema = {
-  type: 'string',
-  minLength: 3,
-  maxLength: 32,
-  pattern: '^[a-z0-9._-]+$',
+const INACTIVE_PERIODS = {
+  '3m': '-3 months',
+  '6m': '-6 months',
+  '1y': '-1 year',
 };
-
-function normalizeUsername(raw) {
-  return String(raw || '').trim().toLowerCase();
-}
 
 function selectUser(id) {
   const row = getDb().prepare(`
     SELECT id, username, role, must_change_password, is_demo, locked_until, failed_attempts,
-           locale, created_at, updated_at
+           locale, created_at, updated_at, last_login_at
     FROM users WHERE id = ?
   `).get(id);
   if (!row) return null;
@@ -40,6 +32,7 @@ function selectUser(id) {
     locale: row.locale,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
+    lastLoginAt: row.last_login_at,
   };
 }
 
@@ -49,7 +42,7 @@ export default async function userRoutes(app) {
   app.get('/users', async () => {
     const rows = getDb().prepare(`
       SELECT id, username, role, must_change_password, is_demo, locked_until, failed_attempts,
-             locale, created_at, updated_at
+             locale, created_at, updated_at, last_login_at
       FROM users ORDER BY created_at ASC
     `).all();
     return rows.map((r) => ({
@@ -63,7 +56,50 @@ export default async function userRoutes(app) {
       locale: r.locale,
       createdAt: r.created_at,
       updatedAt: r.updated_at,
+      lastLoginAt: r.last_login_at,
     }));
+  });
+
+  // Public registration toggle, stored in settings. The admin panel switch is
+  // the source of truth; ENABLE_REGISTRATION only seeds the initial value.
+  app.get('/registration', async () => ({ enabled: getSetting('registration_enabled') === '1' }));
+
+  app.put('/registration', {
+    schema: {
+      body: {
+        type: 'object',
+        required: ['enabled'],
+        additionalProperties: false,
+        properties: { enabled: { type: 'boolean' } },
+      },
+    },
+  }, async (request) => {
+    setSetting('registration_enabled', request.body.enabled ? '1' : '0');
+    return { enabled: request.body.enabled };
+  });
+
+  // Bulk removal of accounts that have not signed in for a while. Inactivity is
+  // measured from the last login, falling back to creation for accounts that
+  // never logged in, so a freshly created account is never swept. Admin and demo
+  // rows are excluded, mirroring the single-delete guards. CASCADE clears the
+  // deleted users' bans and history automatically.
+  app.post('/users/prune-inactive', {
+    schema: {
+      body: {
+        type: 'object',
+        required: ['period'],
+        additionalProperties: false,
+        properties: { period: { type: 'string', enum: Object.keys(INACTIVE_PERIODS) } },
+      },
+    },
+  }, async (request) => {
+    const modifier = INACTIVE_PERIODS[request.body.period];
+    const info = getDb().prepare(`
+      DELETE FROM users
+      WHERE role = 'user' AND is_demo = 0
+        AND COALESCE(last_login_at, created_at) < datetime('now', ?)
+    `).run(modifier);
+    return { deleted: info.changes };
   });
 
   app.post('/users', {
@@ -90,7 +126,7 @@ export default async function userRoutes(app) {
       `).run(username, hash);
       return { ...selectUser(info.lastInsertRowid), initialPassword };
     } catch (err) {
-      if (err.code === 'SQLITE_CONSTRAINT_UNIQUE') {
+      if (isUniqueViolation(err)) {
         return reply.code(409).send({ error: 'USERNAME_TAKEN' });
       }
       throw err;
@@ -134,7 +170,7 @@ export default async function userRoutes(app) {
           UPDATE users SET username = ?, updated_at = datetime('now') WHERE id = ?
         `).run(username, id);
       } catch (err) {
-        if (err.code === 'SQLITE_CONSTRAINT_UNIQUE') {
+        if (isUniqueViolation(err)) {
           return reply.code(409).send({ error: 'USERNAME_TAKEN' });
         }
         throw err;

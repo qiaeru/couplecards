@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Public self-registration from the sign-in page. The admin opens it with a switch in the Users tab (off by default, initial state seeded from the `ENABLE_REGISTRATION` variable); a "Create an account" link then lets anyone sign up with a username and a password of their own.
+- The admin Users list now shows each account's last sign-in, with a one-click control to remove accounts left inactive for over 3, 6, or 12 months.
+- A "Forgot your password?" link on the sign-in page explains that, with no personal data collected, a lost password cannot be reset and the way forward is a new account.
+- A small footer on the sign-in screens credits the developer (Qiaeru) and links to the source code on GitHub.
+
 ### Changed
 
 - Standardized on US spelling and punctuation across the documentation, the code comments, and the card deck, and gave the card titles and descriptions a prose polish in all five languages.
@@ -13,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
+- Creating a user with a name that already exists now shows the clear "username already taken" message instead of a generic server error.
 - On desktop, a drawn card no longer freezes after the cursor leaves and returns: the hover tilt keeps following the pointer instead of locking up.
 - Rare (foil) cards look cleaner: the golden halo now hugs the card instead of floating with a gap around it, and the holographic rainbow loops continuously instead of flashing a flat patch and snapping back each cycle.
 - A card opened in preview (from History or Collection) now behaves as a proper static viewer: it no longer sprouts floating hearts and ripples after you switch tabs and come back, and it no longer sends itself back to the home screen after a long idle. Those behaviors stay reserved for a live draw.
