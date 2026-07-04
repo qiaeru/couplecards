@@ -1,10 +1,10 @@
 .git
 .github
 .gitignore
-.env
-.env.*
+**/.env
+**/.env.*
 !.env.example
-var/
+**/var/
 **/node_modules
 **/npm-debug.log
 **/.DS_Store
