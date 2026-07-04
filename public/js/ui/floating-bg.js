@@ -67,8 +67,11 @@ export function mountFloatingBackground(count = 22) {
 
   const apply = () => {
     rafId = 0;
-    for (const el of items) {
-      const r = el.getBoundingClientRect();
+    // Read all rects first, then write styles: interleaving the two forces a
+    // layout recalculation per item on every frame.
+    const rects = items.map((el) => el.getBoundingClientRect());
+    items.forEach((el, i) => {
+      const r = rects[i];
       const cx = r.left + r.width / 2;
       const cy = r.top + r.height / 2;
       const dx = cx - mx;
@@ -84,7 +87,7 @@ export function mountFloatingBackground(count = 22) {
         el.style.setProperty('--repel-y', '0px');
         el.style.setProperty('--repel-opacity', '');
       }
-    }
+    });
   };
 
   window.addEventListener('mousemove', (e) => {

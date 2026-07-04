@@ -273,12 +273,10 @@ export async function mount() {
     const id = btn.dataset.id;
     try {
       if (btn.dataset.action === 'edit') {
-        const cards = await loadCards();
-        const card = cards.find((c) => c.id === id);
+        const card = allCards.find((c) => c.id === id);
         if (card) openCardDialog({ card });
       } else if (btn.dataset.action === 'delete') {
-        const cards = await loadCards();
-        const card = cards.find((c) => c.id === id);
+        const card = allCards.find((c) => c.id === id);
         if (card) {
           const { title } = getCardText(card, getLocale());
           await deleteCard(id, title || id);

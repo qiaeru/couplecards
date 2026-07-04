@@ -4,10 +4,11 @@
 //   * /api/cards: stale-while-revalidate (allows offline viewing)
 //   * all other /api/*: network only, never cached (auth-sensitive)
 
-const VERSION = 'couplecards-v46';
+const VERSION = 'couplecards-v47';
 const SHELL = [
   '/',
   '/index.html',
+  '/manifest.webmanifest',
   '/login.html',
   '/register.html',
   '/forgot-password.html',
@@ -113,7 +114,9 @@ self.addEventListener('message', (event) => {
 });
 
 function isAuthSensitive(pathname) {
-  if (pathname === '/api/cards' || pathname.startsWith('/api/cards/')) return false;
+  // Exact match only: any future GET under /api/cards/... must stay
+  // network-only rather than fall through to cache-first below.
+  if (pathname === '/api/cards') return false;
   return pathname.startsWith('/api/');
 }
 
@@ -159,17 +162,4 @@ async function staleWhileRevalidate(request) {
     return resp;
   }).catch(() => null);
   return cached || fetched || Response.error();
-}
-
-self.addEventListener('sync', (event) => {
-  if (event.tag === 'couplecards-outbox-flush') {
-    event.waitUntil(broadcastFlush());
-  }
-});
-
-async function broadcastFlush() {
-  const clients = await self.clients.matchAll({ includeUncontrolled: true });
-  for (const client of clients) {
-    client.postMessage({ type: 'OUTBOX_FLUSH' });
-  }
 }

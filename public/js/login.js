@@ -37,7 +37,7 @@ function redirectAfterAuth(user) {
   location.replace(user?.role === 'admin' ? '/admin.html' : '/');
 }
 
-function showChangeStep(user) {
+function showChangeStep(user, policy) {
   showStep('change');
   $('change-title').textContent = t('changePassword.title');
   $('change-subtitle').textContent = user.mustChangePassword
@@ -48,7 +48,7 @@ function showChangeStep(user) {
     input: $('change-new'),
     host: $('change-strength'),
     userInputs: [user.username],
-    minScore: user.role === 'admin' ? 4 : 3,
+    minScore: user.role === 'admin' ? (policy?.zxcvbnMinScoreAdmin ?? 4) : (policy?.zxcvbnMinScoreUser ?? 3),
   });
 
   $('change-form').addEventListener('submit', async (e) => {
@@ -74,12 +74,12 @@ async function init() {
   await initI18n(existing?.locale);
   applyI18n(document);
 
-  await getPasswordPolicy().catch(() => null);
+  const policy = await getPasswordPolicy().catch(() => null);
 
   const params = new URLSearchParams(location.search);
   if (existing) {
     if (existing.mustChangePassword || params.get('forceChange')) {
-      showChangeStep(existing);
+      showChangeStep(existing, policy);
       return;
     }
     redirectAfterAuth(existing);
@@ -104,7 +104,7 @@ async function init() {
     try {
       const user = await login(username, password);
       if (user.mustChangePassword) {
-        showChangeStep(user);
+        showChangeStep(user, policy);
       } else {
         redirectAfterAuth(user);
       }

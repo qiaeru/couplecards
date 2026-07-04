@@ -247,14 +247,26 @@ export async function addHistory(entry) {
   return full;
 }
 
-// Remove a history entry locally by its clientUuid. Used by the ban-undo flow
-// so reverting a ban also removes the matching history row.
+// Remove a history entry by its clientUuid. Used by the undo flows: the entry
+// must disappear locally, from any not-yet-flushed outbox item, and from the
+// server (the flush usually wins the race against the 5 s undo toast). The
+// queued delete is idempotent, so replaying it or deleting an entry that
+// never reached the server is harmless.
 export async function removeHistoryByUuid(clientUuid) {
   const before = history.length;
   history = history.filter((e) => e.clientUuid !== clientUuid);
   if (history.length === before) return;
   await idb.setHistory(history);
   emit('state:history-changed');
+  const pending = await idb.listOutbox();
+  for (const item of pending) {
+    if (item.kind === 'history' && item.entry?.clientUuid === clientUuid) {
+      await idb.removeOutbox(item.id);
+    }
+  }
+  await idb.enqueue({ kind: 'history-delete', clientUuid });
+  notifyOutboxChanged();
+  flushOutbox().catch(() => {});
 }
 
 export async function resetUserData() {
@@ -296,11 +308,16 @@ async function flushOutbox() {
     if (!items.length) return;
     // Split into history (already a single batched POST) and ban/unban (group
     // by cardId so concurrent groups don't reorder ban+unban on the same card).
+    // History deletes run after the history batch: a delete is always enqueued
+    // after the add it undoes, so adds-then-deletes preserves the final state.
     const historyBatch = [];
+    const historyDeletes = [];
     const byCard = new Map();
     for (const item of items) {
       if (item.kind === 'history') {
         historyBatch.push({ item, entry: item.entry });
+      } else if (item.kind === 'history-delete') {
+        historyDeletes.push(item);
       } else if (item.kind === 'ban' || item.kind === 'unban') {
         if (!byCard.has(item.cardId)) byCard.set(item.cardId, []);
         byCard.get(item.cardId).push(item);
@@ -314,8 +331,11 @@ async function flushOutbox() {
     });
     try {
       await Promise.all(groups);
-    } catch (err) {
-      if (err?.status === 401) return;
+    } catch {
+      // A chain failed (401 or transient error); the other chains may have
+      // drained items, so refresh the pending badge before bailing. The next
+      // online event retries the rest.
+      notifyOutboxChanged();
       return;
     }
     if (historyBatch.length > 0) {
@@ -331,6 +351,15 @@ async function flushOutbox() {
         // The ban chains above may have drained, so refresh the pending badge,
         // but don't announce a clean flush while history entries are still
         // queued. The next online event retries them.
+        notifyOutboxChanged();
+        return;
+      }
+    }
+    for (const item of historyDeletes) {
+      try {
+        await request(`/api/history/${encodeURIComponent(item.clientUuid)}`, { method: 'DELETE' });
+        await idb.removeOutbox(item.id);
+      } catch {
         notifyOutboxChanged();
         return;
       }

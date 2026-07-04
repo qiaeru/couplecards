@@ -14,6 +14,10 @@ let currentRoute = null;
 let currentModule = null;
 let outlet = null;
 let isHistoryNav = false;
+// Bumped on every render() call. Each await inside render() re-checks it so a
+// render overtaken by a newer navigation stops instead of overwriting the
+// newer view with its own stale partial, module, scroll reset, and focus.
+let renderGen = 0;
 
 export function registerFeature(name, loader) {
   features.set(name, loader);
@@ -56,6 +60,7 @@ export async function render() {
   if (!outlet) return;
   const { segment, params } = parsePath();
   if (!features.has(segment)) return;
+  const gen = ++renderGen;
 
   // Snapshot the scroll position of the screen we are about to leave, so a
   // future browser back can restore it.
@@ -66,16 +71,21 @@ export async function render() {
   if (currentModule && typeof currentModule.unmount === 'function') {
     try { currentModule.unmount(); } catch (err) { console.error('unmount failed', err); }
   }
+  // Null right away so an overlapping render cannot unmount the same module twice.
+  currentModule = null;
 
   const html = await loadPartial(segment);
+  if (gen !== renderGen) return;
   outlet.innerHTML = html;
   applyI18n(outlet);
 
   const module = await features.get(segment)();
+  if (gen !== renderGen) return;
   currentModule = module;
   currentRoute = segment;
   if (module && typeof module.mount === 'function') {
     await module.mount({ params, outlet });
+    if (gen !== renderGen) return;
   }
   document.dispatchEvent(new CustomEvent('route:mounted', { detail: { route: segment } }));
 

@@ -118,7 +118,7 @@ Four guard levels are referenced below: **public** (no auth needed), **session**
 | `POST` | `/api/auth/logout` | session | |
 | `GET` | `/api/auth/me` | public | Returns 401 when no session |
 | `POST` | `/api/auth/change-password` | session | Rotates `session_epoch` |
-| `POST` | `/api/auth/preferences` | session | Updates the locale |
+| `POST` | `/api/auth/preferences` | session | Updates the locale. Acknowledged but not persisted for demo accounts |
 | `GET` | `/api/cards` | session | Returns each card with `translations` keyed by locale. ETag-aware, 304 when unchanged |
 | `POST`, `PATCH`, `DELETE` | `/api/cards[/:id]` | admin | Per-card CRUD. The body carries a `translations` map of `{ locale: { title, description } }` |
 | `GET` | `/api/admin/cards/export` | admin | Downloads a ZIP with one `cards.<locale>.json` per supported locale, pretty-printed |
@@ -127,7 +127,7 @@ Four guard levels are referenced below: **public** (no auth needed), **session**
 | `GET` | `/api/state` | user | Returns `{ banned, history }` |
 | `POST` | `/api/state/reset` | user | Wipes the caller's bans and history in a single transaction. Rejected with 403 for demo accounts |
 | `POST`, `DELETE` | `/api/bans[/:cardId]` | user | Idempotent |
-| `POST` | `/api/history` | user | Batch endpoint, idempotent on `clientUuid` |
+| `POST`, `DELETE` | `/api/history[/:clientUuid]` | user | Batch add and per-entry delete (undo), both idempotent on `clientUuid` |
 | `GET`, `POST`, `PATCH`, `DELETE` | `/api/admin/users[/:id]` | admin | Full user CRUD plus unlock, reset-password, and bulk removal of inactive accounts (`POST /api/admin/users/prune-inactive`) |
 | `GET`, `PUT` | `/api/admin/registration` | admin | Reads or sets the public-registration switch |
 | `GET` | `/manifest.webmanifest` | public | Negotiated on `Accept-Language` |

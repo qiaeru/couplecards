@@ -15,8 +15,14 @@ jobs:
       - name: Build Docker image
         run: docker build --build-arg VERSION=ci --build-arg REVISION=${{ github.sha }} -t couplecards:ci .
 
+      # The root package.json only has devDependencies, but those are exactly
+      # the libraries bundled into public/vendor/ and shipped to browsers, so
+      # install them and check without --production.
+      - name: Install root dependencies
+        run: npm ci --no-audit --no-fund
+
       - name: Check root dependency licenses
-        run: npx --yes license-checker --production --onlyAllow 'MIT;Apache-2.0;BSD-2-Clause;BSD-3-Clause;ISC;OFL-1.1;CC0-1.0;Unlicense;0BSD;BlueOak-1.0.0' --excludePrivatePackages
+        run: npx --yes license-checker --onlyAllow 'MIT;Apache-2.0;BSD-2-Clause;BSD-3-Clause;ISC;OFL-1.1;CC0-1.0;Unlicense;0BSD;BlueOak-1.0.0' --excludePrivatePackages
 
       - name: Check server dependency licenses
         working-directory: server

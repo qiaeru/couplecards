@@ -50,21 +50,24 @@ Docker creates missing bind-mount directories as root by default, which is why t
 
 ### Manual backup
 
-```bash
-cp ./var/couplecards.db ./backup-$(date +%F).db
-```
-
-The database runs in WAL mode. Copying the file while the server is running is safe, although the copy may miss the last in-memory write. For strict consistency, stop the container first:
+The database runs in WAL mode: the most recent committed writes live in `couplecards.db-wal` next to the main file until SQLite folds them in. A copy of `couplecards.db` alone can therefore miss recent data, or even be unreadable if the copy races a checkpoint. The reliable method is to stop the container first (the server folds the WAL into the main file on graceful shutdown):
 
 ```bash
 docker compose down
-cp ./var/couplecards.db ./backup.db
+cp ./var/couplecards.db ./backup-$(date +%F).db
 docker compose up -d
+```
+
+To back up without downtime, copy the database together with its companion files and keep the whole set:
+
+```bash
+mkdir -p ./backups
+cp ./var/couplecards.db* ./backups/
 ```
 
 ### Restore
 
-Stop the container, replace `./var/couplecards.db` with the backup, and start the container again. Existing sessions remain valid as long as `SESSION_SECRET` has not changed.
+Stop the container, replace `./var/couplecards.db` with the backup, and delete any leftover `couplecards.db-wal` and `couplecards.db-shm` files (or restore them alongside if your backup includes them). Then start the container again. Existing sessions remain valid as long as `SESSION_SECRET` has not changed.
 
 ## Emergency admin reset
 

@@ -134,4 +134,24 @@ export default async function syncRoutes(app) {
     })(request.body.entries);
     return { ok: true };
   });
+
+  // Undo support: drop a single entry by its client-generated uuid. Idempotent
+  // like the other mutations, so the outbox can replay it and deleting an
+  // entry that never reached the server is a harmless no-op.
+  app.delete('/history/:clientUuid', {
+    schema: {
+      params: {
+        type: 'object',
+        required: ['clientUuid'],
+        additionalProperties: false,
+        properties: {
+          clientUuid: { type: 'string', minLength: 8, maxLength: 64 },
+        },
+      },
+    },
+  }, async (request) => {
+    getDb().prepare('DELETE FROM history WHERE user_id = ? AND client_uuid = ?')
+      .run(request.currentUser.id, request.params.clientUuid);
+    return { ok: true };
+  });
 }
