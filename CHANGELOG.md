@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+- Undo now sticks. Tapping "Undo" on the ban or return toast previously only reverted the change locally, so the entry silently came back in History and Collection on the next reload; the undo now also removes it on the server, including when it happens offline.
+- Database migrations that rebuild a table can no longer cascade-delete user data. The migration that added German, Italian, and Spanish did exactly that: instances that upgraded through it lost their banned cards and play history.
+- Once an account lockout expires, the failed-attempt counter resets, so a single wrong password no longer re-locks the account for another full period.
+- The shared demo account no longer remembers the previous visitor's language choice.
+- Switching screens in quick succession can no longer show the wrong screen: the router now discards a navigation that was overtaken by a newer one.
+- Tapping a pile and then a navigation link during the short launch animation no longer yanks you to the draw screen afterward.
+- The change-password dialog in Settings now behaves like the other dialogs: Escape and clicking outside close it, keyboard focus stays trapped inside, and focus returns to the control that opened it.
+- The password-strength meter shown on the forced first-login change now follows the server's configured strength policy instead of a hardcoded threshold.
+- The app manifest is now part of the offline cache, so the installed app keeps its name and icons offline right after an update.
+- Docker builds run from a working copy no longer bake the local development database (`server/var/`) into the image.
+
+### Changed
+
+- The CI license check now installs the root dependencies before running, so the libraries actually bundled for browsers (zxcvbn, fflate) are checked; the step previously inspected an empty tree and verified nothing.
+- The backup documentation now covers WAL mode properly: a hot copy must include the `-wal` and `-shm` companion files, and stopping the container first remains the reliable method.
+
 ## [1.11.0] - 2026-06-19
 
 ### Added
