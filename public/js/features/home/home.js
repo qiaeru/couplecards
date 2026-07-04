@@ -9,6 +9,7 @@ import { on } from '../../core/events.js';
 
 let unsubscribe = null;
 let pileLaunching = false;
+let pileLaunchTimer = 0;
 
 export function refreshHomeCounts() {
   const remaining = countsByPile();
@@ -59,7 +60,7 @@ export async function mount() {
       await requestOrientationIfNeeded();
       btn.classList.add('launching');
       const pile = btn.dataset.pile;
-      setTimeout(() => {
+      pileLaunchTimer = setTimeout(() => {
         btn.classList.remove('launching');
         pileLaunching = false;
         navigate('draw', { pile });
@@ -74,5 +75,8 @@ export async function mount() {
 
 export function unmount() {
   if (unsubscribe) { unsubscribe(); unsubscribe = null; }
+  // Kill a pending pile launch: navigating away inside the 380 ms launch
+  // window must not yank the user back to the draw screen.
+  clearTimeout(pileLaunchTimer);
   pileLaunching = false;
 }
