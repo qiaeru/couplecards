@@ -10,9 +10,8 @@ import { SUPPORTED_LOCALES } from '../lib/locales.js';
 const LOCKOUT_THRESHOLD = 10;
 const LOCKOUT_MINUTES = 15;
 
-const passwordSchema = { type: 'string', minLength: 8, maxLength: 200 };
-// Self-registration requires the full policy length up front: there is no
-// generated password to change later, the user picks their own.
+// Matches POLICY.minLength: both registration and change-password enforce the
+// full policy on the new password anyway, the schema just fails cheap and early.
 const newPasswordSchema = { type: 'string', minLength: 12, maxLength: 200 };
 // Login and the `currentPassword` field of change-password accept any
 // non-empty value: the strength policy is enforced on the new password, and
@@ -83,6 +82,13 @@ export default async function authRoutes(app) {
       if (unlockAt > new Date()) {
         return reply.code(423).send({ error: 'ACCOUNT_LOCKED', details: { unlockAt: unlockAt.toISOString() } });
       }
+      // Lock expired: restore a full window of attempts. Without this reset
+      // the counter stays at the threshold and a single wrong password
+      // re-locks the account for another full period, indefinitely.
+      db.prepare(`
+        UPDATE users SET failed_attempts = 0, locked_until = NULL, updated_at = datetime('now')
+        WHERE id = ?
+      `).run(row.id);
     }
 
     const ok = await verifyPassword(row.password_hash, password);
@@ -218,7 +224,7 @@ export default async function authRoutes(app) {
         additionalProperties: false,
         properties: {
           currentPassword: currentPasswordSchema,
-          newPassword: passwordSchema,
+          newPassword: newPasswordSchema,
         },
       },
     },
@@ -270,6 +276,9 @@ export default async function authRoutes(app) {
   }, async (request) => {
     const { locale } = request.body;
     if (!locale) return { ok: true };
+    // Shared demo account: acknowledge without persisting, one visitor's
+    // locale choice must not leak to the next (login only wipes bans/history).
+    if (request.currentUser.isDemo) return { ok: true };
     getDb().prepare(`
       UPDATE users SET locale = ?, updated_at = datetime('now')
       WHERE id = ?
