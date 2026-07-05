@@ -732,14 +732,20 @@ export function showCardDirectly(cardId) {
   const preview = $('preview-actions');
   f.classList.add(pile === 'home' ? 'glow-home' : 'glow-outdoor');
   f.classList.add('settled');
+  // The previewed card floats over its shadow like a freshly revealed one,
+  // so the object feels alive everywhere it appears. The one-shot effects
+  // (dust, landing shockwave, text cascade) stay reserved for the live
+  // reveal: replaying them on every card opened from Collection or History
+  // would turn them into noise.
+  if (!prefersReducedMotion()) {
+    f.classList.add('floaty');
+    $('card-ground')?.classList.add('active');
+  }
   frontEl.classList.add('idle-shine');
   announceCard(card);
   if (preview) preview.hidden = false;
   updatePreviewActions(cardId);
   attachTilt();
-  // Skip the ambient dust and landing effects in preview mode: those are
-  // tuned for the dramatic reveal flow, and replaying them every time the
-  // user opens an already-known card from Collection or History feels heavy.
   return true;
 }
 
