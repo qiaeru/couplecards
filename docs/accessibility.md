@@ -6,7 +6,7 @@ Audience: maintainers and contributors. This page summarizes what the app implem
 
 - Meet WCAG 2.1 AA contrast ratios for text and interactive elements.
 - Guarantee full keyboard operability. No screen in the app relies on a mouse-only interaction path.
-- Respect `prefers-reduced-motion` by disabling the 3D tilt, sparkle animations, and ripple effects.
+- Respect `prefers-reduced-motion` by disabling the 3D tilt, the gold-dust and ember particles, the card levitation, the screen transitions, and every other decorative animation.
 - Respect `prefers-color-scheme`. The dark theme is the default and no screen forces a specific color scheme.
 - Announce important state changes to screen readers through `aria-live` regions.
 
