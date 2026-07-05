@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+- Editing the preview address can no longer reveal cards that were never drawn: the read-only card preview now only opens cards present in your history.
+
 ## [1.12.0] - 2026-07-05
 
 ### Fixed
