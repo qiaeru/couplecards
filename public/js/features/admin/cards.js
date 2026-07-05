@@ -6,7 +6,7 @@ import { request, errorMessage } from '../../core/api.js';
 import { t, getLocale, supportedLocales } from '../../core/i18n.js';
 import { getCardText } from '../../core/sync.js';
 import { on } from '../../core/events.js';
-import { toast, showConfirm } from '../../ui/shell.js';
+import { toast, showConfirm, withModal } from '../../ui/shell.js';
 import { mountDeckTools } from './deck-sync.js';
 import { escapeHtml } from '../../core/dom.js';
 import { EMOJI_SLUGS } from './emoji-slugs.js';
@@ -114,129 +114,82 @@ function collectTranslations(form) {
 }
 
 function openCardDialog({ card = null } = {}) {
-  const host = document.getElementById('modal');
-  const titleEl = document.getElementById('modal-title');
-  const bodyEl = document.getElementById('modal-body');
-  const confirmBtn = document.getElementById('modal-confirm');
-  const cancelBtn = document.getElementById('modal-cancel');
-  const backdrop = host?.querySelector('[data-modal-close]');
-  if (!host) return;
-
-  const previouslyFocused = document.activeElement;
   const isEdit = !!card;
-  titleEl.textContent = isEdit ? t('admin.cards.edit') : t('admin.cards.create');
-  bodyEl.innerHTML = `
-    <form id="card-form" class="card-form">
-      <label class="field">
-        <span>${escapeHtml(t('admin.cards.id'))}</span>
-        <input type="text" id="card-id" value="${card ? escapeHtml(card.id) : ''}"
-               ${isEdit ? 'readonly' : ''} required
-               pattern="[a-z0-9\\-]{1,64}">
-        <small>${escapeHtml(t('admin.cards.idHint'))}</small>
-      </label>
-      <label class="field">
-        <span>${escapeHtml(t('admin.cards.pile'))}</span>
-        <select id="card-pile" required>
-          <option value="home" ${card?.pile === 'home' ? 'selected' : ''}>${escapeHtml(t('piles.home.label'))}</option>
-          <option value="outdoor" ${card?.pile === 'outdoor' ? 'selected' : ''}>${escapeHtml(t('piles.outdoor.label'))}</option>
-        </select>
-      </label>
-      ${SUPPORTED_LOCALES.map((loc) => renderTranslationSection(loc, card)).join('')}
-      <label class="field-inline">
-        <input type="checkbox" id="card-foil" ${card?.foil ? 'checked' : ''}>
-        <span>${escapeHtml(t('admin.cards.foil'))}</span>
-      </label>
-      <label class="field">
-        <span>${escapeHtml(t('admin.cards.emoji'))}</span>
-        <input type="text" id="card-emoji" list="card-emoji-slugs"
-               value="${card?.emoji ? escapeHtml(card.emoji) : ''}"
-               pattern="[a-z0-9\\-]{1,64}">
-        <small>${escapeHtml(t('admin.cards.emojiHint'))}</small>
-      </label>
-      <datalist id="card-emoji-slugs">
-        ${EMOJI_SLUGS.map((s) => `<option value="${escapeHtml(s)}"></option>`).join('')}
-      </datalist>
-      <div class="cp-error" id="card-error" role="alert"></div>
-    </form>
-  `;
-  confirmBtn.textContent = t('common.save');
-  confirmBtn.classList.add('btn-primary');
-  confirmBtn.classList.remove('btn-danger');
-  confirmBtn.disabled = false;
-  cancelBtn.hidden = false;
-  cancelBtn.textContent = t('common.cancel');
-  host.hidden = false;
-
-  const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
-  const getFocusables = () => Array.from(host.querySelectorAll(FOCUSABLE))
-    .filter((el) => !el.hidden && el.offsetParent !== null);
-
-  const close = () => {
-    host.hidden = true;
-    confirmBtn.removeEventListener('click', onConfirm);
-    cancelBtn.removeEventListener('click', onCancel);
-    backdrop?.removeEventListener('click', onCancel);
-    document.removeEventListener('keydown', onKey);
-    if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
-      try { previouslyFocused.focus(); } catch {}
-    }
-  };
-  const onCancel = () => close();
-  const onKey = (event) => {
-    if (event.key === 'Escape') { event.preventDefault(); close(); return; }
-    if (event.key !== 'Tab') return;
-    const items = getFocusables();
-    if (items.length === 0) return;
-    const first = items[0];
-    const last = items[items.length - 1];
-    if (event.shiftKey && document.activeElement === first) {
-      event.preventDefault();
-      last.focus();
-    } else if (!event.shiftKey && document.activeElement === last) {
-      event.preventDefault();
-      first.focus();
-    }
-  };
-  const onConfirm = async () => {
-    const form = document.getElementById('card-form');
-    const err = document.getElementById('card-error');
-    err.textContent = '';
-    const translations = collectTranslations(form);
-    if (Object.keys(translations).length === 0) {
-      err.textContent = t('errors.VALIDATION_ERROR');
-      return;
-    }
-    const emojiValue = document.getElementById('card-emoji').value.trim();
-    const payload = {
-      pile: document.getElementById('card-pile').value,
-      foil: document.getElementById('card-foil').checked,
-      emoji: emojiValue || null,
-      translations,
-    };
-    confirmBtn.disabled = true;
-    try {
-      if (isEdit) {
-        await request(`/api/cards/${encodeURIComponent(card.id)}`, { method: 'PATCH', body: payload });
-      } else {
-        payload.id = document.getElementById('card-id').value.trim();
-        await request('/api/cards', { method: 'POST', body: payload });
+  withModal({
+    title: isEdit ? t('admin.cards.edit') : t('admin.cards.create'),
+    bodyHtml: `
+      <form id="card-form" class="card-form">
+        <label class="field">
+          <span>${escapeHtml(t('admin.cards.id'))}</span>
+          <input type="text" id="card-id" value="${card ? escapeHtml(card.id) : ''}"
+                 ${isEdit ? 'readonly' : ''} required
+                 pattern="[a-z0-9\\-]{1,64}">
+          <small>${escapeHtml(t('admin.cards.idHint'))}</small>
+        </label>
+        <label class="field">
+          <span>${escapeHtml(t('admin.cards.pile'))}</span>
+          <select id="card-pile" required>
+            <option value="home" ${card?.pile === 'home' ? 'selected' : ''}>${escapeHtml(t('piles.home.label'))}</option>
+            <option value="outdoor" ${card?.pile === 'outdoor' ? 'selected' : ''}>${escapeHtml(t('piles.outdoor.label'))}</option>
+          </select>
+        </label>
+        ${SUPPORTED_LOCALES.map((loc) => renderTranslationSection(loc, card)).join('')}
+        <label class="field-inline">
+          <input type="checkbox" id="card-foil" ${card?.foil ? 'checked' : ''}>
+          <span>${escapeHtml(t('admin.cards.foil'))}</span>
+        </label>
+        <label class="field">
+          <span>${escapeHtml(t('admin.cards.emoji'))}</span>
+          <input type="text" id="card-emoji" list="card-emoji-slugs"
+                 value="${card?.emoji ? escapeHtml(card.emoji) : ''}"
+                 pattern="[a-z0-9\\-]{1,64}">
+          <small>${escapeHtml(t('admin.cards.emojiHint'))}</small>
+        </label>
+        <datalist id="card-emoji-slugs">
+          ${EMOJI_SLUGS.map((s) => `<option value="${escapeHtml(s)}"></option>`).join('')}
+        </datalist>
+        <div class="cp-error" id="card-error" role="alert"></div>
+      </form>
+    `,
+    confirmLabel: t('common.save'),
+    cancelLabel: t('common.cancel'),
+    initialFocus: () => (isEdit
+      ? document.querySelector('[name="title-' + getLocale() + '"]')
+      : document.getElementById('card-id')),
+    onConfirm: async ({ close, confirmBtn }) => {
+      const form = document.getElementById('card-form');
+      const err = document.getElementById('card-error');
+      err.textContent = '';
+      const translations = collectTranslations(form);
+      if (Object.keys(translations).length === 0) {
+        err.textContent = t('errors.VALIDATION_ERROR');
+        return;
       }
-      close();
-      toast(t('admin.cards.saved.toast'));
-      await renderCards();
-    } catch (e) {
-      err.textContent = errorMessage(e);
-    } finally {
-      confirmBtn.disabled = false;
-    }
-  };
-  confirmBtn.addEventListener('click', onConfirm);
-  cancelBtn.addEventListener('click', onCancel);
-  backdrop?.addEventListener('click', onCancel);
-  document.addEventListener('keydown', onKey);
-  setTimeout(() => (isEdit
-    ? document.querySelector('[name="title-' + getLocale() + '"]')
-    : document.getElementById('card-id'))?.focus(), 50);
+      const emojiValue = document.getElementById('card-emoji').value.trim();
+      const payload = {
+        pile: document.getElementById('card-pile').value,
+        foil: document.getElementById('card-foil').checked,
+        emoji: emojiValue || null,
+        translations,
+      };
+      confirmBtn.disabled = true;
+      try {
+        if (isEdit) {
+          await request(`/api/cards/${encodeURIComponent(card.id)}`, { method: 'PATCH', body: payload });
+        } else {
+          payload.id = document.getElementById('card-id').value.trim();
+          await request('/api/cards', { method: 'POST', body: payload });
+        }
+        close();
+        toast(t('admin.cards.saved.toast'));
+        await renderCards();
+      } catch (e) {
+        err.textContent = errorMessage(e);
+      } finally {
+        confirmBtn.disabled = false;
+      }
+    },
+  });
 }
 
 export async function renderCards() {
@@ -260,7 +213,9 @@ async function deleteCard(id, title) {
 
 export async function mount() {
   mountDeckTools(() => { renderCards().catch(() => {}); });
-  on('i18n:change', () => { renderCards().catch(() => {}); });
+  // Re-render from the cached list: cards already carry every translation,
+  // so a language switch needs no refetch.
+  on('i18n:change', () => { renderCardsList(filterCards()); });
 
   document.getElementById('admin-cards-search')?.addEventListener('input', (e) => {
     cardsQuery = e.target.value;

@@ -139,7 +139,9 @@ export function showConfirm({
 // to disable Escape and backdrop-click closing (used when accidental
 // dismissal would lose unrecoverable state, e.g. a generated password
 // shown only once).
-export function withModal({ title, bodyHtml, confirmLabel, cancelLabel, danger, onConfirm, onBodyReady, dismissable = true }) {
+// Optional initialFocus: a function returning the element to focus on open,
+// for dialogs whose natural starting field is not the first focusable one.
+export function withModal({ title, bodyHtml, confirmLabel, cancelLabel, danger, onConfirm, onBodyReady, dismissable = true, initialFocus }) {
   const host = document.getElementById('modal');
   const titleEl = document.getElementById('modal-title');
   const bodyEl = document.getElementById('modal-body');
@@ -208,8 +210,9 @@ export function withModal({ title, bodyHtml, confirmLabel, cancelLabel, danger, 
   onBodyReady?.({ close });
 
   setTimeout(() => {
+    const preferred = typeof initialFocus === 'function' ? initialFocus() : null;
     const [first] = getFocusables();
-    (first || confirmBtn).focus();
+    (preferred || first || confirmBtn).focus();
   }, 50);
 
   return { close };
