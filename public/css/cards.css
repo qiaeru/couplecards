@@ -697,7 +697,13 @@
   transform: translateX(-180%) skewX(-14deg);
   animation: shine-sweep 6.5s ease-in-out infinite;
   will-change: transform;
+  opacity: 1;
+  transition: opacity 0.35s ease;
 }
+/* During pointer or gyro interaction the holographic layer takes over
+   (holo-on is set on the first tilt frame for every card, foil or not);
+   fade the idle streak out instead of cutting it mid-sweep. */
+.card-front.idle-shine.holo-on::before { opacity: 0; }
 @keyframes shine-sweep {
   0%   { transform: translateX(-180%) skewX(-14deg); }
   48%  { transform: translateX(260%) skewX(-14deg); }
