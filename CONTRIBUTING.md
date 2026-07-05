@@ -81,7 +81,7 @@ The bundled fonts are Inter for the sans-serif stack and Fraunces for the serif 
 - Keep commits small and focused. One concern per pull request.
 - Write the commit subject in imperative English, for example `Add sync outbox`.
 - Reference related issues by number in the commit body when relevant.
-- Every new source file must carry an SPDX header on its first line. The `scripts/add-spdx.mjs` helper can retrofit existing files.
+- Every new source file must carry an SPDX header on its first line (`// SPDX-License-Identifier: MIT`).
 
 ## Security
 

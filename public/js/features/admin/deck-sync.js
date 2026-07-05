@@ -114,7 +114,7 @@ function openSyncDialog() {
     bodyHtml: renderBody(),
     confirmLabel: t('admin.deckSync.apply'),
     cancelLabel: t('common.cancel'),
-    onBodyReady: ({ close }) => wireBody(close),
+    onBodyReady: () => wireBody(),
     onConfirm: async ({ close, confirmBtn }) => {
       confirmBtn.disabled = true;
       try {
@@ -135,7 +135,7 @@ function openSyncDialog() {
     },
   });
 
-  function wireBody(close) {
+  function wireBody() {
     const confirmBtn = document.getElementById('modal-confirm');
     confirmBtn.disabled = true;
     markApplyDanger(confirmBtn, false);
@@ -176,7 +176,7 @@ function openSyncDialog() {
     function rebuild() {
       document.getElementById('modal-body').innerHTML = renderBody();
       document.getElementById('deck-sync-summary-host').innerHTML = lastPreview ? renderSummary(lastPreview) : '';
-      wireBody(close);
+      wireBody();
     }
   }
 
@@ -203,7 +203,7 @@ function openImportDialog(deck, filename) {
     bodyHtml: renderBody(),
     confirmLabel: t('admin.deckSync.apply'),
     cancelLabel: t('common.cancel'),
-    onBodyReady: ({ close }) => wireBody(close),
+    onBodyReady: () => wireBody(),
     onConfirm: async ({ close, confirmBtn }) => {
       confirmBtn.disabled = true;
       try {
@@ -224,7 +224,7 @@ function openImportDialog(deck, filename) {
     },
   });
 
-  function wireBody(close) {
+  function wireBody() {
     const confirmBtn = document.getElementById('modal-confirm');
     confirmBtn.disabled = true;
     markApplyDanger(confirmBtn, false);
@@ -257,7 +257,7 @@ function openImportDialog(deck, filename) {
     function rebuild() {
       document.getElementById('modal-body').innerHTML = renderBody();
       document.getElementById('deck-sync-summary-host').innerHTML = lastPreview ? renderSummary(lastPreview) : '';
-      wireBody(close);
+      wireBody();
     }
   }
 

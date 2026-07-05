@@ -15,8 +15,7 @@
     "node": ">=24.0.0"
   },
   "scripts": {
-    "build:vendor": "node scripts/build-vendor.mjs",
-    "add-spdx": "node scripts/add-spdx.mjs"
+    "build:vendor": "node scripts/build-vendor.mjs"
   },
   "devDependencies": {
     "@zxcvbn-ts/core": "^4.1.2",
