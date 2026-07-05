@@ -38,7 +38,13 @@ async function boot() {
   const outlet = document.getElementById('view');
   setOutlet(outlet);
 
-  document.getElementById('boot-skeleton')?.remove();
+  // Fade the boot splash into the app instead of cutting; the logo shares
+  // the home wordmark styling, so the fade reads as a soft handoff.
+  const skeleton = document.getElementById('boot-skeleton');
+  if (skeleton) {
+    skeleton.classList.add('leaving');
+    setTimeout(() => skeleton.remove(), 250);
+  }
   document.getElementById('app')?.removeAttribute('hidden');
 
   wireBottomNav();

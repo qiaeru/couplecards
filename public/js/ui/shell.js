@@ -39,6 +39,17 @@ export function toast(message, options = {}) {
   const el = document.getElementById('toast');
   if (!el) return;
   clearTimeout(toast._timer);
+  clearTimeout(toast._hideTimer);
+  el.classList.remove('leaving');
+  // Animated dismissal; the timeout (not animationend) hides the element so
+  // reduced motion, where the animation is disabled, still ends hidden.
+  const dismiss = () => {
+    el.classList.add('leaving');
+    toast._hideTimer = setTimeout(() => {
+      el.hidden = true;
+      el.classList.remove('leaving');
+    }, 200);
+  };
   const action = options.action || null;
   const duration = options.duration ?? (action ? 5000 : 1800);
   el.replaceChildren(document.createTextNode(message));
@@ -49,13 +60,31 @@ export function toast(message, options = {}) {
     btn.textContent = action.label;
     btn.addEventListener('click', () => {
       clearTimeout(toast._timer);
-      el.hidden = true;
+      dismiss();
       try { action.onClick(); } catch {}
     });
     el.appendChild(btn);
   }
   el.hidden = false;
-  toast._timer = setTimeout(() => { el.hidden = true; }, duration);
+  toast._timer = setTimeout(dismiss, duration);
+}
+
+// Animated modal dismissal shared by showConfirm and withModal. The timeout
+// (not animationend) hides the element so reduced motion, where the
+// animations are disabled, still ends hidden.
+let modalCloseTimer = 0;
+function openModalHost(host) {
+  clearTimeout(modalCloseTimer);
+  host.classList.remove('closing');
+  host.hidden = false;
+}
+function closeModalHost(host) {
+  host.classList.add('closing');
+  clearTimeout(modalCloseTimer);
+  modalCloseTimer = setTimeout(() => {
+    host.hidden = true;
+    host.classList.remove('closing');
+  }, 170);
 }
 
 // Generic confirmation modal with a focus trap. Resolves to true/false.
@@ -89,7 +118,7 @@ export function showConfirm({
     const focusables = () => [cancelBtn, confirmBtn].filter((b) => !b.hidden);
 
     const close = (result) => {
-      modal.hidden = true;
+      closeModalHost(modal);
       confirmBtn.removeEventListener('click', onConfirm);
       cancelBtn.removeEventListener('click', onCancel);
       modal.querySelector('[data-modal-close]')?.removeEventListener('click', onCancel);
@@ -127,7 +156,7 @@ export function showConfirm({
     modal.querySelector('[data-modal-close]')?.addEventListener('click', onCancel);
     document.addEventListener('keydown', onKey);
 
-    modal.hidden = false;
+    openModalHost(modal);
     setTimeout(() => confirmBtn.focus(), 50);
   });
 }
@@ -161,14 +190,14 @@ export function withModal({ title, bodyHtml, confirmLabel, cancelLabel, danger, 
   const showCancel = cancelLabel != null;
   cancelBtn.hidden = !showCancel;
   if (showCancel) cancelBtn.textContent = cancelLabel;
-  host.hidden = false;
+  openModalHost(host);
 
   const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
   const getFocusables = () => Array.from(host.querySelectorAll(FOCUSABLE))
     .filter((el) => !el.hidden && el.offsetParent !== null);
 
   const close = () => {
-    host.hidden = true;
+    closeModalHost(host);
     confirmBtn.removeEventListener('click', handler);
     cancelBtn.removeEventListener('click', cancel);
     backdrop?.removeEventListener('click', cancel);
@@ -300,27 +329,41 @@ function showUpdateBanner(worker) {
 // "Syncing your changes…" when the outbox has pending writes that have not
 // reached the server yet. Hidden once everything settles.
 let syncPending = 0;
+let syncBannerHideTimer = 0;
 
 function refreshSyncBanner() {
   const banner = document.getElementById('sync-banner');
   const text = document.getElementById('sync-banner-text');
   if (!banner || !text) return;
+  const show = () => {
+    clearTimeout(syncBannerHideTimer);
+    banner.classList.remove('leaving');
+    banner.hidden = false;
+  };
   const offline = !navigator.onLine;
   if (offline) {
     text.textContent = t('common.offline');
     banner.classList.remove('is-syncing');
     banner.classList.add('is-offline');
-    banner.hidden = false;
+    show();
     return;
   }
   if (syncPending > 0) {
     text.textContent = t('common.syncPending');
     banner.classList.remove('is-offline');
     banner.classList.add('is-syncing');
-    banner.hidden = false;
+    show();
     return;
   }
-  banner.hidden = true;
+  // Animated exit; the timeout (not animationend) hides the banner so
+  // reduced motion, where the animation is disabled, still ends hidden.
+  if (!banner.hidden && !banner.classList.contains('leaving')) {
+    banner.classList.add('leaving');
+    syncBannerHideTimer = setTimeout(() => {
+      banner.hidden = true;
+      banner.classList.remove('leaving');
+    }, 200);
+  }
 }
 
 export function initSyncBanner() {
