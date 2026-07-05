@@ -18,8 +18,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - The password-strength meter shown on the forced first-login change now follows the server's configured strength policy instead of a hardcoded threshold.
 - The app manifest is now part of the offline cache, so the installed app keeps its name and icons offline right after an update.
 - Docker builds run from a working copy no longer bake the local development database (`server/var/`) into the image.
+- The bundled nginx configuration no longer strips the app's Content-Security-Policy and Permissions-Policy headers; deployments based on it were running without CSP.
+- Creating a card whose identifier already exists shows the proper "identifier already in use" message again instead of a generic server error.
+- The admin Users tab shows creation and last sign-in times in the viewer's timezone; they were shifted by the UTC offset.
+- "Reduce motion" now also covers the full-screen reveal flash, the revealed card's looping shine, and the screen slide-in animation.
+- Switching tabs and back on a revealed card no longer restarts ripple effects that had already finished, and a leftover card-return animation can no longer freeze the tilt effect on the next draw.
+- `ENABLE_REGISTRATION` set in `.env` now actually reaches the container, and the HTTPS deployment variants also pass `ADMIN_RESET` and `ENABLE_DEMO_ACCOUNT` through, so the documented recovery and demo switches work without editing the compose file.
+- Two deck edits saved within the same second no longer leave clients on the stale text: the deck version now includes a persistent revision counter.
+- The container healthcheck follows a custom `PORT` instead of assuming 3000.
 
 ### Changed
+
+- The Docker image is roughly half as large: file ownership is set during copy instead of in a duplicating chown layer.
+- `/api/health` no longer exposes the app version publicly; it only reports liveness.
+- Seed files are validated at first boot with the same rules as the admin "sync from files" operation; malformed files are skipped with a warning instead of seeding unvalidated data.
+- Switching the admin panel language re-renders the lists from memory instead of refetching them.
 
 - The CI license check now installs the root dependencies before running, so the libraries actually bundled for browsers (zxcvbn, fflate) are checked; the step previously inspected an empty tree and verified nothing.
 - The backup documentation now covers WAL mode properly: a hot copy must include the `-wal` and `-shm` companion files, and stopping the container first remains the reliable method.
