@@ -55,6 +55,8 @@ function render() {
     return;
   }
 
+  // Staggered entrance, capped so long histories never feel slow to load.
+  let stagger = 0;
   for (const group of groupByDate(history)) {
     const header = document.createElement('div');
     header.className = 'history-group-header';
@@ -68,7 +70,8 @@ function render() {
       const foil = !!card?.foil;
 
       const div = document.createElement('div');
-      div.className = 'list-item';
+      div.className = 'list-item stagger-in';
+      div.style.setProperty('--i', String(Math.min(stagger++, 8)));
       if (card) {
         div.classList.add('clickable');
         div.setAttribute('role', 'button');
