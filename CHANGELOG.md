@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+
+- The History screen gains filter chips (pile, returned, banned) and a summary line with the total number of draws and bans.
+- The Collection gains two filters: "Banned" to find banned cards without scanning the grid, and "Undiscovered" to see what is left to find.
+- The admin Users tab can rename an account.
+
+### Fixed
+
+- Editing the preview address can no longer reveal cards that were never drawn: the read-only card preview now only opens cards present in your history.
+
 ## [1.12.0] - 2026-07-05
 
 ### Fixed

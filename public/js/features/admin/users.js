@@ -47,10 +47,12 @@ function renderUsersList(users) {
     // Demo account can only be deleted; its password, username, and lock state
     // are managed by the seed / login logic.
     const showUnlock = isLocked && !isAdmin && !isDemo;
+    const showRename = !isAdmin && !isDemo;
     const showReset = !isAdmin && !isDemo;
     const showDelete = !isAdmin;
     const actions = [
       showUnlock ? `<button class="btn btn-sm" data-action="unlock" data-id="${u.id}">${escapeHtml(t('admin.users.unlock'))}</button>` : '',
+      showRename ? `<button class="btn btn-sm" data-action="rename" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('admin.users.rename'))}</button>` : '',
       showReset ? `<button class="btn btn-sm" data-action="reset" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('admin.users.reset'))}</button>` : '',
       showDelete ? `<button class="btn btn-sm btn-danger" data-action="delete" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('common.delete'))}</button>` : '',
     ].filter(Boolean).join('');
@@ -103,6 +105,46 @@ async function createUser(username) {
   const created = await request('/api/admin/users', { method: 'POST', body: { username } });
   showInitialPassword(created.username, created.initialPassword);
   await renderUsers();
+}
+
+// The server normalizes (trim + lowercase) and validates the new name; the
+// modal mirrors the create-user flow and surfaces 409s (taken / reserved)
+// inline instead of closing.
+function renameUser(id, username) {
+  withModal({
+    title: t('admin.users.rename.title', { username }),
+    bodyHtml: `
+      <form id="rename-user-form" class="card-form">
+        <label class="field">
+          <span>${escapeHtml(t('admin.users.rename.label'))}</span>
+          <input type="text" id="rename-user-input" value="${escapeHtml(username)}"
+                 required minlength="3" maxlength="32" pattern="[a-z0-9._\\-]+"
+                 autocomplete="off">
+          <small>${escapeHtml(t('admin.users.create.usernameHint'))}</small>
+        </label>
+        <div class="cp-error" id="rename-user-error" role="alert"></div>
+      </form>
+    `,
+    confirmLabel: t('common.save'),
+    cancelLabel: t('common.cancel'),
+    onConfirm: async ({ close, confirmBtn }) => {
+      const err = document.getElementById('rename-user-error');
+      err.textContent = '';
+      const next = document.getElementById('rename-user-input').value.trim().toLowerCase();
+      if (!next || next === username) { close(); return; }
+      confirmBtn.disabled = true;
+      try {
+        await request(`/api/admin/users/${id}`, { method: 'PATCH', body: { username: next } });
+        close();
+        toast(t('admin.users.rename.toast'));
+        await renderUsers();
+      } catch (e) {
+        err.textContent = errorMessage(e);
+      } finally {
+        confirmBtn.disabled = false;
+      }
+    },
+  });
 }
 
 async function resetUser(id, username) {
@@ -237,7 +279,8 @@ export async function mount() {
     const id = Number(btn.dataset.id);
     const username = btn.dataset.username;
     try {
-      if (btn.dataset.action === 'reset') await resetUser(id, username);
+      if (btn.dataset.action === 'rename') renameUser(id, username);
+      else if (btn.dataset.action === 'reset') await resetUser(id, username);
       else if (btn.dataset.action === 'delete') await deleteUser(id, username);
       else if (btn.dataset.action === 'unlock') await unlockUser(id);
     } catch (err) {

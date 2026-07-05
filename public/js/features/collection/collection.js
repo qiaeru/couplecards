@@ -158,9 +158,10 @@ function buildCounter(host, seen, total, animate) {
   if (animate) cipherIn(numEl, seen);
 }
 
-// The counter and progress bar always reflect the pile/rare filter scope, so
-// they measure collection completion. The search query only narrows the grid,
-// the way the admin search does, and never moves the progress bar.
+// The counter and progress bar always reflect the active filter scope (pile,
+// rarity, or card state), so they measure collection completion: under
+// "Undiscovered" the bar honestly sits at zero. The search query only narrows
+// the grid, the way the admin search does, and never moves the progress bar.
 function updateProgress(seen, total) {
   const fill = document.getElementById('collection-progress-fill');
   if (!fill) return;
@@ -177,6 +178,8 @@ function render() {
   let scoped;
   if (currentFilter === 'all') scoped = cards;
   else if (currentFilter === 'rare') scoped = cards.filter((c) => c.foil);
+  else if (currentFilter === 'banned') scoped = cards.filter((c) => isBanned(c.id));
+  else if (currentFilter === 'undiscovered') scoped = cards.filter((c) => !discovered.has(c.id));
   else scoped = cards.filter((c) => c.pile === currentFilter);
 
   const total = scoped.length;

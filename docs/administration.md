@@ -28,6 +28,10 @@ The **Users** tab in `/admin.html` lists every account on the instance.
 2. Click **Create a user**. A dialog shows the initial password exactly once. Copy it and hand it to the partner in person, because the admin cannot retrieve it later.
 3. The user signs in with this password and is then forced to choose a new one immediately.
 
+### Rename a user
+
+Click **Rename** next to the user and enter the new username. The same rules as account creation apply (allowed characters, length, reserved names, no duplicates). The account's history, bans, and open sessions are untouched; the person simply signs in with the new name from then on.
+
 ### Reset a password
 
 1. Click **Reset password** next to the relevant user.

@@ -5,11 +5,22 @@
 
 import { getHistory, getCardById, getCardText } from '../../core/sync.js';
 import { navigate } from '../../core/router.js';
-import { t, fmtDateLong } from '../../core/i18n.js';
+import { t, tn, fmtDateLong } from '../../core/i18n.js';
 import { on } from '../../core/events.js';
 import { escapeHtml } from '../../core/dom.js';
 
 let unsubscribers = [];
+// Persists across visits, like the Collection filter: aria-pressed is re-synced
+// from it on every mount.
+let currentFilter = 'all';
+
+// Pile filters resolve the pile through the card, so entries whose card was
+// deleted since only show under "All" and the action filters.
+function matchesFilter(entry) {
+  if (currentFilter === 'all') return true;
+  if (currentFilter === 'returned' || currentFilter === 'banned') return entry.action === currentFilter;
+  return getCardById(entry.cardId)?.pile === currentFilter;
+}
 
 function startOfDay(date) {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
@@ -41,10 +52,19 @@ function groupByDate(history) {
   return Object.values(buckets).filter((b) => b.items.length > 0);
 }
 
+function renderStats(history) {
+  const el = document.getElementById('history-stats');
+  if (!el) return;
+  const bannedCount = history.filter((e) => e.action === 'banned').length;
+  el.textContent = `${tn('history.stats.draws', history.length)} · ${tn('history.stats.banned', bannedCount)}`;
+}
+
 function render() {
   const host = document.getElementById('history-list');
   if (!host) return;
   const history = getHistory();
+  const toolbar = document.getElementById('history-toolbar');
+  if (toolbar) toolbar.hidden = history.length === 0;
   host.innerHTML = '';
   if (history.length === 0) {
     host.innerHTML = `<div class="empty">
@@ -55,9 +75,23 @@ function render() {
     return;
   }
 
+  // The stats always cover the full history, regardless of the active filter,
+  // so they read as a stable summary rather than a moving count.
+  renderStats(history);
+
+  const visible = history.filter(matchesFilter);
+  if (visible.length === 0) {
+    host.innerHTML = `<div class="empty">
+      <div class="empty-icon" aria-hidden="true">💝</div>
+      <div class="empty-title">${escapeHtml(t('history.empty.filter.title'))}</div>
+      <div class="empty-hint">${escapeHtml(t('history.empty.filter.hint'))}</div>
+    </div>`;
+    return;
+  }
+
   // Staggered entrance, capped so long histories never feel slow to load.
   let stagger = 0;
-  for (const group of groupByDate(history)) {
+  for (const group of groupByDate(visible)) {
     const header = document.createElement('div');
     header.className = 'history-group-header';
     header.textContent = group.label;
@@ -113,7 +147,21 @@ function render() {
   }
 }
 
+function onFilterClick(event) {
+  const btn = event.target.closest('[data-filter]');
+  if (!btn) return;
+  currentFilter = btn.dataset.filter;
+  document.querySelectorAll('[data-filter]').forEach((b) => {
+    b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+  });
+  render();
+}
+
 export function mount() {
+  document.querySelector('.collection-filters')?.addEventListener('click', onFilterClick);
+  document.querySelectorAll('[data-filter]').forEach((b) => {
+    b.setAttribute('aria-pressed', b.dataset.filter === currentFilter ? 'true' : 'false');
+  });
   render();
   unsubscribers = [
     on('state:history-changed', render),

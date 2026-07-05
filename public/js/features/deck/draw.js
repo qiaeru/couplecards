@@ -734,6 +734,10 @@ function updatePreviewActions(cardId) {
 export function showCardDirectly(cardId) {
   const card = getCardById(cardId);
   if (!card) return false;
+  // The preview URL (#/draw?preview=<id>) is user-editable, so only cards the
+  // user actually drew may open: an unguarded lookup would expose the whole
+  // deck one id at a time. Same discovery rule as the Collection grid.
+  if (!getHistory().some((e) => e.cardId === cardId)) return false;
   previewMode = true;
   currentCardId = null;
   previewCardId = cardId;

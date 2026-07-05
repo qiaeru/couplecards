@@ -6,4 +6,15 @@
   <h1 class="title" data-i18n="history.title">History</h1>
   <span></span>
 </header>
+<!-- The chip row reuses the Collection filter styles (.collection-filters in cards.css). -->
+<div class="history-toolbar" id="history-toolbar" hidden>
+  <div class="history-stats" id="history-stats"></div>
+  <div class="collection-filters" role="group" data-i18n-attr="aria-label:history.title">
+    <button type="button" class="chip" data-filter="all" aria-pressed="true" data-i18n="collection.filter.all">All</button>
+    <button type="button" class="chip" data-filter="home" aria-pressed="false" data-i18n="piles.home.label">Home</button>
+    <button type="button" class="chip" data-filter="outdoor" aria-pressed="false" data-i18n="piles.outdoor.label">Outdoor</button>
+    <button type="button" class="chip" data-filter="returned" aria-pressed="false" data-i18n="history.filter.returned">Returned</button>
+    <button type="button" class="chip" data-filter="banned" aria-pressed="false" data-i18n="history.filter.banned">Banned</button>
+  </div>
+</div>
 <div class="list" id="history-list"></div>
