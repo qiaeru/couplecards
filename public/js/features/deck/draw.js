@@ -250,8 +250,9 @@ function applyTilt(rx, ry) {
   const py = 50 - (clampedRx / MAX) * 40;
   front.style.setProperty('--px', px.toFixed(1));
   front.style.setProperty('--py', py.toFixed(1));
+  // holo-on also fades the idle shine out through CSS; removing the class
+  // here instead would cut the streak mid-sweep with no transition.
   front.classList.add('holo-on');
-  front.classList.remove('idle-shine');
 }
 
 function smoothReturnToCenter() {
