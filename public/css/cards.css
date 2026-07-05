@@ -948,10 +948,10 @@
   .ripple { animation: none; opacity: 0; }
   .burst.active .shard { animation: none; opacity: 0; }
   #screen-draw.preflash::before { animation: none; }
+  #screen-draw.flash::after { animation: none; }
   .card-flip.glow-home::after,
   .card-flip.glow-outdoor::after { animation: none; }
-  .card-back-crest { animation: none; }
-  .card-shine { animation: none; opacity: 0; }
+  .card-front.idle-shine::before { animation: none; opacity: 0; }
 
   @keyframes card-enter-rm {
     from { opacity: 0; }
