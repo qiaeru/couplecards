@@ -8,15 +8,6 @@ const BASE = '/icons/emoji';
 // player bundles do not pay the parse cost. The renderer accepts any
 // matching slug regardless of where the list comes from.
 
-export const HEART_KEYS = [
-  'heart-ribbon',
-  'growing-heart',
-  'sparkling-heart',
-  'two-hearts',
-  'heart-arrow',
-  'red-heart',
-];
-
 export function emojiUrl(slug) {
   return slug ? `${BASE}/${slug}.svg` : '';
 }

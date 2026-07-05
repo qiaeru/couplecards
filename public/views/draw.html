@@ -6,10 +6,9 @@
   </div>
   <div class="draw-stage" id="draw-stage">
     <div class="bg-glow" id="bg-glow"></div>
-    <div class="ripples" id="ripples"></div>
-    <div class="particles" id="particles"></div>
-    <div class="burst" id="burst"></div>
-    <div class="hearts" id="hearts"></div>
+    <div class="fx-layer" id="dust"></div>
+    <div class="fx-layer" id="ambient"></div>
+    <div class="card-ground" id="card-ground" aria-hidden="true"></div>
     <div class="card-tilt" id="card-tilt">
       <div class="swipe-label swipe-label-ban" aria-hidden="true" data-i18n="draw.swipe.ban">Ban</div>
       <div class="swipe-label swipe-label-return" aria-hidden="true" data-i18n="draw.swipe.return">Return to the pile</div>
@@ -40,9 +39,11 @@
           </div>
           <div class="holo holo-rainbow"></div>
           <div class="holo holo-glare"></div>
+          <div class="reveal-streak" id="reveal-streak" aria-hidden="true"></div>
         </div>
       </div>
     </div>
+    <div class="fx-layer fx-above" id="landing"></div>
   </div>
   <div class="draw-actions" id="draw-actions" hidden>
     <button class="btn btn-md btn-danger" id="action-ban" aria-keyshortcuts="ArrowLeft" data-i18n="draw.action.ban">Ban</button>
