@@ -7,7 +7,7 @@ Audience: maintainers and contributors. This page summarizes what the app implem
 - Meet WCAG 2.1 AA contrast ratios for text and interactive elements.
 - Guarantee full keyboard operability. No screen in the app relies on a mouse-only interaction path.
 - Respect `prefers-reduced-motion` by disabling the 3D tilt, the gold-dust and ember particles, the card levitation, the screen transitions, and every other decorative animation.
-- Respect `prefers-color-scheme`. The dark theme is the default and no screen forces a specific color scheme.
+- The app ships a single dark theme by design; there is no light variant, and `prefers-color-scheme` is intentionally not consulted. The global `color-scheme: dark` declaration keeps native form controls and scrollbars consistent with it.
 - Announce important state changes to screen readers through `aria-live` regions.
 
 ## Implementation notes
