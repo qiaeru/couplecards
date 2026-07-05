@@ -12,6 +12,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - The Collection gains two filters: "Banned" to find banned cards without scanning the grid, and "Undiscovered" to see what is left to find.
 - The admin Users tab can rename an account.
 
+### Changed
+
+- The revealed card's idle shine now sweeps the whole face as a soft golden glint, and the card sits visually centered between the title and the action buttons.
+
 ### Fixed
 
 - Editing the preview address can no longer reveal cards that were never drawn: the read-only card preview now only opens cards present in your history.
