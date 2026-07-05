@@ -33,7 +33,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - `/api/health` no longer exposes the app version publicly; it only reports liveness.
 - Seed files are validated at first boot with the same rules as the admin "sync from files" operation; malformed files are skipped with a warning instead of seeding unvalidated data.
 - Switching the admin panel language re-renders the lists from memory instead of refetching them.
-
 - The CI license check now installs the root dependencies before running, so the libraries actually bundled for browsers (zxcvbn, fflate) are checked; the step previously inspected an empty tree and verified nothing.
 - The backup documentation now covers WAL mode properly: a hot copy must include the `-wal` and `-shm` companion files, and stopping the container first remains the reliable method.
 
