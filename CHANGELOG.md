@@ -29,6 +29,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- Switching screens now plays a soft crossfade: the app had transition styles but never actually drove them, so every navigation was an abrupt content swap.
+- The rest of the interface now speaks the reveal's gold language: tapping a pile charges it with gold light instead of a brightness flash, the halo around the most recently drawn card in the Collection and the pile counter pop turn gold, the syncing indicator drops its lone cyan for gold, History gets gilded date separators with a gently staggered entrance, and the sign-in card receives the same parchment wash and gold hairline as the rest of the app.
+- Toasts, the sync banner, and dialogs now animate out instead of vanishing in one frame, the boot splash fades into the app, Collection tiles respond to touch, admin tabs gain hover states and the same glowing indicator as the bottom navigation, and every one of these animations is disabled under "reduce motion".
 - The card reveal was redesigned around a "gold dust" sequence. The card now levitates while golden particles swirl into it, takes a sharp breath, then flips with a light sweep across its face; the landing sends out a golden shockwave (the full-screen white flash is gone), embers rain down, the card text cascades in, and the revealed card keeps floating gently over its shadow surrounded by a thin ambient dust. The floating emoji hearts are retired in favor of that ambient dust, and particle density adapts to the device so low-end phones get the same choreography with fewer particles.
 - The Docker image is roughly half as large: file ownership is set during copy instead of in a duplicating chown layer.
 - `/api/health` no longer exposes the app version publicly; it only reports liveness.
