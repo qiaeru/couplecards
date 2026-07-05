@@ -2,7 +2,7 @@
 // Tiny i18n helper: JSON catalogues, {{param}} interpolation, Intl.PluralRules,
 // Intl date/number formatting, live re-render via the `i18n:change` event.
 
-import { emit } from './events.js';
+import { emit, on } from './events.js';
 
 const LOCALE_KEY = 'couplecards:locale';
 const SUPPORTED = new Set(['en', 'fr', 'de', 'it', 'es']);
@@ -132,12 +132,8 @@ function announceLocale(locale) {
 // new locale (after the initial boot) so screen-reader users get feedback when
 // they pick a language.
 let announceArmed = false;
-if (typeof window !== 'undefined') {
-  import('./events.js').then(({ on }) => {
-    on('i18n:change', (locale) => {
-      applyI18n(document);
-      if (announceArmed) announceLocale(locale);
-      announceArmed = true;
-    });
-  });
-}
+on('i18n:change', (locale) => {
+  applyI18n(document);
+  if (announceArmed) announceLocale(locale);
+  announceArmed = true;
+});

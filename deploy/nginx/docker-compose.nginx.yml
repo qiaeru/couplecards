@@ -15,6 +15,9 @@ services:
       COOKIE_SECURE: "true"
       TRUST_PROXY: "1"
       SEED_LOCALE: ${SEED_LOCALE:-en}
+      ADMIN_RESET: ${ADMIN_RESET:-0}
+      ENABLE_DEMO_ACCOUNT: ${ENABLE_DEMO_ACCOUNT:-0}
+      ENABLE_REGISTRATION: ${ENABLE_REGISTRATION:-0}
     volumes:
       - ../../var:/app/var
 

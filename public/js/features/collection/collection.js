@@ -46,7 +46,9 @@ function buildCardFront(card, title, description, locale) {
   emojiSpan.appendChild(createEmojiImg(card.emoji || (card.pile === 'home' ? 'house' : 'city'), '', { lazy: true }));
   art.appendChild(emojiSpan);
 
-  const titleEl = document.createElement('h3');
+  // Not a heading: the tile is a role="button", and dozens of headings inside
+  // buttons pollute screen-reader heading navigation.
+  const titleEl = document.createElement('div');
   titleEl.className = 'card-title';
   titleEl.textContent = title;
   titleEl.setAttribute('lang', locale);

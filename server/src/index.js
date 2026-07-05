@@ -121,11 +121,17 @@ async function start() {
 
   const shutdown = async (signal) => {
     app.log.info({ signal }, 'shutting down');
+    // Safety net: if close() hangs (stuck connection), still exit before the
+    // orchestrator escalates to SIGKILL. unref() keeps the timer from holding
+    // the process open on the normal path.
+    setTimeout(() => process.exit(1), 5000).unref();
     try {
       await app.close();
       closeDb();
-    } finally {
       process.exit(0);
+    } catch (err) {
+      app.log.error(err, 'shutdown failed');
+      process.exit(1);
     }
   };
   process.once('SIGINT', () => shutdown('SIGINT'));

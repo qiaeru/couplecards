@@ -160,6 +160,12 @@ body::before {
   to   { opacity: 1; transform: translateX(0); }
 }
 
+/* Placed after the .screen rule above: same specificity, so source order is
+   what lets this override win under reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .screen { animation: none; }
+}
+
 /* View Transitions API (Chromium / Safari 18+): smooth crossfade between screens */
 @media (prefers-reduced-motion: no-preference) {
   ::view-transition-old(root),

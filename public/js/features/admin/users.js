@@ -57,8 +57,8 @@ function renderUsersList(users) {
     row.innerHTML = `
       <div class="list-item-main">
         <div class="list-item-title">${escapeHtml(u.username)}</div>
-        <div class="list-item-meta">${escapeHtml(t('admin.users.createdAt', { when: fmtDateLong(u.createdAt) }))}</div>
-        <div class="list-item-meta">${escapeHtml(u.lastLoginAt ? t('admin.users.lastLogin', { when: fmtDateLong(u.lastLoginAt) }) : t('admin.users.neverLogged'))}</div>
+        <div class="list-item-meta">${escapeHtml(t('admin.users.createdAt', { when: fmtDateLong(u.createdAt + 'Z') }))}</div>
+        <div class="list-item-meta">${escapeHtml(u.lastLoginAt ? t('admin.users.lastLogin', { when: fmtDateLong(u.lastLoginAt + 'Z') }) : t('admin.users.neverLogged'))}</div>
         <div class="list-item-badges">${badges.join('')}</div>
       </div>
       ${actions ? `<div class="list-item-actions">${actions}</div>` : ''}
@@ -222,7 +222,9 @@ export async function mount() {
     }
   });
 
-  on('i18n:change', () => { renderUsers().catch(() => {}); });
+  // Re-render from the cached list: usernames are locale-independent, only
+  // the labels and date formats change, so no refetch is needed.
+  on('i18n:change', () => { renderUsersList(filterUsers()); });
 
   document.getElementById('admin-users-search')?.addEventListener('input', (e) => {
     usersQuery = e.target.value;

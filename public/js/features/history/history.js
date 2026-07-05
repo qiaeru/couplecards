@@ -28,7 +28,7 @@ function groupByDate(history) {
     month:     { label: t('history.groups.month'),     items: [] },
     older:     { label: t('history.groups.older'),     items: [] },
   };
-  history.forEach((entry, index) => {
+  history.forEach((entry) => {
     const tm = startOfDay(new Date(entry.drawnAt));
     let bucket;
     if (tm >= today) bucket = buckets.today;
@@ -36,7 +36,7 @@ function groupByDate(history) {
     else if (tm >= weekAgo) bucket = buckets.week;
     else if (tm >= monthAgo) bucket = buckets.month;
     else bucket = buckets.older;
-    bucket.items.push({ entry, index });
+    bucket.items.push(entry);
   });
   return Object.values(buckets).filter((b) => b.items.length > 0);
 }
@@ -61,7 +61,7 @@ function render() {
     header.textContent = group.label;
     host.appendChild(header);
 
-    for (const { entry } of group.items) {
+    for (const entry of group.items) {
       const card = getCardById(entry.cardId);
       const title = card ? getCardText(card).title : t('history.card.deleted');
       const pile = card ? card.pile : null;

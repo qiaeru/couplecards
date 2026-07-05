@@ -46,16 +46,18 @@ ENV NODE_ENV=production \
     PUBLIC_DIR=/app/public \
     DATA_SEED_DIR=/app/data
 
-COPY --from=backend-deps /build/node_modules ./server/node_modules
-COPY server ./server
-COPY --from=vendor /build/public ./public
-COPY data ./data
+# --chown on the COPY lines: a separate `chown -R /app` RUN would rewrite
+# every copied file into an extra layer and roughly double the image size.
+COPY --from=backend-deps --chown=app:app /build/node_modules ./server/node_modules
+COPY --chown=app:app server ./server
+COPY --from=vendor --chown=app:app /build/public ./public
+COPY --chown=app:app data ./data
 
-RUN mkdir -p /app/var && chown -R app:app /app
+RUN mkdir -p /app/var && chown app:app /app/var
 USER app
 EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
-  CMD ["node", "-e", "fetch('http://127.0.0.1:3000/api/health').then((r) => process.exit(r.ok ? 0 : 1), () => process.exit(1))"]
+  CMD ["node", "-e", "fetch('http://127.0.0.1:' + (process.env.PORT || 3000) + '/api/health').then((r) => process.exit(r.ok ? 0 : 1), () => process.exit(1))"]
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
 CMD ["node", "server/src/index.js"]

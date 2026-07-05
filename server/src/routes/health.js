@@ -2,7 +2,6 @@
 // Liveness probe. No auth. Safe to expose externally.
 
 import { getDb } from '../db/index.js';
-import { config } from '../config.js';
 
 export default async function healthRoutes(app) {
   app.get('/health', {
@@ -13,7 +12,6 @@ export default async function healthRoutes(app) {
           type: 'object',
           properties: {
             status: { type: 'string' },
-            version: { type: 'string' },
             dbOk: { type: 'boolean' },
           },
         },
@@ -27,6 +25,8 @@ export default async function healthRoutes(app) {
     } catch {
       dbOk = false;
     }
-    return { status: 'ok', version: config.version, dbOk };
+    // No version here on purpose: the endpoint is public and the exact app
+    // version is free reconnaissance on internet-exposed deployments.
+    return { status: 'ok', dbOk };
   });
 }
