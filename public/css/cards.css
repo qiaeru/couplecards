@@ -31,6 +31,11 @@
   justify-content: center;
   align-items: center;
   perspective: 1600px;
+  /* The action buttons anchored at the bottom eat ~116px while the title
+     only takes ~48px at the top, so a mathematically centered card looks
+     low. This margin biases the flex centering upward by half its value,
+     re-centering the card in the zone between title and buttons. */
+  margin-bottom: 68px;
 }
 
 .card-tilt {
@@ -662,31 +667,41 @@
 }
 .card-front.holo-on .holo-rainbow { opacity: 1; }
 
-/* Subtle idle shimmer (before interaction) */
+/* Subtle idle shimmer (before interaction): a skewed streak glinting over
+   the whole face, like the reveal streak. The skew comes from a transform
+   (not a tilted gradient) so the band keeps clean diagonal edges, the
+   top/bottom overshoot absorbs the skew, screen blending makes it read as
+   light on the dark face, and both rest positions sit fully off-card so
+   the loop needs no opacity fade. z-index lifts it above the card frame
+   so the glint travels across art and text instead of hiding behind them. */
 .card-front.idle-shine::before {
   content: "";
   position: absolute;
-  top: 0;
-  bottom: 0;
-  left: -50%;
-  width: 50%;
+  top: -20%;
+  bottom: -20%;
+  left: 0;
+  width: 55%;
+  z-index: 1;
   pointer-events: none;
   background: linear-gradient(
-    110deg,
+    90deg,
     transparent 0%,
-    rgba(255, 255, 255, 0.10) 45%,
-    rgba(255, 210, 140, 0.22) 50%,
-    rgba(255, 255, 255, 0.10) 55%,
+    rgba(255, 255, 255, 0.05) 28%,
+    rgba(255, 235, 190, 0.14) 44%,
+    rgba(255, 215, 150, 0.30) 50%,
+    rgba(255, 235, 190, 0.14) 56%,
+    rgba(255, 255, 255, 0.05) 72%,
     transparent 100%
   );
-  animation: shine-sweep 5s ease-in-out infinite;
+  mix-blend-mode: screen;
+  transform: translateX(-180%) skewX(-14deg);
+  animation: shine-sweep 6.5s ease-in-out infinite;
   will-change: transform;
 }
 @keyframes shine-sweep {
-  0%   { transform: translateX(0); opacity: 0; }
-  10%  { opacity: 1; }
-  60%  { transform: translateX(400%); opacity: 1; }
-  100% { transform: translateX(400%); opacity: 0; }
+  0%   { transform: translateX(-180%) skewX(-14deg); }
+  48%  { transform: translateX(260%) skewX(-14deg); }
+  100% { transform: translateX(260%) skewX(-14deg); }
 }
 
 /* Background halo that gently pulses (no rotation) */
