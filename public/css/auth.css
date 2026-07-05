@@ -21,19 +21,34 @@ body { font-family: var(--font); }
 }
 
 .auth-card {
+  position: relative;
   width: 100%;
   max-width: 440px;
-  background: var(--surface);
+  background-image: var(--tile-surface);
+  background-color: var(--surface);
   border: 1px solid var(--surface-border);
   border-radius: var(--radius-lg);
   padding: 28px;
   box-shadow: var(--shadow-lg);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+/* Warm gold hairline along the top edge, same parchment family as the
+   in-app tiles and the bottom nav. */
+.auth-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 14%;
+  right: 14%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 210, 150, 0.45), transparent);
+  pointer-events: none;
 }
 
 .auth-title {
-  font-family: var(--font);
+  font-family: var(--font-display);
   font-size: 1.8rem;
   font-weight: 600;
   letter-spacing: -0.015em;

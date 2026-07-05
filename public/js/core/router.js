@@ -76,8 +76,21 @@ export async function render() {
 
   const html = await loadPartial(segment);
   if (gen !== renderGen) return;
-  outlet.innerHTML = html;
-  applyI18n(outlet);
+  // Animate the swap through the View Transitions API where available (the
+  // ::view-transition rules in style.css do the crossfade). The update
+  // callback runs asynchronously, so wait for it before mounting into the
+  // new DOM. Reduced motion and unsupported browsers keep the instant swap.
+  const swap = () => {
+    outlet.innerHTML = html;
+    applyI18n(outlet);
+  };
+  if (document.startViewTransition
+    && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    await document.startViewTransition(swap).updateCallbackDone;
+    if (gen !== renderGen) return;
+  } else {
+    swap();
+  }
 
   const module = await features.get(segment)();
   if (gen !== renderGen) return;

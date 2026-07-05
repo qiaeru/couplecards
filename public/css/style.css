@@ -368,14 +368,14 @@ body::before {
   user-select: none;
 }
 .stamp-banned {
-  color: #ff6680;
-  border-color: #ff6680;
+  color: var(--danger-bright);
+  border-color: var(--danger-bright);
   transform: rotate(-8deg);
   text-shadow: 0 1px 4px rgba(255, 102, 128, 0.35);
 }
 .stamp-returned {
-  color: #4ee09a;
-  border-color: #4ee09a;
+  color: var(--success-bright);
+  border-color: var(--success-bright);
   transform: rotate(-8deg);
   text-shadow: 0 1px 4px rgba(78, 224, 154, 0.35);
 }
@@ -470,7 +470,7 @@ body::before {
   display: block;
   aspect-ratio: 3 / 4;
   min-height: 140px;
-  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: transform 0.25s var(--ease-out);
 }
 @media (hover: hover) {
   .pile:hover { transform: translateY(-5px); filter: brightness(1.05); }
@@ -487,14 +487,27 @@ body::before {
 }
 .pile:disabled:hover,
 .pile.empty:hover { transform: none; }
+/* Launch: the pile charges with the same gold light as the card reveal
+   (no brightness flash; that language was retired with the old reveal). */
 .pile.launching {
   pointer-events: none;
   animation: pile-launch 0.45s cubic-bezier(0.4, 0, 0.6, 1) forwards;
 }
 @keyframes pile-launch {
   0%   { transform: scale(1) rotate(0deg); }
-  40%  { transform: scale(1.12) rotate(-3deg); filter: brightness(1.2); }
-  100% { transform: scale(1.35) rotate(-5deg) translateY(-12px); opacity: 0; filter: brightness(1.4); }
+  40%  { transform: scale(1.1) rotate(-3deg); }
+  100% { transform: scale(1.3) rotate(-5deg) translateY(-12px); opacity: 0; }
+}
+.pile.launching .stack-card {
+  animation: pile-launch-glow 0.45s ease-out forwards;
+}
+@keyframes pile-launch-glow {
+  to {
+    box-shadow:
+      0 18px 40px rgba(0, 0, 0, 0.55),
+      0 0 34px rgba(255, 211, 122, 0.55),
+      0 0 0 1.5px rgba(255, 220, 160, 0.6) inset;
+  }
 }
 
 .stack-card {
@@ -503,7 +516,7 @@ body::before {
   box-shadow:
     0 18px 40px rgba(0, 0, 0, 0.55),
     0 0 0 1px rgba(255, 255, 255, 0.08) inset;
-  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: transform 0.25s var(--ease-out);
 }
 
 .stack-card-3 {
@@ -639,8 +652,8 @@ body::before {
   text-shadow: 0 1px 4px rgba(255, 176, 80, 0.4);
 }
 @keyframes count-pop {
-  0%   { transform: scale(1); background: rgba(236, 90, 158, 0.5); }
-  40%  { transform: scale(1.15); background: rgba(236, 90, 158, 0.45); }
+  0%   { transform: scale(1); background: rgba(255, 211, 122, 0.45); }
+  40%  { transform: scale(1.15); background: rgba(255, 211, 122, 0.4); }
   100% { transform: scale(1); background: rgba(0, 0, 0, 0.28); }
 }
 
@@ -703,7 +716,7 @@ body::before {
 }
 .action-tag.returned {
   background: rgba(47, 207, 138, 0.18);
-  color: #3ddb96;
+  color: var(--success-bright);
 }
 .action-tag.banned {
   background: color-mix(in srgb, var(--danger) 18%, transparent);
@@ -821,7 +834,7 @@ body::before {
   left: 3px; top: 3px;
   background: #fff;
   border-radius: 50%;
-  transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: transform 0.22s var(--ease-out);
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
 .switch input:checked + .slider {
@@ -895,26 +908,35 @@ body::before {
   opacity: 0.75;
 }
 
-/* Toast */
+/* Toast: same dark-glass recipe as the other floating surfaces (update and
+   sync banners), with the warm gold top highlight of the parchment family. */
 .toast {
   position: fixed;
   left: 50%;
   bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
   transform: translateX(-50%);
-  background: var(--text);
-  color: var(--bg-0);
+  background-image: var(--tile-surface);
+  background-color: rgba(20, 10, 40, 0.92);
+  color: var(--text);
+  border: 1px solid var(--surface-border);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   padding: 11px 20px;
   border-radius: 999px;
   font-size: 0.9rem;
   font-weight: 600;
-  box-shadow: var(--shadow-lg);
+  box-shadow: inset 0 1px 0 rgba(255, 210, 150, 0.25), var(--shadow-lg);
   z-index: 1000;
-  animation: toast-in 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+  animation: toast-in 0.22s var(--ease-out);
   max-width: calc(100vw - 32px);
   text-align: center;
   display: inline-flex;
   align-items: center;
   gap: 12px;
+}
+.toast.leaving { animation: toast-out 0.18s ease forwards; }
+@keyframes toast-out {
+  to { opacity: 0; transform: translate(-50%, 12px); }
 }
 
 .toast-action {
@@ -932,8 +954,11 @@ body::before {
   padding: 2px 4px;
 }
 
-/* History grouping by date */
+/* History grouping by date, with the gold hairline of the parchment family. */
 .history-group-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.18em;
@@ -941,6 +966,12 @@ body::before {
   color: var(--text-muted);
   padding: 10px 4px 6px;
   margin-top: 6px;
+}
+.history-group-header::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 210, 150, 0.3), transparent);
 }
 .history-group-header:first-child { margin-top: 0; padding-top: 0; }
 
@@ -953,6 +984,15 @@ body::before {
   background: rgba(255, 255, 255, 0.04);
 }
 .list-item.clickable:active { transform: scale(0.99); }
+
+/* Staggered entrance for freshly rendered lists (History). --i is set in JS
+   and capped there so long lists never feel slow. */
+.list-item.stagger-in {
+  animation: list-item-in 0.35s var(--ease-out) calc(var(--i, 0) * 45ms) backwards;
+}
+@keyframes list-item-in {
+  from { opacity: 0; transform: translateY(10px); }
+}
 
 /* Modal */
 .modal {
@@ -995,6 +1035,16 @@ body::before {
   from { opacity: 0; transform: translateY(14px) scale(0.97); }
   to   { opacity: 1; transform: translateY(0) scale(1); }
 }
+/* Symmetric exit: shell.js adds .closing and hides the modal after the
+   animation instead of cutting the blur and card off in one frame. */
+.modal.closing .modal-backdrop { animation: backdrop-out 0.16s ease forwards; }
+.modal.closing .modal-card { animation: modal-out 0.16s ease forwards; }
+@keyframes backdrop-out {
+  to { opacity: 0; }
+}
+@keyframes modal-out {
+  to { opacity: 0; transform: translateY(8px) scale(0.98); }
+}
 .modal-title {
   margin: 0 0 8px;
   font-size: 1.2rem;
@@ -1027,7 +1077,11 @@ body::before {
   /* Transparent so the body's radial+linear gradient shows through and
      dismissing the skeleton does not flash a flat fill behind it. */
   background: transparent;
+  transition: opacity 0.22s ease;
 }
+/* Soft handoff into the app: the boot logo shares the home wordmark rule, so
+   a plain fade already reads as the logo settling into the header. */
+.boot-skeleton.leaving { opacity: 0; pointer-events: none; }
 .boot-logo {
   animation: boot-logo-pulse 1.2s ease-in-out infinite;
 }
@@ -1058,13 +1112,16 @@ body::before {
   align-items: center;
   gap: 12px;
   padding: 10px 10px 10px 18px;
-  background: var(--surface-solid);
+  background-image: var(--tile-surface);
+  background-color: rgba(20, 10, 40, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border: 1px solid var(--surface-border);
   border-radius: 999px;
-  box-shadow: var(--shadow-lg);
+  box-shadow: inset 0 1px 0 rgba(255, 210, 150, 0.25), var(--shadow-lg);
   z-index: 900;
   font-size: 0.85rem;
-  animation: toast-in 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  animation: toast-in 0.25s var(--ease-out);
   max-width: calc(100vw - 32px);
 }
 .update-banner[hidden] { display: none; }
@@ -1072,6 +1129,31 @@ body::before {
 @keyframes toast-in {
   from { opacity: 0; transform: translate(-50%, 12px); }
   to   { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* Shared pill search field (Collection and admin lists). One recipe so the
+   two screens read identically; the focus glow warms the outline up. */
+.collection-search input,
+.admin-search input {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.06);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff80' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='11' cy='11' r='8'/><line x1='21' y1='21' x2='16.65' y2='16.65'/></svg>");
+  background-repeat: no-repeat;
+  background-position: 14px center;
+  background-size: 16px 16px;
+  border: 1px solid var(--surface-border);
+  color: var(--text);
+  padding: 8px 14px 8px 38px;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  transition: box-shadow 0.18s ease, border-color 0.18s ease;
+}
+.collection-search input:focus-visible,
+.admin-search input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(236, 90, 158, 0.15);
 }
 
 /* ===== Forms shared by login.html, admin.html and the change-password modal ===== */
@@ -1243,3 +1325,25 @@ select option:hover {
 }
 .error-page .title { font-size: 2rem; margin-bottom: 12px; }
 .error-page p { color: var(--text-soft); margin-bottom: 24px; }
+
+/* Consolidated reduced-motion coverage for the shell animations above.
+   Elements that JS hides after a .leaving/.closing animation still get
+   hidden: the JS uses a timeout, not the animationend event. */
+@media (prefers-reduced-motion: reduce) {
+  .pile.launching { animation: none; opacity: 0; }
+  .pile.launching .stack-card { animation: none; }
+  .pile-count.count-changed { animation: none; }
+  .toast,
+  .update-banner { animation: none; }
+  .toast.leaving { animation: none; opacity: 0; }
+  .modal-backdrop,
+  .modal-card { animation: none; }
+  .modal.closing .modal-backdrop,
+  .modal.closing .modal-card { animation: none; }
+  .boot-logo,
+  .boot-pulse { animation: none; }
+  .boot-skeleton { transition: none; }
+  .list-item.stagger-in { animation: none; }
+  .collection-search input,
+  .admin-search input { transition: none; }
+}
