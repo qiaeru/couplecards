@@ -35,6 +35,10 @@
 
   --danger: #ff6677;
   --success: #2fcf8a;
+  /* Brighter variants for glowing stamps and labels sitting on the dark
+     card faces, where the base tones lack punch. */
+  --danger-bright: #ff6680;
+  --success-bright: #4ee09a;
 
   --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
