@@ -2,7 +2,7 @@
 // Cards: read by any authenticated user, CRUD reserved to admin. The deck is
 // multilingual: each card carries a `translations` map keyed by locale.
 
-import { getDb, transaction } from '../db/index.js';
+import { getDb, transaction, isUniqueViolation } from '../db/index.js';
 import { requireSession, requireAdmin, enforcePasswordChange } from '../lib/auth.js';
 import { SUPPORTED_LOCALES } from '../lib/locales.js';
 import { TITLE_MAX, DESCRIPTION_MAX } from '../lib/card-limits.js';
@@ -41,7 +41,18 @@ function selectCards() {
 // version in module scope and invalidate from every mutating handler (and
 // from applyDeckSync) so the 304 response becomes a plain string compare.
 let cachedDeckVersion = null;
-export function invalidateDeckVersion() { cachedDeckVersion = null; }
+
+// Every caller is a post-commit mutation path, so bumping the persistent
+// revision here is safe. The counter disambiguates edits that land within
+// the same second with unchanged row counts, which would otherwise produce
+// an identical ETag and leave clients on a 304 with stale text.
+export function invalidateDeckVersion() {
+  cachedDeckVersion = null;
+  getDb().prepare(`
+    INSERT INTO settings (key, value) VALUES ('deck_revision', '1')
+    ON CONFLICT(key) DO UPDATE SET value = CAST(value AS INTEGER) + 1
+  `).run();
+}
 
 function deckVersion() {
   if (cachedDeckVersion !== null) return cachedDeckVersion;
@@ -52,7 +63,8 @@ function deckVersion() {
     FROM cards
   `).get();
   const trCount = getDb().prepare('SELECT COUNT(*) AS n FROM card_translations').get().n;
-  cachedDeckVersion = `${row.v}-${row.n}-${trCount}`;
+  const rev = getDb().prepare(`SELECT value FROM settings WHERE key = 'deck_revision'`).get()?.value ?? '0';
+  cachedDeckVersion = `${row.v}-${row.n}-${trCount}-${rev}`;
   return cachedDeckVersion;
 }
 
@@ -122,7 +134,9 @@ export default async function cardRoutes(app) {
         writeTranslations(db, id, translations);
       })();
     } catch (err) {
-      if (err.code === 'SQLITE_CONSTRAINT_PRIMARYKEY') {
+      // node:sqlite reports the duplicate TEXT primary key as a UNIQUE
+      // violation (never as a 'SQLITE_CONSTRAINT_PRIMARYKEY' code string).
+      if (isUniqueViolation(err)) {
         return reply.code(409).send({ error: 'CARD_ID_EXISTS' });
       }
       throw err;
