@@ -954,6 +954,21 @@ body::before {
   padding: 2px 4px;
 }
 
+/* History toolbar: summary line + filter chips (chip styles are shared with
+   the Collection via .collection-filters in cards.css). */
+.history-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 0 12px;
+}
+.history-stats {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-soft);
+  font-variant-numeric: tabular-nums;
+}
+
 /* History grouping by date, with the gold hairline of the parchment family. */
 .history-group-header {
   display: flex;
