@@ -121,22 +121,45 @@ function startAmbient() {
   if (previewMode || ambientInterval || prefersReducedMotion()) return;
   const host = $('ambient');
   if (!host) return;
-  ambientInterval = setInterval(() => {
-    for (let i = 0; i < 2; i++) {
-      const depth = Math.random();
-      spawnFx(host, 'drift', {
-        '--x0': `calc(-50% + ${(Math.random() * 400 - 200).toFixed(0)}px)`,
-        '--y0': `calc(-50% + ${(60 + Math.random() * 160).toFixed(0)}px)`,
-        '--dx': `${(Math.random() * 60 - 30).toFixed(0)}px`,
-        '--dy': `${-(80 + Math.random() * 80).toFixed(0)}px`,
-        '--s': `${(3.5 - depth * 2).toFixed(1)}px`,
-        '--b': `${(depth * 1.5).toFixed(1)}px`,
-        '--t': `${(4 + Math.random() * 2.5).toFixed(2)}s`,
-        '--o': (0.55 - depth * 0.3).toFixed(2),
-        '--c': dustColor(),
-      }, 7000);
+  // The layer sits behind the card, and on phones the card fills almost the
+  // whole stage, so dust born across the full stage width was mostly hidden.
+  // Spawn in the visible bands instead: beside and below the actual card.
+  const tilt = $('card-tilt');
+  const halfW = (tilt?.clientWidth || 300) / 2;
+  const halfH = (tilt?.clientHeight || 440) / 2;
+  const spawnDrift = () => {
+    const depth = Math.random();
+    const zone = Math.random();
+    let x0;
+    let y0;
+    if (zone < 0.8) {
+      // Side bands, both directions equally likely. Clamped to the viewport
+      // edge so narrow phones still get dust inside the visible sliver.
+      const dir = zone < 0.4 ? -1 : 1;
+      const maxX = window.innerWidth / 2 - 14;
+      x0 = dir * Math.min(halfW + 10 + Math.random() * 80, maxX);
+      y0 = -halfH * 0.3 + Math.random() * halfH * 1.3;
+    } else {
+      // Below the card, between it and the action buttons.
+      x0 = (Math.random() * 2 - 1) * (halfW + 60);
+      y0 = halfH + 10 + Math.random() * 60;
     }
-  }, 700);
+    spawnFx(host, 'drift', {
+      '--x0': `calc(-50% + ${x0.toFixed(0)}px)`,
+      '--y0': `calc(-50% + ${y0.toFixed(0)}px)`,
+      '--dx': `${(Math.random() * 60 - 30).toFixed(0)}px`,
+      '--dy': `${-(80 + Math.random() * 80).toFixed(0)}px`,
+      '--s': `${(3.5 - depth * 2).toFixed(1)}px`,
+      '--b': `${(depth * 1.5).toFixed(1)}px`,
+      '--t': `${(4 + Math.random() * 2.5).toFixed(2)}s`,
+      '--o': (0.55 - depth * 0.3).toFixed(2),
+      '--c': dustColor(),
+    }, 7000);
+  };
+  const perTick = Math.max(2, Math.round(3 * DUST_DENSITY));
+  ambientInterval = setInterval(() => {
+    for (let i = 0; i < perTick; i++) spawnDrift();
+  }, 550);
 }
 function stopAmbient() {
   if (ambientInterval) { clearInterval(ambientInterval); ambientInterval = null; }
