@@ -3,7 +3,7 @@
 // swipe-to-return.
 
 import { getCardById, getCardText, drawRandom, getHistory, banCard, unbanCard, addHistory, removeHistoryByUuid, isBanned } from '../../core/sync.js';
-import { emojiImgHTML, createEmojiImg, HEART_KEYS } from '../../ui/emoji.js';
+import { emojiImgHTML, createEmojiImg } from '../../ui/emoji.js';
 import { t } from '../../core/i18n.js';
 import { on } from '../../core/events.js';
 import { CONFIG } from '../../config.js';
@@ -17,144 +17,156 @@ let previewMode = false;
 let previewCardId = null;
 // Bumped on each startDraw and on unmount, so an in-flight reveal animation can
 // detect that the user has left and stop before its tail (sound, vibration,
-// hearts) fires on a screen that's already gone.
+// ambient dust) fires on a screen that's already gone.
 let drawGeneration = 0;
 
 const $ = (id) => document.getElementById(id);
 
 // Cached once at module load and refreshed via the MQL change event. Avoids
 // hundreds of matchMedia() calls per second when the tilt rAF loop and the
-// hearts / ripples ticks each ask whether reduced motion is on.
+// dust spawner ticks each ask whether reduced motion is on.
 const reducedMotionMQL = window.matchMedia('(prefers-reduced-motion: reduce)');
 let reducedMotion = reducedMotionMQL.matches;
 reducedMotionMQL.addEventListener('change', (e) => { reducedMotion = e.matches; });
 function prefersReducedMotion() { return reducedMotion; }
 
-function createParticles(color) {
-  const host = $('particles');
-  if (!host) return;
-  host.innerHTML = '';
-  const count = prefersReducedMotion() ? 0 : 8;
-  for (let i = 0; i < count; i++) {
-    const p = document.createElement('div');
-    p.className = 'particle';
-    const angle = (Math.PI * 2 * i) / count + Math.random() * 0.3;
-    const dist = 150 + Math.random() * 90;
-    p.style.setProperty('--tx', `${Math.cos(angle) * dist}px`);
-    p.style.setProperty('--ty', `${Math.sin(angle) * dist}px`);
-    p.style.animationDelay = `${Math.random() * 0.8}s`;
-    p.style.color = color;
-    p.style.background = color;
-    host.appendChild(p);
-  }
+// "Gold dust" reveal: motes converge into the card during the charge, a
+// shockwave + ember fallout replace the old white flash at landing, and a
+// thin ambient dust keeps drifting up while the revealed card floats.
+const DUST_COLORS = ['#ffe2ad', '#ffd3e4', '#fff3d6', '#ffcf8f', '#f7e6ff'];
+// Halve the particle counts on low-core phones; the choreography reads the
+// same, only the density changes.
+const DUST_DENSITY = (navigator.hardwareConcurrency || 8) <= 4 ? 0.5 : 1;
+
+function dustColor() {
+  return DUST_COLORS[Math.floor(Math.random() * DUST_COLORS.length)];
 }
 
-let heartsInterval = null;
-function spawnHeart() {
-  const host = $('hearts');
-  if (!host) return;
-  const h = document.createElement('div');
-  h.className = 'heart';
-  const img = createEmojiImg(HEART_KEYS[Math.floor(Math.random() * HEART_KEYS.length)]);
-  h.appendChild(img);
-  const startX = (Math.random() - 0.5) * 240;
-  const startY = 250 + Math.random() * 50;
-  h.style.left = `calc(50% + ${startX}px)`;
-  h.style.top = `calc(50% + ${startY}px)`;
-  const dx = (Math.random() - 0.5) * 120;
-  const dy = -520 - Math.random() * 180;
-  h.style.setProperty('--dx1', `${dx}px`);
-  h.style.setProperty('--dy1', `${dy}px`);
-  h.style.setProperty('--r', `${(Math.random() - 0.5) * 30}deg`);
-  h.style.fontSize = `${1.8 + Math.random() * 1.2}rem`;
-  host.appendChild(h);
-  setTimeout(() => h.remove(), CONFIG.hearts.lifetime);
+function spawnFx(host, className, vars, lifetime) {
+  const el = document.createElement('div');
+  el.className = className;
+  for (const [k, v] of Object.entries(vars)) el.style.setProperty(k, v);
+  host.appendChild(el);
+  setTimeout(() => el.remove(), lifetime);
 }
-function startHearts() {
+
+function spawnMote(host, swirl) {
+  const ang = Math.random() * Math.PI * 2;
+  const dist = 220 + Math.random() * 300;
+  // Midpoint pushed sideways so the dust arcs into the card in one shared
+  // swirl direction instead of flying in straight lines.
+  const midAng = ang + swirl * (0.5 + Math.random() * 0.4);
+  const midDist = dist * (0.4 + Math.random() * 0.15);
+  const depth = Math.random(); // 0 = near (big, sharp), 1 = far (small, blurred)
+  spawnFx(host, 'mote', {
+    '--x0': `calc(-50% + ${Math.cos(ang) * dist}px)`,
+    '--y0': `calc(-55% + ${Math.sin(ang) * dist * 0.8}px)`,
+    '--xm': `calc(-50% + ${Math.cos(midAng) * midDist}px)`,
+    '--ym': `calc(-55% + ${Math.sin(midAng) * midDist * 0.8}px)`,
+    '--s': `${(5.5 - depth * 3.5).toFixed(1)}px`,
+    '--b': `${(depth * 1.8).toFixed(1)}px`,
+    '--t': `${(0.85 + Math.random() * 0.65).toFixed(2)}s`,
+    '--d': `${(Math.random() * 0.15).toFixed(2)}s`,
+    '--o': (0.55 + Math.random() * 0.45 - depth * 0.25).toFixed(2),
+    '--c': dustColor(),
+  }, 2200);
+}
+
+let dustInterval = null;
+function startDust() {
   // Preview is a static viewer with no ambient effects. Gating here, not just
   // at call sites, keeps that rule in one place for every caller.
-  if (previewMode || heartsInterval || prefersReducedMotion()) return;
-  const tick = () => {
-    spawnHeart();
-    if (Math.random() < CONFIG.hearts.doubleBeatChance) setTimeout(spawnHeart, 120);
-  };
-  tick();
-  heartsInterval = setInterval(tick, CONFIG.hearts.interval);
+  if (previewMode || dustInterval || prefersReducedMotion()) return;
+  const host = $('dust');
+  if (!host) return;
+  const swirl = Math.random() < 0.5 ? 1 : -1;
+  for (let i = 0; i < Math.round(70 * DUST_DENSITY); i++) spawnMote(host, swirl);
+  // Continuous inflow after the opening burst, so the swirl densifies as the
+  // tension rises instead of thinning out.
+  const perTick = Math.max(1, Math.round(2 * DUST_DENSITY));
+  dustInterval = setInterval(() => {
+    for (let i = 0; i < perTick; i++) spawnMote(host, swirl);
+  }, 55);
 }
-function stopHearts() {
-  if (heartsInterval) { clearInterval(heartsInterval); heartsInterval = null; }
+function stopDust() {
+  if (dustInterval) { clearInterval(dustInterval); dustInterval = null; }
 }
 
-let rippleInterval = null;
-const RIPPLE_VARIANTS = ['', 'variant-a', 'variant-b'];
-let rippleVariantIdx = 0;
-function spawnRipple() {
-  const host = $('ripples');
-  if (!host) return;
-  const r = document.createElement('div');
-  const variant = RIPPLE_VARIANTS[rippleVariantIdx++ % RIPPLE_VARIANTS.length];
-  r.className = 'ripple' + (variant ? ' ' + variant : '');
-  host.appendChild(r);
-  setTimeout(() => r.remove(), 1500);
-}
-function startRipples(interval) {
-  if (previewMode) return; // static preview viewer: no ambient ripples (see startHearts)
-  stopRipples();
-  if (prefersReducedMotion()) return;
-  spawnRipple();
-  rippleInterval = setInterval(spawnRipple, interval);
-}
-function stopRipples() {
-  if (rippleInterval) { clearInterval(rippleInterval); rippleInterval = null; }
-}
-
-function createBurst(color) {
-  const host = $('burst');
-  if (!host) return;
-  host.innerHTML = '';
-  host.classList.remove('active');
-  if (prefersReducedMotion()) return;
-  const count = 10;
-  for (let i = 0; i < count; i++) {
-    const shard = document.createElement('div');
-    shard.className = 'shard';
-    const angle = (360 * i) / count + (Math.random() * 12 - 6);
-    const dist = 180 + Math.random() * 120;
-    shard.style.setProperty('--a', `${angle}deg`);
-    shard.style.setProperty('--d', `${dist}px`);
-    shard.style.height = `${60 + Math.random() * 60}px`;
-    if (Math.random() < 0.3) shard.style.background = `linear-gradient(180deg, ${color}, transparent)`;
-    host.appendChild(shard);
+// Landing: two expanding rings (pile-tinted, then rose) and a dense golden
+// fallout raining below the card.
+function spawnLanding(glowColor) {
+  const host = $('landing');
+  if (!host || prefersReducedMotion()) return;
+  spawnFx(host, 'shockwave', { '--c': glowColor }, 1000);
+  setTimeout(() => {
+    spawnFx(host, 'shockwave', { '--c': 'rgba(255, 180, 210, 0.5)' }, 1000);
+  }, 120);
+  for (let i = 0; i < Math.round(70 * DUST_DENSITY); i++) {
+    const depth = Math.random();
+    spawnFx(host, 'ember', {
+      '--x0': `calc(-50% + ${(Math.random() * 260 - 130).toFixed(0)}px)`,
+      '--y0': `calc(-50% + ${(Math.random() * 340 - 180).toFixed(0)}px)`,
+      '--dx': `${(Math.random() * 180 - 90).toFixed(0)}px`,
+      '--dy': `${(100 + Math.random() * 160).toFixed(0)}px`,
+      '--s': `${(5 - depth * 3).toFixed(1)}px`,
+      '--t': `${(1.8 + Math.random() * 1.6).toFixed(2)}s`,
+      '--d': `${(Math.random() * 0.5).toFixed(2)}s`,
+      '--c': dustColor(),
+    }, 4200);
   }
+}
+
+let ambientInterval = null;
+function startAmbient() {
+  if (previewMode || ambientInterval || prefersReducedMotion()) return;
+  const host = $('ambient');
+  if (!host) return;
+  ambientInterval = setInterval(() => {
+    for (let i = 0; i < 2; i++) {
+      const depth = Math.random();
+      spawnFx(host, 'drift', {
+        '--x0': `calc(-50% + ${(Math.random() * 400 - 200).toFixed(0)}px)`,
+        '--y0': `calc(-50% + ${(60 + Math.random() * 160).toFixed(0)}px)`,
+        '--dx': `${(Math.random() * 60 - 30).toFixed(0)}px`,
+        '--dy': `${-(80 + Math.random() * 80).toFixed(0)}px`,
+        '--s': `${(3.5 - depth * 2).toFixed(1)}px`,
+        '--b': `${(depth * 1.5).toFixed(1)}px`,
+        '--t': `${(4 + Math.random() * 2.5).toFixed(2)}s`,
+        '--o': (0.55 - depth * 0.3).toFixed(2),
+        '--c': dustColor(),
+      }, 7000);
+    }
+  }, 700);
+}
+function stopAmbient() {
+  if (ambientInterval) { clearInterval(ambientInterval); ambientInterval = null; }
 }
 
 function wait(ms) { return new Promise((r) => setTimeout(r, ms)); }
 
 function resetStage() {
-  stopHearts();
+  stopAmbient();
   const f = $('card-flip');
   if (!f) return;
-  const p = $('particles');
-  const b = $('burst');
   const glow = $('bg-glow');
-  const ripples = $('ripples');
-  const hearts = $('hearts');
-  const s = $('screen-draw');
+  const dust = $('dust');
+  const landing = $('landing');
+  const ambient = $('ambient');
   const a = $('draw-actions');
   const tilt = $('card-tilt');
   const front = document.querySelector('#card-flip .card-front');
 
   f.className = 'card-flip';
-  if (p) { p.className = 'particles'; p.innerHTML = ''; }
-  if (b) { b.className = 'burst'; b.innerHTML = ''; }
   if (glow) glow.className = 'bg-glow';
-  if (ripples) ripples.innerHTML = '';
-  if (hearts) hearts.innerHTML = '';
-  if (s) s.classList.remove('flash', 'preflash');
+  if (dust) dust.innerHTML = '';
+  if (landing) landing.innerHTML = '';
+  if (ambient) ambient.innerHTML = '';
+  $('card-ground')?.classList.remove('active');
+  $('reveal-streak')?.classList.remove('go');
   if (a) a.hidden = true;
   const preview = $('preview-actions');
   if (preview) preview.hidden = true;
-  stopRipples();
+  stopDust();
 
   detachTilt();
   if (tilt) {
@@ -505,7 +517,7 @@ export async function startDraw(pile) {
   previewMode = false;
   // Claim this generation. If unmount or a newer draw bumps the counter while
   // we await, stale() turns true and we bail; the bail itself touches no shared
-  // state (wake lock, ripples, hearts) so it can't clobber a concurrent draw,
+  // state (wake lock, dust, ambient) so it can't clobber a concurrent draw,
   // unmount having already cleaned those up. Returns true only on full
   // completion, so mount() skips its listener setup when we bailed.
   const myGen = ++drawGeneration;
@@ -543,16 +555,11 @@ export async function startDraw(pile) {
   playDraw();
 
   const f = $('card-flip');
-  const p = $('particles');
-  const b = $('burst');
   const glow = $('bg-glow');
-  const s = $('screen-draw');
   const a = $('draw-actions');
 
   f.classList.add(pile === 'home' ? 'glow-home' : 'glow-outdoor');
   const glowColor = pile === 'home' ? '#ffb47a' : '#8ab4ff';
-  createParticles(glowColor);
-  createBurst(glowColor);
 
   const reduced = prefersReducedMotion();
   void f.offsetWidth;
@@ -568,34 +575,36 @@ export async function startDraw(pile) {
     await wait(400);
     if (stale()) return false;
   } else {
+    // Charge: the card levitates while gold dust swirls into it.
     glow.classList.add('active');
-    p.classList.add('active');
-    f.classList.add('pulsing');
-    startRipples(CONFIG.ripples.normalInterval);
-    await wait(CONFIG.draw.pulsingDuration);
+    f.classList.add('charging');
+    startDust();
+    await wait(CONFIG.draw.chargeDuration);
     if (stale()) return false;
-    glow.classList.add('boost');
-    f.classList.remove('pulsing');
+    // Inhale: one sharp contraction before the release.
+    stopDust();
+    f.classList.remove('charging');
     f.classList.add('climax');
-    s.classList.add('preflash');
-    startRipples(CONFIG.ripples.boostInterval);
     await wait(CONFIG.draw.climaxDuration);
     if (stale()) return false;
-    stopRipples();
+    // Flip, with a light streak sweeping the face as it turns.
     f.classList.remove('climax');
     f.classList.add('flipping');
+    $('reveal-streak')?.classList.add('go');
     await wait(CONFIG.draw.flipDuration);
     if (stale()) return false;
   }
 
   f.classList.add('settled');
   f.classList.remove('flipping', 'enter');
-  s.classList.add('flash');
-  s.classList.remove('preflash');
-  b.classList.add('active');
-  p.classList.remove('active');
-  glow.classList.remove('active', 'boost');
-  stopRipples();
+  glow.classList.remove('active');
+  stopDust();
+  if (!reduced) {
+    spawnLanding(glowColor);
+    // Cascade the card text in and let the card float above its shadow.
+    f.classList.add('reveal-cascade', 'floaty');
+    $('card-ground')?.classList.add('active');
+  }
 
   const front = document.querySelector('#card-flip .card-front');
   front.classList.add('idle-shine');
@@ -607,7 +616,7 @@ export async function startDraw(pile) {
   announceCard(card);
   a.hidden = false;
   attachTilt();
-  startHearts();
+  startAmbient();
   return true;
 }
 
@@ -658,14 +667,14 @@ function doRedraw() {
   addHistory({ cardId: id, drawnAt: new Date().toISOString(), action: 'returned' });
   vibrate(CONFIG.vibrations.redrawAction);
   playRedraw();
-  stopHearts();
+  stopAmbient();
   if (pile) startDraw(pile);
 }
 
 // toastArg is either a string (plain toast) or { message, action } for a
 // snackbar with an action button.
 function finishWith(swipeClass, toastArg) {
-  stopHearts();
+  stopAmbient();
   refreshHomeCounts();
   releaseWakeLock();
   const tilt = $('card-tilt');
@@ -728,7 +737,7 @@ export function showCardDirectly(cardId) {
   if (preview) preview.hidden = false;
   updatePreviewActions(cardId);
   attachTilt();
-  // Skip the floating hearts and ambient ripples in preview mode: those are
+  // Skip the ambient dust and landing effects in preview mode: those are
   // tuned for the dramatic reveal flow, and replaying them every time the
   // user opens an already-known card from Collection or History feels heavy.
   return true;
@@ -822,19 +831,17 @@ function onVisibilityChange() {
     // Stop the ambient effects while the tab is backgrounded. Browsers
     // throttle background timers but still execute each tick (DOM node
     // create / setTimeout queue), and the visuals are invisible anyway.
-    stopHearts();
-    stopRipples();
+    stopAmbient();
+    stopDust();
     return;
   }
   bumpInactivity();
-  // Resume the hearts when the user is back and a card has been revealed
-  // (the settled class means the flip animation has landed). Ripples stay
-  // off: they only run during the pre-reveal build-up and are stopped for
-  // good once the card settles, so restarting them here would resurrect an
-  // infinite loop that never exists outside a tab switch.
-  // startHearts no-ops in preview, so no guard is needed here.
+  // Resume the ambient dust when the user is back and a card has been
+  // revealed (the settled class means the flip animation has landed). The
+  // converging dust stays off: it only runs during the pre-reveal build-up.
+  // startAmbient no-ops in preview, so no guard is needed here.
   if ($('card-flip')?.classList.contains('settled')) {
-    startHearts();
+    startAmbient();
   }
 }
 
@@ -884,8 +891,8 @@ export async function mount({ params }) {
 
 export function unmount() {
   document.removeEventListener('keydown', onDrawKeydown);
-  stopHearts();
-  stopRipples();
+  stopAmbient();
+  stopDust();
   detachTilt();
   releaseWakeLock();
   drawGeneration++; // invalidate any reveal animation still mid-await

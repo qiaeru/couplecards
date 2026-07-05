@@ -112,46 +112,76 @@
   opacity: 0;
 }
 
-.card-flip.enter { animation: card-enter 0.55s cubic-bezier(0.2, 1.4, 0.3, 1) forwards; }
+.card-flip.enter { animation: card-enter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 @keyframes card-enter {
-  0%   { opacity: 0; transform: rotateY(0deg) scale(0.35) translateY(60px); }
-  60%  { opacity: 1; transform: rotateY(0deg) scale(1.08); }
-  100% { opacity: 1; transform: rotateY(0deg) scale(1); }
+  0%   { opacity: 0; transform: rotateY(0deg) scale(0.82) translateY(46px); }
+  100% { opacity: 1; transform: rotateY(0deg) scale(1) translateY(0); }
 }
 
-.card-flip.pulsing { animation: card-pulse 1.4s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
-@keyframes card-pulse {
-  0%   { transform: rotateY(0deg) scale(1); }
-  18%  { transform: rotateY(0deg) scale(1.06) rotate(-1.5deg); }
-  30%  { transform: rotateY(0deg) scale(0.98) rotate(1deg); }
-  48%  { transform: rotateY(0deg) scale(1.1)  rotate(-2deg); }
-  62%  { transform: rotateY(0deg) scale(0.97) rotate(1.5deg); }
-  78%  { transform: rotateY(0deg) scale(1.15) rotate(-2.5deg); }
-  90%  { transform: rotateY(0deg) scale(1.08) rotate(1deg); }
-  100% { transform: rotateY(0deg) scale(1.18); }
+/* Charge: the card slowly levitates while the gold dust swirls into it. */
+.card-flip.charging { animation: card-charge 1.9s cubic-bezier(0.4, 0, 0.3, 1) forwards; }
+@keyframes card-charge {
+  0%   { transform: rotateY(0deg) scale(1) translateY(0); }
+  55%  { transform: rotateY(0deg) scale(1.03) translateY(-14px); }
+  100% { transform: rotateY(0deg) scale(1.06) translateY(-18px); }
 }
 
-.card-flip.climax {
-  animation: card-climax 0.45s cubic-bezier(0.3, 0, 0.2, 1) forwards;
-}
-@keyframes card-climax {
-  0%   { transform: rotateY(0deg) scale(1.18); }
-  40%  { transform: rotateY(0deg) scale(1.25) translate(3px, -2px); }
-  60%  { transform: rotateY(0deg) scale(1.25) translate(-4px, 2px); }
-  80%  { transform: rotateY(0deg) scale(1.25) translate(2px, -1px); }
-  100% { transform: rotateY(0deg) scale(1.28); }
+/* Inhale: one sharp contraction, then the release into the flip. */
+.card-flip.climax { animation: card-inhale 0.5s cubic-bezier(0.6, 0, 0.3, 1) forwards; }
+@keyframes card-inhale {
+  0%   { transform: rotateY(0deg) scale(1.06) translateY(-18px); }
+  55%  { transform: rotateY(0deg) scale(0.965) translateY(-14px); }
+  100% { transform: rotateY(0deg) scale(1.09) translateY(-20px); }
 }
 
-.card-flip.flipping { animation: card-flip-anim 0.75s cubic-bezier(0.5, 0, 0.3, 1) forwards; }
+.card-flip.flipping { animation: card-flip-anim 0.7s cubic-bezier(0.7, 0, 0.25, 1) forwards; }
 @keyframes card-flip-anim {
-  0%   { transform: rotateY(0deg)   scale(1.28); }
-  50%  { transform: rotateY(90deg)  scale(1.32); }
-  100% { transform: rotateY(180deg) scale(1); }
+  0%   { transform: rotateY(0deg)   scale(1.09) translateY(-20px); }
+  50%  { transform: rotateY(92deg)  scale(1.12) translateY(-30px); }
+  100% { transform: rotateY(180deg) scale(1) translateY(0); }
 }
 .card-flip.settled {
-  animation: none !important;
+  animation: none;
   transform: rotateY(180deg) scale(1);
   opacity: 1;
+}
+/* Gentle levitation once revealed; the ground shadow breathes in sync. */
+.card-flip.settled.floaty { animation: card-float 4.5s ease-in-out 0.6s infinite; }
+@keyframes card-float {
+  0%, 100% { transform: rotateY(180deg) scale(1) translateY(0); }
+  50%      { transform: rotateY(180deg) scale(1) translateY(-7px); }
+}
+
+/* Edge light that builds along the card back during the charge. */
+.card-back::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  box-shadow:
+    inset 0 0 24px rgba(255, 220, 160, 0.55),
+    inset 0 0 4px rgba(255, 240, 200, 0.9);
+  transition: opacity 1.6s ease-in;
+}
+.card-flip.charging .card-back::after,
+.card-flip.climax .card-back::after { opacity: 1; }
+
+/* Text cascade after the reveal (live draws only; preview shows instantly). */
+.card-flip.reveal-cascade .card-pile-label,
+.card-flip.reveal-cascade .card-title,
+.card-flip.reveal-cascade .card-divider,
+.card-flip.reveal-cascade .card-description,
+.card-flip.reveal-cascade .card-footer-mark { opacity: 0; }
+.card-flip.reveal-cascade.settled .card-pile-label  { animation: card-text-in 0.5s 0.15s ease-out forwards; }
+.card-flip.reveal-cascade.settled .card-title       { animation: card-text-in 0.55s 0.3s cubic-bezier(0.2, 0.9, 0.2, 1) forwards; }
+.card-flip.reveal-cascade.settled .card-divider     { animation: card-text-in 0.5s 0.48s ease-out forwards; }
+.card-flip.reveal-cascade.settled .card-description { animation: card-text-in 0.6s 0.62s ease-out forwards; }
+.card-flip.reveal-cascade.settled .card-footer-mark { animation: card-text-in 0.5s 0.75s ease-out forwards; }
+@keyframes card-text-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
 }
 
 .card-face {
@@ -684,68 +714,83 @@
   opacity: 1;
   animation: bg-breathe 1.6s ease-in-out infinite;
 }
-.bg-glow.boost { animation: bg-breathe 0.55s ease-in-out infinite; }
 @keyframes bg-breathe {
   0%, 100% { transform: translate(-50%, -50%) scale(0.8); }
   50%      { transform: translate(-50%, -50%) scale(1.05); }
 }
 
-/* Concentric energy ripples emanating from the card */
-.ripples {
+/* Shared full-stage layer for spawned effect nodes (dust, ambient, landing).
+   Oversized so motes can start well outside the card. */
+.fx-layer {
   position: absolute;
-  inset: 0;
+  inset: -80px;
   pointer-events: none;
   z-index: 0;
 }
-.ripple {
+.fx-layer.fx-above { z-index: 60; }
+
+/* Gold dust converging into the card during the charge. The midpoint vars
+   (--xm/--ym) bend each path so the dust swirls in instead of flying
+   straight; depth is faked with size, blur, and opacity. */
+.mote {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 240px;
-  height: 340px;
-  border-radius: 24px;
-  transform: translate(-50%, -50%) scale(0.3);
-  border: 2px solid rgba(255, 215, 140, 0.8);
+  width: var(--s, 4px);
+  height: var(--s, 4px);
+  border-radius: 50%;
+  background: var(--c, #ffe2ad);
+  box-shadow: 0 0 8px var(--c, #ffe2ad);
   opacity: 0;
-  animation: ripple-out 1.3s cubic-bezier(0.2, 0.6, 0.3, 1) forwards;
+  filter: blur(var(--b, 0px));
+  animation: mote-in var(--t, 1.4s) cubic-bezier(0.55, 0, 0.75, 0.4) var(--d, 0s) forwards;
 }
-.ripple.variant-a { border-color: rgba(255, 180, 210, 0.75); }
-.ripple.variant-b { border-color: rgba(180, 200, 255, 0.75); }
-@keyframes ripple-out {
-  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.25); }
-  15%  { opacity: 1; }
-  100% { opacity: 0; transform: translate(-50%, -50%) scale(2.6); }
+@keyframes mote-in {
+  0%   { opacity: 0; transform: translate(var(--x0), var(--y0)) scale(0.4); }
+  20%  { opacity: var(--o, 0.9); }
+  60%  { opacity: var(--o, 0.9); transform: translate(var(--xm), var(--ym)) scale(0.85); }
+  100% { opacity: 0; transform: translate(-50%, -55%) scale(1.05); }
 }
 
-/* Burst: shard explosion at reveal */
-.burst {
+/* Landing ring: expanding card-shaped shockwave, replaces the old white flash. */
+.shockwave {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 0;
-  height: 0;
-  pointer-events: none;
-  z-index: 60;
-}
-.burst .shard {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 3px;
-  height: 80px;
-  transform-origin: 50% 0;
-  background: linear-gradient(180deg, rgba(255, 240, 200, 1), rgba(255, 215, 140, 0.6), transparent);
-  border-radius: 3px;
-  filter: drop-shadow(0 0 6px rgba(255, 220, 150, 0.9));
+  width: min(348px, 84vw);
+  height: min(508px, 74vh);
+  border-radius: 26px;
+  transform: translate(-50%, -50%) scale(1);
   opacity: 0;
+  border: 2px solid var(--c, rgba(255, 220, 160, 0.9));
+  box-shadow:
+    0 0 30px var(--c, rgba(255, 220, 160, 0.5)),
+    inset 0 0 20px var(--c, rgba(255, 220, 160, 0.3));
+  filter: blur(0.5px);
+  animation: shockwave 0.9s cubic-bezier(0.1, 0.7, 0.2, 1) forwards;
 }
-.burst.active .shard {
-  animation: shard-burst 0.9s cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+@keyframes shockwave {
+  0%   { opacity: 0.95; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.55); }
 }
-@keyframes shard-burst {
-  0%   { opacity: 0; transform: rotate(var(--a)) translateY(0) scaleY(0.2); }
-  15%  { opacity: 1; }
-  100% { opacity: 0; transform: rotate(var(--a)) translateY(var(--d)) scaleY(1); }
+
+/* Golden fallout raining below the card after the reveal. */
+.ember {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--s, 4px);
+  height: var(--s, 4px);
+  border-radius: 50%;
+  background: var(--c, #ffdf9e);
+  box-shadow: 0 0 10px var(--c, #ffdf9e);
+  opacity: 0;
+  animation: ember var(--t, 2.4s) cubic-bezier(0.2, 0.5, 0.5, 1) var(--d, 0s) forwards;
+}
+@keyframes ember {
+  0%   { opacity: 0; transform: translate(var(--x0), var(--y0)) scale(1); }
+  12%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(calc(var(--x0) + var(--dx)), calc(var(--y0) + var(--dy))) scale(0.5); }
 }
 
 /* Glowing halo pulsing like a heartbeat */
@@ -774,83 +819,72 @@
   100% { opacity: 0.55; transform: scale(0.92); }  /* repos */
 }
 
-/* Small hearts floating around the card */
-.hearts {
+/* Thin ambient dust drifting up around the settled card. */
+.drift {
   position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-}
-.heart {
-  position: absolute;
-  font-size: 2rem;
   left: 50%;
   top: 50%;
-  opacity: 0;
-  animation: heart-float 3.4s cubic-bezier(0.3, 0, 0.5, 1) forwards;
-}
-@media (prefers-reduced-motion: no-preference) and (min-width: 900px) {
-  .heart { filter: drop-shadow(0 0 6px rgba(255, 120, 160, 0.55)); }
-}
-@keyframes heart-float {
-  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.3) rotate(var(--r, 0deg)); }
-  15%  { opacity: 1; transform: translate(calc(-50% + var(--dx1) * 0.3), calc(-50% + var(--dy1) * 0.3)) scale(1) rotate(var(--r, 0deg)); }
-  60%  { opacity: 0.85; }
-  100% { opacity: 0; transform: translate(calc(-50% + var(--dx1)), calc(-50% + var(--dy1))) scale(0.7) rotate(calc(var(--r, 0deg) + 20deg)); }
-}
-
-/* Final flash */
-#screen-draw.flash::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at center, rgba(255, 255, 255, 1) 0%, rgba(255, 230, 170, 0.8) 25%, transparent 70%);
-  opacity: 0;
-  animation: flash 0.7s ease-out;
-  pointer-events: none;
-  z-index: 50;
-}
-@keyframes flash {
-  0%   { opacity: 0; transform: scale(0.4); }
-  10%  { opacity: 1; transform: scale(1); }
-  100% { opacity: 0; transform: scale(1.3); }
-}
-
-/* Small anticipatory flash at the climax */
-#screen-draw.preflash::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center, rgba(255, 215, 140, 0.5), transparent 60%);
-  opacity: 0;
-  animation: preflash 0.45s ease-out;
-  pointer-events: none;
-  z-index: 49;
-}
-@keyframes preflash {
-  0%   { opacity: 0; }
-  50%  { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-/* Particles */
-.particles { position: absolute; inset: 0; pointer-events: none; }
-.particle {
-  position: absolute;
-  width: 8px;
-  height: 8px;
+  width: var(--s, 3px);
+  height: var(--s, 3px);
   border-radius: 50%;
-  left: 50%;
-  top: 50%;
+  background: var(--c, #ffe2ad);
+  box-shadow: 0 0 6px var(--c, #ffe2ad);
   opacity: 0;
-  box-shadow: 0 0 12px currentColor;
+  filter: blur(var(--b, 0px));
+  animation: drift var(--t, 5s) linear var(--d, 0s) forwards;
 }
-.particles.active .particle { animation: particle-fly 1.4s ease-out infinite; }
-@keyframes particle-fly {
-  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.2); }
-  15%  { opacity: 1; }
-  100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1.2); }
+@keyframes drift {
+  0%   { opacity: 0; transform: translate(var(--x0), var(--y0)) scale(1); }
+  15%  { opacity: var(--o, 0.55); }
+  85%  { opacity: var(--o, 0.55); }
+  100% { opacity: 0; transform: translate(calc(var(--x0) + var(--dx)), calc(var(--y0) + var(--dy))) scale(0.7); }
+}
+
+/* Soft ground shadow under the floating card. */
+.card-ground {
+  position: absolute;
+  left: 50%;
+  bottom: -6%;
+  width: 68%;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.55), transparent 70%);
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.6s;
+  z-index: 1;
+  pointer-events: none;
+}
+.card-ground.active {
+  opacity: 1;
+  animation: ground-breathe 4.5s ease-in-out 0.6s infinite;
+}
+@keyframes ground-breathe {
+  0%, 100% { transform: translateX(-50%) scaleX(1); opacity: 1; }
+  50%      { transform: translateX(-50%) scaleX(0.86); opacity: 0.7; }
+}
+
+/* Light streak sweeping across the front face as the card turns over. */
+.reveal-streak {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.reveal-streak::before {
+  content: "";
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: -60%;
+  width: 45%;
+  background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.28) 45%, rgba(255, 220, 160, 0.5) 50%, rgba(255, 255, 255, 0.28) 55%, transparent);
+  transform: skewX(-12deg);
+}
+.reveal-streak.go::before { animation: streak-sweep 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+@keyframes streak-sweep {
+  to { left: 130%; }
 }
 
 /* Draw actions */
@@ -940,15 +974,20 @@
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .card-flip.enter { animation: card-enter-rm 0.3s ease forwards; }
-  .card-flip.pulsing,
+  .card-flip.charging,
   .card-flip.climax { animation: none; }
   .card-flip.flipping { animation: card-flip-rm 0.4s ease forwards; }
-  .particles.active .particle { animation: none; opacity: 0; }
+  .card-flip.settled.floaty { animation: none; }
+  .card-flip.reveal-cascade .card-pile-label,
+  .card-flip.reveal-cascade .card-title,
+  .card-flip.reveal-cascade .card-divider,
+  .card-flip.reveal-cascade .card-description,
+  .card-flip.reveal-cascade .card-footer-mark { opacity: 1; animation: none; }
   .bg-glow.active { animation: none; opacity: 0.4; }
-  .ripple { animation: none; opacity: 0; }
-  .burst.active .shard { animation: none; opacity: 0; }
-  #screen-draw.preflash::before { animation: none; }
-  #screen-draw.flash::after { animation: none; }
+  .mote, .ember, .drift, .shockwave { animation: none; opacity: 0; }
+  .card-ground.active { animation: none; opacity: 0; }
+  .reveal-streak.go::before { animation: none; }
+  .card-back::after { transition: none; opacity: 0; }
   .card-flip.glow-home::after,
   .card-flip.glow-outdoor::after { animation: none; }
   .card-front.idle-shine::before { animation: none; opacity: 0; }

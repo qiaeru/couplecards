@@ -29,6 +29,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- The card reveal was redesigned around a "gold dust" sequence. The card now levitates while golden particles swirl into it, takes a sharp breath, then flips with a light sweep across its face; the landing sends out a golden shockwave (the full-screen white flash is gone), embers rain down, the card text cascades in, and the revealed card keeps floating gently over its shadow surrounded by a thin ambient dust. The floating emoji hearts are retired in favor of that ambient dust, and particle density adapts to the device so low-end phones get the same choreography with fewer particles.
 - The Docker image is roughly half as large: file ownership is set during copy instead of in a duplicating chown layer.
 - `/api/health` no longer exposes the app version publicly; it only reports liveness.
 - Seed files are validated at first boot with the same rules as the admin "sync from files" operation; malformed files are skipped with a warning instead of seeding unvalidated data.
