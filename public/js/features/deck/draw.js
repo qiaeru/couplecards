@@ -468,6 +468,11 @@ function detachTilt() {
   }
   tiltPointerMove = tiltPointerDown = tiltPointerUp = tiltPointerLeave = null;
   tiltActive = false;
+  // Kill a return-to-center animation still in flight: a stale rAF would
+  // write to detached nodes, and if the tab was hidden mid-return the paused
+  // animation would keep isReturning stuck and block tilt on the next mount.
+  if (returnRaf) { cancelAnimationFrame(returnRaf); returnRaf = 0; }
+  isReturning = false;
   if (orientationAttached && orientationHandler) {
     window.removeEventListener('deviceorientation', orientationHandler);
     orientationAttached = false;
@@ -822,13 +827,14 @@ function onVisibilityChange() {
     return;
   }
   bumpInactivity();
-  // Resume the ambient effects when the user is back and a card has been
-  // revealed (the settled class means the flip animation has landed).
-  // startHearts/startRipples no-op in preview, so no guard is needed here.
-  const settled = $('card-flip')?.classList.contains('settled');
-  if (settled) {
+  // Resume the hearts when the user is back and a card has been revealed
+  // (the settled class means the flip animation has landed). Ripples stay
+  // off: they only run during the pre-reveal build-up and are stopped for
+  // good once the card settles, so restarting them here would resurrect an
+  // infinite loop that never exists outside a tab switch.
+  // startHearts no-ops in preview, so no guard is needed here.
+  if ($('card-flip')?.classList.contains('settled')) {
     startHearts();
-    startRipples(CONFIG.ripples.normalInterval);
   }
 }
 
