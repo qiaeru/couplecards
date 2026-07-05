@@ -2,17 +2,15 @@
 // First-run seed: default admin, optional demo account, multilingual starter
 // deck from every data/cards.*.json.
 
-import { readFileSync, existsSync, readdirSync } from 'node:fs';
-import { resolve } from 'node:path';
 import { config } from '../config.js';
 import { getDb, transaction, setSetting } from './index.js';
 import { hashPassword, verifyPassword } from '../lib/password.js';
 import { SUPPORTED_LOCALES } from '../lib/locales.js';
+import { readSeedDecks } from '../lib/deckSync.js';
 
 const DEFAULT_ADMIN_PASSWORD = 'changeme';
 const DEMO_USERNAME = 'demo';
 const DEMO_PASSWORD = 'demo';
-const SEED_FILE_PATTERN = /^cards\.([a-z]{2})\.json$/i;
 
 export async function runSeed(logger) {
   const db = getDb();
@@ -70,11 +68,8 @@ export async function runSeed(logger) {
 
   const cardCount = db.prepare('SELECT COUNT(*) AS n FROM cards').get().n;
   if (cardCount === 0) {
-    const deck = loadSeedDeck(logger);
-    if (deck.length === 0) {
-      logger?.warn('no cards.*.json files found under the data directory, skipping card seed');
-      return;
-    }
+    const deck = loadSeedDeckSafe(logger);
+    if (deck.length === 0) return;
     const insertCard = db.prepare(`
       INSERT INTO cards (id, pile, foil, emoji, sort_order)
       VALUES (@id, @pile, @foil, @emoji, @sort_order)
@@ -113,7 +108,7 @@ function backfillCardEmoji(logger) {
   const db = getDb();
   const stillNull = db.prepare('SELECT COUNT(*) AS n FROM cards WHERE emoji IS NULL').get().n;
   if (stillNull === 0) return;
-  const deck = loadSeedDeck(logger);
+  const deck = loadSeedDeckSafe(logger);
   if (deck.length === 0) return;
   const update = db.prepare(`
     UPDATE cards SET emoji = ?, updated_at = datetime('now')
@@ -150,68 +145,20 @@ export async function maybeResetAdmin(logger) {
   logger?.warn('ADMIN_RESET was enabled: admin password reset to "changeme". Unset the variable and restart.');
 }
 
-// Merges every data/cards.<locale>.json into a single deck keyed by card id.
-// A card may ship only one translation; structural fields (pile, foil, emoji)
-// must agree across locales for the same id.
-function loadSeedDeck(logger) {
-  const dir = config.dataSeedDir;
-  if (!existsSync(dir)) return [];
-  const byId = new Map();
-  let firstLocaleOrder = null;
-  for (const file of readdirSync(dir)) {
-    const match = SEED_FILE_PATTERN.exec(file);
-    if (!match) continue;
-    const locale = match[1].toLowerCase();
-    if (!SUPPORTED_LOCALES.includes(locale)) {
-      logger?.warn({ file, locale }, 'skipping seed file for an unsupported locale');
-      continue;
-    }
-    const payload = JSON.parse(readFileSync(resolve(dir, file), 'utf8'));
-    const cards = Array.isArray(payload?.cards) ? payload.cards : [];
-    if (firstLocaleOrder === null) firstLocaleOrder = locale;
-    cards.forEach((raw, index) => {
-      if (!raw || typeof raw.id !== 'string') return;
-      const existing = byId.get(raw.id);
-      if (existing) {
-        if (
-          existing.pile !== raw.pile
-          || !!existing.foil !== !!raw.foil
-          || (existing.emoji ?? null) !== (raw.emoji ?? null)
-        ) {
-          throw new Error(
-            `seed card "${raw.id}": structural fields differ between locales `
-              + `(pile=${existing.pile}/${raw.pile}, foil=${existing.foil}/${!!raw.foil}, `
-              + `emoji=${existing.emoji ?? 'null'}/${raw.emoji ?? 'null'})`,
-          );
-        }
-        existing.translations[locale] = {
-          title: String(raw.title ?? ''),
-          description: String(raw.description ?? ''),
-        };
-      } else {
-        const order = locale === firstLocaleOrder ? index : Number.MAX_SAFE_INTEGER;
-        byId.set(raw.id, {
-          id: raw.id,
-          pile: raw.pile,
-          foil: !!raw.foil,
-          emoji: typeof raw.emoji === 'string' ? raw.emoji : null,
-          sortOrder: order,
-          translations: {
-            [locale]: {
-              title: String(raw.title ?? ''),
-              description: String(raw.description ?? ''),
-            },
-          },
-        });
-      }
-    });
+// Same reader and validation as the admin "sync from files" path, so a card
+// that seeds at first boot can never later fail POST /cards/sync. At boot a
+// missing or malformed data directory degrades to an empty deck (warn and
+// skip) instead of refusing to start.
+function loadSeedDeckSafe(logger) {
+  try {
+    return readSeedDecks();
+  } catch (err) {
+    logger?.warn(
+      { reason: err.deckCode || err.message },
+      'seed deck unavailable or invalid, skipping card seed/backfill',
+    );
+    return [];
   }
-  // Normalize sort order so cards introduced only by a later locale still
-  // get a deterministic position.
-  const deck = [...byId.values()];
-  deck.sort((a, b) => a.sortOrder - b.sortOrder || a.id.localeCompare(b.id));
-  deck.forEach((card, index) => { card.sortOrder = index; });
-  return deck;
 }
 
 function pickSeedLocale() {
