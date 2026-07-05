@@ -112,6 +112,8 @@
   "collection.counter.label": "cartas descubiertas",
   "collection.filter.all": "Todas",
   "collection.filter.rare": "Raras",
+  "collection.filter.banned": "Vetadas",
+  "collection.filter.undiscovered": "Sin descubrir",
   "collection.empty.title": "El mazo está vacío",
   "collection.empty.hint": "Pide al administrador que añada cartas.",
   "collection.empty.filter.title": "Sin resultados",

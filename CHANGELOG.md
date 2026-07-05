@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Added
 
 - The History screen gains filter chips (pile, returned, banned) and a summary line with the total number of draws and bans.
+- The Collection gains two filters: "Banned" to find banned cards without scanning the grid, and "Undiscovered" to see what is left to find.
 
 ### Fixed
 

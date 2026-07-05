@@ -112,6 +112,8 @@
   "collection.counter.label": "cards discovered",
   "collection.filter.all": "All",
   "collection.filter.rare": "Rare",
+  "collection.filter.banned": "Banned",
+  "collection.filter.undiscovered": "Undiscovered",
   "collection.empty.title": "Deck is empty",
   "collection.empty.hint": "Ask the administrator to add cards to the deck.",
   "collection.empty.filter.title": "No matches",

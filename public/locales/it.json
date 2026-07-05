@@ -112,6 +112,8 @@
   "collection.counter.label": "carte scoperte",
   "collection.filter.all": "Tutte",
   "collection.filter.rare": "Rare",
+  "collection.filter.banned": "Escluse",
+  "collection.filter.undiscovered": "Da scoprire",
   "collection.empty.title": "Il mazzo è vuoto",
   "collection.empty.hint": "Chiedi all'amministratore di aggiungere delle carte.",
   "collection.empty.filter.title": "Nessun risultato",

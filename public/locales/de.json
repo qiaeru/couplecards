@@ -112,6 +112,8 @@
   "collection.counter.label": "Karten entdeckt",
   "collection.filter.all": "Alle",
   "collection.filter.rare": "Selten",
+  "collection.filter.banned": "Verbannt",
+  "collection.filter.undiscovered": "Unentdeckt",
   "collection.empty.title": "Das Kartendeck ist leer",
   "collection.empty.hint": "Bitte den Administrator, Karten hinzuzufügen.",
   "collection.empty.filter.title": "Keine Treffer",
