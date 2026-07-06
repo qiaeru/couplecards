@@ -6,22 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.13.0] - 2026-07-06
+
 ### Added
 
 - The History screen gains filter chips (pile, returned, banned) and a summary line with the total number of draws and bans.
 - The Collection gains two filters: "Banned" to find banned cards without scanning the grid, and "Undiscovered" to see what is left to find.
 - The admin Users tab can rename an account.
-- Eight new cards join the seed deck, four per pile with one foil each: improvised movie dubbing, absurd courtroom pleas, virtual vacation planning, and a desire lottery at home; coin-flip wandering, library giggle duels, ice skating, and a daytime hotel escapade outdoors. Three new emoji are bundled for them (desert island, ice skate, love hotel).
+- Eight new cards join the seed deck, four per pile with one foil each, from improvised movie dubbing to a daytime hotel escapade. Three new emoji are bundled for them (desert island, ice skate, love hotel).
 
 ### Changed
 
 - The revealed card's idle shine now sweeps the whole face as a soft golden glint, and the card sits visually centered between the title and the action buttons.
-- The bad-singing card "Lyrical massacre" is reworked into "Lip-sync battle" so it no longer tells the same joke as the living-room karaoke card, and the English deck drops its last British spellings for US English.
-- A quality pass over the existing deck: four flat titles gain the deck's deadpan voice (museum, aquarium, karting, school quiz), four descriptions land their punchline better (waterside walk, submission, couple quiz, junk drawer), and the ephemeral-tattoos card gets its own lipstick emoji instead of sharing the kiss mark with the hickeys card.
+- A quality pass over the existing deck: the second bad-singing card becomes a lip-sync battle, four flat titles gain the deck's deadpan voice, four descriptions land their punchline better, the ephemeral-tattoos card gets its own lipstick emoji, and the English deck drops its last British spellings for US English.
 
 ### Removed
 
-- Four near-duplicate cards leave the seed deck: the second car-in-the-woods escapade, the generic outdoor-thrill card, the second racy photo shoot, and the "Food truck" card that told the same joke as "Street gastronomy". Instances that already seeded keep them until an admin applies a "Full mirror" deck sync.
+- Four near-duplicate cards leave the seed deck (two outdoor thrills, a second racy photo shoot, a second street-food outing). Instances that already seeded keep them until an admin applies a "Full mirror" deck sync.
 
 ### Fixed
 
