@@ -47,9 +47,9 @@
     {
       "id": "home-007",
       "pile": "home",
-      "emoji": "microphone",
-      "title": "Massacre lyrique",
-      "description": "Chantez faux avec l'arrogance d'une diva. Le plus mauvais gagne un câlin imposé."
+      "emoji": "musical-notes",
+      "title": "Battle de playback",
+      "description": "Mime ton tube culte avec une ferveur de rock star. Le moins crédible plie le linge."
     },
     {
       "id": "home-008",
@@ -264,14 +264,6 @@
       "emoji": "shushing-face",
       "title": "Confessions impures",
       "description": "Action ou vérité sans tabou. Refuser n'est clairement pas une option ce soir."
-    },
-    {
-      "id": "home-039",
-      "pile": "home",
-      "foil": true,
-      "emoji": "camera-with-flash",
-      "title": "Studio très privé",
-      "description": "Créer des souvenirs visuels osés. Espérons que ton cloud est protégé."
     },
     {
       "id": "home-040",
@@ -721,14 +713,6 @@
       "description": "Café au hasard, on arrive séparément. Drague-moi comme une cible riche et facile."
     },
     {
-      "id": "out-033",
-      "pile": "outdoor",
-      "foil": true,
-      "emoji": "deciduous-tree",
-      "title": "Pause sauvage",
-      "description": "Voiture en forêt, sièges inclinés. Les vitres se brouillent par accident."
-    },
-    {
       "id": "out-034",
       "pile": "outdoor",
       "foil": true,
@@ -759,14 +743,6 @@
       "emoji": "zipper-mouth-face",
       "title": "Commando secret",
       "description": "Sortir sans sous-vêtements. Ce secret rend chaque regard brûlant."
-    },
-    {
-      "id": "out-038",
-      "pile": "outdoor",
-      "foil": true,
-      "emoji": "deciduous-tree",
-      "title": "Frisson public",
-      "description": "Trouver un coin discret en plein air. Le risque est le meilleur des excitants."
     },
     {
       "id": "out-039",

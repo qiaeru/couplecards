@@ -47,9 +47,9 @@
     {
       "id": "home-007",
       "pile": "home",
-      "emoji": "microphone",
-      "title": "Lyrical massacre",
-      "description": "Sing out of tune with diva arrogance. Worst performer owes an unwanted hug."
+      "emoji": "musical-notes",
+      "title": "Lip-sync battle",
+      "description": "Mime your anthem with rock-star fervor. The least convincing folds the laundry."
     },
     {
       "id": "home-008",
@@ -199,8 +199,8 @@
       "id": "home-030",
       "pile": "home",
       "emoji": "takeout-box",
-      "title": "Distant flavours",
-      "description": "Exotic meal ordered at random. If we choke, we travelled for real."
+      "title": "Distant flavors",
+      "description": "Exotic meal ordered at random. If we choke, we traveled for real."
     },
     {
       "id": "home-031",
@@ -224,7 +224,7 @@
       "foil": true,
       "emoji": "kiss-mark",
       "title": "Temporary tattoos",
-      "description": "Your body is my canvas. I draw my desires, you interpret them with fervour."
+      "description": "Your body is my canvas. I draw my desires, you interpret them with fervor."
     },
     {
       "id": "home-034",
@@ -264,14 +264,6 @@
       "emoji": "shushing-face",
       "title": "Impure confessions",
       "description": "Truth or dare, no taboos. Refusing is clearly not an option tonight."
-    },
-    {
-      "id": "home-039",
-      "pile": "home",
-      "foil": true,
-      "emoji": "camera-with-flash",
-      "title": "A very private studio",
-      "description": "Making risqué visual memories. Let's hope your cloud is encrypted."
     },
     {
       "id": "home-040",
@@ -337,7 +329,7 @@
       "foil": true,
       "emoji": "graduation-cap",
       "title": "Private lesson",
-      "description": "Classic role-play. Let's see who deserves punishment or high honours."
+      "description": "Classic role-play. Let's see who deserves punishment or high honors."
     },
     {
       "id": "home-049",
@@ -366,7 +358,7 @@
       "id": "home-052",
       "pile": "home",
       "emoji": "balance-scale",
-      "title": "Final judgement",
+      "title": "Final judgment",
       "description": "Dubious purity test found online. A chance to mock your past with humor."
     },
     {
@@ -381,7 +373,7 @@
       "pile": "home",
       "emoji": "red-question-mark",
       "title": "School of laughter",
-      "description": "Primary-school-level quiz. Your ego may take a fatal hit."
+      "description": "Grade-school quiz. Your ego may take a fatal hit."
     },
     {
       "id": "home-055",
@@ -409,7 +401,7 @@
       "pile": "home",
       "emoji": "performing-arts",
       "title": "Sunday Shakespeare",
-      "description": "Act out an improbable scene, deadpan. First to break has lost their honour."
+      "description": "Act out an improbable scene, deadpan. First to break has lost their honor."
     },
     {
       "id": "home-059",
@@ -451,7 +443,7 @@
       "pile": "home",
       "emoji": "crystal-ball",
       "title": "Botched astrology",
-      "description": "Read today's horoscope, po-faced. Tear every prediction apart without mercy."
+      "description": "Read today's horoscope, straight-faced. Tear every prediction apart without mercy."
     },
     {
       "id": "home-065",
@@ -507,7 +499,7 @@
       "pile": "outdoor",
       "emoji": "popcorn",
       "title": "Cinema and contempt",
-      "description": "Film picked at random. The real pleasure is demolishing it afterwards like bitter critics."
+      "description": "Film picked at random. The real pleasure is demolishing it afterward like bitter critics."
     },
     {
       "id": "out-003",
@@ -591,7 +583,7 @@
       "id": "out-014",
       "pile": "outdoor",
       "emoji": "hot-springs",
-      "title": "Tropical vapours",
+      "title": "Tropical vapors",
       "description": "Spa and humid heat. Leave floppy, with a pressing urge to end up in bed."
     },
     {
@@ -721,14 +713,6 @@
       "description": "Random café, arrive separately. Hit on me like I'm a rich, easy target."
     },
     {
-      "id": "out-033",
-      "pile": "outdoor",
-      "foil": true,
-      "emoji": "deciduous-tree",
-      "title": "Wild detour",
-      "description": "Car parked in a forest, seats reclined. Windows fog up by accident."
-    },
-    {
       "id": "out-034",
       "pile": "outdoor",
       "foil": true,
@@ -761,14 +745,6 @@
       "description": "Go out without underwear. The secret makes every glance burn."
     },
     {
-      "id": "out-038",
-      "pile": "outdoor",
-      "foil": true,
-      "emoji": "deciduous-tree",
-      "title": "Public thrill",
-      "description": "Find a discreet corner out in the open. Risk is the best stimulant."
-    },
-    {
       "id": "out-039",
       "pile": "outdoor",
       "emoji": "axe",
@@ -780,7 +756,7 @@
       "pile": "outdoor",
       "emoji": "books",
       "title": "Suggestive title",
-      "description": "At the bookshop, pick a book whose title sums up what you want to do to me tonight."
+      "description": "At the bookstore, pick a book whose title sums up what you want to do to me tonight."
     },
     {
       "id": "out-041",
@@ -895,7 +871,7 @@
       "pile": "outdoor",
       "emoji": "hiking-boot",
       "title": "Symbolic hike",
-      "description": "Walk 2 km to justify the massive drinks afterwards. The effort is purely psychological."
+      "description": "Walk 2 km to justify the massive drinks afterward. The effort is purely psychological."
     },
     {
       "id": "out-058",
@@ -978,7 +954,7 @@
       "id": "out-069",
       "pile": "outdoor",
       "emoji": "person-rowing-boat",
-      "title": "Synchronised pedalo",
+      "title": "Synchronized pedalo",
       "description": "Pedal as a duo with zero coordination. The only real risk is public humiliation."
     },
     {

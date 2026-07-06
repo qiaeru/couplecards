@@ -47,9 +47,9 @@
     {
       "id": "home-007",
       "pile": "home",
-      "emoji": "microphone",
-      "title": "Masacre lírica",
-      "description": "Canten desafinando con arrogancia de diva. El peor debe un abrazo impuesto."
+      "emoji": "musical-notes",
+      "title": "Batalla de playback",
+      "description": "Imita tu himno con fervor de estrella de rock. El menos convincente dobla la ropa."
     },
     {
       "id": "home-008",
@@ -264,14 +264,6 @@
       "emoji": "shushing-face",
       "title": "Confesiones impuras",
       "description": "Verdad o reto sin tabúes. Rajarse esta noche no es opción."
-    },
-    {
-      "id": "home-039",
-      "pile": "home",
-      "foil": true,
-      "emoji": "camera-with-flash",
-      "title": "Estudio muy privado",
-      "description": "Crear recuerdos visuales atrevidos. Esperemos que tu nube esté bien protegida."
     },
     {
       "id": "home-040",
@@ -721,14 +713,6 @@
       "description": "Café al azar, llegamos por separado. Lígame como si fuese una presa rica y fácil."
     },
     {
-      "id": "out-033",
-      "pile": "outdoor",
-      "foil": true,
-      "emoji": "deciduous-tree",
-      "title": "Parada salvaje",
-      "description": "Coche en el bosque, asientos reclinados. Las ventanillas se empañan por accidente."
-    },
-    {
       "id": "out-034",
       "pile": "outdoor",
       "foil": true,
@@ -759,14 +743,6 @@
       "emoji": "zipper-mouth-face",
       "title": "Comando secreto",
       "description": "Salir sin ropa interior. El secreto hace que cada mirada queme."
-    },
-    {
-      "id": "out-038",
-      "pile": "outdoor",
-      "foil": true,
-      "emoji": "deciduous-tree",
-      "title": "Escalofrío público",
-      "description": "Encontrar un rincón discreto al aire libre. El riesgo es el mejor afrodisíaco."
     },
     {
       "id": "out-039",
