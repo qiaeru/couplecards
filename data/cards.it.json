@@ -488,6 +488,35 @@
       "description": "Ognuno racconta le sue tre battute più scadenti. Il meno divertente sparecchia."
     },
     {
+      "id": "home-071",
+      "pile": "home",
+      "emoji": "clapper-board",
+      "title": "Doppiaggio selvaggio",
+      "description": "Film in muto, improvvisiamo tutti i dialoghi. La trama degenera in fretta."
+    },
+    {
+      "id": "home-072",
+      "pile": "home",
+      "emoji": "balance-scale",
+      "title": "Arringa assurda",
+      "description": "Difendi una causa ridicola con rigore da avvocato. La giuria (io) è corrotta."
+    },
+    {
+      "id": "home-073",
+      "pile": "home",
+      "emoji": "desert-island",
+      "title": "Vacanza virtuale",
+      "description": "Street View a caso e budget immaginario. Pianifichiamo il viaggio che non faremo mai."
+    },
+    {
+      "id": "home-074",
+      "pile": "home",
+      "foil": true,
+      "emoji": "love-letter",
+      "title": "Lotteria dei desideri",
+      "description": "Ognuno scrive tre desideri inconfessabili, se ne estrae uno. Esecuzione immediata."
+    },
+    {
       "id": "out-001",
       "pile": "outdoor",
       "emoji": "spaghetti",
@@ -998,6 +1027,35 @@
       "emoji": "selfie",
       "title": "Influencer per un giorno",
       "description": "Pose ridicole in città per dieci foto in stile story. Faccia di marmo e sfocatura artistica."
+    },
+    {
+      "id": "out-076",
+      "pile": "outdoor",
+      "emoji": "coin",
+      "title": "Vagare a testa o croce",
+      "description": "A ogni incrocio decide la moneta. I vicoli ciechi contano come panorama."
+    },
+    {
+      "id": "out-077",
+      "pile": "outdoor",
+      "emoji": "shushing-face",
+      "title": "Risate proibite",
+      "description": "In biblioteca, far crollare l'altro in silenzio. L'espulsione vale come vittoria."
+    },
+    {
+      "id": "out-078",
+      "pile": "outdoor",
+      "emoji": "ice-skate",
+      "title": "Bambi sul ghiaccio",
+      "description": "Pista di pattinaggio in coppia, caviglie facoltative. Chi cade per primo paga la cioccolata."
+    },
+    {
+      "id": "out-079",
+      "pile": "outdoor",
+      "foil": true,
+      "emoji": "love-hotel",
+      "title": "Amanti di passaggio",
+      "description": "Camera d'albergo in pieno giorno, nomi falsi alla reception. Due ore e zero rimorsi."
     }
   ]
 }

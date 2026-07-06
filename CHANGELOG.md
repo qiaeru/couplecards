@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - The History screen gains filter chips (pile, returned, banned) and a summary line with the total number of draws and bans.
 - The Collection gains two filters: "Banned" to find banned cards without scanning the grid, and "Undiscovered" to see what is left to find.
 - The admin Users tab can rename an account.
+- Eight new cards join the seed deck, four per pile with one foil each: improvised movie dubbing, absurd courtroom pleas, virtual vacation planning, and a desire lottery at home; coin-flip wandering, library giggle duels, ice skating, and a daytime hotel escapade outdoors. Three new emoji are bundled for them (desert island, ice skate, love hotel).
 
 ### Changed
 

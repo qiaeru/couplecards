@@ -488,6 +488,35 @@
       "description": "Chacun raconte ses 3 pires blagues. Le moins drôle débarrasse."
     },
     {
+      "id": "home-071",
+      "pile": "home",
+      "emoji": "clapper-board",
+      "title": "Doublage sauvage",
+      "description": "Film en muet, on improvise tous les dialogues. Le scénario devient vite inavouable."
+    },
+    {
+      "id": "home-072",
+      "pile": "home",
+      "emoji": "balance-scale",
+      "title": "Plaidoirie absurde",
+      "description": "Défends une cause ridicule avec une rigueur d'avocat. Le jury (moi) est corrompu."
+    },
+    {
+      "id": "home-073",
+      "pile": "home",
+      "emoji": "desert-island",
+      "title": "Vacances virtuelles",
+      "description": "Street View au hasard et budget imaginaire. On planifie des vacances qu'on ne prendra jamais."
+    },
+    {
+      "id": "home-074",
+      "pile": "home",
+      "foil": true,
+      "emoji": "love-letter",
+      "title": "Loterie des envies",
+      "description": "Chacun écrit trois envies inavouables, on en tire une au sort. Exécution immédiate."
+    },
+    {
       "id": "out-001",
       "pile": "outdoor",
       "emoji": "spaghetti",
@@ -998,6 +1027,35 @@
       "emoji": "selfie",
       "title": "Influenceur d'un jour",
       "description": "Poses ridicules en ville pour 10 photos style story. Air pénétré et flou artistique exigés."
+    },
+    {
+      "id": "out-076",
+      "pile": "outdoor",
+      "emoji": "coin",
+      "title": "Errance à pile ou face",
+      "description": "À chaque carrefour, la pièce décide. On assume les impasses comme les points de vue."
+    },
+    {
+      "id": "out-077",
+      "pile": "outdoor",
+      "emoji": "shushing-face",
+      "title": "Fous rires interdits",
+      "description": "En bibliothèque, faire craquer l'autre sans un bruit. L'expulsion vaut victoire commune."
+    },
+    {
+      "id": "out-078",
+      "pile": "outdoor",
+      "emoji": "ice-skate",
+      "title": "Bambi sur glace",
+      "description": "Patinoire en duo, chevilles en option. Le premier au sol paie le chocolat chaud."
+    },
+    {
+      "id": "out-079",
+      "pile": "outdoor",
+      "foil": true,
+      "emoji": "love-hotel",
+      "title": "Amants de passage",
+      "description": "Hôtel en pleine journée et faux noms à l'accueil. Deux heures et zéro remords."
     }
   ]
 }
