@@ -84,7 +84,7 @@ The SPA router lives in `public/js/core/router.js` and is roughly seventy lines 
 
 ## Card draw
 
-`drawRandom(pile, recentIds)` in `public/js/core/sync.js` picks the next card for a pile. It first removes the user's banned cards (`availableCards`), then excludes the most recently drawn ids in that pile (`CONFIG.recentExclude`, three by default) so the same card does not come back two draws in a row. From the remaining pool it does a weighted random pick: standard cards weigh `1.0`, foil cards weigh `FOIL_WEIGHT = 0.3`. The constant lives at the top of `sync.js` and exists to keep the appearance rate of foil cards (the rare, explicitly sexual variant) low even when their share of the deck is non-trivial. With the current FR deck (27 foil out of 147), the effective foil draw rate is around 9.2% on the home pile and 3.9% on the outdoor pile, well below what the raw counts would suggest.
+`drawRandom(pile, recentIds)` in `public/js/core/sync.js` picks the next card for a pile. It first removes the user's banned cards (`availableCards`), then excludes the most recently drawn ids in that pile (`CONFIG.recentExclude`, three by default) so the same card does not come back two draws in a row. From the remaining pool it does a weighted random pick: standard cards weigh `1.0`, foil cards weigh `FOIL_WEIGHT = 0.3`. The constant lives at the top of `sync.js` and exists to keep the appearance rate of foil cards (the rare, explicitly sexual variant) low even when their share of the deck is non-trivial. With the current FR deck (27 foil out of 146), the effective foil draw rate is around 9.2% on the home pile and 3.9% on the outdoor pile, well below what the raw counts would suggest.
 
 ## Collection screen
 
