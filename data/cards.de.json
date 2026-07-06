@@ -47,9 +47,9 @@
     {
       "id": "home-007",
       "pile": "home",
-      "emoji": "microphone",
-      "title": "Lyrisches Massaker",
-      "description": "Falsch singen mit Diven-Arroganz. Der Schlechteste schuldet eine erzwungene Umarmung."
+      "emoji": "musical-notes",
+      "title": "Playback-Battle",
+      "description": "Mime deine Hymne mit Rockstar-Inbrunst. Wer am wenigsten überzeugt, faltet die Wäsche."
     },
     {
       "id": "home-008",
@@ -264,14 +264,6 @@
       "emoji": "shushing-face",
       "title": "Unreine Geständnisse",
       "description": "Wahrheit oder Pflicht ohne Tabus. Ablehnen ist heute Abend keine Option."
-    },
-    {
-      "id": "home-039",
-      "pile": "home",
-      "foil": true,
-      "emoji": "camera-with-flash",
-      "title": "Sehr privates Studio",
-      "description": "Gewagte visuelle Erinnerungen schaffen. Hoffen wir, dein Cloud-Speicher ist sicher."
     },
     {
       "id": "home-040",
@@ -721,14 +713,6 @@
       "description": "Zufallscafé, wir kommen getrennt an. Bagger mich an wie ein reiches, leichtes Ziel."
     },
     {
-      "id": "out-033",
-      "pile": "outdoor",
-      "foil": true,
-      "emoji": "deciduous-tree",
-      "title": "Waldpause",
-      "description": "Auto im Wald, Sitze gekippt. Die Scheiben beschlagen rein zufällig."
-    },
-    {
       "id": "out-034",
       "pile": "outdoor",
       "foil": true,
@@ -759,14 +743,6 @@
       "emoji": "zipper-mouth-face",
       "title": "Geheimkommando",
       "description": "Ohne Unterwäsche ausgehen. Das Geheimnis macht jeden Blick brennend."
-    },
-    {
-      "id": "out-038",
-      "pile": "outdoor",
-      "foil": true,
-      "emoji": "deciduous-tree",
-      "title": "Öffentlicher Nervenkitzel",
-      "description": "Eine versteckte Ecke draußen finden. Risiko ist das beste Aphrodisiakum."
     },
     {
       "id": "out-039",

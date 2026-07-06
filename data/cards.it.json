@@ -47,9 +47,9 @@
     {
       "id": "home-007",
       "pile": "home",
-      "emoji": "microphone",
-      "title": "Massacro lirico",
-      "description": "Cantate stonati con arroganza da diva. Il peggiore deve un abbraccio non richiesto."
+      "emoji": "musical-notes",
+      "title": "Battaglia di playback",
+      "description": "Mima il tuo tormentone con foga da rockstar. Il meno credibile piega il bucato."
     },
     {
       "id": "home-008",
@@ -264,14 +264,6 @@
       "emoji": "shushing-face",
       "title": "Confessioni impure",
       "description": "Obbligo o verità senza tabù. Rifiutare stasera non è proprio un'opzione."
-    },
-    {
-      "id": "home-039",
-      "pile": "home",
-      "foil": true,
-      "emoji": "camera-with-flash",
-      "title": "Studio molto privato",
-      "description": "Creare ricordi visivi audaci. Speriamo che il tuo cloud sia ben protetto."
     },
     {
       "id": "home-040",
@@ -721,14 +713,6 @@
       "description": "Caffè a caso, si arriva separati. Rimorchiami come un bersaglio ricco e facile."
     },
     {
-      "id": "out-033",
-      "pile": "outdoor",
-      "foil": true,
-      "emoji": "deciduous-tree",
-      "title": "Sosta selvaggia",
-      "description": "Auto nel bosco, sedili reclinati. I vetri si appannano per caso."
-    },
-    {
       "id": "out-034",
       "pile": "outdoor",
       "foil": true,
@@ -759,14 +743,6 @@
       "emoji": "zipper-mouth-face",
       "title": "Commando segreto",
       "description": "Uscire senza biancheria intima. Il segreto rende ogni sguardo bollente."
-    },
-    {
-      "id": "out-038",
-      "pile": "outdoor",
-      "foil": true,
-      "emoji": "deciduous-tree",
-      "title": "Brivido pubblico",
-      "description": "Trovare un angolo discreto all'aperto. Il rischio è il miglior eccitante."
     },
     {
       "id": "out-039",
