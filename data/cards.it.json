@@ -222,7 +222,7 @@
       "id": "home-033",
       "pile": "home",
       "foil": true,
-      "emoji": "kiss-mark",
+      "emoji": "lipstick",
       "title": "Tatuaggi effimeri",
       "description": "Il tuo corpo è la mia tela. Disegno le mie voglie, a te interpretarle con fervore."
     },
@@ -247,7 +247,7 @@
       "foil": true,
       "emoji": "chains",
       "title": "Resa obbligata",
-      "description": "Uno si sottomette, l'altro guida. Obbedienza richiesta, piacere non opzionale."
+      "description": "Uno si sottomette, l'altro comanda. Obbedienza dovuta, piacere non negoziabile."
     },
     {
       "id": "home-037",
@@ -366,13 +366,13 @@
       "pile": "home",
       "emoji": "package",
       "title": "Archeologia di cassetto",
-      "description": "Svuotiamo gli armadi e ridiamo dei tesori rotti, scaduti o inutili."
+      "description": "Svuotiamo il cassetto delle cianfrusaglie e ridiamo dei nostri tesori rotti o scaduti."
     },
     {
       "id": "home-054",
       "pile": "home",
       "emoji": "red-question-mark",
-      "title": "Scuola di risate",
+      "title": "Ritorno alle elementari",
       "description": "Quiz da scuola elementare. Attenti, l'ego rischia un colpo fatale."
     },
     {
@@ -436,7 +436,7 @@
       "pile": "home",
       "emoji": "couple-with-heart",
       "title": "Quiz di coppia",
-      "description": "Domande trabocchetto sull'altro. Il meno informato dimostra l'amore con un favore."
+      "description": "Domande trabocchetto sull'altro. Il meno informato dimostra il suo amore in faccende."
     },
     {
       "id": "home-064",
@@ -534,8 +534,8 @@
       "id": "out-003",
       "pile": "outdoor",
       "emoji": "classical-building",
-      "title": "Visita al museo",
-      "description": "Inventiamo spiegazioni assurde sull'arte astratta. Più è pretenzioso, meglio è."
+      "title": "Dottori in arte astratta",
+      "description": "Spiegazioni strampalate davanti all'arte astratta del museo. Più è pretenzioso, meglio è."
     },
     {
       "id": "out-004",
@@ -676,7 +676,7 @@
       "pile": "outdoor",
       "emoji": "water-wave",
       "title": "Rifare il mondo",
-      "description": "Camminata sul lungo lago. È lento, è bello, mette sonno."
+      "description": "Passeggiata in riva all'acqua e grandi discorsi. Sistemiamo il mondo senza alcun mandato."
     },
     {
       "id": "out-024",
@@ -945,13 +945,6 @@
       "description": "Mettiamo alla prova la leggenda afrodisiaca con sospetta serietà. Iodato e sexy."
     },
     {
-      "id": "out-064",
-      "pile": "outdoor",
-      "emoji": "hamburger",
-      "title": "Food truck",
-      "description": "Burger gocciolante sul marciapiede. Selvaggio, sporco e senza scuse."
-    },
-    {
       "id": "out-065",
       "pile": "outdoor",
       "emoji": "shortcake",
@@ -962,7 +955,7 @@
       "id": "out-066",
       "pile": "outdoor",
       "emoji": "tropical-fish",
-      "title": "Acquario",
+      "title": "Padrini d'acquario",
       "description": "Giro dei pesci. Ognuno inventa il soprannome più cretino per ogni specie."
     },
     {
@@ -1011,8 +1004,8 @@
       "id": "out-073",
       "pile": "outdoor",
       "emoji": "racing-car",
-      "title": "Karting",
-      "description": "Corsa in coppia. Il perdente torna a piedi e paga l'aperitivo di ritorno."
+      "title": "Velocità e rancore",
+      "description": "Gara di kart senza pietà. Chi perde torna a piedi e paga l'aperitivo del rientro."
     },
     {
       "id": "out-074",

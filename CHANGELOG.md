@@ -17,10 +17,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - The revealed card's idle shine now sweeps the whole face as a soft golden glint, and the card sits visually centered between the title and the action buttons.
 - The bad-singing card "Lyrical massacre" is reworked into "Lip-sync battle" so it no longer tells the same joke as the living-room karaoke card, and the English deck drops its last British spellings for US English.
+- A quality pass over the existing deck: four flat titles gain the deck's deadpan voice (museum, aquarium, karting, school quiz), four descriptions land their punchline better (waterside walk, submission, couple quiz, junk drawer), and the ephemeral-tattoos card gets its own lipstick emoji instead of sharing the kiss mark with the hickeys card.
 
 ### Removed
 
-- Three near-duplicate cards leave the seed deck: the second car-in-the-woods escapade, the generic outdoor-thrill card, and the second racy photo shoot. Instances that already seeded keep them until an admin applies a "Full mirror" deck sync.
+- Four near-duplicate cards leave the seed deck: the second car-in-the-woods escapade, the generic outdoor-thrill card, the second racy photo shoot, and the "Food truck" card that told the same joke as "Street gastronomy". Instances that already seeded keep them until an admin applies a "Full mirror" deck sync.
 
 ### Fixed
 

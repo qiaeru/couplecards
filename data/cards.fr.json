@@ -222,7 +222,7 @@
       "id": "home-033",
       "pile": "home",
       "foil": true,
-      "emoji": "kiss-mark",
+      "emoji": "lipstick",
       "title": "Tatouages éphémères",
       "description": "Ton corps est ma toile. Je dessine mes envies, à toi de les interpréter avec ferveur."
     },
@@ -247,7 +247,7 @@
       "foil": true,
       "emoji": "chains",
       "title": "Lâcher-prise forcé",
-      "description": "L'un se soumet, l'autre dirige. Obéissance exigée et plaisir manifeste."
+      "description": "L'un se soumet, l'autre dirige. Obéissance exigée, plaisir non négociable."
     },
     {
       "id": "home-037",
@@ -366,13 +366,13 @@
       "pile": "home",
       "emoji": "package",
       "title": "Archéologie de tiroir",
-      "description": "On vide les placards et on rit de nos trésors cassés, périmés ou inutiles."
+      "description": "On vide le tiroir à bazar et on rit de nos trésors cassés, périmés ou inutiles."
     },
     {
       "id": "home-054",
       "pile": "home",
       "emoji": "red-question-mark",
-      "title": "École du rire",
+      "title": "Retour en primaire",
       "description": "Quiz niveau primaire. Attention, ton ego risque de prendre un coup fatal."
     },
     {
@@ -436,7 +436,7 @@
       "pile": "home",
       "emoji": "couple-with-heart",
       "title": "Quiz de couple",
-      "description": "Questions pièges sur l'autre. Le moins informé prouve son amour par un service à rendre."
+      "description": "Questions pièges sur l'autre. Le moins bien renseigné prouve son amour en corvée."
     },
     {
       "id": "home-064",
@@ -534,8 +534,8 @@
       "id": "out-003",
       "pile": "outdoor",
       "emoji": "classical-building",
-      "title": "Visite au musée",
-      "description": "On invente des explications foireuses sur l'art abstrait. Plus c'est prétentieux, mieux c'est."
+      "title": "Docteurs en art abstrait",
+      "description": "Explications foireuses devant l'art abstrait du musée. Plus c'est prétentieux, mieux c'est."
     },
     {
       "id": "out-004",
@@ -676,7 +676,7 @@
       "pile": "outdoor",
       "emoji": "water-wave",
       "title": "Refaire le monde",
-      "description": "Marche au bord de l'eau. C'est lent, c'est beau, et ça donne envie de dormir."
+      "description": "Marche au bord de l'eau et grands discours. On refait le monde sans pouvoir ni mandat."
     },
     {
       "id": "out-024",
@@ -945,13 +945,6 @@
       "description": "On teste la légende aphrodisiaque avec un sérieux suspect. Iodé et sexy."
     },
     {
-      "id": "out-064",
-      "pile": "outdoor",
-      "emoji": "hamburger",
-      "title": "Food truck",
-      "description": "Burger dégoulinant sur un trottoir. Sauvage, salissant et assumé."
-    },
-    {
       "id": "out-065",
       "pile": "outdoor",
       "emoji": "shortcake",
@@ -962,7 +955,7 @@
       "id": "out-066",
       "pile": "outdoor",
       "emoji": "tropical-fish",
-      "title": "Aquarium",
+      "title": "Parrains d'aquarium",
       "description": "Tournée des poissons. Chacun invente le surnom le plus crétin pour chaque espèce."
     },
     {
@@ -1011,8 +1004,8 @@
       "id": "out-073",
       "pile": "outdoor",
       "emoji": "racing-car",
-      "title": "Karting",
-      "description": "Course en duo. Le perdant rentre à pied et achète l'apéro du retour."
+      "title": "Vitesse et rancune",
+      "description": "Course de karting sans pitié. Le perdant rentre à pied et paie l'apéro du retour."
     },
     {
       "id": "out-074",

@@ -222,7 +222,7 @@
       "id": "home-033",
       "pile": "home",
       "foil": true,
-      "emoji": "kiss-mark",
+      "emoji": "lipstick",
       "title": "Vergängliche Tattoos",
       "description": "Dein Körper ist meine Leinwand. Ich male meine Wünsche, du deutest sie mit Inbrunst."
     },
@@ -247,7 +247,7 @@
       "foil": true,
       "emoji": "chains",
       "title": "Erzwungenes Loslassen",
-      "description": "Einer ergibt sich, der andere führt. Gehorsam Pflicht, Lust nicht optional."
+      "description": "Einer gehorcht, der andere führt. Gehorsam Pflicht, Genuss nicht verhandelbar."
     },
     {
       "id": "home-037",
@@ -366,13 +366,13 @@
       "pile": "home",
       "emoji": "package",
       "title": "Schubladenarchäologie",
-      "description": "Wir leeren die Schränke und lachen über unsere kaputten, abgelaufenen, sinnlosen Schätze."
+      "description": "Wir leeren die Krimskrams-Schublade und lachen über kaputte, abgelaufene Schätze."
     },
     {
       "id": "home-054",
       "pile": "home",
       "emoji": "red-question-mark",
-      "title": "Schule des Lachens",
+      "title": "Zurück in die Grundschule",
       "description": "Quiz auf Grundschulniveau. Achtung, dein Ego riskiert einen tödlichen Treffer."
     },
     {
@@ -436,7 +436,7 @@
       "pile": "home",
       "emoji": "couple-with-heart",
       "title": "Paar-Quiz",
-      "description": "Fangfragen über den anderen. Der Schlechtinformierte beweist Liebe mit einem Gefallen."
+      "description": "Fangfragen übereinander. Wer weniger weiß, beweist seine Liebe per Hausarbeit."
     },
     {
       "id": "home-064",
@@ -534,8 +534,8 @@
       "id": "out-003",
       "pile": "outdoor",
       "emoji": "classical-building",
-      "title": "Museumsbesuch",
-      "description": "Wir erfinden hanebüchene Erklärungen zur abstrakten Kunst. Je prätentiöser, desto besser."
+      "title": "Selbsternannte Kuratoren",
+      "description": "Hanebüchene Deutungen vor der abstrakten Kunst im Museum. Je prätentiöser, desto besser."
     },
     {
       "id": "out-004",
@@ -676,7 +676,7 @@
       "pile": "outdoor",
       "emoji": "water-wave",
       "title": "Welt-Reparatur",
-      "description": "Spaziergang am Wasser. Langsam, schön, und macht müde."
+      "description": "Spaziergang am Wasser mit großen Reden. Wir retten die Welt ohne Amt und Mandat."
     },
     {
       "id": "out-024",
@@ -945,13 +945,6 @@
       "description": "Wir prüfen den Aphrodisiakum-Mythos mit verdächtigem Ernst. Jodig und sexy."
     },
     {
-      "id": "out-064",
-      "pile": "outdoor",
-      "emoji": "hamburger",
-      "title": "Food Truck",
-      "description": "Triefender Burger auf dem Bürgersteig. Wild, schmutzig, kompromisslos."
-    },
-    {
       "id": "out-065",
       "pile": "outdoor",
       "emoji": "shortcake",
@@ -962,7 +955,7 @@
       "id": "out-066",
       "pile": "outdoor",
       "emoji": "tropical-fish",
-      "title": "Aquarium",
+      "title": "Aquarium-Paten",
       "description": "Fisch-Tour. Jeder erfindet den dümmsten Spitznamen für jede Art."
     },
     {
@@ -1011,8 +1004,8 @@
       "id": "out-073",
       "pile": "outdoor",
       "emoji": "racing-car",
-      "title": "Kartfahren",
-      "description": "Rennen zu zweit. Der Verlierer geht zu Fuß und zahlt den Aperitif zur Rückkehr."
+      "title": "Tempo und Groll",
+      "description": "Gnadenloses Kartrennen. Der Verlierer geht zu Fuß heim und zahlt den Aperitif."
     },
     {
       "id": "out-074",

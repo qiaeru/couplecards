@@ -222,7 +222,7 @@
       "id": "home-033",
       "pile": "home",
       "foil": true,
-      "emoji": "kiss-mark",
+      "emoji": "lipstick",
       "title": "Temporary tattoos",
       "description": "Your body is my canvas. I draw my desires, you interpret them with fervor."
     },
@@ -366,13 +366,13 @@
       "pile": "home",
       "emoji": "package",
       "title": "Drawer archaeology",
-      "description": "Empty the cupboards and laugh at our broken, expired, useless treasures."
+      "description": "Empty the junk drawer and laugh at our broken, expired, useless treasures."
     },
     {
       "id": "home-054",
       "pile": "home",
       "emoji": "red-question-mark",
-      "title": "School of laughter",
+      "title": "Back to grade school",
       "description": "Grade-school quiz. Your ego may take a fatal hit."
     },
     {
@@ -534,8 +534,8 @@
       "id": "out-003",
       "pile": "outdoor",
       "emoji": "classical-building",
-      "title": "Museum visit",
-      "description": "Invent nonsense explanations for abstract art. The more pretentious, the better."
+      "title": "Doctors of abstract art",
+      "description": "Nonsense lectures in front of the museum's abstract art. The more pretentious, the better."
     },
     {
       "id": "out-004",
@@ -676,7 +676,7 @@
       "pile": "outdoor",
       "emoji": "water-wave",
       "title": "Fixing the world",
-      "description": "Waterside walk. It's slow, it's pretty, it'll make you sleepy."
+      "description": "Waterside walk and big speeches. We fix the world with zero power and zero mandate."
     },
     {
       "id": "out-024",
@@ -945,13 +945,6 @@
       "description": "Test the aphrodisiac legend with suspicious seriousness. Briny and sexy."
     },
     {
-      "id": "out-064",
-      "pile": "outdoor",
-      "emoji": "hamburger",
-      "title": "Food truck",
-      "description": "Burger dripping on a sidewalk. Wild, messy, no apologies."
-    },
-    {
       "id": "out-065",
       "pile": "outdoor",
       "emoji": "shortcake",
@@ -962,7 +955,7 @@
       "id": "out-066",
       "pile": "outdoor",
       "emoji": "tropical-fish",
-      "title": "Aquarium",
+      "title": "Aquarium godparents",
       "description": "Fish-tank tour. Each invents the dumbest nickname for every species."
     },
     {
@@ -1011,8 +1004,8 @@
       "id": "out-073",
       "pile": "outdoor",
       "emoji": "racing-car",
-      "title": "Karting",
-      "description": "Duel race. Loser walks home and pays for the post-race drink."
+      "title": "Speed and grudges",
+      "description": "Merciless kart race. Loser walks home and buys the post-race drinks."
     },
     {
       "id": "out-074",
