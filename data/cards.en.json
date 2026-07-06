@@ -488,6 +488,35 @@
       "description": "Each one tells their 3 worst jokes. The least funny clears the table."
     },
     {
+      "id": "home-071",
+      "pile": "home",
+      "emoji": "clapper-board",
+      "title": "Rogue dubbing",
+      "description": "Movie on mute, we improvise every line. The plot goes off the rails fast."
+    },
+    {
+      "id": "home-072",
+      "pile": "home",
+      "emoji": "balance-scale",
+      "title": "Absurd closing argument",
+      "description": "Defend a ridiculous cause with lawyerly rigor. The jury (me) accepts bribes."
+    },
+    {
+      "id": "home-073",
+      "pile": "home",
+      "emoji": "desert-island",
+      "title": "Virtual vacation",
+      "description": "Random Street View, imaginary budget. Plan the trip we will never take."
+    },
+    {
+      "id": "home-074",
+      "pile": "home",
+      "foil": true,
+      "emoji": "love-letter",
+      "title": "Desire lottery",
+      "description": "We each write three unspeakable desires and draw one. Carried out on the spot."
+    },
+    {
       "id": "out-001",
       "pile": "outdoor",
       "emoji": "spaghetti",
@@ -998,6 +1027,35 @@
       "emoji": "selfie",
       "title": "Influencer for a day",
       "description": "10 ridiculous story-style poses around town. Stone-faced, artistic blur required."
+    },
+    {
+      "id": "out-076",
+      "pile": "outdoor",
+      "emoji": "coin",
+      "title": "Coin-flip wandering",
+      "description": "At every corner the coin decides. Dead ends count as scenery."
+    },
+    {
+      "id": "out-077",
+      "pile": "outdoor",
+      "emoji": "shushing-face",
+      "title": "Forbidden giggles",
+      "description": "At the library, crack each other up in total silence. Eviction counts as a win."
+    },
+    {
+      "id": "out-078",
+      "pile": "outdoor",
+      "emoji": "ice-skate",
+      "title": "Bambi on ice",
+      "description": "Ice rink as a duo, ankles optional. First one down buys the hot chocolate."
+    },
+    {
+      "id": "out-079",
+      "pile": "outdoor",
+      "foil": true,
+      "emoji": "love-hotel",
+      "title": "Afternoon affair",
+      "description": "Daytime hotel room, fake names at the desk. Two hours, zero remorse."
     }
   ]
 }

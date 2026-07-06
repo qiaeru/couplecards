@@ -488,6 +488,35 @@
       "description": "Jeder erzählt seine drei schlimmsten Witze. Der Unlustigste räumt ab."
     },
     {
+      "id": "home-071",
+      "pile": "home",
+      "emoji": "clapper-board",
+      "title": "Wilde Synchro",
+      "description": "Film auf stumm, wir improvisieren jeden Dialog. Das Drehbuch wird schnell unaussprechlich."
+    },
+    {
+      "id": "home-072",
+      "pile": "home",
+      "emoji": "balance-scale",
+      "title": "Absurdes Plädoyer",
+      "description": "Verteidige eine lächerliche Sache mit Anwaltsstrenge. Die Jury (ich) ist bestechlich."
+    },
+    {
+      "id": "home-073",
+      "pile": "home",
+      "emoji": "desert-island",
+      "title": "Virtueller Urlaub",
+      "description": "Zufälliges Street View, imaginäres Budget. Wir planen die Reise, die nie stattfindet."
+    },
+    {
+      "id": "home-074",
+      "pile": "home",
+      "foil": true,
+      "emoji": "love-letter",
+      "title": "Lotterie der Gelüste",
+      "description": "Jeder schreibt drei unaussprechliche Gelüste auf, eins wird gezogen. Sofort fällig."
+    },
+    {
       "id": "out-001",
       "pile": "outdoor",
       "emoji": "spaghetti",
@@ -998,6 +1027,35 @@
       "emoji": "selfie",
       "title": "Influencer für einen Tag",
       "description": "Lächerliche Posen in der Stadt für zehn Story-Fotos. Versteinerte Miene und Unschärfe Pflicht."
+    },
+    {
+      "id": "out-076",
+      "pile": "outdoor",
+      "emoji": "coin",
+      "title": "Münzwurf-Wanderung",
+      "description": "An jeder Kreuzung entscheidet die Münze. Sackgassen zählen als Sehenswürdigkeit."
+    },
+    {
+      "id": "out-077",
+      "pile": "outdoor",
+      "emoji": "shushing-face",
+      "title": "Verbotenes Kichern",
+      "description": "In der Bibliothek den anderen lautlos zum Lachen bringen. Rauswurf gilt als Sieg."
+    },
+    {
+      "id": "out-078",
+      "pile": "outdoor",
+      "emoji": "ice-skate",
+      "title": "Bambi auf Eis",
+      "description": "Eisbahn zu zweit, Knöchel optional. Wer zuerst fällt, zahlt den Kakao."
+    },
+    {
+      "id": "out-079",
+      "pile": "outdoor",
+      "foil": true,
+      "emoji": "love-hotel",
+      "title": "Affäre am Nachmittag",
+      "description": "Hotelzimmer am helllichten Tag, falsche Namen an der Rezeption. Zwei Stunden, null Reue."
     }
   ]
 }

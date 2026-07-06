@@ -488,6 +488,35 @@
       "description": "Cada uno cuenta sus 3 peores chistes. El menos gracioso recoge la mesa."
     },
     {
+      "id": "home-071",
+      "pile": "home",
+      "emoji": "clapper-board",
+      "title": "Doblaje salvaje",
+      "description": "Peli en silencio, improvisamos todos los diálogos. El guion degenera enseguida."
+    },
+    {
+      "id": "home-072",
+      "pile": "home",
+      "emoji": "balance-scale",
+      "title": "Alegato absurdo",
+      "description": "Defiende una causa ridícula con rigor de abogado. El jurado (yo) acepta sobornos."
+    },
+    {
+      "id": "home-073",
+      "pile": "home",
+      "emoji": "desert-island",
+      "title": "Vacaciones virtuales",
+      "description": "Street View al azar y presupuesto imaginario. Planeamos el viaje que nunca haremos."
+    },
+    {
+      "id": "home-074",
+      "pile": "home",
+      "foil": true,
+      "emoji": "love-letter",
+      "title": "Lotería de deseos",
+      "description": "Cada uno escribe tres deseos inconfesables y se sortea uno. Ejecución inmediata."
+    },
+    {
       "id": "out-001",
       "pile": "outdoor",
       "emoji": "spaghetti",
@@ -998,6 +1027,35 @@
       "emoji": "selfie",
       "title": "Influencer por un día",
       "description": "Poses ridículas por la ciudad para 10 fotos tipo story. Cara de palo y desenfoque artístico."
+    },
+    {
+      "id": "out-076",
+      "pile": "outdoor",
+      "emoji": "coin",
+      "title": "Rumbo a cara o cruz",
+      "description": "En cada cruce decide la moneda. Los callejones sin salida cuentan como paisaje."
+    },
+    {
+      "id": "out-077",
+      "pile": "outdoor",
+      "emoji": "shushing-face",
+      "title": "Risas prohibidas",
+      "description": "En la biblioteca, hacer reír al otro en silencio. La expulsión cuenta como victoria."
+    },
+    {
+      "id": "out-078",
+      "pile": "outdoor",
+      "emoji": "ice-skate",
+      "title": "Bambi sobre hielo",
+      "description": "Pista de hielo en pareja, tobillos opcionales. El primero en caer paga el chocolate."
+    },
+    {
+      "id": "out-079",
+      "pile": "outdoor",
+      "foil": true,
+      "emoji": "love-hotel",
+      "title": "Amantes de paso",
+      "description": "Hotel a plena luz del día, nombres falsos en recepción. Dos horas y cero remordimientos."
     }
   ]
 }
