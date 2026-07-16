@@ -12,13 +12,13 @@ export default fp(async function staticPlugin(app) {
     // Default wildcard:true is required: with wildcard:false, @fastify/static
     // indexes files at boot and newly added files 404 until a full restart.
     index: ['index.html'],
-    setHeaders(res, path) {
+    setHeaders(reply, path) {
       if (path.endsWith('.html')) {
-        res.setHeader('Cache-Control', 'no-cache');
+        reply.header('Cache-Control', 'no-cache');
       } else if (path.includes('/vendor/') || path.includes('/fonts/')) {
-        res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+        reply.header('Cache-Control', 'public, max-age=31536000, immutable');
       } else {
-        res.setHeader('Cache-Control', 'public, max-age=3600');
+        reply.header('Cache-Control', 'public, max-age=3600');
       }
     },
   });
