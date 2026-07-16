@@ -23,7 +23,7 @@
     "@fastify/helmet": "^13.1.0",
     "@fastify/rate-limit": "^11.1.0",
     "@fastify/secure-session": "^8.3.0",
-    "@fastify/static": "^9.3.0",
+    "@fastify/static": "^10.1.0",
     "@zxcvbn-ts/core": "^4.1.2",
     "@zxcvbn-ts/language-common": "^4.1.2",
     "@zxcvbn-ts/language-de": "^4.1.1",
