@@ -21,7 +21,7 @@
     "@fastify/compress": "^9.1.0",
     "@fastify/csrf-protection": "^8.0.0",
     "@fastify/helmet": "^13.1.0",
-    "@fastify/rate-limit": "^11.1.0",
+    "@fastify/rate-limit": "^11.2.0",
     "@fastify/secure-session": "^8.3.0",
     "@fastify/static": "^10.1.2",
     "@zxcvbn-ts/core": "^4.1.2",
