@@ -18,12 +18,12 @@
     "dev": "node --watch src/index.js"
   },
   "dependencies": {
-    "@fastify/compress": "^9.1.0",
+    "@fastify/compress": "^9.1.1",
     "@fastify/csrf-protection": "^8.0.1",
     "@fastify/helmet": "^13.1.0",
     "@fastify/rate-limit": "^11.2.0",
     "@fastify/secure-session": "^8.3.0",
-    "@fastify/static": "^10.1.2",
+    "@fastify/static": "^10.1.3",
     "@zxcvbn-ts/core": "^4.1.2",
     "@zxcvbn-ts/language-common": "^4.1.3",
     "@zxcvbn-ts/language-de": "^4.1.1",
@@ -31,7 +31,7 @@
     "@zxcvbn-ts/language-es-es": "^4.1.2",
     "@zxcvbn-ts/language-fr": "^4.1.1",
     "@zxcvbn-ts/language-it": "^4.1.1",
-    "fastify": "^5.11.0",
+    "fastify": "^5.11.2",
     "fflate": "^0.8.3",
     "hash-wasm": "^4.12.0"
   }
