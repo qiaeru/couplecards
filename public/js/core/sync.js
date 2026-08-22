@@ -117,8 +117,10 @@ function warmEmojiCache() {
 
 export async function initSync() {
   if (initialized) return;
-  await loadCardsFromApiOrCache();
-  await loadStateFromApiOrCache();
+  // The deck and the per-user state come from two independent endpoints, so
+  // they load in parallel: chaining them made /api/state wait for the whole
+  // deck download on a cold start or after a deck edit.
+  await Promise.all([loadCardsFromApiOrCache(), loadStateFromApiOrCache()]);
   initialized = true;
   emit('sync:ready');
   warmEmojiCache();
