@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+- A card edited in the admin panel now reaches players on their next launch instead of the one after. The Service Worker cached `/api/cards` and answered from that copy while refreshing it in the background, leaving every client one deck version behind and the admin card list one edit behind for good. The API is no longer cached there, IndexedDB remaining the client's offline copy of the deck.
+
 ## [1.13.0] - 2026-07-06
 
 ### Added
