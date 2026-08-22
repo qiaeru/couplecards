@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+
+- A pile that runs out now explains itself. The greyed-out button on Home was the only signal; a notice under the piles says whether every card is banned, with a button opening the Collection filtered on banned cards, or whether the deck simply holds no card for that pile.
+
 ### Changed
 
 - The deck and the per-user state load in parallel at startup, so `GET /api/state` no longer waits for the deck download.
