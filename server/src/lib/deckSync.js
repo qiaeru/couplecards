@@ -120,7 +120,7 @@ export function readDbDeck() {
   return [...byId.values()];
 }
 
-export function diffDecks(current, next) {
+function diffDecks(current, next) {
   const currentMap = new Map(current.map((c) => [c.id, c]));
   const nextMap = new Map(next.map((c) => [c.id, c]));
   const added = [];

@@ -8,7 +8,7 @@ const BASE = '/icons/emoji';
 // player bundles do not pay the parse cost. The renderer accepts any
 // matching slug regardless of where the list comes from.
 
-export function emojiUrl(slug) {
+function emojiUrl(slug) {
   return slug ? `${BASE}/${slug}.svg` : '';
 }
 

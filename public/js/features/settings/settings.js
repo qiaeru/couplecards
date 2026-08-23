@@ -4,7 +4,7 @@
 import { areVibrationsEnabled, setVibrationsEnabled, areSoundsEnabled, setSoundsEnabled, canInstall, triggerInstall, toast, showConfirm, withModal } from '../../ui/shell.js';
 import { logout, setPreferences, getCachedUser, me, changePassword, getPasswordPolicy } from '../../core/auth.js';
 import { errorMessage } from '../../core/api.js';
-import { resetUserData } from '../../core/sync.js';
+import { resetUserData, clearAllLocalState } from '../../core/sync.js';
 import { setLocale, getLocale, supportedLocales, t } from '../../core/i18n.js';
 import { navigate } from '../../core/router.js';
 import { bindPasswordStrength } from '../../ui/password-strength.js';
@@ -101,6 +101,10 @@ export async function mount() {
     });
     if (!ok) return;
     await logout();
+    // Login refills these from /api/state, but falls back to the cache when
+    // that call fails, which would hand the next account this one's data.
+    // Never block the redirect on it: the session is already gone server-side.
+    await clearAllLocalState().catch(() => {});
     location.replace('/login.html');
   });
 

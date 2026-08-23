@@ -308,6 +308,5 @@
   "errors.CARDS_FETCH_FAILED": "No se pudo cargar el mazo. Se usa la caché local.",
   "errors.SEED_FILE_NOT_FOUND": "El archivo de cartas para este idioma no se encuentra en el servidor.",
   "errors.INVALID_DECK": "El archivo de cartas no es válido.",
-  "errors.UNSUPPORTED_LOCALE": "Idioma no admitido.",
   "errors.INVALID_MODE": "Modo de sincronización no válido."
 }

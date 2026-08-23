@@ -19,11 +19,6 @@
   -webkit-user-drag: none;
 }
 
-/* Inline emoji in text */
-.emoji-inline {
-  font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
-}
-
 /* Forced-colors support (Windows High Contrast) */
 @media (forced-colors: active) {
   .btn, .icon-btn, .pile, .list-item, .setting-row, .modal-card {
@@ -412,14 +407,6 @@ body::before {
   display: block;
 }
 
-/* Accueil */
-#screen-home {
-  gap: 20px;
-}
-#screen-home .app-header {
-  margin-bottom: 4px;
-}
-
 .piles {
   display: grid;
   grid-template-columns: 1fr;
@@ -441,7 +428,6 @@ body::before {
 /* Short phone viewports: shrink the stacked piles so the home screen fits
    without scrolling on devices around 640-720px tall. */
 @media (max-width: 539px) and (max-height: 720px) {
-  #screen-home { gap: 12px; }
   .piles {
     max-width: 152px;
     gap: 12px;
@@ -1231,7 +1217,6 @@ body::before {
    options themselves so the list stays readable on any platform/theme. */
 select option,
 .setting-select option,
-.admin-form select option,
 .card-form select option {
   background-color: var(--surface-solid);
   color: var(--text);
@@ -1300,10 +1285,6 @@ select option:hover {
   gap: 6px;
   flex-wrap: wrap;
   margin-top: 6px;
-}
-.list-item-id {
-  opacity: 0.6;
-  font-family: ui-monospace, 'Menlo', 'Courier New', monospace;
 }
 /* Password strength meter */
 .pw-strength { margin: 4px 0 8px; }

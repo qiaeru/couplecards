@@ -79,6 +79,7 @@ The SPA router lives in `public/js/core/router.js` and is roughly seventy lines 
 - The deck is refreshed from `GET /api/cards`, which returns an ETag-style `version` token so the client can skip the download when nothing has changed. That IndexedDB copy is the only offline copy of the deck: the Service Worker passes `/api/*` straight through and never caches it, so an admin edit reaches players on their next launch.
 - The banned set and the history are synchronized through `GET /api/state` and their respective mutation endpoints.
 - Mutations are queued in an IndexedDB `outbox` store and drained every time the page comes back online.
+- Signing out wipes all three stores, so a device shared between accounts never falls back to the previous user's cached data when `GET /api/state` is unreachable.
 
 `public/js/core/sync.js` is the single entry point for state. Feature modules never talk to the API directly. Each card exposes a `translations` object keyed by locale, and the helper `getCardText(card, locale)` picks the right title and description for the current user language with an English fallback.
 
@@ -95,7 +96,7 @@ The SPA router lives in `public/js/core/router.js` and is roughly seventy lines 
 The backend has a single source of truth for supported locales in `server/src/lib/locales.js`. The frontend mirrors this list in `SUPPORTED` inside `public/js/core/i18n.js`.
 
 - User-interface strings live in flat key-to-string JSON files under `public/locales/<locale>.json`.
-- `public/js/core/i18n.js` provides `t`, `tn`, `fmtDate`, `fmtDateLong`, `fmtNumber`, and `applyI18n(root)`.
+- `public/js/core/i18n.js` provides `t`, `tn`, `fmtDate`, `fmtDateLong`, and `applyI18n(root)`.
 - Static HTML uses `data-i18n="key"` and `data-i18n-attr="attr:key,attr2:key2"`.
 - Dynamic JavaScript calls `t(key, params)`.
 - An `i18n:change` event is emitted by `setLocale()`. The i18n module reapplies translations to the DOM on every change, and feature modules listen to it when they cache card text.

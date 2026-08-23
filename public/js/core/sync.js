@@ -129,10 +129,8 @@ export async function initSync() {
 }
 
 export function getCards() { return cards; }
-export function getBanned() { return bannedToList(); }
 export function isBanned(cardId) { return banned.has(cardId); }
 export function getHistory() { return history.slice(); }
-export function bannedAtOf(cardId) { return banned.get(cardId) ?? null; }
 
 export function getCardById(id) {
   return cards.find((c) => c.id === id) || null;
@@ -162,7 +160,7 @@ export function getCardText(card, locale = getLocale()) {
   return placeholder;
 }
 
-export function availableCards(pile) {
+function availableCards(pile) {
   return cards.filter((c) => c.pile === pile && !banned.has(c.id));
 }
 

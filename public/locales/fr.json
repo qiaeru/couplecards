@@ -308,6 +308,5 @@
   "errors.CARDS_FETCH_FAILED": "Impossible de charger le jeu de cartes. Utilisation du cache local.",
   "errors.SEED_FILE_NOT_FOUND": "Le fichier de cartes pour cette langue est introuvable sur le serveur.",
   "errors.INVALID_DECK": "Le fichier de cartes est invalide.",
-  "errors.UNSUPPORTED_LOCALE": "Langue non prise en charge.",
   "errors.INVALID_MODE": "Mode de synchronisation invalide."
 }

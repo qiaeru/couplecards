@@ -192,7 +192,7 @@ function openCardDialog({ card = null } = {}) {
   });
 }
 
-export async function renderCards() {
+async function renderCards() {
   allCards = await loadCards();
   renderCardsList(filterCards());
 }
@@ -243,5 +243,3 @@ export async function mount() {
   });
   await renderCards();
 }
-
-export function unmount() {}

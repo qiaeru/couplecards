@@ -18,7 +18,7 @@ async function loadFflate() {
   return fflatePromise;
 }
 
-export async function exportDeck() {
+async function exportDeck() {
   const resp = await fetch('/api/admin/cards/export', { credentials: 'same-origin' });
   if (!resp.ok) {
     toast(t('errors.generic'));

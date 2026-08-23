@@ -81,8 +81,7 @@ body { padding: 20px 16px calc(env(safe-area-inset-bottom, 0px) + 24px); }
   flex-direction: column;
   gap: 14px;
 }
-.admin-inline-form,
-.admin-form {
+.admin-inline-form {
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -140,30 +139,6 @@ body { padding: 20px 16px calc(env(safe-area-inset-bottom, 0px) + 24px); }
   gap: 8px;
   color: var(--text-soft);
   font-size: 0.9rem;
-}
-
-.admin-form .field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-.admin-form .field > span {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-soft);
-}
-.admin-form input {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid var(--surface-border);
-  color: var(--text);
-  padding: 10px 12px;
-  border-radius: var(--radius-sm);
-  font-family: inherit;
-  font-size: 1rem;
-}
-.admin-form small {
-  color: var(--text-muted);
-  font-size: 0.78rem;
 }
 
 .initial-password-box {
