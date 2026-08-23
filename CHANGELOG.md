@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - A card edited in the admin panel now reaches players on their next launch instead of the one after. The Service Worker no longer caches `/api/cards`, which used to leave every client one deck version behind.
 - Signing out now clears the deck, bans and history cached on the device. A later sign-in that could not reach the server fell back to that cache and showed the previous account's data.
+- The admin card editor now suggests the desert island, ice skate and love hotel emoji. The three icons shipped with the 1.13.0 deck but were missing from the autocomplete list.
 
 ## [1.13.0] - 2026-07-06
 
