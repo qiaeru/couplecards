@@ -76,7 +76,7 @@ The SPA router lives in `public/js/core/router.js` and is roughly seventy lines 
 ## State management
 
 - The deck, the banned set, and the history all live in IndexedDB.
-- The deck is refreshed from `GET /api/cards`, which returns an ETag-style `version` token so the client can skip the download when nothing has changed.
+- The deck is refreshed from `GET /api/cards`, which returns an ETag-style `version` token so the client can skip the download when nothing has changed. That IndexedDB copy is the only offline copy of the deck: the Service Worker passes `/api/*` straight through and never caches it, so an admin edit reaches players on their next launch.
 - The banned set and the history are synchronized through `GET /api/state` and their respective mutation endpoints.
 - Mutations are queued in an IndexedDB `outbox` store and drained every time the page comes back online.
 

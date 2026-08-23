@@ -1,10 +1,14 @@
 // SPDX-License-Identifier: MIT
 // Auth-aware service worker:
 //   * shell (HTML, CSS, JS, fonts, partials, locales): cache-first
-//   * /api/cards: stale-while-revalidate (allows offline viewing)
-//   * all other /api/*: network only, never cached (auth-sensitive)
+//   * every /api/* route: passed through, never cached
+//
+// The deck is deliberately not cached here: core/sync.js already mirrors it in
+// IndexedDB. Caching it a second time served every client one deck version
+// behind, since the page got the stale copy while the revalidation stored the
+// fresh one, and left the admin card list one edit behind for good.
 
-const VERSION = 'couplecards-v54';
+const VERSION = 'couplecards-v55';
 const SHELL = [
   '/',
   '/index.html',
@@ -113,28 +117,15 @@ self.addEventListener('message', (event) => {
   if (event.data?.type === 'SKIP_WAITING') self.skipWaiting();
 });
 
-function isAuthSensitive(pathname) {
-  // Exact match only: any future GET under /api/cards/... must stay
-  // network-only rather than fall through to cache-first below.
-  if (pathname === '/api/cards') return false;
-  return pathname.startsWith('/api/');
-}
-
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
 
-  if (isAuthSensitive(url.pathname)) {
-    // Never cache auth, sync, state, user endpoints.
-    return;
-  }
-
-  if (url.pathname === '/api/cards') {
-    event.respondWith(staleWhileRevalidate(req));
-    return;
-  }
+  // Never cache the API: auth, sync, state, and user endpoints are
+  // auth-sensitive, and the deck has its own IndexedDB cache in core/sync.js.
+  if (url.pathname.startsWith('/api/')) return;
 
   event.respondWith(cacheFirst(req));
 });
@@ -150,16 +141,8 @@ async function cacheFirst(request) {
     }
     return resp;
   } catch {
-    return cached || Response.error();
+    // Offline and not in the cache: the early return above already handled
+    // every hit, so there is nothing left to fall back to.
+    return Response.error();
   }
-}
-
-async function staleWhileRevalidate(request) {
-  const cache = await caches.open(VERSION);
-  const cached = await cache.match(request);
-  const fetched = fetch(request).then((resp) => {
-    if (resp && resp.ok) cache.put(request, resp.clone());
-    return resp;
-  }).catch(() => null);
-  return cached || fetched || Response.error();
 }

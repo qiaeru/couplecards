@@ -236,10 +236,18 @@ function onFilterClick(event) {
   render();
 }
 
-export function mount() {
+export function mount({ params } = {}) {
   document.getElementById('btn-back-home')?.addEventListener('click', () => navigate('home'));
   document.querySelector('.collection-filters')?.addEventListener('click', onFilterClick);
-  document.querySelectorAll('[data-filter]').forEach((b) => {
+
+  // #/collection?filter=banned lets the empty-pile notice on Home land on the
+  // cards worth restoring. Validated against the chips in the view so a bogus
+  // value falls back to the remembered filter instead of emptying the grid.
+  const chips = [...document.querySelectorAll('[data-filter]')];
+  const requested = params?.get('filter');
+  if (requested && chips.some((b) => b.dataset.filter === requested)) currentFilter = requested;
+
+  chips.forEach((b) => {
     b.setAttribute('aria-pressed', b.dataset.filter === currentFilter ? 'true' : 'false');
   });
 
