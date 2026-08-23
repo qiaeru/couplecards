@@ -10,7 +10,7 @@ export function on(event, handler) {
   return () => off(event, handler);
 }
 
-export function off(event, handler) {
+function off(event, handler) {
   listeners.get(event)?.delete(handler);
 }
 

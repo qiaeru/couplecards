@@ -308,6 +308,5 @@
   "errors.CARDS_FETCH_FAILED": "Deck konnte nicht geladen werden. Lokaler Cache wird verwendet.",
   "errors.SEED_FILE_NOT_FOUND": "Die Kartendatei für diese Sprache ist auf dem Server nicht zu finden.",
   "errors.INVALID_DECK": "Die Kartendatei ist ungültig.",
-  "errors.UNSUPPORTED_LOCALE": "Sprache nicht unterstützt.",
   "errors.INVALID_MODE": "Ungültiger Sync-Modus."
 }

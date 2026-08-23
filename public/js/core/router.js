@@ -56,7 +56,7 @@ export async function navigate(name, params = {}) {
   }
 }
 
-export async function render() {
+async function render() {
   if (!outlet) return;
   const { segment, params } = parsePath();
   if (!features.has(segment)) return;
@@ -123,8 +123,4 @@ export function startRouter() {
   } else {
     render();
   }
-}
-
-export function currentRouteName() {
-  return currentRoute;
 }

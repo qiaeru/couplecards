@@ -3,7 +3,7 @@
 // swipe-to-return.
 
 import { getCardById, getCardText, drawRandom, getHistory, banCard, unbanCard, addHistory, removeHistoryByUuid, isBanned } from '../../core/sync.js';
-import { emojiImgHTML, createEmojiImg } from '../../ui/emoji.js';
+import { emojiImgHTML } from '../../ui/emoji.js';
 import { t } from '../../core/i18n.js';
 import { on } from '../../core/events.js';
 import { CONFIG } from '../../config.js';
@@ -537,7 +537,7 @@ function applyCardText(card) {
   descEl.setAttribute('lang', locale);
 }
 
-export async function startDraw(pile) {
+async function startDraw(pile) {
   previewMode = false;
   // Claim this generation. If unmount or a newer draw bumps the counter while
   // we await, stale() turns true and we bail; the bail itself touches no shared
@@ -732,7 +732,7 @@ function updatePreviewActions(cardId) {
 }
 
 // Invoked from the history feature to open a card in read-only preview.
-export function showCardDirectly(cardId) {
+function showCardDirectly(cardId) {
   const card = getCardById(cardId);
   if (!card) return false;
   // The preview URL (#/draw?preview=<id>) is user-editable, so only cards the

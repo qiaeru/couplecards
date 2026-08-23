@@ -22,7 +22,6 @@
 
   --accent: #ec5a9e;
   --accent-2: #f49cc5;
-  --accent-soft: #4a1f3a;
   --accent-contrast: #1a0730;
 
   --home-1: #ff9a6c;
@@ -48,16 +47,11 @@
   --radius-sm: 12px;
   --radius-md: 18px;
   --radius-lg: 26px;
-  --radius-xl: 32px;
 
   --font: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-display: 'Fraunces', 'Georgia', 'Times New Roman', serif;
 
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
-  --ease-in-out: cubic-bezier(0.4, 0, 0.4, 1);
-  --ease-bounce: cubic-bezier(0.2, 1.4, 0.3, 1);
-  --dur-fast: 150ms;
-  --dur-medium: 280ms;
   --dur-slow: 450ms;
 
   color-scheme: dark;

@@ -96,10 +96,6 @@ export function fmtDateLong(date) {
   return t('common.dateAtTime', { date: datePart, time: timePart });
 }
 
-export function fmtNumber(n, options) {
-  return new Intl.NumberFormat(current, options).format(n);
-}
-
 // Apply translations to static HTML nodes carrying `data-i18n` / `data-i18n-attr`.
 // Format: data-i18n="key" (replaces text) or data-i18n-attr="placeholder:key,aria-label:key".
 export function applyI18n(root = document) {

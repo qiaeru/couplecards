@@ -4,7 +4,3 @@
 
 export const SUPPORTED_LOCALES = Object.freeze(['en', 'fr', 'de', 'it', 'es']);
 export const FALLBACK_LOCALE = 'en';
-
-export function isSupportedLocale(value) {
-  return typeof value === 'string' && SUPPORTED_LOCALES.includes(value);
-}

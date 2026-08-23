@@ -96,7 +96,7 @@ function showInitialPassword(username, password) {
   });
 }
 
-export async function renderUsers() {
+async function renderUsers() {
   allUsers = await loadUsers();
   renderUsersList(filterUsers());
 }
@@ -290,5 +290,3 @@ export async function mount() {
 
   await renderUsers();
 }
-
-export function unmount() {}

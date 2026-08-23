@@ -308,6 +308,5 @@
   "errors.CARDS_FETCH_FAILED": "Could not load the card deck. Working from cache.",
   "errors.SEED_FILE_NOT_FOUND": "The card file for this language was not found on the server.",
   "errors.INVALID_DECK": "The card file is invalid.",
-  "errors.UNSUPPORTED_LOCALE": "Unsupported language.",
   "errors.INVALID_MODE": "Invalid sync mode."
 }
