@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
-- A pile that runs out now explains itself. The greyed-out button on Home was the only signal; a notice under the piles says whether every card is banned, with a button opening the Collection filtered on banned cards, or whether the deck simply holds no card for that pile.
+- A pile that runs out now explains itself: a notice under the piles says whether every card is banned, with a button opening the Collection on that filter, or whether the deck simply holds no card for that pile.
 
 ### Changed
 
@@ -16,7 +16,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
-- A card edited in the admin panel now reaches players on their next launch instead of the one after. The Service Worker cached `/api/cards` and answered from that copy while refreshing it in the background, leaving every client one deck version behind and the admin card list one edit behind for good. The API is no longer cached there, IndexedDB remaining the client's offline copy of the deck.
+- A card edited in the admin panel now reaches players on their next launch instead of the one after. The Service Worker no longer caches `/api/cards`, which used to leave every client one deck version behind.
+- Signing out now clears the deck, bans and history cached on the device. A later sign-in that could not reach the server fell back to that cache and showed the previous account's data.
 
 ## [1.13.0] - 2026-07-06
 
