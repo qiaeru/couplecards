@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.14.0] - 2026-08-24
+
 ### Added
 
 - A pile that runs out now explains itself: a notice under the piles says whether every card is banned, with a button opening the Collection on that filter, or whether the deck simply holds no card for that pile.
