@@ -8,7 +8,7 @@
 // behind, since the page got the stale copy while the revalidation stored the
 // fresh one, and left the admin card list one edit behind for good.
 
-const VERSION = 'couplecards-v56';
+const VERSION = 'couplecards-v57';
 const SHELL = [
   '/',
   '/index.html',
