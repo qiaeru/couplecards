@@ -4,7 +4,7 @@
 
 import { request, ApiError } from './api.js';
 import { idb } from './idb.js';
-import { emit } from './events.js';
+import { emit, on } from './events.js';
 import { getLocale } from './i18n.js';
 
 // Mirror of server/src/routes/sync.js. The server slices history to this size
@@ -17,6 +17,10 @@ let cards = [];
 // Map<cardId, bannedAt>; Map keeps the backend's banned_at DESC order.
 let banned = new Map();
 let history = [];
+// Locale the cached deck was actually fetched in, so a language change knows
+// whether it has to pull the deck again. Left untouched when a fetch fails and
+// the cache answers instead, which keeps the next attempt armed.
+let cardsLocale = null;
 let initialized = false;
 let flushing = false;
 
@@ -31,16 +35,18 @@ function uuid() {
   }).join('');
 }
 
-async function loadCardsFromApiOrCache() {
+async function loadCardsFromApiOrCache(locale) {
   const cachedVersion = await idb.getCardsVersion();
   try {
+    // The version the server hands back embeds the locale, so a cached ETag
+    // from another language simply misses and returns the full payload.
     const headers = cachedVersion ? { 'if-none-match': `"${cachedVersion}"` } : {};
     // 10 s timeout: a stalled server shouldn't block the boot skeleton forever.
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 10_000);
     let resp;
     try {
-      resp = await fetch('/api/cards', {
+      resp = await fetch(`/api/cards?locale=${encodeURIComponent(locale)}`, {
         credentials: 'same-origin',
         headers,
         signal: controller.signal,
@@ -50,12 +56,14 @@ async function loadCardsFromApiOrCache() {
     }
     if (resp.status === 304) {
       cards = await idb.getCards();
+      cardsLocale = locale;
       return cards;
     }
     if (!resp.ok) throw new ApiError('CARDS_FETCH_FAILED', resp.status);
     const data = await resp.json();
     cards = data.cards || [];
     await idb.putCards(cards, data.version);
+    cardsLocale = locale;
     return cards;
   } catch (err) {
     const cached = await idb.getCards();
@@ -115,18 +123,29 @@ function warmEmojiCache() {
   else setTimeout(run, 1500);
 }
 
-export async function initSync() {
+export async function initSync(locale) {
   if (initialized) return;
   // The deck and the per-user state come from two independent endpoints, so
   // they load in parallel: chaining them made /api/state wait for the whole
   // deck download on a cold start or after a deck edit.
-  await Promise.all([loadCardsFromApiOrCache(), loadStateFromApiOrCache()]);
+  await Promise.all([loadCardsFromApiOrCache(locale), loadStateFromApiOrCache()]);
   initialized = true;
   emit('sync:ready');
   warmEmojiCache();
   flushOutbox().catch(() => {});
   window.addEventListener('online', () => { flushOutbox().catch(() => {}); });
 }
+
+// The deck holds one language, so switching the interface has to pull it
+// again. i18n:change also fires during boot with the deck still in flight,
+// which the initialized guard filters out. Views repaint on i18n:change from
+// the old deck, so `deck:changed` only fires once the new text is in memory.
+on('i18n:change', (locale) => {
+  if (!initialized || locale === cardsLocale) return;
+  loadCardsFromApiOrCache(locale)
+    .then(() => { if (cardsLocale === locale) emit('deck:changed'); })
+    .catch(() => {});
+});
 
 export function getCards() { return cards; }
 export function isBanned(cardId) { return banned.has(cardId); }

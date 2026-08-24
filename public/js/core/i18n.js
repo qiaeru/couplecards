@@ -27,8 +27,14 @@ async function load(locale) {
   return resp.json();
 }
 
+// The deck is fetched per locale too, so app.js resolves the winning locale
+// once and hands the same value to initI18n and initSync.
+export function resolveLocale(preferred) {
+  return preferred && SUPPORTED.has(preferred) ? preferred : detect();
+}
+
 export async function initI18n(preferred) {
-  const target = preferred && SUPPORTED.has(preferred) ? preferred : detect();
+  const target = resolveLocale(preferred);
   if (target === FALLBACK) {
     const data = await load(FALLBACK);
     catalogue = data;

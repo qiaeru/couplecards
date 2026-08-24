@@ -2,7 +2,7 @@
 // Main SPA bootstrap: auth check, i18n init, router mount, service worker.
 
 import { me } from './core/auth.js';
-import { initI18n, applyI18n, t } from './core/i18n.js';
+import { initI18n, applyI18n, resolveLocale, t } from './core/i18n.js';
 import { initSync } from './core/sync.js';
 import { registerFeature, setOutlet, startRouter } from './core/router.js';
 import { registerServiceWorker, initSyncBanner } from './ui/shell.js';
@@ -24,8 +24,10 @@ async function boot() {
     return;
   }
 
-  await initI18n(user.locale);
-  await initSync();
+  // Nothing ties the catalogues to the deck, so they load together instead of
+  // one after the other. Both need the same locale, resolved once here.
+  const locale = resolveLocale(user.locale);
+  await Promise.all([initI18n(locale), initSync(locale)]);
   applyI18n(document);
 
   registerFeature('home',       () => import('./features/home/home.js'));

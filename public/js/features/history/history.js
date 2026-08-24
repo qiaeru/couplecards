@@ -166,6 +166,9 @@ export function mount() {
   unsubscribers = [
     on('state:history-changed', render),
     on('i18n:change', render),
+    // The deck is fetched in one language, so a language change repaints twice:
+    // from the cached deck, then from the refreshed one.
+    on('deck:changed', render),
   ];
   document.getElementById('btn-back-home')?.addEventListener('click', () => navigate('home'));
 }

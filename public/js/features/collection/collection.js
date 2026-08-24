@@ -291,6 +291,10 @@ export function mount({ params } = {}) {
   unsubscribe.push(on('state:banned-changed', render));
   unsubscribe.push(on('state:history-changed', render));
   unsubscribe.push(on('i18n:change', render));
+  // The deck is fetched in the active locale, so a language change lands in
+  // two steps: i18n:change repaints from the cached deck, then the refreshed
+  // deck arrives with the new translations.
+  unsubscribe.push(on('deck:changed', render));
 }
 
 export function unmount() {

@@ -13,7 +13,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Changed
 
 - The Collection screen only renders the cards in view, and the halo on undiscovered rare cards holds a fixed blur instead of animating one, so a full deck scrolls without the phone painting every face and animating every halo at once.
-- The deck and the per-user state load in parallel at startup, so `GET /api/state` no longer waits for the deck download.
+- The app downloads the deck in the language it displays instead of all five at once, which takes the bundled deck from 115 KB to 39 KB. Picking another language in Settings fetches the deck again in that language.
+- The deck, the per-user state, and the interface translations load in parallel at startup instead of one after another.
 
 ### Fixed
 

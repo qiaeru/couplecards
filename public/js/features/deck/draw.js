@@ -879,7 +879,7 @@ function onVisibilityChange() {
   }
 }
 
-let unsubscribeLocale = null;
+let localeUnsubscribers = [];
 
 function onLocaleChange() {
   const id = currentCardId || previewCardId;
@@ -920,7 +920,9 @@ export async function mount({ params }) {
   inactivityListeners.forEach((ev) => document.addEventListener(ev, bumpInactivity, { passive: true }));
   document.addEventListener('visibilitychange', onVisibilityChange);
   document.addEventListener('keydown', onDrawKeydown);
-  unsubscribeLocale = on('i18n:change', onLocaleChange);
+  // Two steps on a language change: the cached deck answers first, then the
+  // deck refetched in the new language lands and the card text settles.
+  localeUnsubscribers = [on('i18n:change', onLocaleChange), on('deck:changed', onLocaleChange)];
 }
 
 export function unmount() {
@@ -936,5 +938,6 @@ export function unmount() {
   if (inactivityTimer) { clearTimeout(inactivityTimer); inactivityTimer = 0; }
   inactivityListeners.forEach((ev) => document.removeEventListener(ev, bumpInactivity));
   document.removeEventListener('visibilitychange', onVisibilityChange);
-  if (unsubscribeLocale) { unsubscribeLocale(); unsubscribeLocale = null; }
+  for (const fn of localeUnsubscribers) fn();
+  localeUnsubscribers = [];
 }
