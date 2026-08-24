@@ -1171,6 +1171,10 @@
   border-radius: inherit;
   transform: none;
   overflow: hidden;
+  /* Skip the faces scrolled out of view: the grid holds the whole deck. The
+     tile's aspect-ratio fixes the height, so nothing reflows on the way in,
+     and the foil heart-slide below pauses while its face is skipped. */
+  content-visibility: auto;
 }
 .coll-tile .card-frame {
   inset: 5px;
@@ -1251,7 +1255,9 @@
 
 /* Foil silhouette: fixed rainbow halo that breathes slowly so undiscovered
    rare cards stand out without the disorienting feel of a rotating gradient.
-   The conic stays put; only the glow's opacity and blur pulse. */
+   The conic stays put and the blur is baked in; only the glow's opacity
+   pulses, because animating a filter re-rasterizes the blurred layer on every
+   frame and a deck can hold dozens of locked foil tiles at once. */
 .coll-tile.is-foil.is-locked { border-color: transparent; }
 .coll-tile.is-foil.is-locked::before {
   content: '';
@@ -1264,17 +1270,17 @@
   );
   z-index: -1;
   pointer-events: none;
+  filter: blur(3px);
   animation: coll-foil-breathe 7s ease-in-out infinite;
 }
 @keyframes coll-foil-breathe {
-  0%, 100% { opacity: 0.35; filter: blur(2px); }
-  50%      { opacity: 0.6;  filter: blur(4px); }
+  0%, 100% { opacity: 0.35; }
+  50%      { opacity: 0.6; }
 }
 @media (prefers-reduced-motion: reduce) {
   .coll-tile.is-foil.is-locked::before {
     animation: none;
     opacity: 0.5;
-    filter: blur(3px);
   }
 }
 
