@@ -1,13 +1,14 @@
 // SPDX-License-Identifier: MIT
-// Password strength component. Uses Lit when available; falls back to vanilla
-// DOM if the vendor bundle has not been produced yet. zxcvbn is lazy-loaded
-// only on pages that actually use password inputs.
+// Password strength component: a strength bar plus a live checklist of the
+// hard rules, bound to a password input. zxcvbn is lazy-loaded only on pages
+// that carry a password field; when the vendor bundle is missing the checklist
+// keeps working and only the score stays at zero.
 
 import { t } from '../core/i18n.js';
 
 let zxcvbnPromise = null;
 
-export async function loadZxcvbn() {
+async function loadZxcvbn() {
   if (zxcvbnPromise) return zxcvbnPromise;
   zxcvbnPromise = import('/vendor/zxcvbn.js').catch((err) => {
     console.warn('zxcvbn bundle not available, scoring disabled', err);
@@ -17,7 +18,7 @@ export async function loadZxcvbn() {
 }
 
 // Hard rules mirrored from the backend `lib/password.js`.
-export const RULES = {
+const RULES = {
   minLength: 12,
   requireUpper: true,
   requireLower: true,
@@ -26,7 +27,7 @@ export const RULES = {
   noWhitespace: true,
 };
 
-export function evaluateHardRules(password, username = '') {
+function evaluateHardRules(password, username = '') {
   return {
     minLength: password.length >= RULES.minLength,
     upper: /[A-Z]/.test(password),
@@ -38,7 +39,7 @@ export function evaluateHardRules(password, username = '') {
   };
 }
 
-export async function computeScore(password, userInputs = []) {
+async function computeScore(password, userInputs = []) {
   const mod = await loadZxcvbn();
   if (!mod || !password) return { score: 0, feedback: { warning: '', suggestions: [] } };
   const result = mod.zxcvbn(password, userInputs.filter(Boolean));
