@@ -4,13 +4,25 @@
 
 import { getDb, transaction, isUniqueViolation } from '../db/index.js';
 import { requireSession, requireAdmin, enforcePasswordChange } from '../lib/auth.js';
-import { SUPPORTED_LOCALES } from '../lib/locales.js';
+import { SUPPORTED_LOCALES, FALLBACK_LOCALE } from '../lib/locales.js';
 import { TITLE_MAX, DESCRIPTION_MAX } from '../lib/card-limits.js';
 
 const CARD_ID_PATTERN = '^[a-z0-9-]{1,64}$';
 const EMOJI_SLUG_PATTERN = '^[a-z0-9-]{1,64}$';
 
-function selectCards() {
+// Mirrors the fallback chain of `getCardText` (public/js/core/sync.js): the
+// asked locale, then English, then any available translation. Resolving it
+// here means one entry per card instead of five, and the surviving key still
+// tells the client which language it got. Change one, change the other.
+function pickTranslation(all, locale) {
+  const chosen = all[locale] ? locale
+    : (all[FALLBACK_LOCALE] ? FALLBACK_LOCALE : SUPPORTED_LOCALES.find((l) => all[l]));
+  return chosen ? { [chosen]: all[chosen] } : {};
+}
+
+// `locale` null serves every translation, which is what the admin card editor
+// needs; a locale narrows each card to the one entry that client will render.
+function selectCards(locale = null) {
   const db = getDb();
   const cards = db.prepare(`
     SELECT id, pile, foil, emoji, sort_order, updated_at
@@ -32,7 +44,9 @@ function selectCards() {
     const card = byId.get(row.card_id);
     if (card) card.translations[row.locale] = { title: row.title, description: row.description };
   }
-  return [...byId.values()];
+  const all = [...byId.values()];
+  if (!locale) return all;
+  return all.map((card) => ({ ...card, translations: pickTranslation(card.translations, locale) }));
 }
 
 // /api/cards is in the hot path of every client cold start and SW
@@ -91,15 +105,26 @@ export default async function cardRoutes(app) {
       if (reply.sent) return;
       await enforcePasswordChange(request, reply);
     },
+    schema: {
+      querystring: {
+        type: 'object',
+        additionalProperties: false,
+        properties: { locale: { type: 'string', enum: [...SUPPORTED_LOCALES] } },
+      },
+    },
   }, async (request, reply) => {
-    const version = deckVersion();
+    const locale = request.query.locale ?? null;
+    // The locale belongs to the version string, so a client switching language
+    // stops matching its own cached ETag and gets the new payload instead of a
+    // 304 on a deck it can no longer read.
+    const version = locale ? `${deckVersion()}-${locale}` : deckVersion();
     if (request.headers['if-none-match'] === `"${version}"`) {
       reply.code(304);
       return null;
     }
     reply.header('ETag', `"${version}"`);
     reply.header('Cache-Control', 'private, must-revalidate');
-    return { version, cards: selectCards() };
+    return { version, cards: selectCards(locale) };
   });
 
   app.post('/cards', {

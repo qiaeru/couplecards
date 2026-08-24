@@ -49,7 +49,8 @@ Browser → app.js               → me() calls /api/auth/me
   if 401                         → redirect to /login.html
   if mustChangePassword          → redirect to /login.html?forceChange=1
   if isDemo                      → show the persistent demo banner
-Browser → initI18n() and initSync()  (GET /api/cards, GET /api/state)
+Browser → initI18n() and initSync() run together
+             (GET /locales/<locale>.json, GET /api/cards?locale=<locale>, GET /api/state)
 Browser → router mounts the first route (for example home)
 ```
 
@@ -76,12 +77,12 @@ The SPA router lives in `public/js/core/router.js` and is roughly seventy lines 
 ## State management
 
 - The deck, the banned set, and the history all live in IndexedDB.
-- The deck is refreshed from `GET /api/cards`, which returns an ETag-style `version` token so the client can skip the download when nothing has changed. That IndexedDB copy is the only offline copy of the deck: the Service Worker passes `/api/*` straight through and never caches it, so an admin edit reaches players on their next launch.
+- The deck is refreshed from `GET /api/cards?locale=<locale>`, which returns an ETag-style `version` token so the client can skip the download when nothing has changed. The server ships one translation per card, the one that locale resolves to, which is about a third of the full multilingual payload. The locale is part of the version token, so picking another language in Settings misses the cached ETag and pulls the deck again; `core/sync.js` then emits `deck:changed` and the card views repaint. That IndexedDB copy is the only offline copy of the deck: the Service Worker passes `/api/*` straight through and never caches it, so an admin edit reaches players on their next launch.
 - The banned set and the history are synchronized through `GET /api/state` and their respective mutation endpoints.
 - Mutations are queued in an IndexedDB `outbox` store and drained every time the page comes back online.
 - Signing out wipes all three stores, so a device shared between accounts never falls back to the previous user's cached data when `GET /api/state` is unreachable.
 
-`public/js/core/sync.js` is the single entry point for state. Feature modules never talk to the API directly. Each card exposes a `translations` object keyed by locale, and the helper `getCardText(card, locale)` picks the right title and description for the current user language with an English fallback.
+`public/js/core/sync.js` is the single entry point for state. Feature modules never talk to the API directly. Each card exposes a `translations` object keyed by locale, and the helper `getCardText(card, locale)` picks the right title and description for the current user language with an English fallback. The player app holds a single entry per card, already resolved by the server through that same chain, so the helper's fallback still applies to a deck cached before a language change. The admin panel calls `/api/cards` without a locale and keeps every translation.
 
 ## Card draw
 
@@ -89,7 +90,7 @@ The SPA router lives in `public/js/core/router.js` and is roughly seventy lines 
 
 ## Collection screen
 
-`public/js/features/collection/collection.js` renders the deck as a grid mirrored on the user's history. A card is "discovered" once it appears in the local history (returned or banned). Drawn tiles open the existing draw screen in preview mode (`#/draw?preview=<cardId>`), where Ban or Restore buttons mutate the banned set without leaving the screen. Banned tiles carry a red cross overlay; undiscovered tiles show a "?" silhouette and ignore clicks. Foil cards wear a subtle static rainbow border regardless of state. The toolbar above the grid pairs the discovered counter with a completion bar and a search field; the search narrows the visible tiles by title and description and matches only already-discovered cards (locked tiles expose no text), while the counter and bar always track the active pile or rarity filter rather than the search. The screen is derived from `getCards()`, `getHistory()`, and `isBanned(id)` from `core/sync.js`, so there is no dedicated backend endpoint.
+`public/js/features/collection/collection.js` renders the deck as a grid mirrored on the user's history. A card is "discovered" once it appears in the local history (returned or banned). Drawn tiles open the existing draw screen in preview mode (`#/draw?preview=<cardId>`), where Ban or Restore buttons mutate the banned set without leaving the screen. Banned tiles carry a red cross overlay; undiscovered tiles show a "?" silhouette and ignore clicks. Foil cards wear a subtle static rainbow border regardless of state. The toolbar above the grid pairs the discovered counter with a completion bar and a search field; the search narrows the visible tiles by title and description and matches only already-discovered cards (locked tiles expose no text), while the counter and bar always track the active pile or rarity filter rather than the search. The screen is derived from `getCards()`, `getHistory()`, and `isBanned(id)` from `core/sync.js`, so there is no dedicated backend endpoint. Every filter click, search keystroke, and ban rebuilds the whole grid, which is why tiles open through one delegated handler on the grid rather than a pair of listeners each, and why the card faces carry `content-visibility: auto` so the browser skips the ones scrolled out of view.
 
 ## Internationalization
 
@@ -120,7 +121,7 @@ Four guard levels are referenced below: **public** (no auth needed), **session**
 | `GET` | `/api/auth/me` | public | Returns 401 when no session |
 | `POST` | `/api/auth/change-password` | session | Rotates `session_epoch` |
 | `POST` | `/api/auth/preferences` | session | Updates the locale. Acknowledged but not persisted for demo accounts |
-| `GET` | `/api/cards` | session | Returns each card with `translations` keyed by locale. ETag-aware, 304 when unchanged |
+| `GET` | `/api/cards` | session | Returns each card with `translations` keyed by locale. `?locale=<locale>` narrows every card to the single entry that locale resolves to and joins the ETag. 304 when unchanged |
 | `POST`, `PATCH`, `DELETE` | `/api/cards[/:id]` | admin | Per-card CRUD. The body carries a `translations` map of `{ locale: { title, description } }` |
 | `GET` | `/api/admin/cards/export` | admin | Downloads a ZIP with one `cards.<locale>.json` per supported locale, pretty-printed |
 | `POST` | `/api/admin/cards/sync` | admin | Reads every `cards.<locale>.json` under `data/` and applies them together (mirror or upsert) |

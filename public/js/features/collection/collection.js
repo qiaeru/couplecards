@@ -96,11 +96,8 @@ function buildTile(card, discovered) {
     tile.setAttribute('role', 'button');
     tile.setAttribute('tabindex', '0');
     tile.setAttribute('aria-label', t(banned ? 'collection.tile.banned.label' : 'collection.tile.drawn.label', { title }));
-    const open = () => navigate('draw', { preview: card.id });
-    tile.addEventListener('click', open);
-    tile.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
-    });
+    // Opening is handled by the grid, see onGridClick.
+    tile.dataset.cardId = card.id;
     tile.appendChild(buildCardFront(card, title, description, locale));
     if (banned) {
       const cross = document.createElement('div');
@@ -226,6 +223,23 @@ function render() {
   grid.appendChild(frag);
 }
 
+// Tile activation is delegated to the grid: render() rebuilds every tile on
+// each filter, search keystroke and ban change, and a full deck means hundreds
+// of listeners to re-create each time. Locked tiles carry no data-card-id, so
+// they stay inert.
+function onGridClick(event) {
+  const tile = event.target.closest('.coll-tile[data-card-id]');
+  if (tile) navigate('draw', { preview: tile.dataset.cardId });
+}
+
+function onGridKeydown(event) {
+  if (event.key !== 'Enter' && event.key !== ' ') return;
+  const tile = event.target.closest('.coll-tile[data-card-id]');
+  if (!tile) return;
+  event.preventDefault();
+  navigate('draw', { preview: tile.dataset.cardId });
+}
+
 function onFilterClick(event) {
   const btn = event.target.closest('[data-filter]');
   if (!btn) return;
@@ -239,6 +253,9 @@ function onFilterClick(event) {
 export function mount({ params } = {}) {
   document.getElementById('btn-back-home')?.addEventListener('click', () => navigate('home'));
   document.querySelector('.collection-filters')?.addEventListener('click', onFilterClick);
+  const grid = document.getElementById('collection-grid');
+  grid?.addEventListener('click', onGridClick);
+  grid?.addEventListener('keydown', onGridKeydown);
 
   // #/collection?filter=banned lets the empty-pile notice on Home land on the
   // cards worth restoring. Validated against the chips in the view so a bogus
@@ -274,6 +291,10 @@ export function mount({ params } = {}) {
   unsubscribe.push(on('state:banned-changed', render));
   unsubscribe.push(on('state:history-changed', render));
   unsubscribe.push(on('i18n:change', render));
+  // The deck is fetched in the active locale, so a language change lands in
+  // two steps: i18n:change repaints from the cached deck, then the refreshed
+  // deck arrives with the new translations.
+  unsubscribe.push(on('deck:changed', render));
 }
 
 export function unmount() {
