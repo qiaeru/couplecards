@@ -31,7 +31,7 @@
     "@zxcvbn-ts/language-es-es": "^4.1.2",
     "@zxcvbn-ts/language-fr": "^4.1.2",
     "@zxcvbn-ts/language-it": "^4.1.1",
-    "fastify": "^5.12.0",
+    "fastify": "^5.12.1",
     "fastify-plugin": "^6.0.0",
     "fflate": "^0.8.3",
     "hash-wasm": "^4.12.0"
