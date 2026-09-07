@@ -3,7 +3,7 @@
 // routes. Kept apart from index.js so the tests can build an app and drive it
 // through app.inject() without opening a port or installing signal handlers.
 
-import Fastify from 'fastify';
+import Fastify, { LogController } from 'fastify';
 import compressPlugin from '@fastify/compress';
 import { config } from './config.js';
 
@@ -40,7 +40,11 @@ export default async function buildApp({ logger } = {}) {
     // pulls ~30 static assets and the log encoding cost dwarfs the serve
     // cost for the deployment's single-instance / low-traffic profile.
     // Per-route logs (errors, auth failures, deck sync) still surface.
-    disableRequestLogging: config.isProduction,
+    //
+    // Fastify 6 drops the top-level `disableRequestLogging`, so this goes
+    // through a LogController instance. The option is typed as a class but
+    // the runtime checks `instanceof`, so it has to be constructed here.
+    logController: new LogController({ disableRequestLogging: config.isProduction }),
   });
 
   // Threshold below the smallest compressible response we serve.

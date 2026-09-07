@@ -9,7 +9,17 @@
 // back to English, and every emoji slug needs its SVG or the card renders with
 // a hole where the icon should be.
 
-import { repoPath, readJson, existsExact, walk, rel } from './lib.mjs';
+import { repoPath, readJson, read, existsExact, walk, rel } from './lib.mjs';
+
+// The slug list the admin autocomplete offers. Read as text rather than
+// imported, because the module sits in a browser bundle and importing it would
+// drag the feature module's own imports into this script.
+function adminSlugs() {
+  const source = read(repoPath('public', 'js', 'features', 'admin', 'emoji-slugs.js'));
+  const match = source.match(/EMOJI_SLUGS\s*=\s*\[([\s\S]*?)\]/);
+  if (!match) return null;
+  return [...match[1].matchAll(/'([^']+)'/g)].map((m) => m[1]);
+}
 
 // Best-effort explanation for an INVALID_DECK: the structural fields of a card
 // must be identical in every locale file, and that mismatch is the failure
@@ -96,11 +106,34 @@ export async function run() {
     );
   }
 
-  // Slugs the app draws itself (piles, hearts) are never on a card, so an
-  // unused SVG is reported rather than failed: it may be deliberate.
-  const orphans = [...available].filter((slug) => !used.has(slug));
-  if (orphans.length > 0) {
-    notes.push(`${orphans.length} emoji SVG(s) not used by any card: ${orphans.join(', ')}`);
+  // The admin form's autocomplete reads EMOJI_SLUGS, so an icon absent from
+  // that list is invisible to whoever edits a card: it ships, it renders on the
+  // cards that already reference it, and nobody can pick it. That is exactly
+  // how the desert island, ice skate and love hotel icons stayed unreachable
+  // between 1.13.0 and 1.14.0. The list must mirror the directory both ways.
+  const listed = adminSlugs();
+  if (listed === null) {
+    errors.push('could not read EMOJI_SLUGS from public/js/features/admin/emoji-slugs.js');
+  } else {
+    const unreachable = [...available].filter((slug) => !listed.includes(slug));
+    if (unreachable.length > 0) {
+      errors.push(
+        `${unreachable.length} emoji SVG(s) missing from the admin autocomplete list, so no card can be given them: ${unreachable.join(', ')}`,
+      );
+    }
+    const phantom = listed.filter((slug) => !available.has(slug));
+    if (phantom.length > 0) {
+      errors.push(
+        `${phantom.length} slug(s) offered by the admin autocomplete have no SVG: ${phantom.join(', ')}`,
+      );
+    }
+    const sorted = [...listed].sort();
+    if (listed.join(',') !== sorted.join(',')) {
+      errors.push('EMOJI_SLUGS is not alphabetically sorted, which its own comment promises');
+    }
+    if (unreachable.length === 0 && phantom.length === 0) {
+      notes.push(`${available.size} emoji icons, all reachable from the admin form`);
+    }
   }
 
   const counts = {};

@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - The developer link in the sign-in footer now points to qiaeru.com, the site's new address.
 - The repository now ships ESLint, Prettier, five repo consistency checks and a server test suite, all run by CI on every pull request. Running an instance is unaffected: `docker compose up` needs none of them.
+- The server configures its request logging through the interface Fastify 6 will require, instead of the option that release removes. Production keeps skipping the per-request access log line, and a future Fastify upgrade can no longer turn that noise back on unnoticed.
 
 ## [1.14.0] - 2026-08-24
 

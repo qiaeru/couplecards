@@ -18,9 +18,12 @@ const REPO_ROOT = resolve(SERVER_DIR, '..');
 // 48 chars: config.js requires at least 32 and slices the first 32 bytes.
 const TEST_SECRET = 'test-secret-0123456789abcdef0123456789abcdef0123';
 
-function prepareEnv({ demo = true } = {}) {
+function prepareEnv({ demo = true, production = false } = {}) {
   const dir = mkdtempSync(join(tmpdir(), 'couplecards-test-'));
-  process.env.NODE_ENV = 'test';
+  // `production` exists for the logging test: config.isProduction is what
+  // decides whether per-request lines are emitted, and config.js reads the
+  // environment once per process.
+  process.env.NODE_ENV = production ? 'production' : 'test';
   process.env.DATA_DIR = dir;
   process.env.DB_PATH = join(dir, 'test.db');
   process.env.SESSION_SECRET = TEST_SECRET;
@@ -56,7 +59,7 @@ export async function withDatabase(options = {}) {
 export async function withServer(options = {}) {
   const base = await withDatabase(options);
   const { default: buildApp } = await import('../src/app.js');
-  const app = await buildApp({ logger: false });
+  const app = await buildApp({ logger: options.logger ?? false });
   await app.ready();
   return {
     ...base,
