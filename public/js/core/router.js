@@ -46,9 +46,8 @@ function parsePath() {
 }
 
 export async function navigate(name, params = {}) {
-  const hash = '#/' + name + (Object.keys(params).length
-    ? '?' + new URLSearchParams(params).toString()
-    : '');
+  const hash =
+    '#/' + name + (Object.keys(params).length ? '?' + new URLSearchParams(params).toString() : '');
   if (location.hash === hash) {
     await render();
   } else {
@@ -69,7 +68,11 @@ async function render() {
   isHistoryNav = false;
 
   if (currentModule && typeof currentModule.unmount === 'function') {
-    try { currentModule.unmount(); } catch (err) { console.error('unmount failed', err); }
+    try {
+      currentModule.unmount();
+    } catch (err) {
+      console.error('unmount failed', err);
+    }
   }
   // Null right away so an overlapping render cannot unmount the same module twice.
   currentModule = null;
@@ -84,8 +87,10 @@ async function render() {
     outlet.innerHTML = html;
     applyI18n(outlet);
   };
-  if (document.startViewTransition
-    && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  if (
+    document.startViewTransition &&
+    !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  ) {
     await document.startViewTransition(swap).updateCallbackDone;
     if (gen !== renderGen) return;
   } else {
@@ -116,7 +121,9 @@ export function startRouter() {
   // (browser back / forward, in-app history.back). Capturing it lets us
   // distinguish "go back" from "fresh link click" and decide whether to
   // restore the previous scroll position or land at the top.
-  window.addEventListener('popstate', () => { isHistoryNav = true; });
+  window.addEventListener('popstate', () => {
+    isHistoryNav = true;
+  });
   window.addEventListener('hashchange', render);
   if (!location.hash) {
     location.replace('#/home');

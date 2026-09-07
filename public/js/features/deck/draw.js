@@ -2,7 +2,17 @@
 // Draw screen: reveal animation, tilt, holographic effects, swipe-to-ban and
 // swipe-to-return.
 
-import { getCardById, getCardText, drawRandom, getHistory, banCard, unbanCard, addHistory, removeHistoryByUuid, isBanned } from '../../core/sync.js';
+import {
+  getCardById,
+  getCardText,
+  drawRandom,
+  getHistory,
+  banCard,
+  unbanCard,
+  addHistory,
+  removeHistoryByUuid,
+  isBanned,
+} from '../../core/sync.js';
 import { emojiImgHTML } from '../../ui/emoji.js';
 import { t } from '../../core/i18n.js';
 import { on } from '../../core/events.js';
@@ -27,8 +37,12 @@ const $ = (id) => document.getElementById(id);
 // dust spawner ticks each ask whether reduced motion is on.
 const reducedMotionMQL = window.matchMedia('(prefers-reduced-motion: reduce)');
 let reducedMotion = reducedMotionMQL.matches;
-reducedMotionMQL.addEventListener('change', (e) => { reducedMotion = e.matches; });
-function prefersReducedMotion() { return reducedMotion; }
+reducedMotionMQL.addEventListener('change', (e) => {
+  reducedMotion = e.matches;
+});
+function prefersReducedMotion() {
+  return reducedMotion;
+}
 
 // "Gold dust" reveal: motes converge into the card during the charge, a
 // shockwave + ember fallout replace the old white flash at landing, and a
@@ -58,18 +72,23 @@ function spawnMote(host, swirl) {
   const midAng = ang + swirl * (0.5 + Math.random() * 0.4);
   const midDist = dist * (0.4 + Math.random() * 0.15);
   const depth = Math.random(); // 0 = near (big, sharp), 1 = far (small, blurred)
-  spawnFx(host, 'mote', {
-    '--x0': `calc(-50% + ${Math.cos(ang) * dist}px)`,
-    '--y0': `calc(-55% + ${Math.sin(ang) * dist * 0.8}px)`,
-    '--xm': `calc(-50% + ${Math.cos(midAng) * midDist}px)`,
-    '--ym': `calc(-55% + ${Math.sin(midAng) * midDist * 0.8}px)`,
-    '--s': `${(5.5 - depth * 3.5).toFixed(1)}px`,
-    '--b': `${(depth * 1.8).toFixed(1)}px`,
-    '--t': `${(0.85 + Math.random() * 0.65).toFixed(2)}s`,
-    '--d': `${(Math.random() * 0.15).toFixed(2)}s`,
-    '--o': (0.55 + Math.random() * 0.45 - depth * 0.25).toFixed(2),
-    '--c': dustColor(),
-  }, 2200);
+  spawnFx(
+    host,
+    'mote',
+    {
+      '--x0': `calc(-50% + ${Math.cos(ang) * dist}px)`,
+      '--y0': `calc(-55% + ${Math.sin(ang) * dist * 0.8}px)`,
+      '--xm': `calc(-50% + ${Math.cos(midAng) * midDist}px)`,
+      '--ym': `calc(-55% + ${Math.sin(midAng) * midDist * 0.8}px)`,
+      '--s': `${(5.5 - depth * 3.5).toFixed(1)}px`,
+      '--b': `${(depth * 1.8).toFixed(1)}px`,
+      '--t': `${(0.85 + Math.random() * 0.65).toFixed(2)}s`,
+      '--d': `${(Math.random() * 0.15).toFixed(2)}s`,
+      '--o': (0.55 + Math.random() * 0.45 - depth * 0.25).toFixed(2),
+      '--c': dustColor(),
+    },
+    2200,
+  );
 }
 
 let dustInterval = null;
@@ -89,7 +108,10 @@ function startDust() {
   }, 55);
 }
 function stopDust() {
-  if (dustInterval) { clearInterval(dustInterval); dustInterval = null; }
+  if (dustInterval) {
+    clearInterval(dustInterval);
+    dustInterval = null;
+  }
 }
 
 // Landing: two expanding rings (pile-tinted, then rose) and a dense golden
@@ -103,16 +125,21 @@ function spawnLanding(glowColor) {
   }, 120);
   for (let i = 0; i < Math.round(70 * DUST_DENSITY); i++) {
     const depth = Math.random();
-    spawnFx(host, 'ember', {
-      '--x0': `calc(-50% + ${(Math.random() * 260 - 130).toFixed(0)}px)`,
-      '--y0': `calc(-50% + ${(Math.random() * 340 - 180).toFixed(0)}px)`,
-      '--dx': `${(Math.random() * 180 - 90).toFixed(0)}px`,
-      '--dy': `${(100 + Math.random() * 160).toFixed(0)}px`,
-      '--s': `${(5 - depth * 3).toFixed(1)}px`,
-      '--t': `${(1.8 + Math.random() * 1.6).toFixed(2)}s`,
-      '--d': `${(Math.random() * 0.5).toFixed(2)}s`,
-      '--c': dustColor(),
-    }, 4200);
+    spawnFx(
+      host,
+      'ember',
+      {
+        '--x0': `calc(-50% + ${(Math.random() * 260 - 130).toFixed(0)}px)`,
+        '--y0': `calc(-50% + ${(Math.random() * 340 - 180).toFixed(0)}px)`,
+        '--dx': `${(Math.random() * 180 - 90).toFixed(0)}px`,
+        '--dy': `${(100 + Math.random() * 160).toFixed(0)}px`,
+        '--s': `${(5 - depth * 3).toFixed(1)}px`,
+        '--t': `${(1.8 + Math.random() * 1.6).toFixed(2)}s`,
+        '--d': `${(Math.random() * 0.5).toFixed(2)}s`,
+        '--c': dustColor(),
+      },
+      4200,
+    );
   }
 }
 
@@ -144,17 +171,22 @@ function startAmbient() {
       x0 = (Math.random() * 2 - 1) * (halfW + 60);
       y0 = halfH + 10 + Math.random() * 60;
     }
-    spawnFx(host, 'drift', {
-      '--x0': `calc(-50% + ${x0.toFixed(0)}px)`,
-      '--y0': `calc(-50% + ${y0.toFixed(0)}px)`,
-      '--dx': `${(Math.random() * 60 - 30).toFixed(0)}px`,
-      '--dy': `${-(80 + Math.random() * 80).toFixed(0)}px`,
-      '--s': `${(3.5 - depth * 2).toFixed(1)}px`,
-      '--b': `${(depth * 1.5).toFixed(1)}px`,
-      '--t': `${(4 + Math.random() * 2.5).toFixed(2)}s`,
-      '--o': (0.55 - depth * 0.3).toFixed(2),
-      '--c': dustColor(),
-    }, 7000);
+    spawnFx(
+      host,
+      'drift',
+      {
+        '--x0': `calc(-50% + ${x0.toFixed(0)}px)`,
+        '--y0': `calc(-50% + ${y0.toFixed(0)}px)`,
+        '--dx': `${(Math.random() * 60 - 30).toFixed(0)}px`,
+        '--dy': `${-(80 + Math.random() * 80).toFixed(0)}px`,
+        '--s': `${(3.5 - depth * 2).toFixed(1)}px`,
+        '--b': `${(depth * 1.5).toFixed(1)}px`,
+        '--t': `${(4 + Math.random() * 2.5).toFixed(2)}s`,
+        '--o': (0.55 - depth * 0.3).toFixed(2),
+        '--c': dustColor(),
+      },
+      7000,
+    );
   };
   const perTick = Math.max(2, Math.round(3 * DUST_DENSITY));
   ambientInterval = setInterval(() => {
@@ -162,10 +194,15 @@ function startAmbient() {
   }, 550);
 }
 function stopAmbient() {
-  if (ambientInterval) { clearInterval(ambientInterval); ambientInterval = null; }
+  if (ambientInterval) {
+    clearInterval(ambientInterval);
+    ambientInterval = null;
+  }
 }
 
-function wait(ms) { return new Promise((r) => setTimeout(r, ms)); }
+function wait(ms) {
+  return new Promise((r) => setTimeout(r, ms));
+}
 
 function resetStage() {
   stopAmbient();
@@ -213,17 +250,27 @@ function resetStage() {
 // iOS 13+ gyroscope permission.
 let orientationPermission = null;
 function orientationNeedsPermission() {
-  return typeof DeviceOrientationEvent !== 'undefined'
-    && typeof DeviceOrientationEvent.requestPermission === 'function';
+  return (
+    typeof DeviceOrientationEvent !== 'undefined' &&
+    typeof DeviceOrientationEvent.requestPermission === 'function'
+  );
 }
 export async function requestOrientationIfNeeded() {
   if (orientationPermission !== null) return;
-  if (!('DeviceOrientationEvent' in window)) { orientationPermission = 'unsupported'; return; }
-  if (!orientationNeedsPermission()) { orientationPermission = 'granted'; return; }
+  if (!('DeviceOrientationEvent' in window)) {
+    orientationPermission = 'unsupported';
+    return;
+  }
+  if (!orientationNeedsPermission()) {
+    orientationPermission = 'granted';
+    return;
+  }
   try {
     const r = await DeviceOrientationEvent.requestPermission();
     orientationPermission = r === 'granted' ? 'granted' : 'denied';
-  } catch { orientationPermission = 'denied'; }
+  } catch {
+    orientationPermission = 'denied';
+  }
 }
 
 let tiltActive = false;
@@ -269,8 +316,14 @@ function smoothReturnToCenter() {
   const tz0 = parse('--tz');
   const ban0 = banLabel ? parseFloat(banLabel.style.opacity || '0') : 0;
   const ret0 = returnLabel ? parseFloat(returnLabel.style.opacity || '0') : 0;
-  if (Math.abs(rx0) < 0.1 && Math.abs(ry0) < 0.1 && Math.abs(tx0) < 0.5
-      && Math.abs(tz0) < 0.1 && ban0 < 0.01 && ret0 < 0.01) {
+  if (
+    Math.abs(rx0) < 0.1 &&
+    Math.abs(ry0) < 0.1 &&
+    Math.abs(tx0) < 0.5 &&
+    Math.abs(tz0) < 0.1 &&
+    ban0 < 0.01 &&
+    ret0 < 0.01
+  ) {
     tilt.style.setProperty('--rx', '0deg');
     tilt.style.setProperty('--ry', '0deg');
     tilt.style.setProperty('--tx', '0px');
@@ -294,14 +347,20 @@ function smoothReturnToCenter() {
     if (banLabel) banLabel.style.opacity = (ban0 * k).toFixed(3);
     if (returnLabel) returnLabel.style.opacity = (ret0 * k).toFixed(3);
     if (p < 1) returnRaf = requestAnimationFrame(step);
-    else { returnRaf = 0; isReturning = false; }
+    else {
+      returnRaf = 0;
+      isReturning = false;
+    }
   };
   returnRaf = requestAnimationFrame(step);
 }
 
 function resetTilt() {
   const front = document.querySelector('#card-flip .card-front');
-  if (front) { front.classList.remove('holo-on'); front.classList.add('idle-shine'); }
+  if (front) {
+    front.classList.remove('holo-on');
+    front.classList.add('idle-shine');
+  }
   smoothReturnToCenter();
 }
 
@@ -318,10 +377,13 @@ function attachTilt() {
   const VELOCITY_THRESHOLD = 0.45;
 
   let raf = 0;
-  let pendingX = 0, pendingY = 0;
+  let pendingX = 0,
+    pendingY = 0;
   let pointerDown = false;
   let mode = 'idle';
-  let startX = 0, startY = 0, startTime = 0;
+  let startX = 0,
+    startY = 0,
+    startTime = 0;
   let velocitySamples = [];
   // Tracks whether the current drag has already crossed the commit threshold,
   // so we only vibrate on the transition (not every frame past it).
@@ -370,7 +432,9 @@ function attachTilt() {
     mode = 'idle';
     swipePastThreshold = false;
     velocitySamples = [{ x: e.clientX, t: performance.now() }];
-    try { tilt.setPointerCapture(e.pointerId); } catch {}
+    try {
+      tilt.setPointerCapture(e.pointerId);
+    } catch {}
   };
 
   tiltPointerMove = (e) => {
@@ -381,25 +445,34 @@ function attachTilt() {
       // Otherwise a return started on pointerleave keeps the isReturning
       // guard raised and the follow effect stays frozen.
       if (isReturning) {
-        if (returnRaf) { cancelAnimationFrame(returnRaf); returnRaf = 0; }
+        if (returnRaf) {
+          cancelAnimationFrame(returnRaf);
+          returnRaf = 0;
+        }
         isReturning = false;
       }
       pendingX = e.clientX;
       pendingY = e.clientY;
       if (raf) return;
-      raf = requestAnimationFrame(() => { raf = 0; updateTiltFromPointer(); });
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        updateTiltFromPointer();
+      });
       return;
     }
     if (isReturning) return;
     if (!pointerDown) return;
     const dx = e.clientX - startX;
     const dy = e.clientY - startY;
-    const ax = Math.abs(dx), ay = Math.abs(dy);
+    const ax = Math.abs(dx),
+      ay = Math.abs(dy);
     if (mode === 'idle') {
       if (ax < DRAG_THRESHOLD && ay < DRAG_THRESHOLD) return;
       if (previewMode) mode = 'tilt';
-      else if (!isMouse || ax > ay * 1.2) { mode = 'swipe'; tilt.classList.add('dragging'); }
-      else mode = 'tilt';
+      else if (!isMouse || ax > ay * 1.2) {
+        mode = 'swipe';
+        tilt.classList.add('dragging');
+      } else mode = 'tilt';
     }
     if (mode === 'swipe') {
       const nowT = performance.now();
@@ -407,12 +480,18 @@ function attachTilt() {
       velocitySamples = velocitySamples.filter((s) => nowT - s.t < 120);
       pendingX = dx;
       if (raf) return;
-      raf = requestAnimationFrame(() => { raf = 0; applySwipe(pendingX); });
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        applySwipe(pendingX);
+      });
     } else if (mode === 'tilt') {
       pendingX = e.clientX;
       pendingY = e.clientY;
       if (raf) return;
-      raf = requestAnimationFrame(() => { raf = 0; updateTiltFromPointer(); });
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        updateTiltFromPointer();
+      });
     }
   };
 
@@ -433,13 +512,14 @@ function attachTilt() {
         const dts = last.t - first.t;
         if (dts > 0) velocity = (last.x - first.x) / dts;
       }
-      const isFlick = Math.abs(velocity) > VELOCITY_THRESHOLD
-        && Math.abs(dx) > 30 && Math.abs(dx) > Math.abs(dy);
-      const isDistanceSwipe = Math.abs(dx) > CONFIG.swipe.minDistance
-        && Math.abs(dx) > Math.abs(dy) * CONFIG.swipe.horizontalRatio
-        && dt < CONFIG.swipe.maxDuration;
+      const isFlick =
+        Math.abs(velocity) > VELOCITY_THRESHOLD && Math.abs(dx) > 30 && Math.abs(dx) > Math.abs(dy);
+      const isDistanceSwipe =
+        Math.abs(dx) > CONFIG.swipe.minDistance &&
+        Math.abs(dx) > Math.abs(dy) * CONFIG.swipe.horizontalRatio &&
+        dt < CONFIG.swipe.maxDuration;
       if (isFlick || isDistanceSwipe) {
-        const direction = isFlick ? (velocity > 0 ? 1 : -1) : (dx > 0 ? 1 : -1);
+        const direction = isFlick ? (velocity > 0 ? 1 : -1) : dx > 0 ? 1 : -1;
         if (direction > 0) doReturn(true);
         else doBan(true);
       } else {
@@ -467,7 +547,8 @@ function attachOrientation() {
   if (orientationAttached) return;
   if (prefersReducedMotion()) return;
   orientationAttached = true;
-  let baseBeta = null, baseGamma = null;
+  let baseBeta = null,
+    baseGamma = null;
   const CLAMP = CONFIG.tilt.orientationClampDeg;
   const MAX = CONFIG.tilt.maxDegrees;
   let raf = 0;
@@ -477,7 +558,11 @@ function attachOrientation() {
     if (isReturning || !pending) return;
     const { beta, gamma } = pending;
     if (beta === null || gamma === null) return;
-    if (baseBeta === null) { baseBeta = beta; baseGamma = gamma; return; }
+    if (baseBeta === null) {
+      baseBeta = beta;
+      baseGamma = gamma;
+      return;
+    }
     const dBeta = Math.max(-CLAMP, Math.min(CLAMP, beta - baseBeta));
     const dGamma = Math.max(-CLAMP, Math.min(CLAMP, gamma - baseGamma));
     const rx = -(dBeta / CLAMP) * MAX;
@@ -507,7 +592,10 @@ function detachTilt() {
   // Kill a return-to-center animation still in flight: a stale rAF would
   // write to detached nodes, and if the tab was hidden mid-return the paused
   // animation would keep isReturning stuck and block tilt on the next mount.
-  if (returnRaf) { cancelAnimationFrame(returnRaf); returnRaf = 0; }
+  if (returnRaf) {
+    cancelAnimationFrame(returnRaf);
+    returnRaf = 0;
+  }
   isReturning = false;
   if (orientationAttached && orientationHandler) {
     window.removeEventListener('deviceorientation', orientationHandler);
@@ -548,7 +636,10 @@ async function startDraw(pile) {
   const stale = () => myGen !== drawGeneration;
   const recentLimit = CONFIG.recentExclude[pile] || 3;
   const recentIds = getHistory()
-    .filter((h) => { const c = getCardById(h.cardId); return c && c.pile === pile; })
+    .filter((h) => {
+      const c = getCardById(h.cardId);
+      return c && c.pile === pile;
+    })
     .slice(0, recentLimit)
     .map((h) => h.cardId);
   const card = drawRandom(pile, recentIds);
@@ -648,7 +739,11 @@ async function doReturn(animated = false) {
   if (!currentCardId) return;
   const id = currentCardId;
   currentCardId = null;
-  const entry = await addHistory({ cardId: id, drawnAt: new Date().toISOString(), action: 'returned' });
+  const entry = await addHistory({
+    cardId: id,
+    drawnAt: new Date().toISOString(),
+    action: 'returned',
+  });
   vibrate(CONFIG.vibrations.returnAction);
   playReturn();
   finishWith(animated ? 'swipe-out-right' : null, {
@@ -667,7 +762,11 @@ async function doBan(animated = false) {
   const id = currentCardId;
   currentCardId = null;
   banCard(id);
-  const entry = await addHistory({ cardId: id, drawnAt: new Date().toISOString(), action: 'banned' });
+  const entry = await addHistory({
+    cardId: id,
+    drawnAt: new Date().toISOString(),
+    action: 'banned',
+  });
   vibrate(CONFIG.vibrations.banAction);
   playBan();
   finishWith(animated ? 'swipe-out-left' : null, {
@@ -861,7 +960,10 @@ const inactivityListeners = ['pointerdown', 'pointermove', 'keydown', 'touchstar
 
 function onVisibilityChange() {
   if (document.hidden) {
-    if (inactivityTimer) { clearTimeout(inactivityTimer); inactivityTimer = 0; }
+    if (inactivityTimer) {
+      clearTimeout(inactivityTimer);
+      inactivityTimer = 0;
+    }
     // Stop the ambient effects while the tab is backgrounded. Browsers
     // throttle background timers but still execute each tick (DOM node
     // create / setTimeout queue), and the visuals are invisible anyway.
@@ -905,7 +1007,10 @@ export async function mount({ params }) {
   const preview = params.get ? params.get('preview') : params.preview;
   if (preview) {
     // Stale deep link or deleted card: don't strand the user on a blank screen.
-    if (!showCardDirectly(preview)) { navigate('home'); return; }
+    if (!showCardDirectly(preview)) {
+      navigate('home');
+      return;
+    }
   } else if (pile === 'home' || pile === 'outdoor') {
     // If the user navigates away mid-reveal, startDraw bails and returns false;
     // skip the listener setup so we don't re-add document listeners after the
@@ -917,7 +1022,9 @@ export async function mount({ params }) {
   }
 
   bumpInactivity();
-  inactivityListeners.forEach((ev) => document.addEventListener(ev, bumpInactivity, { passive: true }));
+  inactivityListeners.forEach((ev) =>
+    document.addEventListener(ev, bumpInactivity, { passive: true }),
+  );
   document.addEventListener('visibilitychange', onVisibilityChange);
   document.addEventListener('keydown', onDrawKeydown);
   // Two steps on a language change: the cached deck answers first, then the
@@ -935,7 +1042,10 @@ export function unmount() {
   currentCardId = null;
   previewMode = false;
   previewCardId = null;
-  if (inactivityTimer) { clearTimeout(inactivityTimer); inactivityTimer = 0; }
+  if (inactivityTimer) {
+    clearTimeout(inactivityTimer);
+    inactivityTimer = 0;
+  }
   inactivityListeners.forEach((ev) => document.removeEventListener(ev, bumpInactivity));
   document.removeEventListener('visibilitychange', onVisibilityChange);
   for (const fn of localeUnsubscribers) fn();

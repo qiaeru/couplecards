@@ -25,10 +25,10 @@ export default fp(async function sessionPlugin(app) {
     if (request.protocol === 'http') {
       warned = true;
       request.log.warn(
-        'COOKIE_SECURE=true but a request was received over plain HTTP. '
-        + 'Browsers will drop the session cookie and login will silently fail. '
-        + 'Set COOKIE_SECURE=false for LAN/HTTP deploys, or front the app with an HTTPS reverse proxy '
-        + '(and TRUST_PROXY=1 so X-Forwarded-Proto is honored).',
+        'COOKIE_SECURE=true but a request was received over plain HTTP. ' +
+          'Browsers will drop the session cookie and login will silently fail. ' +
+          'Set COOKIE_SECURE=false for LAN/HTTP deploys, or front the app with an HTTPS reverse proxy ' +
+          '(and TRUST_PROXY=1 so X-Forwarded-Proto is honored).',
       );
     }
   });

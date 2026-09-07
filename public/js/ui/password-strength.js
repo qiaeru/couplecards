@@ -100,7 +100,9 @@ export function bindPasswordStrength({ input, host, userInputs = [], minScore = 
     input.setCustomValidity(allHard && score >= minScore ? '' : 'weak');
   };
 
-  const handler = () => { update().catch(() => {}); };
+  const handler = () => {
+    update().catch(() => {});
+  };
   input.addEventListener('input', handler);
   update().catch(() => {});
 

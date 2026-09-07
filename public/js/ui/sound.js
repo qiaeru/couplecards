@@ -24,7 +24,16 @@ function ensureContext() {
   return ctx;
 }
 
-function tone({ freq, start = 0, duration = 0.25, type = 'sine', peak = 0.6, attack = 0.008, release = 0.18, detune = 0 }) {
+function tone({
+  freq,
+  start = 0,
+  duration = 0.25,
+  type = 'sine',
+  peak = 0.6,
+  attack = 0.008,
+  release = 0.18,
+  detune = 0,
+}) {
   if (!ctx || !masterGain) return;
   const t0 = ctx.currentTime + start;
   const osc = ctx.createOscillator();
@@ -55,7 +64,15 @@ function guard() {
 export function playDraw() {
   if (!guard()) return;
   tone({ freq: 180, duration: 0.05, type: 'triangle', peak: 0.55, attack: 0.003, release: 0.1 });
-  tone({ freq: 90, duration: 0.08, type: 'sine', peak: 0.35, start: 0.005, attack: 0.005, release: 0.12 });
+  tone({
+    freq: 90,
+    duration: 0.08,
+    type: 'sine',
+    peak: 0.35,
+    start: 0.005,
+    attack: 0.005,
+    release: 0.12,
+  });
 }
 
 // Major-triad arpeggio on reveal; foil cards get an extra shimmer on top.
@@ -65,11 +82,43 @@ export function playReveal(isFoil = false) {
   const third = base * 1.25;
   const fifth = base * 1.5;
   tone({ freq: base, duration: 0.18, type: 'triangle', peak: 0.45, attack: 0.01, release: 0.22 });
-  tone({ freq: third, duration: 0.18, type: 'triangle', peak: 0.40, start: 0.08, attack: 0.01, release: 0.22 });
-  tone({ freq: fifth, duration: 0.22, type: 'triangle', peak: 0.38, start: 0.16, attack: 0.01, release: 0.3 });
+  tone({
+    freq: third,
+    duration: 0.18,
+    type: 'triangle',
+    peak: 0.4,
+    start: 0.08,
+    attack: 0.01,
+    release: 0.22,
+  });
+  tone({
+    freq: fifth,
+    duration: 0.22,
+    type: 'triangle',
+    peak: 0.38,
+    start: 0.16,
+    attack: 0.01,
+    release: 0.3,
+  });
   if (isFoil) {
-    tone({ freq: fifth * 2, duration: 0.35, type: 'sine', peak: 0.18, start: 0.2, attack: 0.02, release: 0.45 });
-    tone({ freq: fifth * 3, duration: 0.3, type: 'sine', peak: 0.10, start: 0.26, attack: 0.03, release: 0.5 });
+    tone({
+      freq: fifth * 2,
+      duration: 0.35,
+      type: 'sine',
+      peak: 0.18,
+      start: 0.2,
+      attack: 0.02,
+      release: 0.45,
+    });
+    tone({
+      freq: fifth * 3,
+      duration: 0.3,
+      type: 'sine',
+      peak: 0.1,
+      start: 0.26,
+      attack: 0.03,
+      release: 0.5,
+    });
   }
 }
 

@@ -70,7 +70,8 @@ export function validateDeckPayload(payload) {
     const deck = payload.cards.map((raw, index) => {
       if (!raw || typeof raw !== 'object') throw deckError('INVALID_DECK');
       ensureStructural(raw);
-      const translations = raw.translations && typeof raw.translations === 'object' ? raw.translations : {};
+      const translations =
+        raw.translations && typeof raw.translations === 'object' ? raw.translations : {};
       const out = {};
       for (const locale of SUPPORTED_LOCALES) {
         const t = translations[locale];
@@ -98,21 +99,34 @@ export function validateDeckPayload(payload) {
 }
 
 export function readDbDeck() {
-  const cards = getDb().prepare(`
+  const cards = getDb()
+    .prepare(
+      `
     SELECT id, pile, foil, emoji, sort_order
     FROM cards ORDER BY sort_order ASC, id ASC
-  `).all();
-  const tr = getDb().prepare(`
+  `,
+    )
+    .all();
+  const tr = getDb()
+    .prepare(
+      `
     SELECT card_id, locale, title, description FROM card_translations
-  `).all();
-  const byId = new Map(cards.map((c) => [c.id, {
-    id: c.id,
-    pile: c.pile,
-    foil: c.foil === 1,
-    emoji: c.emoji ?? null,
-    sortOrder: c.sort_order,
-    translations: {},
-  }]));
+  `,
+    )
+    .all();
+  const byId = new Map(
+    cards.map((c) => [
+      c.id,
+      {
+        id: c.id,
+        pile: c.pile,
+        foil: c.foil === 1,
+        emoji: c.emoji ?? null,
+        sortOrder: c.sort_order,
+        translations: {},
+      },
+    ]),
+  );
   for (const row of tr) {
     const card = byId.get(row.card_id);
     if (card) card.translations[row.locale] = { title: row.title, description: row.description };
@@ -134,11 +148,11 @@ function diffDecks(current, next) {
       continue;
     }
     if (
-      c.pile !== n.pile
-      || c.foil !== n.foil
-      || (c.emoji ?? null) !== (n.emoji ?? null)
-      || c.sortOrder !== n.sortOrder
-      || !sameTranslations(c.translations, n.translations)
+      c.pile !== n.pile ||
+      c.foil !== n.foil ||
+      (c.emoji ?? null) !== (n.emoji ?? null) ||
+      c.sortOrder !== n.sortOrder ||
+      !sameTranslations(c.translations, n.translations)
     ) {
       updated.push(n.id);
     } else {
@@ -251,9 +265,9 @@ function mergeLocaleIntoMap(byId, locale, rawCards, anchor) {
     const existing = byId.get(raw.id);
     if (existing) {
       if (
-        existing.pile !== raw.pile
-        || existing.foil !== !!raw.foil
-        || (existing.emoji ?? null) !== (raw.emoji ?? null)
+        existing.pile !== raw.pile ||
+        existing.foil !== !!raw.foil ||
+        (existing.emoji ?? null) !== (raw.emoji ?? null)
       ) {
         throw deckError('INVALID_DECK');
       }
@@ -275,7 +289,9 @@ function mergeLocaleIntoMap(byId, locale, rawCards, anchor) {
 function finaliseDeck(byId) {
   const deck = [...byId.values()];
   deck.sort((a, b) => a.sortOrder - b.sortOrder || a.id.localeCompare(b.id));
-  deck.forEach((card, index) => { card.sortOrder = index; });
+  deck.forEach((card, index) => {
+    card.sortOrder = index;
+  });
   return deck;
 }
 

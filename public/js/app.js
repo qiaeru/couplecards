@@ -30,12 +30,12 @@ async function boot() {
   await Promise.all([initI18n(locale), initSync(locale)]);
   applyI18n(document);
 
-  registerFeature('home',       () => import('./features/home/home.js'));
-  registerFeature('draw',       () => import('./features/deck/draw.js'));
-  registerFeature('history',    () => import('./features/history/history.js'));
+  registerFeature('home', () => import('./features/home/home.js'));
+  registerFeature('draw', () => import('./features/deck/draw.js'));
+  registerFeature('history', () => import('./features/history/history.js'));
   registerFeature('collection', () => import('./features/collection/collection.js'));
-  registerFeature('settings',   () => import('./features/settings/settings.js'));
-  registerFeature('rules',      () => import('./features/rules/rules.js'));
+  registerFeature('settings', () => import('./features/settings/settings.js'));
+  registerFeature('rules', () => import('./features/rules/rules.js'));
 
   const outlet = document.getElementById('view');
   setOutlet(outlet);

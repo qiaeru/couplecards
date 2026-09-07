@@ -45,81 +45,89 @@ export default async function adminCardRoutes(app) {
     return reply.send(buffer);
   });
 
-  app.post('/cards/sync', {
-    preHandler: requireAdmin,
-    schema: {
-      body: {
-        type: 'object',
-        required: ['mode'],
-        additionalProperties: false,
-        properties: {
-          mode: { type: 'string', enum: ['mirror', 'upsert'] },
-          dryRun: { type: 'boolean' },
-        },
-      },
-    },
-  }, async (request, reply) => {
-    const { mode, dryRun = false } = request.body;
-    let next;
-    try {
-      next = readSeedDecks();
-    } catch (err) {
-      return handleDeckError(err, reply);
-    }
-    if (dryRun) {
-      return { dryRun: true, ...summariseDiff(readDbDeck(), next, mode) };
-    }
-    try {
-      const result = applyDeckSync(next, mode);
-      invalidateDeckVersion();
-      return { dryRun: false, ...result };
-    } catch (err) {
-      return handleDeckError(err, reply);
-    }
-  });
-
-  app.post('/cards/import', {
-    preHandler: requireAdmin,
-    // Body size is already capped by the global bodyLimit in index.js (512 KB).
-    // `validateDeckPayload` runs a second pass inside `deckSync.js` to check
-    // each card; the lightweight schema here is just a first gate.
-    schema: {
-      body: {
-        type: 'object',
-        required: ['deck', 'mode'],
-        additionalProperties: false,
-        properties: {
-          deck: {
-            type: 'object',
-            additionalProperties: false,
-            properties: {
-              version: {},
-              cards: { type: 'array', maxItems: 2000 },
-              cardsByLocale: { type: 'object', maxProperties: 16 },
-            },
+  app.post(
+    '/cards/sync',
+    {
+      preHandler: requireAdmin,
+      schema: {
+        body: {
+          type: 'object',
+          required: ['mode'],
+          additionalProperties: false,
+          properties: {
+            mode: { type: 'string', enum: ['mirror', 'upsert'] },
+            dryRun: { type: 'boolean' },
           },
-          mode: { type: 'string', enum: ['mirror', 'upsert'] },
-          dryRun: { type: 'boolean' },
         },
       },
     },
-  }, async (request, reply) => {
-    const { deck, mode, dryRun = false } = request.body;
-    let next;
-    try {
-      next = validateDeckPayload(deck);
-    } catch (err) {
-      return handleDeckError(err, reply);
-    }
-    if (dryRun) {
-      return { dryRun: true, ...summariseDiff(readDbDeck(), next, mode) };
-    }
-    try {
-      const result = applyDeckSync(next, mode);
-      invalidateDeckVersion();
-      return { dryRun: false, ...result };
-    } catch (err) {
-      return handleDeckError(err, reply);
-    }
-  });
+    async (request, reply) => {
+      const { mode, dryRun = false } = request.body;
+      let next;
+      try {
+        next = readSeedDecks();
+      } catch (err) {
+        return handleDeckError(err, reply);
+      }
+      if (dryRun) {
+        return { dryRun: true, ...summariseDiff(readDbDeck(), next, mode) };
+      }
+      try {
+        const result = applyDeckSync(next, mode);
+        invalidateDeckVersion();
+        return { dryRun: false, ...result };
+      } catch (err) {
+        return handleDeckError(err, reply);
+      }
+    },
+  );
+
+  app.post(
+    '/cards/import',
+    {
+      preHandler: requireAdmin,
+      // Body size is already capped by the global bodyLimit in index.js (512 KB).
+      // `validateDeckPayload` runs a second pass inside `deckSync.js` to check
+      // each card; the lightweight schema here is just a first gate.
+      schema: {
+        body: {
+          type: 'object',
+          required: ['deck', 'mode'],
+          additionalProperties: false,
+          properties: {
+            deck: {
+              type: 'object',
+              additionalProperties: false,
+              properties: {
+                version: {},
+                cards: { type: 'array', maxItems: 2000 },
+                cardsByLocale: { type: 'object', maxProperties: 16 },
+              },
+            },
+            mode: { type: 'string', enum: ['mirror', 'upsert'] },
+            dryRun: { type: 'boolean' },
+          },
+        },
+      },
+    },
+    async (request, reply) => {
+      const { deck, mode, dryRun = false } = request.body;
+      let next;
+      try {
+        next = validateDeckPayload(deck);
+      } catch (err) {
+        return handleDeckError(err, reply);
+      }
+      if (dryRun) {
+        return { dryRun: true, ...summariseDiff(readDbDeck(), next, mode) };
+      }
+      try {
+        const result = applyDeckSync(next, mode);
+        invalidateDeckVersion();
+        return { dryRun: false, ...result };
+      } catch (err) {
+        return handleDeckError(err, reply);
+      }
+    },
+  );
 }

@@ -52,9 +52,10 @@ function renderCardsList(cards) {
   if (!host) return;
   host.innerHTML = '';
   if (cards.length === 0) {
-    const empty = allCards.length === 0
-      ? { title: 'admin.cards.empty.title', hint: 'admin.cards.empty.hint' }
-      : { title: 'admin.cards.search.empty.title', hint: 'admin.cards.search.empty.hint' };
+    const empty =
+      allCards.length === 0
+        ? { title: 'admin.cards.empty.title', hint: 'admin.cards.empty.hint' }
+        : { title: 'admin.cards.search.empty.title', hint: 'admin.cards.search.empty.hint' };
     host.innerHTML = `<div class="empty">
       <div class="empty-icon" aria-hidden="true">🃏</div>
       <div class="empty-title">${escapeHtml(t(empty.title))}</div>
@@ -153,9 +154,10 @@ function openCardDialog({ card = null } = {}) {
     `,
     confirmLabel: t('common.save'),
     cancelLabel: t('common.cancel'),
-    initialFocus: () => (isEdit
-      ? document.querySelector('[name="title-' + getLocale() + '"]')
-      : document.getElementById('card-id')),
+    initialFocus: () =>
+      isEdit
+        ? document.querySelector('[name="title-' + getLocale() + '"]')
+        : document.getElementById('card-id'),
     onConfirm: async ({ close, confirmBtn }) => {
       const form = document.getElementById('card-form');
       const err = document.getElementById('card-error');
@@ -175,7 +177,10 @@ function openCardDialog({ card = null } = {}) {
       confirmBtn.disabled = true;
       try {
         if (isEdit) {
-          await request(`/api/cards/${encodeURIComponent(card.id)}`, { method: 'PATCH', body: payload });
+          await request(`/api/cards/${encodeURIComponent(card.id)}`, {
+            method: 'PATCH',
+            body: payload,
+          });
         } else {
           payload.id = document.getElementById('card-id').value.trim();
           await request('/api/cards', { method: 'POST', body: payload });
@@ -212,16 +217,22 @@ async function deleteCard(id, title) {
 }
 
 export async function mount() {
-  mountDeckTools(() => { renderCards().catch(() => {}); });
+  mountDeckTools(() => {
+    renderCards().catch(() => {});
+  });
   // Re-render from the cached list: cards already carry every translation,
   // so a language switch needs no refetch.
-  on('i18n:change', () => { renderCardsList(filterCards()); });
+  on('i18n:change', () => {
+    renderCardsList(filterCards());
+  });
 
   document.getElementById('admin-cards-search')?.addEventListener('input', (e) => {
     cardsQuery = e.target.value;
     renderCardsList(filterCards());
   });
-  document.getElementById('admin-create-card-btn')?.addEventListener('click', () => openCardDialog());
+  document
+    .getElementById('admin-create-card-btn')
+    ?.addEventListener('click', () => openCardDialog());
   document.getElementById('admin-cards-list')?.addEventListener('click', async (e) => {
     const btn = e.target.closest('button[data-action]');
     if (!btn) return;

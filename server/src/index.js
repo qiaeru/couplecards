@@ -78,17 +78,23 @@ async function buildApp() {
   // Mounted at root so <link rel="manifest"> resolves without the /api prefix.
   await app.register(manifestRoutes);
 
-  await app.register(async (scope) => {
-    await scope.register(healthRoutes);
-    await scope.register(authRoutes);
-    await scope.register(cardRoutes);
-    await scope.register(syncRoutes);
-  }, { prefix: '/api' });
+  await app.register(
+    async (scope) => {
+      await scope.register(healthRoutes);
+      await scope.register(authRoutes);
+      await scope.register(cardRoutes);
+      await scope.register(syncRoutes);
+    },
+    { prefix: '/api' },
+  );
 
-  await app.register(async (scope) => {
-    await scope.register(userRoutes);
-    await scope.register(adminCardRoutes);
-  }, { prefix: '/api/admin' });
+  await app.register(
+    async (scope) => {
+      await scope.register(userRoutes);
+      await scope.register(adminCardRoutes);
+    },
+    { prefix: '/api/admin' },
+  );
 
   await app.register(staticPlugin);
 

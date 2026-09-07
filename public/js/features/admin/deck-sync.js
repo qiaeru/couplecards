@@ -27,7 +27,9 @@ async function exportDeck() {
   const blob = await resp.blob();
   const disposition = resp.headers.get('content-disposition') || '';
   const match = /filename="([^"]+)"/.exec(disposition);
-  const filename = match ? match[1] : `couplecards-deck-${new Date().toISOString().slice(0, 10)}.zip`;
+  const filename = match
+    ? match[1]
+    : `couplecards-deck-${new Date().toISOString().slice(0, 10)}.zip`;
   triggerDownload(blob, filename);
 }
 
@@ -57,14 +59,24 @@ function renderSummary(result) {
     return `<div class="deck-sync-summary is-quiet">${escapeHtml(t('admin.deckSync.summary.noChange'))}</div>`;
   }
   const parts = [];
-  parts.push(`<div><strong>${escapeHtml(t('admin.deckSync.summary.added', { count: added }))}</strong></div>`);
-  parts.push(`<div><strong>${escapeHtml(t('admin.deckSync.summary.updated', { count: updated }))}</strong></div>`);
+  parts.push(
+    `<div><strong>${escapeHtml(t('admin.deckSync.summary.added', { count: added }))}</strong></div>`,
+  );
+  parts.push(
+    `<div><strong>${escapeHtml(t('admin.deckSync.summary.updated', { count: updated }))}</strong></div>`,
+  );
   if (removed > 0) {
-    parts.push(`<div class="is-danger"><strong>${escapeHtml(t('admin.deckSync.summary.removed', { count: removed }))}</strong></div>`);
+    parts.push(
+      `<div class="is-danger"><strong>${escapeHtml(t('admin.deckSync.summary.removed', { count: removed }))}</strong></div>`,
+    );
   }
-  parts.push(`<div>${escapeHtml(t('admin.deckSync.summary.unchanged', { count: unchanged }))}</div>`);
+  parts.push(
+    `<div>${escapeHtml(t('admin.deckSync.summary.unchanged', { count: unchanged }))}</div>`,
+  );
   if (keptOutsideFile > 0) {
-    parts.push(`<div>${escapeHtml(t('admin.deckSync.summary.kept', { count: keptOutsideFile }))}</div>`);
+    parts.push(
+      `<div>${escapeHtml(t('admin.deckSync.summary.kept', { count: keptOutsideFile }))}</div>`,
+    );
   }
   return `<div class="deck-sync-summary"><h4>${escapeHtml(t('admin.deckSync.summary.title'))}</h4>${parts.join('')}</div>`;
 }
@@ -175,7 +187,9 @@ function openSyncDialog() {
 
     function rebuild() {
       document.getElementById('modal-body').innerHTML = renderBody();
-      document.getElementById('deck-sync-summary-host').innerHTML = lastPreview ? renderSummary(lastPreview) : '';
+      document.getElementById('deck-sync-summary-host').innerHTML = lastPreview
+        ? renderSummary(lastPreview)
+        : '';
       wireBody();
     }
   }
@@ -256,7 +270,9 @@ function openImportDialog(deck, filename) {
 
     function rebuild() {
       document.getElementById('modal-body').innerHTML = renderBody();
-      document.getElementById('deck-sync-summary-host').innerHTML = lastPreview ? renderSummary(lastPreview) : '';
+      document.getElementById('deck-sync-summary-host').innerHTML = lastPreview
+        ? renderSummary(lastPreview)
+        : '';
       wireBody();
     }
   }
@@ -329,12 +345,17 @@ async function deleteAllCards() {
 
 export function mountDeckTools(onAfterChange) {
   document.getElementById('admin-deck-export')?.addEventListener('click', async () => {
-    try { await exportDeck(); }
-    catch { toast(t('errors.generic')); }
+    try {
+      await exportDeck();
+    } catch {
+      toast(t('errors.generic'));
+    }
   });
   document.getElementById('admin-deck-sync')?.addEventListener('click', () => openSyncDialog());
   document.getElementById('admin-deck-import')?.addEventListener('click', () => pickAndImport());
-  document.getElementById('admin-deck-delete-all')?.addEventListener('click', () => deleteAllCards());
+  document
+    .getElementById('admin-deck-delete-all')
+    ?.addEventListener('click', () => deleteAllCards());
 
   window.addEventListener('admin:cards-refresh', () => onAfterChange?.());
 }

@@ -39,7 +39,7 @@
 /* Thin warm shimmer along the top edge to echo the divider used on the
    rules panel and hint that the nav belongs to the same parchment family. */
 .app-bottom-nav::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 14%;
@@ -77,7 +77,10 @@
   line-height: 1.15;
   text-align: center;
   position: relative;
-  transition: color 0.18s ease, background-color 0.18s ease, transform 0.18s ease;
+  transition:
+    color 0.18s ease,
+    background-color 0.18s ease,
+    transform 0.18s ease;
   -webkit-tap-highlight-color: transparent;
 }
 .app-bottom-nav a > span {
@@ -91,9 +94,20 @@
    "Verbannte Karten", "Cartas vetadas") need a smaller font and tighter
    gutters to fit the four-column grid without pushing into neighbours. */
 @media (max-width: 380px) {
-  .app-bottom-nav-list { gap: 2px; padding-left: 6px; padding-right: 6px; }
-  .app-bottom-nav a { font-size: 0.66rem; padding: 8px 3px; gap: 4px; }
-  .app-bottom-nav a .nav-icon { width: 24px; height: 24px; }
+  .app-bottom-nav-list {
+    gap: 2px;
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+  .app-bottom-nav a {
+    font-size: 0.66rem;
+    padding: 8px 3px;
+    gap: 4px;
+  }
+  .app-bottom-nav a .nav-icon {
+    width: 24px;
+    height: 24px;
+  }
 }
 .app-bottom-nav a .nav-icon {
   width: 26px;
@@ -107,16 +121,20 @@
     color: var(--text);
     background-color: rgba(255, 255, 255, 0.05);
   }
-  .app-bottom-nav a:hover .nav-icon { transform: translateY(-2px); }
+  .app-bottom-nav a:hover .nav-icon {
+    transform: translateY(-2px);
+  }
 }
-.app-bottom-nav a:active { transform: scale(0.97); }
+.app-bottom-nav a:active {
+  transform: scale(0.97);
+}
 
-.app-bottom-nav a[aria-current='page'] {
+.app-bottom-nav a[aria-current="page"] {
   color: var(--accent);
-  background: radial-gradient(ellipse 70% 110% at 50% 0%, rgba(236, 90, 158, 0.10), transparent 80%);
+  background: radial-gradient(ellipse 70% 110% at 50% 0%, rgba(236, 90, 158, 0.1), transparent 80%);
 }
-.app-bottom-nav a[aria-current='page']::before {
-  content: '';
+.app-bottom-nav a[aria-current="page"]::before {
+  content: "";
   position: absolute;
   top: -1px;
   left: 50%;
@@ -128,12 +146,14 @@
   box-shadow: 0 0 10px rgba(236, 90, 158, 0.5);
   pointer-events: none;
 }
-.app-bottom-nav a[aria-current='page'] .nav-icon {
+.app-bottom-nav a[aria-current="page"] .nav-icon {
   filter: drop-shadow(0 0 6px rgba(236, 90, 158, 0.45));
 }
 @media (prefers-reduced-motion: reduce) {
   .app-bottom-nav a,
-  .app-bottom-nav a .nav-icon { transition: none; }
+  .app-bottom-nav a .nav-icon {
+    transition: none;
+  }
 }
 
 /* Sync banner: shows above the bottom nav while offline or while pending
@@ -157,18 +177,28 @@
   border: 1px solid var(--surface-border);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  box-shadow: inset 0 1px 0 rgba(255, 210, 150, 0.25), 0 6px 20px rgba(0, 0, 0, 0.4);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 210, 150, 0.25),
+    0 6px 20px rgba(0, 0, 0, 0.4);
   margin: 0 auto;
   width: max-content;
   max-width: calc(100% - 24px);
   animation: sync-banner-in 0.25s var(--ease-out);
 }
-.sync-banner.leaving { animation: sync-banner-out 0.18s ease forwards; }
+.sync-banner.leaving {
+  animation: sync-banner-out 0.18s ease forwards;
+}
 @keyframes sync-banner-in {
-  from { opacity: 0; transform: translateY(8px); }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
 }
 @keyframes sync-banner-out {
-  to { opacity: 0; transform: translateY(8px); }
+  to {
+    opacity: 0;
+    transform: translateY(8px);
+  }
 }
 .sync-dot {
   width: 8px;
@@ -189,12 +219,25 @@
   animation: sync-pulse 1.4s ease-in-out infinite;
 }
 @keyframes sync-pulse {
-  0%, 100% { opacity: 0.5; transform: scale(0.85); }
-  50%      { opacity: 1;   transform: scale(1.1); }
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(0.85);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .sync-banner.is-syncing .sync-dot { animation: none; }
-  .sync-banner { animation: none; }
-  .sync-banner.leaving { animation: none; opacity: 0; }
+  .sync-banner.is-syncing .sync-dot {
+    animation: none;
+  }
+  .sync-banner {
+    animation: none;
+  }
+  .sync-banner.leaving {
+    animation: none;
+    opacity: 0;
+  }
 }
-

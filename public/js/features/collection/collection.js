@@ -43,7 +43,9 @@ function buildCardFront(card, title, description, locale) {
   const emojiSpan = document.createElement('span');
   emojiSpan.className = 'card-art-emoji';
   // Lazy: the grid can hold the whole discovered deck, so defer off-screen art.
-  emojiSpan.appendChild(createEmojiImg(card.emoji || (card.pile === 'home' ? 'house' : 'city'), '', { lazy: true }));
+  emojiSpan.appendChild(
+    createEmojiImg(card.emoji || (card.pile === 'home' ? 'house' : 'city'), '', { lazy: true }),
+  );
   art.appendChild(emojiSpan);
 
   // Not a heading: the tile is a role="button", and dozens of headings inside
@@ -95,7 +97,10 @@ function buildTile(card, discovered) {
     const { title, description, locale } = getCardText(card);
     tile.setAttribute('role', 'button');
     tile.setAttribute('tabindex', '0');
-    tile.setAttribute('aria-label', t(banned ? 'collection.tile.banned.label' : 'collection.tile.drawn.label', { title }));
+    tile.setAttribute(
+      'aria-label',
+      t(banned ? 'collection.tile.banned.label' : 'collection.tile.drawn.label', { title }),
+    );
     // Opening is handled by the grid, see onGridClick.
     tile.dataset.cardId = card.id;
     tile.appendChild(buildCardFront(card, title, description, locale));
@@ -103,7 +108,8 @@ function buildTile(card, discovered) {
       const cross = document.createElement('div');
       cross.className = 'coll-tile-cross';
       cross.setAttribute('aria-hidden', 'true');
-      cross.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>';
+      cross.innerHTML =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>';
       tile.appendChild(cross);
     }
   } else {
@@ -122,13 +128,19 @@ function buildTile(card, discovered) {
 // width stays stable. Skipped under prefers-reduced-motion.
 function cipherIn(el, target, durationMs = 600) {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduced) { el.textContent = String(target); return; }
+  if (reduced) {
+    el.textContent = String(target);
+    return;
+  }
   const len = String(Math.max(target, 1)).length;
   const start = performance.now();
   const tick = () => {
     if (!el.isConnected) return;
     const elapsed = performance.now() - start;
-    if (elapsed >= durationMs) { el.textContent = String(target); return; }
+    if (elapsed >= durationMs) {
+      el.textContent = String(target);
+      return;
+    }
     let s = '';
     for (let i = 0; i < len; i++) s += Math.floor(Math.random() * 10);
     el.textContent = s;
@@ -207,7 +219,8 @@ function render() {
   if (visible.length === 0) {
     let empty;
     if (q) empty = { title: 'collection.search.empty.title', hint: 'collection.search.empty.hint' };
-    else if (cards.length === 0) empty = { title: 'collection.empty.title', hint: 'collection.empty.hint' };
+    else if (cards.length === 0)
+      empty = { title: 'collection.empty.title', hint: 'collection.empty.hint' };
     else empty = { title: 'collection.empty.filter.title', hint: 'collection.empty.filter.hint' };
     grid.innerHTML = `<div class="empty">
       <div class="empty-icon" aria-hidden="true">🎴</div>

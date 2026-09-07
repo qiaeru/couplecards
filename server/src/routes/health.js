@@ -4,29 +4,33 @@
 import { getDb } from '../db/index.js';
 
 export default async function healthRoutes(app) {
-  app.get('/health', {
-    config: { rateLimit: false },
-    schema: {
-      response: {
-        200: {
-          type: 'object',
-          properties: {
-            status: { type: 'string' },
-            dbOk: { type: 'boolean' },
+  app.get(
+    '/health',
+    {
+      config: { rateLimit: false },
+      schema: {
+        response: {
+          200: {
+            type: 'object',
+            properties: {
+              status: { type: 'string' },
+              dbOk: { type: 'boolean' },
+            },
           },
         },
       },
     },
-  }, async () => {
-    let dbOk = false;
-    try {
-      getDb().prepare('SELECT 1').get();
-      dbOk = true;
-    } catch {
-      // Leave dbOk false: a failed probe is the answer, not an error.
-    }
-    // No version here on purpose: the endpoint is public and the exact app
-    // version is free reconnaissance on internet-exposed deployments.
-    return { status: 'ok', dbOk };
-  });
+    async () => {
+      let dbOk = false;
+      try {
+        getDb().prepare('SELECT 1').get();
+        dbOk = true;
+      } catch {
+        // Leave dbOk false: a failed probe is the answer, not an error.
+      }
+      // No version here on purpose: the endpoint is public and the exact app
+      // version is free reconnaissance on internet-exposed deployments.
+      return { status: 'ok', dbOk };
+    },
+  );
 }

@@ -93,24 +93,31 @@ const SHELL = [
 ];
 
 self.addEventListener('install', (event) => {
-  event.waitUntil((async () => {
-    const cache = await caches.open(VERSION);
-    // Cache each asset individually: with addAll a single failing asset
-    // would silently abandon the whole shell and break offline support.
-    const results = await Promise.allSettled(SHELL.map((url) => cache.add(url)));
-    const failed = SHELL.filter((_, i) => results[i].status === 'rejected');
-    if (failed.length > 0) {
-      console.warn(`[sw] shell precache: ${failed.length}/${SHELL.length} assets failed:`, failed.join(', '));
-    }
-  })());
+  event.waitUntil(
+    (async () => {
+      const cache = await caches.open(VERSION);
+      // Cache each asset individually: with addAll a single failing asset
+      // would silently abandon the whole shell and break offline support.
+      const results = await Promise.allSettled(SHELL.map((url) => cache.add(url)));
+      const failed = SHELL.filter((_, i) => results[i].status === 'rejected');
+      if (failed.length > 0) {
+        console.warn(
+          `[sw] shell precache: ${failed.length}/${SHELL.length} assets failed:`,
+          failed.join(', '),
+        );
+      }
+    })(),
+  );
 });
 
 self.addEventListener('activate', (event) => {
-  event.waitUntil((async () => {
-    const keys = await caches.keys();
-    await Promise.all(keys.filter((k) => k !== VERSION).map((k) => caches.delete(k)));
-    await self.clients.claim();
-  })());
+  event.waitUntil(
+    (async () => {
+      const keys = await caches.keys();
+      await Promise.all(keys.filter((k) => k !== VERSION).map((k) => caches.delete(k)));
+      await self.clients.claim();
+    })(),
+  );
 });
 
 self.addEventListener('message', (event) => {

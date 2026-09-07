@@ -5,8 +5,7 @@
   margin: 0;
   position: fixed;
   inset: 0;
-  background:
-    radial-gradient(ellipse at center, rgba(60,20,80,0.7), rgba(5,0,15,0.98));
+  background: radial-gradient(ellipse at center, rgba(60, 20, 80, 0.7), rgba(5, 0, 15, 0.98));
   z-index: 100;
   justify-content: center;
   align-items: center;
@@ -43,15 +42,14 @@
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transform:
-    translateX(var(--tx, 0px))
-    rotate(var(--tz, 0deg))
-    rotateX(var(--rx, 0deg))
+  transform: translateX(var(--tx, 0px)) rotate(var(--tz, 0deg)) rotateX(var(--rx, 0deg))
     rotateY(var(--ry, 0deg));
   transition: transform 0.18s ease-out;
   touch-action: none;
 }
-.card-tilt.dragging { transition: none; }
+.card-tilt.dragging {
+  transition: none;
+}
 
 /* Tinder-like labels shown while dragging */
 .swipe-label {
@@ -95,12 +93,16 @@
 }
 
 .card-tilt.swipe-out-right {
-  transition: transform 0.35s cubic-bezier(0.5, 0, 0.75, 0), opacity 0.35s ease-out;
+  transition:
+    transform 0.35s cubic-bezier(0.5, 0, 0.75, 0),
+    opacity 0.35s ease-out;
   transform: translateX(130%) rotate(18deg);
   opacity: 0;
 }
 .card-tilt.swipe-out-left {
-  transition: transform 0.35s cubic-bezier(0.5, 0, 0.75, 0), opacity 0.35s ease-out;
+  transition:
+    transform 0.35s cubic-bezier(0.5, 0, 0.75, 0),
+    opacity 0.35s ease-out;
   transform: translateX(-130%) rotate(-18deg);
   opacity: 0;
 }
@@ -117,33 +119,65 @@
   opacity: 0;
 }
 
-.card-flip.enter { animation: card-enter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.card-flip.enter {
+  animation: card-enter 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
 @keyframes card-enter {
-  0%   { opacity: 0; transform: rotateY(0deg) scale(0.82) translateY(46px); }
-  100% { opacity: 1; transform: rotateY(0deg) scale(1) translateY(0); }
+  0% {
+    opacity: 0;
+    transform: rotateY(0deg) scale(0.82) translateY(46px);
+  }
+  100% {
+    opacity: 1;
+    transform: rotateY(0deg) scale(1) translateY(0);
+  }
 }
 
 /* Charge: the card slowly levitates while the gold dust swirls into it. */
-.card-flip.charging { animation: card-charge 1.9s cubic-bezier(0.4, 0, 0.3, 1) forwards; }
+.card-flip.charging {
+  animation: card-charge 1.9s cubic-bezier(0.4, 0, 0.3, 1) forwards;
+}
 @keyframes card-charge {
-  0%   { transform: rotateY(0deg) scale(1) translateY(0); }
-  55%  { transform: rotateY(0deg) scale(1.03) translateY(-14px); }
-  100% { transform: rotateY(0deg) scale(1.06) translateY(-18px); }
+  0% {
+    transform: rotateY(0deg) scale(1) translateY(0);
+  }
+  55% {
+    transform: rotateY(0deg) scale(1.03) translateY(-14px);
+  }
+  100% {
+    transform: rotateY(0deg) scale(1.06) translateY(-18px);
+  }
 }
 
 /* Inhale: one sharp contraction, then the release into the flip. */
-.card-flip.climax { animation: card-inhale 0.5s cubic-bezier(0.6, 0, 0.3, 1) forwards; }
+.card-flip.climax {
+  animation: card-inhale 0.5s cubic-bezier(0.6, 0, 0.3, 1) forwards;
+}
 @keyframes card-inhale {
-  0%   { transform: rotateY(0deg) scale(1.06) translateY(-18px); }
-  55%  { transform: rotateY(0deg) scale(0.965) translateY(-14px); }
-  100% { transform: rotateY(0deg) scale(1.09) translateY(-20px); }
+  0% {
+    transform: rotateY(0deg) scale(1.06) translateY(-18px);
+  }
+  55% {
+    transform: rotateY(0deg) scale(0.965) translateY(-14px);
+  }
+  100% {
+    transform: rotateY(0deg) scale(1.09) translateY(-20px);
+  }
 }
 
-.card-flip.flipping { animation: card-flip-anim 0.7s cubic-bezier(0.7, 0, 0.25, 1) forwards; }
+.card-flip.flipping {
+  animation: card-flip-anim 0.7s cubic-bezier(0.7, 0, 0.25, 1) forwards;
+}
 @keyframes card-flip-anim {
-  0%   { transform: rotateY(0deg)   scale(1.09) translateY(-20px); }
-  50%  { transform: rotateY(92deg)  scale(1.12) translateY(-30px); }
-  100% { transform: rotateY(180deg) scale(1) translateY(0); }
+  0% {
+    transform: rotateY(0deg) scale(1.09) translateY(-20px);
+  }
+  50% {
+    transform: rotateY(92deg) scale(1.12) translateY(-30px);
+  }
+  100% {
+    transform: rotateY(180deg) scale(1) translateY(0);
+  }
 }
 .card-flip.settled {
   animation: none;
@@ -151,10 +185,17 @@
   opacity: 1;
 }
 /* Gentle levitation once revealed; the ground shadow breathes in sync. */
-.card-flip.settled.floaty { animation: card-float 4.5s ease-in-out 0.6s infinite; }
+.card-flip.settled.floaty {
+  animation: card-float 4.5s ease-in-out 0.6s infinite;
+}
 @keyframes card-float {
-  0%, 100% { transform: rotateY(180deg) scale(1) translateY(0); }
-  50%      { transform: rotateY(180deg) scale(1) translateY(-7px); }
+  0%,
+  100% {
+    transform: rotateY(180deg) scale(1) translateY(0);
+  }
+  50% {
+    transform: rotateY(180deg) scale(1) translateY(-7px);
+  }
 }
 
 /* Edge light that builds along the card back during the charge. */
@@ -171,22 +212,42 @@
   transition: opacity 1.6s ease-in;
 }
 .card-flip.charging .card-back::after,
-.card-flip.climax .card-back::after { opacity: 1; }
+.card-flip.climax .card-back::after {
+  opacity: 1;
+}
 
 /* Text cascade after the reveal (live draws only; preview shows instantly). */
 .card-flip.reveal-cascade .card-pile-label,
 .card-flip.reveal-cascade .card-title,
 .card-flip.reveal-cascade .card-divider,
 .card-flip.reveal-cascade .card-description,
-.card-flip.reveal-cascade .card-footer-mark { opacity: 0; }
-.card-flip.reveal-cascade.settled .card-pile-label  { animation: card-text-in 0.5s 0.15s ease-out forwards; }
-.card-flip.reveal-cascade.settled .card-title       { animation: card-text-in 0.55s 0.3s cubic-bezier(0.2, 0.9, 0.2, 1) forwards; }
-.card-flip.reveal-cascade.settled .card-divider     { animation: card-text-in 0.5s 0.48s ease-out forwards; }
-.card-flip.reveal-cascade.settled .card-description { animation: card-text-in 0.6s 0.62s ease-out forwards; }
-.card-flip.reveal-cascade.settled .card-footer-mark { animation: card-text-in 0.5s 0.75s ease-out forwards; }
+.card-flip.reveal-cascade .card-footer-mark {
+  opacity: 0;
+}
+.card-flip.reveal-cascade.settled .card-pile-label {
+  animation: card-text-in 0.5s 0.15s ease-out forwards;
+}
+.card-flip.reveal-cascade.settled .card-title {
+  animation: card-text-in 0.55s 0.3s cubic-bezier(0.2, 0.9, 0.2, 1) forwards;
+}
+.card-flip.reveal-cascade.settled .card-divider {
+  animation: card-text-in 0.5s 0.48s ease-out forwards;
+}
+.card-flip.reveal-cascade.settled .card-description {
+  animation: card-text-in 0.6s 0.62s ease-out forwards;
+}
+.card-flip.reveal-cascade.settled .card-footer-mark {
+  animation: card-text-in 0.5s 0.75s ease-out forwards;
+}
 @keyframes card-text-in {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: none; }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .card-face {
@@ -257,8 +318,14 @@
   animation: card-back-hide 0.75s forwards;
 }
 @keyframes card-back-hide {
-  0%, 50%    { visibility: visible; }
-  50.01%, 100% { visibility: hidden; }
+  0%,
+  50% {
+    visibility: visible;
+  }
+  50.01%,
+  100% {
+    visibility: hidden;
+  }
 }
 .card-flip.settled .card-back {
   visibility: hidden;
@@ -266,8 +333,7 @@
 .card-back-crest .heart-icon {
   width: 1em;
   height: 1em;
-  filter:
-    drop-shadow(0 0 18px rgba(255, 210, 140, 0.55))
+  filter: drop-shadow(0 0 18px rgba(255, 210, 140, 0.55))
     drop-shadow(0 0 40px rgba(255, 180, 100, 0.3));
 }
 
@@ -290,7 +356,7 @@
 /* Outdoor variant: cool blue/cyan tones */
 .card-front.for-outdoor {
   background:
-    radial-gradient(circle at 30% 0%, rgba(120, 180, 255, 0.30), transparent 60%),
+    radial-gradient(circle at 30% 0%, rgba(120, 180, 255, 0.3), transparent 60%),
     radial-gradient(circle at 80% 100%, rgba(140, 110, 255, 0.22), transparent 60%),
     linear-gradient(160deg, #1c2d66 0%, #0c1236 55%, #181e50 100%);
 }
@@ -309,21 +375,31 @@
        continuously instead of snapping or flashing a flat patch each cycle. */
     linear-gradient(
       90deg,
-      rgba(255, 120, 150, 0.40) 0%,
-      rgba(255, 200, 120, 0.40) 20%,
-      rgba(140, 240, 180, 0.40) 40%,
-      rgba(120, 200, 255, 0.40) 60%,
-      rgba(200, 140, 255, 0.40) 80%,
-      rgba(255, 120, 150, 0.40) 100%
+      rgba(255, 120, 150, 0.4) 0%,
+      rgba(255, 200, 120, 0.4) 20%,
+      rgba(140, 240, 180, 0.4) 40%,
+      rgba(120, 200, 255, 0.4) 60%,
+      rgba(200, 140, 255, 0.4) 80%,
+      rgba(255, 120, 150, 0.4) 100%
     ),
     /* Dark base so the iridescent tones stand out */
     linear-gradient(160deg, #2a1a4a 0%, #12082c 60%, #1a0f3a 100%);
-  background-size: 200% 100%, 100% 100%;
+  background-size:
+    200% 100%,
+    100% 100%;
   animation: foil-bg-shift 10s linear infinite;
 }
 @keyframes foil-bg-shift {
-  0%   { background-position: 0% 0%, 0 0; }
-  100% { background-position: 200% 0%, 0 0; }
+  0% {
+    background-position:
+      0% 0%,
+      0 0;
+  }
+  100% {
+    background-position:
+      200% 0%,
+      0 0;
+  }
 }
 
 /* Holographic heart pattern confined to the illustration panel. The 2px
@@ -331,14 +407,18 @@
    so the rim stays clean and preserves the 3D feel. */
 .card-front.is-foil .card-art::before {
   inset: 2px;
-  background:
-    url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'%3E%3Cpath d='M22 33 C 11 26, 5 18, 12 12 C 16 8, 21 10, 22 15 C 23 10, 28 8, 32 12 C 39 18, 33 26, 22 33 Z' fill='%23ffffff' fill-opacity='0.35'/%3E%3C/svg%3E") 0 0 / 44px 44px repeat;
+  background: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'%3E%3Cpath d='M22 33 C 11 26, 5 18, 12 12 C 16 8, 21 10, 22 15 C 23 10, 28 8, 32 12 C 39 18, 33 26, 22 33 Z' fill='%23ffffff' fill-opacity='0.35'/%3E%3C/svg%3E")
+    0 0 / 44px 44px repeat;
   mix-blend-mode: overlay;
   animation: foil-hearts-slide 20s linear infinite;
 }
 @keyframes foil-hearts-slide {
-  from { background-position: 0 0; }
-  to   { background-position: 132px 88px; }
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 132px 88px;
+  }
 }
 
 /* Animated thick golden border */
@@ -367,8 +447,12 @@
   pointer-events: none;
 }
 @keyframes foil-border {
-  from { background-position: 0% 0%; }
-  to   { background-position: 200% 200%; }
+  from {
+    background-position: 0% 0%;
+  }
+  to {
+    background-position: 200% 200%;
+  }
 }
 
 /* Golden "Rare" tag */
@@ -421,7 +505,8 @@
   position: absolute;
   width: 14px;
   height: 14px;
-  background: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 0 L11 9 L20 10 L11 11 L10 20 L9 11 L0 10 L9 9 Z' fill='%23fff5d0'/%3E%3C/svg%3E") center/contain no-repeat;
+  background: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 0 L11 9 L20 10 L11 11 L10 20 L9 11 L0 10 L9 9 Z' fill='%23fff5d0'/%3E%3C/svg%3E")
+    center/contain no-repeat;
   opacity: 0;
   filter: drop-shadow(0 0 6px rgba(255, 230, 170, 0.9));
   animation: foil-twinkle 2.6s ease-in-out infinite;
@@ -429,16 +514,58 @@
 }
 /* Fixed positions for the six decorative sparkles on a foil card. Keeping
    these in CSS (rather than inline style="…") keeps the strict CSP clean. */
-.foil-sparkle:nth-child(1) { top: 9%;  left: 12%; animation-delay: 0s; }
-.foil-sparkle:nth-child(2) { top: 6%;  right: 16%; width: 12px; height: 12px; animation-delay: 1.3s; }
-.foil-sparkle:nth-child(3) { top: 44%; right: 5%;  width: 10px; height: 10px; animation-delay: 0.7s; }
-.foil-sparkle:nth-child(4) { top: 56%; left: 7%;  animation-delay: 2.2s; }
-.foil-sparkle:nth-child(5) { top: 82%; right: 22%; width: 11px; height: 11px; animation-delay: 1.7s; }
-.foil-sparkle:nth-child(6) { top: 88%; left: 14%; width: 9px;  height: 9px;  animation-delay: 0.4s; }
+.foil-sparkle:nth-child(1) {
+  top: 9%;
+  left: 12%;
+  animation-delay: 0s;
+}
+.foil-sparkle:nth-child(2) {
+  top: 6%;
+  right: 16%;
+  width: 12px;
+  height: 12px;
+  animation-delay: 1.3s;
+}
+.foil-sparkle:nth-child(3) {
+  top: 44%;
+  right: 5%;
+  width: 10px;
+  height: 10px;
+  animation-delay: 0.7s;
+}
+.foil-sparkle:nth-child(4) {
+  top: 56%;
+  left: 7%;
+  animation-delay: 2.2s;
+}
+.foil-sparkle:nth-child(5) {
+  top: 82%;
+  right: 22%;
+  width: 11px;
+  height: 11px;
+  animation-delay: 1.7s;
+}
+.foil-sparkle:nth-child(6) {
+  top: 88%;
+  left: 14%;
+  width: 9px;
+  height: 9px;
+  animation-delay: 0.4s;
+}
 @keyframes foil-twinkle {
-  0%, 100% { opacity: 0; transform: scale(0.3) rotate(0deg); }
-  42%      { opacity: 1; transform: scale(1)   rotate(180deg); }
-  58%      { opacity: 1; transform: scale(1)   rotate(180deg); }
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.3) rotate(0deg);
+  }
+  42% {
+    opacity: 1;
+    transform: scale(1) rotate(180deg);
+  }
+  58% {
+    opacity: 1;
+    transform: scale(1) rotate(180deg);
+  }
 }
 
 /* Golden halo pulsing around the foil card. Placed on .card-flip (which has
@@ -452,25 +579,36 @@
   position: absolute;
   inset: 0;
   border-radius: 22px;
-  box-shadow: 0 0 40px 6px rgba(255, 210, 140, 0.30);
+  box-shadow: 0 0 40px 6px rgba(255, 210, 140, 0.3);
   pointer-events: none;
   z-index: -1;
   animation: foil-halo-pulse 3s ease-in-out infinite;
 }
 @keyframes foil-halo-pulse {
-  0%, 100% { opacity: 0.6; }
-  50%      { opacity: 1; }
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .card-front.is-foil,
   .card-front.is-foil.for-home,
-  .card-front.is-foil.for-outdoor { animation: none; }
+  .card-front.is-foil.for-outdoor {
+    animation: none;
+  }
   .card-front.is-foil .card-frame::before,
   .card-front.is-foil .card-art::before,
   .foil-sparkle,
-  .card-flip:has(.card-front.is-foil)::before { animation: none; }
-  .foil-sparkle { opacity: 0.6; }
+  .card-flip:has(.card-front.is-foil)::before {
+    animation: none;
+  }
+  .foil-sparkle {
+    opacity: 0.6;
+  }
 }
 .card-frame {
   position: absolute;
@@ -479,8 +617,13 @@
   display: flex;
   flex-direction: column;
   padding: 18px 22px 16px;
-  background:
-    linear-gradient(180deg, rgba(255, 215, 140, 0.04), transparent 25%, transparent 80%, rgba(255, 215, 140, 0.04));
+  background: linear-gradient(
+    180deg,
+    rgba(255, 215, 140, 0.04),
+    transparent 25%,
+    transparent 80%,
+    rgba(255, 215, 140, 0.04)
+  );
 }
 .card-frame::before {
   content: "";
@@ -488,8 +631,13 @@
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  background:
-    linear-gradient(180deg, rgba(255, 215, 140, 0.45), rgba(255, 215, 140, 0.15) 8%, rgba(255, 215, 140, 0.1) 92%, rgba(255, 215, 140, 0.45));
+  background: linear-gradient(
+    180deg,
+    rgba(255, 215, 140, 0.45),
+    rgba(255, 215, 140, 0.15) 8%,
+    rgba(255, 215, 140, 0.1) 92%,
+    rgba(255, 215, 140, 0.45)
+  );
   -webkit-mask:
     linear-gradient(#000, #000) content-box,
     linear-gradient(#000, #000);
@@ -541,14 +689,13 @@
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    repeating-linear-gradient(
-      45deg,
-      transparent 0px,
-      transparent 22px,
-      rgba(255, 255, 255, 0.03) 22px,
-      rgba(255, 255, 255, 0.03) 24px
-    );
+  background: repeating-linear-gradient(
+    45deg,
+    transparent 0px,
+    transparent 22px,
+    rgba(255, 255, 255, 0.03) 22px,
+    rgba(255, 255, 255, 0.03) 24px
+  );
 }
 .card-art-emoji {
   font-size: 5.5rem;
@@ -577,7 +724,7 @@
   color: #fff7e2;
   text-align: center;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-  font-variation-settings: 'opsz' 60;
+  font-variation-settings: "opsz" 60;
 }
 
 /* Decorative divider between title and description */
@@ -614,7 +761,7 @@
   font-weight: 400;
   text-align: center;
   padding: 0 4px;
-  font-variation-settings: 'opsz' 14;
+  font-variation-settings: "opsz" 14;
 }
 
 /* Small decorative footer mark */
@@ -636,13 +783,14 @@
   opacity: 0;
   transition: opacity 0.3s ease;
 }
-.card-front.holo-on .holo { opacity: 1; }
+.card-front.holo-on .holo {
+  opacity: 1;
+}
 
 /* Pointer-centered bright reflection */
 .holo-glare {
   background-image: radial-gradient(
-    farthest-corner circle at
-      calc(var(--px, 50) * 1%) calc(var(--py, 50) * 1%),
+    farthest-corner circle at calc(var(--px, 50) * 1%) calc(var(--py, 50) * 1%),
     rgba(255, 210, 140, 0.22) 0%,
     rgba(255, 195, 130, 0.11) 20%,
     rgba(255, 185, 120, 0.04) 38%,
@@ -650,7 +798,9 @@
   );
   opacity: 0;
 }
-.card-front.holo-on .holo-glare { opacity: 1; }
+.card-front.holo-on .holo-glare {
+  opacity: 1;
+}
 
 /* Golden/pink iridescent tint depending on angle */
 .holo-rainbow {
@@ -658,14 +808,16 @@
     calc(var(--px, 50) * 1deg - 45deg),
     transparent 28%,
     rgba(255, 215, 140, 0.22) 45%,
-    rgba(255, 180, 210, 0.20) 55%,
+    rgba(255, 180, 210, 0.2) 55%,
     rgba(180, 200, 255, 0.15) 62%,
     transparent 78%
   );
   mix-blend-mode: overlay;
   opacity: 0;
 }
-.card-front.holo-on .holo-rainbow { opacity: 1; }
+.card-front.holo-on .holo-rainbow {
+  opacity: 1;
+}
 
 /* Subtle idle shimmer (before interaction): a skewed streak glinting over
    the whole face, like the reveal streak. The skew comes from a transform
@@ -688,7 +840,7 @@
     transparent 0%,
     rgba(255, 255, 255, 0.05) 28%,
     rgba(255, 235, 190, 0.14) 44%,
-    rgba(255, 215, 150, 0.30) 50%,
+    rgba(255, 215, 150, 0.3) 50%,
     rgba(255, 235, 190, 0.14) 56%,
     rgba(255, 255, 255, 0.05) 72%,
     transparent 100%
@@ -703,11 +855,19 @@
 /* During pointer or gyro interaction the holographic layer takes over
    (holo-on is set on the first tilt frame for every card, foil or not);
    fade the idle streak out instead of cutting it mid-sweep. */
-.card-front.idle-shine.holo-on::before { opacity: 0; }
+.card-front.idle-shine.holo-on::before {
+  opacity: 0;
+}
 @keyframes shine-sweep {
-  0%   { transform: translateX(-180%) skewX(-14deg); }
-  48%  { transform: translateX(260%) skewX(-14deg); }
-  100% { transform: translateX(260%) skewX(-14deg); }
+  0% {
+    transform: translateX(-180%) skewX(-14deg);
+  }
+  48% {
+    transform: translateX(260%) skewX(-14deg);
+  }
+  100% {
+    transform: translateX(260%) skewX(-14deg);
+  }
 }
 
 /* Background halo that gently pulses (no rotation) */
@@ -723,7 +883,7 @@
   background: radial-gradient(
     circle,
     rgba(255, 180, 210, 0.32) 0%,
-    rgba(180, 140, 240, 0.20) 22%,
+    rgba(180, 140, 240, 0.2) 22%,
     rgba(130, 100, 200, 0.08) 42%,
     transparent 62%
   );
@@ -736,8 +896,13 @@
   animation: bg-breathe 1.6s ease-in-out infinite;
 }
 @keyframes bg-breathe {
-  0%, 100% { transform: translate(-50%, -50%) scale(0.8); }
-  50%      { transform: translate(-50%, -50%) scale(1.05); }
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.05);
+  }
 }
 
 /* Shared full-stage layer for spawned effect nodes (dust, ambient, landing).
@@ -748,7 +913,9 @@
   pointer-events: none;
   z-index: 0;
 }
-.fx-layer.fx-above { z-index: 60; }
+.fx-layer.fx-above {
+  z-index: 60;
+}
 
 /* Gold dust converging into the card during the charge. The midpoint vars
    (--xm/--ym) bend each path so the dust swirls in instead of flying
@@ -767,10 +934,21 @@
   animation: mote-in var(--t, 1.4s) cubic-bezier(0.55, 0, 0.75, 0.4) var(--d, 0s) forwards;
 }
 @keyframes mote-in {
-  0%   { opacity: 0; transform: translate(var(--x0), var(--y0)) scale(0.4); }
-  20%  { opacity: var(--o, 0.9); }
-  60%  { opacity: var(--o, 0.9); transform: translate(var(--xm), var(--ym)) scale(0.85); }
-  100% { opacity: 0; transform: translate(-50%, -55%) scale(1.05); }
+  0% {
+    opacity: 0;
+    transform: translate(var(--x0), var(--y0)) scale(0.4);
+  }
+  20% {
+    opacity: var(--o, 0.9);
+  }
+  60% {
+    opacity: var(--o, 0.9);
+    transform: translate(var(--xm), var(--ym)) scale(0.85);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -55%) scale(1.05);
+  }
 }
 
 /* Landing ring: expanding card-shaped shockwave, replaces the old white flash. */
@@ -791,8 +969,14 @@
   animation: shockwave 0.9s cubic-bezier(0.1, 0.7, 0.2, 1) forwards;
 }
 @keyframes shockwave {
-  0%   { opacity: 0.95; transform: translate(-50%, -50%) scale(1); }
-  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.55); }
+  0% {
+    opacity: 0.95;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.55);
+  }
 }
 
 /* Golden fallout raining below the card after the reveal. */
@@ -809,9 +993,17 @@
   animation: ember var(--t, 2.4s) cubic-bezier(0.2, 0.5, 0.5, 1) var(--d, 0s) forwards;
 }
 @keyframes ember {
-  0%   { opacity: 0; transform: translate(var(--x0), var(--y0)) scale(1); }
-  12%  { opacity: 1; }
-  100% { opacity: 0; transform: translate(calc(var(--x0) + var(--dx)), calc(var(--y0) + var(--dy))) scale(0.5); }
+  0% {
+    opacity: 0;
+    transform: translate(var(--x0), var(--y0)) scale(1);
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--x0) + var(--dx)), calc(var(--y0) + var(--dy))) scale(0.5);
+  }
 }
 
 /* Glowing halo pulsing like a heartbeat */
@@ -832,12 +1024,30 @@
   background: radial-gradient(circle, var(--outdoor-glow), transparent 65%);
 }
 @keyframes halo-heartbeat {
-  0%   { opacity: 0.55; transform: scale(0.92); }
-  8%   { opacity: 1;    transform: scale(1.18); }  /* premier battement */
-  18%  { opacity: 0.7;  transform: scale(1.0); }
-  28%  { opacity: 0.95; transform: scale(1.14); }  /* second battement */
-  38%  { opacity: 0.6;  transform: scale(0.96); }
-  100% { opacity: 0.55; transform: scale(0.92); }  /* repos */
+  0% {
+    opacity: 0.55;
+    transform: scale(0.92);
+  }
+  8% {
+    opacity: 1;
+    transform: scale(1.18);
+  } /* premier battement */
+  18% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  28% {
+    opacity: 0.95;
+    transform: scale(1.14);
+  } /* second battement */
+  38% {
+    opacity: 0.6;
+    transform: scale(0.96);
+  }
+  100% {
+    opacity: 0.55;
+    transform: scale(0.92);
+  } /* repos */
 }
 
 /* Thin ambient dust drifting up around the settled card. */
@@ -855,10 +1065,20 @@
   animation: drift var(--t, 5s) linear var(--d, 0s) forwards;
 }
 @keyframes drift {
-  0%   { opacity: 0; transform: translate(var(--x0), var(--y0)) scale(1); }
-  15%  { opacity: var(--o, 0.55); }
-  85%  { opacity: var(--o, 0.55); }
-  100% { opacity: 0; transform: translate(calc(var(--x0) + var(--dx)), calc(var(--y0) + var(--dy))) scale(0.7); }
+  0% {
+    opacity: 0;
+    transform: translate(var(--x0), var(--y0)) scale(1);
+  }
+  15% {
+    opacity: var(--o, 0.55);
+  }
+  85% {
+    opacity: var(--o, 0.55);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--x0) + var(--dx)), calc(var(--y0) + var(--dy))) scale(0.7);
+  }
 }
 
 /* Soft ground shadow under the floating card. */
@@ -881,8 +1101,15 @@
   animation: ground-breathe 4.5s ease-in-out 0.6s infinite;
 }
 @keyframes ground-breathe {
-  0%, 100% { transform: translateX(-50%) scaleX(1); opacity: 1; }
-  50%      { transform: translateX(-50%) scaleX(0.86); opacity: 0.7; }
+  0%,
+  100% {
+    transform: translateX(-50%) scaleX(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(-50%) scaleX(0.86);
+    opacity: 0.7;
+  }
 }
 
 /* Light streak sweeping across the front face as the card turns over. */
@@ -900,12 +1127,23 @@
   bottom: -20%;
   left: -60%;
   width: 45%;
-  background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.28) 45%, rgba(255, 220, 160, 0.5) 50%, rgba(255, 255, 255, 0.28) 55%, transparent);
+  background: linear-gradient(
+    105deg,
+    transparent,
+    rgba(255, 255, 255, 0.28) 45%,
+    rgba(255, 220, 160, 0.5) 50%,
+    rgba(255, 255, 255, 0.28) 55%,
+    transparent
+  );
   transform: skewX(-12deg);
 }
-.reveal-streak.go::before { animation: streak-sweep 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.reveal-streak.go::before {
+  animation: streak-sweep 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
 @keyframes streak-sweep {
-  to { left: 130%; }
+  to {
+    left: 130%;
+  }
 }
 
 /* Draw actions */
@@ -940,19 +1178,39 @@
   font-size: 0.92rem;
   animation: action-btn-in 0.35s cubic-bezier(0.2, 0.9, 0.3, 1) backwards;
 }
-.draw-actions .btn:nth-child(1) { animation-delay: 0s; }
-.draw-actions .btn:nth-child(2) { animation-delay: 0.06s; }
-.draw-actions .btn:nth-child(3) { animation-delay: 0.14s; }
+.draw-actions .btn:nth-child(1) {
+  animation-delay: 0s;
+}
+.draw-actions .btn:nth-child(2) {
+  animation-delay: 0.06s;
+}
+.draw-actions .btn:nth-child(3) {
+  animation-delay: 0.14s;
+}
 @keyframes action-btn-in {
-  from { opacity: 0; transform: translateY(12px) scale(0.97); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .draw-actions .btn { animation: none; }
+  .draw-actions .btn {
+    animation: none;
+  }
 }
 @keyframes actions-in {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Short viewports: shrink the revealed card and its typography so the
@@ -963,14 +1221,37 @@
     width: min(300px, 80vw);
     height: min(420px, 64vh);
   }
-  .card-frame { inset: 10px; padding: 14px 16px 12px; }
-  .card-pile-label { margin-bottom: 8px; font-size: 0.62rem; letter-spacing: 0.28em; }
-  .card-art { margin-bottom: 10px; }
-  .card-art-emoji { font-size: 4.4rem; }
-  .card-title { font-size: 1.18rem; margin-bottom: 4px; }
-  .card-divider { margin: 2px 0 6px; height: 12px; }
-  .card-description { font-size: 0.92rem; line-height: 1.4; }
-  .card-footer-mark { padding-top: 6px; font-size: 0.7rem; }
+  .card-frame {
+    inset: 10px;
+    padding: 14px 16px 12px;
+  }
+  .card-pile-label {
+    margin-bottom: 8px;
+    font-size: 0.62rem;
+    letter-spacing: 0.28em;
+  }
+  .card-art {
+    margin-bottom: 10px;
+  }
+  .card-art-emoji {
+    font-size: 4.4rem;
+  }
+  .card-title {
+    font-size: 1.18rem;
+    margin-bottom: 4px;
+  }
+  .card-divider {
+    margin: 2px 0 6px;
+    height: 12px;
+  }
+  .card-description {
+    font-size: 0.92rem;
+    line-height: 1.4;
+  }
+  .card-footer-mark {
+    padding-top: 6px;
+    font-size: 0.7rem;
+  }
   .draw-actions {
     bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
     gap: 6px;
@@ -980,46 +1261,97 @@
     font-size: 0.86rem;
     min-height: 40px;
   }
-  .draw-title { top: calc(env(safe-area-inset-top, 0px) + 12px); }
+  .draw-title {
+    top: calc(env(safe-area-inset-top, 0px) + 12px);
+  }
 }
 @media (max-height: 620px) {
   .draw-stage {
     width: min(260px, 72vw);
     height: min(360px, 60vh);
   }
-  .card-art-emoji { font-size: 3.6rem; }
-  .card-title { font-size: 1.05rem; }
-  .card-description { font-size: 0.86rem; line-height: 1.35; }
+  .card-art-emoji {
+    font-size: 3.6rem;
+  }
+  .card-title {
+    font-size: 1.05rem;
+  }
+  .card-description {
+    font-size: 0.86rem;
+    line-height: 1.35;
+  }
 }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .card-flip.enter { animation: card-enter-rm 0.3s ease forwards; }
+  .card-flip.enter {
+    animation: card-enter-rm 0.3s ease forwards;
+  }
   .card-flip.charging,
-  .card-flip.climax { animation: none; }
-  .card-flip.flipping { animation: card-flip-rm 0.4s ease forwards; }
-  .card-flip.settled.floaty { animation: none; }
+  .card-flip.climax {
+    animation: none;
+  }
+  .card-flip.flipping {
+    animation: card-flip-rm 0.4s ease forwards;
+  }
+  .card-flip.settled.floaty {
+    animation: none;
+  }
   .card-flip.reveal-cascade .card-pile-label,
   .card-flip.reveal-cascade .card-title,
   .card-flip.reveal-cascade .card-divider,
   .card-flip.reveal-cascade .card-description,
-  .card-flip.reveal-cascade .card-footer-mark { opacity: 1; animation: none; }
-  .bg-glow.active { animation: none; opacity: 0.4; }
-  .mote, .ember, .drift, .shockwave { animation: none; opacity: 0; }
-  .card-ground.active { animation: none; opacity: 0; }
-  .reveal-streak.go::before { animation: none; }
-  .card-back::after { transition: none; opacity: 0; }
+  .card-flip.reveal-cascade .card-footer-mark {
+    opacity: 1;
+    animation: none;
+  }
+  .bg-glow.active {
+    animation: none;
+    opacity: 0.4;
+  }
+  .mote,
+  .ember,
+  .drift,
+  .shockwave {
+    animation: none;
+    opacity: 0;
+  }
+  .card-ground.active {
+    animation: none;
+    opacity: 0;
+  }
+  .reveal-streak.go::before {
+    animation: none;
+  }
+  .card-back::after {
+    transition: none;
+    opacity: 0;
+  }
   .card-flip.glow-home::after,
-  .card-flip.glow-outdoor::after { animation: none; }
-  .card-front.idle-shine::before { animation: none; opacity: 0; }
+  .card-flip.glow-outdoor::after {
+    animation: none;
+  }
+  .card-front.idle-shine::before {
+    animation: none;
+    opacity: 0;
+  }
 
   @keyframes card-enter-rm {
-    from { opacity: 0; }
-    to   { opacity: 1; transform: rotateY(0deg) scale(1); }
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+      transform: rotateY(0deg) scale(1);
+    }
   }
   @keyframes card-flip-rm {
-    0%   { transform: rotateY(0deg) scale(1); }
-    100% { transform: rotateY(180deg) scale(1); }
+    0% {
+      transform: rotateY(0deg) scale(1);
+    }
+    100% {
+      transform: rotateY(180deg) scale(1);
+    }
   }
 }
 
@@ -1046,9 +1378,12 @@
   font-size: 0.82rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    border-color 0.18s ease;
 }
-.collection-filters .chip[aria-pressed='true'] {
+.collection-filters .chip[aria-pressed="true"] {
   background: linear-gradient(135deg, rgba(236, 90, 158, 0.22), rgba(140, 90, 220, 0.22));
   color: var(--text);
   border-color: rgba(236, 90, 158, 0.55);
@@ -1120,7 +1455,9 @@
   transition: width var(--dur-slow) var(--ease-out);
 }
 @media (prefers-reduced-motion: reduce) {
-  .collection-progress-fill { transition: none; }
+  .collection-progress-fill {
+    transition: none;
+  }
 }
 
 .collection-search {
@@ -1136,7 +1473,10 @@
   padding: 0 0 24px;
 }
 @media (min-width: 720px) {
-  .collection-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 14px; }
+  .collection-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 14px;
+  }
 }
 
 .coll-tile {
@@ -1145,20 +1485,26 @@
   border-radius: 12px;
   isolation: isolate;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
-  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
   -webkit-tap-highlight-color: transparent;
 }
-.coll-tile[role='button'] { cursor: pointer; }
+.coll-tile[role="button"] {
+  cursor: pointer;
+}
 @media (hover: hover) {
-  .coll-tile[role='button']:hover {
+  .coll-tile[role="button"]:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
   }
 }
 /* Tap feedback: the native highlight is disabled above, so give touch users
    a press response of our own. */
-.coll-tile[role='button']:active { transform: scale(0.97); }
-.coll-tile[role='button']:focus-visible {
+.coll-tile[role="button"]:active {
+  transform: scale(0.97);
+}
+.coll-tile[role="button"]:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
@@ -1187,13 +1533,17 @@
   margin-bottom: 4px;
 }
 .coll-tile .card-pile-label::before,
-.coll-tile .card-pile-label::after { margin: 0 4px; }
+.coll-tile .card-pile-label::after {
+  margin: 0 4px;
+}
 .coll-tile .card-art {
   margin-bottom: 4px;
   border-radius: 6px;
   min-height: 32%;
 }
-.coll-tile .card-art-emoji { font-size: 2.2rem; }
+.coll-tile .card-art-emoji {
+  font-size: 2.2rem;
+}
 .coll-tile .card-title {
   font-size: 0.62rem;
   line-height: 1.15;
@@ -1203,7 +1553,10 @@
   height: 7px;
   margin: 1px 0 3px;
 }
-.coll-tile .card-divider-ornament img { width: 7px; height: 7px; }
+.coll-tile .card-divider-ornament img {
+  width: 7px;
+  height: 7px;
+}
 .coll-tile .card-description {
   font-size: 0.5rem;
   line-height: 1.25;
@@ -1217,10 +1570,19 @@
   padding-top: 2px;
 }
 @media (min-width: 720px) {
-  .coll-tile .card-pile-label { font-size: 0.52rem; }
-  .coll-tile .card-art-emoji { font-size: 3rem; }
-  .coll-tile .card-title { font-size: 0.78rem; }
-  .coll-tile .card-description { font-size: 0.62rem; -webkit-line-clamp: 5; }
+  .coll-tile .card-pile-label {
+    font-size: 0.52rem;
+  }
+  .coll-tile .card-art-emoji {
+    font-size: 3rem;
+  }
+  .coll-tile .card-title {
+    font-size: 0.78rem;
+  }
+  .coll-tile .card-description {
+    font-size: 0.62rem;
+    -webkit-line-clamp: 5;
+  }
 }
 
 /* Locked silhouette: dark backdrop with a centered "?" placeholder. The dark
@@ -1232,7 +1594,7 @@
   cursor: default;
 }
 .coll-tile.is-locked::after {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
@@ -1258,15 +1620,23 @@
    The conic stays put and the blur is baked in; only the glow's opacity
    pulses, because animating a filter re-rasterizes the blurred layer on every
    frame and a deck can hold dozens of locked foil tiles at once. */
-.coll-tile.is-foil.is-locked { border-color: transparent; }
+.coll-tile.is-foil.is-locked {
+  border-color: transparent;
+}
 .coll-tile.is-foil.is-locked::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: -2px;
   border-radius: 14px;
   background: conic-gradient(
     from 135deg,
-    #ff8aa3, #ffce8a, #fff0a3, #b3f5c5, #a3d8ff, #d3a3ff, #ff8aa3
+    #ff8aa3,
+    #ffce8a,
+    #fff0a3,
+    #b3f5c5,
+    #a3d8ff,
+    #d3a3ff,
+    #ff8aa3
   );
   z-index: -1;
   pointer-events: none;
@@ -1274,8 +1644,13 @@
   animation: coll-foil-breathe 7s ease-in-out infinite;
 }
 @keyframes coll-foil-breathe {
-  0%, 100% { opacity: 0.35; }
-  50%      { opacity: 0.6; }
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.6;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .coll-tile.is-foil.is-locked::before {
@@ -1285,7 +1660,10 @@
 }
 
 /* Banned: dim the card a touch and overlay a red cross on top. */
-.coll-tile.is-banned .card-front { opacity: 0.55; filter: saturate(0.65); }
+.coll-tile.is-banned .card-front {
+  opacity: 0.55;
+  filter: saturate(0.65);
+}
 .coll-tile-cross {
   position: absolute;
   inset: 0;
@@ -1313,8 +1691,12 @@
 }
 /* The pulsing halo and twinkling sparkles also belong to the full-size
    card; hide them at this scale, the gold border alone signals rarity. */
-.coll-tile .card-front.is-foil::after { display: none; }
-.coll-tile .foil-sparkles { display: none; }
+.coll-tile .card-front.is-foil::after {
+  display: none;
+}
+.coll-tile .foil-sparkles {
+  display: none;
+}
 /* The heart-pattern overlay on the illustration panel uses 44px tiles at
    full size; in the mini card we scale it down so the density matches, and
    slow the slide so the perceptual speed lines up with the revealed card. */
@@ -1339,20 +1721,27 @@
 /* Gold ring: the card the gold-dust reveal just produced is haloed in the
    same gold when the user comes looking for it here. */
 @keyframes coll-tile-fresh {
-  0%, 100% {
+  0%,
+  100% {
     outline: 2px solid rgba(255, 211, 122, 0.55);
     outline-offset: 1px;
-    box-shadow: 0 0 0 0 rgba(255, 211, 122, 0), 0 4px 14px rgba(0, 0, 0, 0.35);
+    box-shadow:
+      0 0 0 0 rgba(255, 211, 122, 0),
+      0 4px 14px rgba(0, 0, 0, 0.35);
   }
   50% {
     outline: 2px solid rgba(255, 211, 122, 0.95);
     outline-offset: 3px;
-    box-shadow: 0 0 18px 4px rgba(255, 211, 122, 0.55), 0 4px 14px rgba(0, 0, 0, 0.35);
+    box-shadow:
+      0 0 18px 4px rgba(255, 211, 122, 0.55),
+      0 4px 14px rgba(0, 0, 0, 0.35);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .coll-tile { transition: none; }
+  .coll-tile {
+    transition: none;
+  }
   .coll-tile.is-fresh {
     animation: none;
     outline: 2px solid rgba(255, 211, 122, 0.85);
@@ -1362,5 +1751,6 @@
 
 /* Ban/unban button reused on the draw preview screen. */
 .preview-actions .btn-danger,
-.preview-actions .btn-success { min-width: 120px; }
-
+.preview-actions .btn-success {
+  min-width: 120px;
+}

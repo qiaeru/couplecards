@@ -4,7 +4,9 @@
 
 import { initI18n, applyI18n } from '/js/core/i18n.js';
 
-initI18n().then(() => applyI18n(document)).catch(() => {});
+initI18n()
+  .then(() => applyI18n(document))
+  .catch(() => {});
 
 const reloadBtn = document.getElementById('reload-btn');
 if (reloadBtn) reloadBtn.addEventListener('click', () => location.reload());

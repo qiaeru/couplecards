@@ -4,7 +4,15 @@
 // normalization.
 
 export const RESERVED_USERNAMES = new Set([
-  'couplecards', 'admin', 'demo', 'root', 'system', 'me', 'anonymous', 'null', 'undefined',
+  'couplecards',
+  'admin',
+  'demo',
+  'root',
+  'system',
+  'me',
+  'anonymous',
+  'null',
+  'undefined',
 ]);
 
 export const usernameSchema = {
@@ -15,5 +23,7 @@ export const usernameSchema = {
 };
 
 export function normalizeUsername(raw) {
-  return String(raw || '').trim().toLowerCase();
+  return String(raw || '')
+    .trim()
+    .toLowerCase();
 }

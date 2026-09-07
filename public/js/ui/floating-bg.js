@@ -4,11 +4,25 @@
 import { createEmojiImg } from './emoji.js';
 
 const SLUGS = [
-  'red-heart', 'growing-heart', 'sparkling-heart', 'two-hearts',
-  'heart-arrow', 'heart-ribbon', 'kiss-mark', 'couple-with-heart',
-  'love-letter', 'bottle-with-popping-cork', 'cocktail-glass',
-  'popcorn', 'shortcake', 'guitar', 'musical-notes', 'soccer-ball',
-  'hiking-boot', 'crystal-ball', 'game-die',
+  'red-heart',
+  'growing-heart',
+  'sparkling-heart',
+  'two-hearts',
+  'heart-arrow',
+  'heart-ribbon',
+  'kiss-mark',
+  'couple-with-heart',
+  'love-letter',
+  'bottle-with-popping-cork',
+  'cocktail-glass',
+  'popcorn',
+  'shortcake',
+  'guitar',
+  'musical-notes',
+  'soccer-ball',
+  'hiking-boot',
+  'crystal-ball',
+  'game-die',
 ];
 
 let mounted = false;
