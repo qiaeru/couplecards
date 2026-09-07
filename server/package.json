@@ -15,7 +15,8 @@
   },
   "scripts": {
     "start": "node src/index.js",
-    "dev": "node --watch src/index.js"
+    "dev": "node --watch src/index.js",
+    "test": "node --test \"test/*.test.js\""
   },
   "dependencies": {
     "@fastify/compress": "^9.2.0",

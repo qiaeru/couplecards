@@ -5,6 +5,7 @@
 **/.env.*
 !.env.example
 **/var/
+server/test/
 **/node_modules
 **/npm-debug.log
 **/.DS_Store
