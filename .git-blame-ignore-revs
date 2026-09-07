@@ -1,0 +1,7 @@
+# Revisions to skip when running git blame, one full SHA per line.
+# Configure it once with:
+#   git config blame.ignoreRevsFile .git-blame-ignore-revs
+# GitHub reads this file automatically.
+
+# style: format the source tree with Prettier
+1c9442dd4c7007089e781d92b6fa307463045962
