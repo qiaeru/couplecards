@@ -30,7 +30,7 @@ function onTabKey(event) {
   const currentName = event.currentTarget.id.replace(/^admin-tab-/, '');
   const currentIndex = TABS.indexOf(currentName);
   if (currentIndex < 0) return;
-  let nextIndex = null;
+  let nextIndex;
   switch (event.key) {
     case 'ArrowLeft':  nextIndex = (currentIndex - 1 + TABS.length) % TABS.length; break;
     case 'ArrowRight': nextIndex = (currentIndex + 1) % TABS.length; break;

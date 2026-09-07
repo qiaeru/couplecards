@@ -478,8 +478,8 @@ function attachOrientation() {
     const { beta, gamma } = pending;
     if (beta === null || gamma === null) return;
     if (baseBeta === null) { baseBeta = beta; baseGamma = gamma; return; }
-    let dBeta = Math.max(-CLAMP, Math.min(CLAMP, beta - baseBeta));
-    let dGamma = Math.max(-CLAMP, Math.min(CLAMP, gamma - baseGamma));
+    const dBeta = Math.max(-CLAMP, Math.min(CLAMP, beta - baseBeta));
+    const dGamma = Math.max(-CLAMP, Math.min(CLAMP, gamma - baseGamma));
     const rx = -(dBeta / CLAMP) * MAX;
     const ry = (dGamma / CLAMP) * MAX;
     applyTilt(rx, ry);

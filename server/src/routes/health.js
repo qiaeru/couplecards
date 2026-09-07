@@ -23,7 +23,7 @@ export default async function healthRoutes(app) {
       getDb().prepare('SELECT 1').get();
       dbOk = true;
     } catch {
-      dbOk = false;
+      // Leave dbOk false: a failed probe is the answer, not an error.
     }
     // No version here on purpose: the endpoint is public and the exact app
     // version is free reconnaissance on internet-exposed deployments.
