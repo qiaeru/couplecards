@@ -1,4 +1,8 @@
-*, *::before, *::after { box-sizing: border-box; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 /* Emojis Fluent UI rendus comme des glyphes inline */
 .emoji {
@@ -21,14 +25,25 @@
 
 /* Forced-colors support (Windows High Contrast) */
 @media (forced-colors: active) {
-  .btn, .icon-btn, .pile, .list-item, .setting-row, .modal-card {
+  .btn,
+  .icon-btn,
+  .pile,
+  .list-item,
+  .setting-row,
+  .modal-card {
     border: 1px solid CanvasText !important;
     forced-color-adjust: none;
   }
-  .title, .draw-title, .brand-title, .auth-title, .boot-logo {
+  .title,
+  .draw-title,
+  .brand-title,
+  .auth-title,
+  .boot-logo {
     color: LinkText !important;
   }
-  .btn-primary, .btn-success, .btn-danger {
+  .btn-primary,
+  .btn-success,
+  .btn-danger {
     background: Highlight !important;
     color: HighlightText !important;
   }
@@ -37,8 +52,10 @@
 /* Screen-reader-only: readable by assistive tech, invisible on screen */
 .sr-only {
   position: absolute !important;
-  width: 1px; height: 1px;
-  padding: 0; margin: -1px;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
@@ -47,18 +64,27 @@
 
 /* Honor prefers-reduced-transparency: disable blurs */
 @media (prefers-reduced-transparency: reduce) {
-  .btn, .icon-btn,
-  .list-item, .setting-row, .update-banner,
-  .modal-backdrop, .modal-card,
-  .stack-card-top, .pile-count {
+  .btn,
+  .icon-btn,
+  .list-item,
+  .setting-row,
+  .update-banner,
+  .modal-backdrop,
+  .modal-card,
+  .stack-card-top,
+  .pile-count {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
   }
-  :root { --surface: var(--surface-solid); }
+  :root {
+    --surface: var(--surface-solid);
+  }
 }
 
 /* Keyboard-only focus states */
-:focus { outline: none; }
+:focus {
+  outline: none;
+}
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
@@ -71,7 +97,8 @@
   outline-offset: 3px;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   color: var(--text);
@@ -90,9 +117,15 @@ body {
     radial-gradient(circle at 100% 100%, var(--bg-1) 0%, transparent 45%),
     linear-gradient(160deg, var(--bg-0), var(--bg-1));
   background-attachment: fixed;
-  background-size: 110% 110%, 110% 110%, 100% 100%;
+  background-size:
+    110% 110%,
+    110% 110%,
+    100% 100%;
   background-repeat: no-repeat;
-  background-position: 0% 0%, 100% 100%, 0% 0%;
+  background-position:
+    0% 0%,
+    100% 100%,
+    0% 0%;
   transition: color 0.3s;
   position: relative;
   animation: bg-shimmer 42s ease-in-out infinite alternate;
@@ -110,19 +143,37 @@ body::before {
   will-change: transform;
 }
 @keyframes bg-drift {
-  from { transform: translate(-55px, -35px) scale(1); }
-  to   { transform: translate(55px, 35px) scale(1.08); }
+  from {
+    transform: translate(-55px, -35px) scale(1);
+  }
+  to {
+    transform: translate(55px, 35px) scale(1.08);
+  }
 }
 /* Counter-drifting second layer applied directly to the body background
    positions. Moves opposite to bg-drift so the two strata never line up
    the same way twice, which is what sells the subtle "alive" feeling. */
 @keyframes bg-shimmer {
-  from { background-position: 0% 0%, 100% 100%, 0% 0%; }
-  to   { background-position: 6% 4%, 94% 96%, 0% 0%; }
+  from {
+    background-position:
+      0% 0%,
+      100% 100%,
+      0% 0%;
+  }
+  to {
+    background-position:
+      6% 4%,
+      94% 96%,
+      0% 0%;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  body::before { animation: none; }
-  body { animation: none; }
+  body::before {
+    animation: none;
+  }
+  body {
+    animation: none;
+  }
 }
 
 #app {
@@ -135,8 +186,12 @@ body::before {
 /* --- CRITICAL: hide inactive screens ---
    General `[hidden] { display: none }` wins over class-level `display: flex`
    etc., which the browser's UA stylesheet otherwise lets slip through. */
-[hidden] { display: none !important; }
-.screen[hidden] { display: none !important; }
+[hidden] {
+  display: none !important;
+}
+.screen[hidden] {
+  display: none !important;
+}
 
 .screen {
   flex: 1;
@@ -151,14 +206,22 @@ body::before {
 }
 
 @keyframes screen-in {
-  from { opacity: 0; transform: translateX(24px); }
-  to   { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 /* Placed after the .screen rule above: same specificity, so source order is
    what lets this override win under reduced motion. */
 @media (prefers-reduced-motion: reduce) {
-  .screen { animation: none; }
+  .screen {
+    animation: none;
+  }
 }
 
 /* View Transitions API (Chromium / Safari 18+): smooth crossfade between screens */
@@ -212,13 +275,18 @@ body::before {
   letter-spacing: -0.025em;
   color: var(--accent);
   font-optical-sizing: auto;
-  font-variation-settings: "SOFT" 100, "WONK" 1, "opsz" 144;
+  font-variation-settings:
+    "SOFT" 100,
+    "WONK" 1,
+    "opsz" 144;
   line-height: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 0.25em;
-  text-shadow: 0 2px 8px rgba(236, 90, 158, 0.30), 0 0 22px rgba(236, 90, 158, 0.14);
+  text-shadow:
+    0 2px 8px rgba(236, 90, 158, 0.3),
+    0 0 22px rgba(236, 90, 158, 0.14);
 }
 /* Fraunces' descenders push the glyph mass above the line-box center, so
    nudge the text down to land it on the icon's geometric center. */
@@ -298,15 +366,23 @@ body::before {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  transition: transform 0.12s, box-shadow 0.2s, background 0.2s;
+  transition:
+    transform 0.12s,
+    box-shadow 0.2s,
+    background 0.2s;
   box-shadow: var(--shadow-sm);
   font-family: inherit;
   text-align: center;
   letter-spacing: -0.005em;
   text-decoration: none;
 }
-.btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
-.btn:active { transform: scale(0.97); }
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+.btn:active {
+  transform: scale(0.97);
+}
 
 .btn-primary {
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
@@ -314,7 +390,9 @@ body::before {
   border-color: transparent;
   box-shadow: var(--shadow-color-pink);
 }
-.btn-primary:hover { box-shadow: 0 18px 46px color-mix(in srgb, var(--accent) 38%, transparent); }
+.btn-primary:hover {
+  box-shadow: 0 18px 46px color-mix(in srgb, var(--accent) 38%, transparent);
+}
 
 .btn-danger {
   background: var(--danger);
@@ -328,7 +406,9 @@ body::before {
   border-color: transparent;
   box-shadow: 0 14px 40px rgba(47, 207, 138, 0.3);
 }
-.btn-success:hover { box-shadow: 0 18px 46px rgba(47, 207, 138, 0.4); }
+.btn-success:hover {
+  box-shadow: 0 18px 46px rgba(47, 207, 138, 0.4);
+}
 
 .btn-sm {
   padding: 7px 14px;
@@ -400,7 +480,9 @@ body::before {
   transition: transform 0.12s;
   padding: 0;
 }
-.icon-btn:active { transform: scale(0.94); }
+.icon-btn:active {
+  transform: scale(0.94);
+}
 .icon-btn svg {
   width: 20px;
   height: 20px;
@@ -437,10 +519,20 @@ body::before {
     min-height: 110px;
     padding: 12px 10px 16px;
   }
-  .pile-emoji { font-size: 1.9rem; }
-  .pile-name { font-size: 0.95rem; }
-  .pile-count { font-size: 0.72rem; padding: 3px 10px; }
-  .pile-low-hint { margin-top: 4px; font-size: 0.65rem; }
+  .pile-emoji {
+    font-size: 1.9rem;
+  }
+  .pile-name {
+    font-size: 0.95rem;
+  }
+  .pile-count {
+    font-size: 0.72rem;
+    padding: 3px 10px;
+  }
+  .pile-low-hint {
+    margin-top: 4px;
+    font-size: 0.65rem;
+  }
 }
 
 /* Piles = empilements de cartes */
@@ -459,10 +551,17 @@ body::before {
   transition: transform 0.25s var(--ease-out);
 }
 @media (hover: hover) {
-  .pile:hover { transform: translateY(-5px); filter: brightness(1.05); }
-  .pile:hover .stack-card-top { box-shadow: 0 16px 40px rgba(236, 90, 158, 0.25); }
+  .pile:hover {
+    transform: translateY(-5px);
+    filter: brightness(1.05);
+  }
+  .pile:hover .stack-card-top {
+    box-shadow: 0 16px 40px rgba(236, 90, 158, 0.25);
+  }
 }
-.pile:active { transform: scale(0.97); }
+.pile:active {
+  transform: scale(0.97);
+}
 
 .pile:disabled,
 .pile.empty {
@@ -472,7 +571,9 @@ body::before {
   opacity: 0.7;
 }
 .pile:disabled:hover,
-.pile.empty:hover { transform: none; }
+.pile.empty:hover {
+  transform: none;
+}
 /* Launch: the pile charges with the same gold light as the card reveal
    (no brightness flash; that language was retired with the old reveal). */
 .pile.launching {
@@ -480,9 +581,16 @@ body::before {
   animation: pile-launch 0.45s cubic-bezier(0.4, 0, 0.6, 1) forwards;
 }
 @keyframes pile-launch {
-  0%   { transform: scale(1) rotate(0deg); }
-  40%  { transform: scale(1.1) rotate(-3deg); }
-  100% { transform: scale(1.3) rotate(-5deg) translateY(-12px); opacity: 0; }
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  40% {
+    transform: scale(1.1) rotate(-3deg);
+  }
+  100% {
+    transform: scale(1.3) rotate(-5deg) translateY(-12px);
+    opacity: 0;
+  }
 }
 .pile.launching .stack-card {
   animation: pile-launch-glow 0.45s ease-out forwards;
@@ -519,15 +627,28 @@ body::before {
   animation-delay: 3.5s;
 }
 @keyframes stack-idle-3 {
-  0%, 100% { transform: rotate(-5deg) translateY(0); }
-  50%      { transform: rotate(-6.5deg) translateY(-2px); }
+  0%,
+  100% {
+    transform: rotate(-5deg) translateY(0);
+  }
+  50% {
+    transform: rotate(-6.5deg) translateY(-2px);
+  }
 }
 @keyframes stack-idle-2 {
-  0%, 100% { transform: rotate(3deg) translateY(0); }
-  50%      { transform: rotate(4.5deg) translateY(-2px); }
+  0%,
+  100% {
+    transform: rotate(3deg) translateY(0);
+  }
+  50% {
+    transform: rotate(4.5deg) translateY(-2px);
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .stack-card-2, .stack-card-3 { animation: none; }
+  .stack-card-2,
+  .stack-card-3 {
+    animation: none;
+  }
 }
 .stack-card-top {
   position: absolute;
@@ -544,9 +665,15 @@ body::before {
   transform: rotate(-1deg);
 }
 
-.pile:hover .stack-card-top { transform: rotate(-1deg) translateY(-4px); }
-.pile:hover .stack-card-3   { transform: rotate(-7deg) translate(-3px, 2px); }
-.pile:hover .stack-card-2   { transform: rotate(5deg) translate(3px, 1px); }
+.pile:hover .stack-card-top {
+  transform: rotate(-1deg) translateY(-4px);
+}
+.pile:hover .stack-card-3 {
+  transform: rotate(-7deg) translate(-3px, 2px);
+}
+.pile:hover .stack-card-2 {
+  transform: rotate(5deg) translate(3px, 1px);
+}
 
 /* Per-pile themes. The same darkening wash as the draw-screen card back is
    applied so the home piles visually match the flip animation target. The
@@ -574,7 +701,7 @@ body::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: url('../icons/icon.svg') center/3rem no-repeat;
+  background: url("../icons/icon.svg") center/3rem no-repeat;
   opacity: 0.55;
 }
 .stack-card-back::after {
@@ -607,8 +734,12 @@ body::before {
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 @media (min-width: 540px) {
-  .pile-emoji { font-size: 2.8rem; }
-  .pile-name { font-size: 1.3rem; }
+  .pile-emoji {
+    font-size: 2.8rem;
+  }
+  .pile-name {
+    font-size: 1.3rem;
+  }
 }
 .pile-count {
   font-size: 0.78rem;
@@ -660,9 +791,18 @@ body::before {
   color: #ffd089;
 }
 @keyframes count-pop {
-  0%   { transform: scale(1); background: rgba(255, 211, 122, 0.45); }
-  40%  { transform: scale(1.15); background: rgba(255, 211, 122, 0.4); }
-  100% { transform: scale(1); background: rgba(0, 0, 0, 0.28); }
+  0% {
+    transform: scale(1);
+    background: rgba(255, 211, 122, 0.45);
+  }
+  40% {
+    transform: scale(1.15);
+    background: rgba(255, 211, 122, 0.4);
+  }
+  100% {
+    transform: scale(1);
+    background: rgba(0, 0, 0, 0.28);
+  }
 }
 
 /* Lists */
@@ -671,8 +811,20 @@ body::before {
   flex-direction: column;
   gap: 10px;
   padding: 12px 0;
-  mask-image: linear-gradient(to bottom, transparent 0, black 16px, black calc(100% - 8px), transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, black 16px, black calc(100% - 8px), transparent 100%);
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    black 16px,
+    black calc(100% - 8px),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    black 16px,
+    black calc(100% - 8px),
+    transparent 100%
+  );
 }
 .list-item {
   background-image: var(--tile-surface);
@@ -692,7 +844,10 @@ body::before {
   align-items: center;
   gap: 14px;
 }
-.list-item-title { font-weight: 700; letter-spacing: -0.005em; }
+.list-item-title {
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
 .list-item-meta {
   color: var(--text-soft);
   font-size: 0.72rem;
@@ -796,14 +951,19 @@ body::before {
   opacity: 0;
   transform: translateY(12px);
   pointer-events: none;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
   z-index: 40;
   -webkit-appearance: none;
   appearance: none;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
 }
-.scroll-to-top svg { width: 20px; height: 20px; }
+.scroll-to-top svg {
+  width: 20px;
+  height: 20px;
+}
 .scroll-to-top.visible {
   opacity: 1;
   transform: none;
@@ -824,13 +984,27 @@ body::before {
   gap: 12px;
   min-height: 58px;
 }
-.setting-row > span:first-child { flex: 1; font-weight: 500; }
+.setting-row > span:first-child {
+  flex: 1;
+  font-weight: 500;
+}
 
-.switch { position: relative; display: inline-block; width: 50px; height: 30px; flex-shrink: 0; }
-.switch input { opacity: 0; width: 0; height: 0; }
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 30px;
+  flex-shrink: 0;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
 .slider {
-  position: absolute; inset: 0;
-  background: rgba(255,255,255,0.15);
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 999px;
   cursor: pointer;
   transition: background 0.2s;
@@ -838,17 +1012,21 @@ body::before {
 .slider::before {
   content: "";
   position: absolute;
-  height: 24px; width: 24px;
-  left: 3px; top: 3px;
+  height: 24px;
+  width: 24px;
+  left: 3px;
+  top: 3px;
   background: #fff;
   border-radius: 50%;
   transition: transform 0.22s var(--ease-out);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 .switch input:checked + .slider {
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
 }
-.switch input:checked + .slider::before { transform: translateX(20px); }
+.switch input:checked + .slider::before {
+  transform: translateX(20px);
+}
 
 /* Rules view container: the parchment-like panel the user liked. Its
    background and border have been promoted to a reusable custom property
@@ -870,9 +1048,15 @@ body::before {
   overflow: hidden;
 }
 
-.manual > p { margin: 0 0 10px; }
-.manual > p:first-of-type { margin-top: 0; }
-.manual > p:last-child { margin-bottom: 0; }
+.manual > p {
+  margin: 0 0 10px;
+}
+.manual > p:first-of-type {
+  margin-top: 0;
+}
+.manual > p:last-child {
+  margin-bottom: 0;
+}
 
 .manual-piles {
   list-style: none;
@@ -887,8 +1071,13 @@ body::before {
   align-items: baseline;
   gap: 10px;
 }
-.manual-piles li > span:last-child { flex: 1; }
-.manual-piles .pile-badge { flex-shrink: 0; align-self: center; }
+.manual-piles li > span:last-child {
+  flex: 1;
+}
+.manual-piles .pile-badge {
+  flex-shrink: 0;
+  align-self: center;
+}
 
 .manual-choices {
   padding-left: 22px;
@@ -933,7 +1122,9 @@ body::before {
   border-radius: 999px;
   font-size: 0.9rem;
   font-weight: 600;
-  box-shadow: inset 0 1px 0 rgba(255, 210, 150, 0.25), var(--shadow-lg);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 210, 150, 0.25),
+    var(--shadow-lg);
   z-index: 1000;
   animation: toast-in 0.22s var(--ease-out);
   max-width: calc(100vw - 32px);
@@ -942,9 +1133,14 @@ body::before {
   align-items: center;
   gap: 12px;
 }
-.toast.leaving { animation: toast-out 0.18s ease forwards; }
+.toast.leaving {
+  animation: toast-out 0.18s ease forwards;
+}
 @keyframes toast-out {
-  to { opacity: 0; transform: translate(-50%, 12px); }
+  to {
+    opacity: 0;
+    transform: translate(-50%, 12px);
+  }
 }
 
 .toast-action {
@@ -996,17 +1192,24 @@ body::before {
   height: 1px;
   background: linear-gradient(90deg, rgba(255, 210, 150, 0.3), transparent);
 }
-.history-group-header:first-child { margin-top: 0; padding-top: 0; }
+.history-group-header:first-child {
+  margin-top: 0;
+  padding-top: 0;
+}
 
 /* Clickable history item */
 .list-item.clickable {
   cursor: pointer;
-  transition: background 0.15s, transform 0.1s;
+  transition:
+    background 0.15s,
+    transform 0.1s;
 }
 .list-item.clickable:hover {
   background: rgba(255, 255, 255, 0.04);
 }
-.list-item.clickable:active { transform: scale(0.99); }
+.list-item.clickable:active {
+  transform: scale(0.99);
+}
 
 /* Staggered entrance for freshly rendered lists (History). --i is set in JS
    and capped there so long lists never feel slow. */
@@ -1014,7 +1217,10 @@ body::before {
   animation: list-item-in 0.35s var(--ease-out) calc(var(--i, 0) * 45ms) backwards;
 }
 @keyframes list-item-in {
-  from { opacity: 0; transform: translateY(10px); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
 }
 
 /* Modal */
@@ -1027,7 +1233,9 @@ body::before {
   justify-content: center;
   padding: 20px;
 }
-.modal[hidden] { display: none; }
+.modal[hidden] {
+  display: none;
+}
 .modal-backdrop {
   position: absolute;
   inset: 0;
@@ -1037,8 +1245,12 @@ body::before {
   animation: backdrop-in 0.2s ease;
 }
 @keyframes backdrop-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 .modal-card {
   position: relative;
@@ -1055,18 +1267,33 @@ body::before {
   animation: modal-in 0.25s cubic-bezier(0.2, 1, 0.3, 1);
 }
 @keyframes modal-in {
-  from { opacity: 0; transform: translateY(14px) scale(0.97); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 /* Symmetric exit: shell.js adds .closing and hides the modal after the
    animation instead of cutting the blur and card off in one frame. */
-.modal.closing .modal-backdrop { animation: backdrop-out 0.16s ease forwards; }
-.modal.closing .modal-card { animation: modal-out 0.16s ease forwards; }
+.modal.closing .modal-backdrop {
+  animation: backdrop-out 0.16s ease forwards;
+}
+.modal.closing .modal-card {
+  animation: modal-out 0.16s ease forwards;
+}
 @keyframes backdrop-out {
-  to { opacity: 0; }
+  to {
+    opacity: 0;
+  }
 }
 @keyframes modal-out {
-  to { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
 }
 .modal-title {
   margin: 0 0 8px;
@@ -1085,7 +1312,9 @@ body::before {
   gap: 10px;
   justify-content: flex-end;
 }
-.modal-actions .btn { min-width: 100px; }
+.modal-actions .btn {
+  min-width: 100px;
+}
 
 /* Boot skeleton */
 .boot-skeleton {
@@ -1104,13 +1333,23 @@ body::before {
 }
 /* Soft handoff into the app: the boot logo shares the home wordmark rule, so
    a plain fade already reads as the logo settling into the header. */
-.boot-skeleton.leaving { opacity: 0; pointer-events: none; }
+.boot-skeleton.leaving {
+  opacity: 0;
+  pointer-events: none;
+}
 .boot-logo {
   animation: boot-logo-pulse 1.2s ease-in-out infinite;
 }
 @keyframes boot-logo-pulse {
-  0%, 100% { opacity: 0.55; transform: scale(0.98); }
-  50%      { opacity: 1;    transform: scale(1.03); }
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.03);
+  }
 }
 .boot-pulse {
   width: 60px;
@@ -1121,8 +1360,12 @@ body::before {
   animation: boot-pulse-sweep 1.2s linear infinite;
 }
 @keyframes boot-pulse-sweep {
-  from { background-position: 100% 0; }
-  to   { background-position: -100% 0; }
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
 }
 
 /* Update banner */
@@ -1141,17 +1384,31 @@ body::before {
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid var(--surface-border);
   border-radius: 999px;
-  box-shadow: inset 0 1px 0 rgba(255, 210, 150, 0.25), var(--shadow-lg);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 210, 150, 0.25),
+    var(--shadow-lg);
   z-index: 900;
   font-size: 0.85rem;
   animation: toast-in 0.25s var(--ease-out);
   max-width: calc(100vw - 32px);
 }
-.update-banner[hidden] { display: none; }
-.update-banner .btn { padding: 8px 14px; min-height: 36px; font-size: 0.85rem; }
+.update-banner[hidden] {
+  display: none;
+}
+.update-banner .btn {
+  padding: 8px 14px;
+  min-height: 36px;
+  font-size: 0.85rem;
+}
 @keyframes toast-in {
-  from { opacity: 0; transform: translate(-50%, 12px); }
-  to   { opacity: 1; transform: translate(-50%, 0); }
+  from {
+    opacity: 0;
+    transform: translate(-50%, 12px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
 }
 
 /* Shared pill search field (Collection and admin lists). One recipe so the
@@ -1170,7 +1427,9 @@ body::before {
   border-radius: 999px;
   font-family: inherit;
   font-size: 0.9rem;
-  transition: box-shadow 0.18s ease, border-color 0.18s ease;
+  transition:
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
 }
 .collection-search input:focus-visible,
 .admin-search input:focus-visible {
@@ -1210,7 +1469,10 @@ body::before {
   font-family: inherit;
   font-size: 1rem;
 }
-.card-form textarea { resize: vertical; min-height: 70px; }
+.card-form textarea {
+  resize: vertical;
+  min-height: 70px;
+}
 
 /* Windows/Chrome renders <option> using the OS native dropdown and silently
    ignores the parent <select>'s colors. Force background + text colors on the
@@ -1231,7 +1493,8 @@ select option:hover {
   color: var(--text-muted);
   font-size: 0.78rem;
 }
-.cp-error, .auth-error {
+.cp-error,
+.auth-error {
   color: var(--danger);
   font-size: 0.85rem;
   min-height: 1em;
@@ -1287,7 +1550,9 @@ select option:hover {
   margin-top: 6px;
 }
 /* Password strength meter */
-.pw-strength { margin: 4px 0 8px; }
+.pw-strength {
+  margin: 4px 0 8px;
+}
 .pw-strength-bar {
   height: 6px;
   background: rgba(255, 255, 255, 0.08);
@@ -1297,13 +1562,23 @@ select option:hover {
 .pw-strength-fill {
   height: 100%;
   width: 0%;
-  transition: width 0.25s ease, background 0.25s ease;
+  transition:
+    width 0.25s ease,
+    background 0.25s ease;
   background: var(--danger);
 }
-.pw-strength-fill[data-score="1"] { background: #ff9a44; }
-.pw-strength-fill[data-score="2"] { background: #ffce4d; }
-.pw-strength-fill[data-score="3"] { background: #6bd38a; }
-.pw-strength-fill[data-score="4"] { background: var(--success); }
+.pw-strength-fill[data-score="1"] {
+  background: #ff9a44;
+}
+.pw-strength-fill[data-score="2"] {
+  background: #ffce4d;
+}
+.pw-strength-fill[data-score="3"] {
+  background: #6bd38a;
+}
+.pw-strength-fill[data-score="4"] {
+  background: var(--success);
+}
 .pw-strength-label {
   font-size: 0.8rem;
   color: var(--text-soft);
@@ -1330,9 +1605,15 @@ select option:hover {
   left: 4px;
   top: 0;
 }
-.pw-strength-rules li.ok { color: var(--success); }
-.pw-strength-rules li.ok::before { content: "✓"; }
-.pw-strength-rules li.nope::before { content: "·"; }
+.pw-strength-rules li.ok {
+  color: var(--success);
+}
+.pw-strength-rules li.ok::before {
+  content: "✓";
+}
+.pw-strength-rules li.nope::before {
+  content: "·";
+}
 
 /* Standalone error pages (404 / 500) */
 .error-page {
@@ -1341,27 +1622,57 @@ select option:hover {
   padding: 24px;
   text-align: center;
 }
-.error-page .title { font-size: 2rem; margin-bottom: 12px; }
-.error-page p { color: var(--text-soft); margin-bottom: 24px; }
+.error-page .title {
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+.error-page p {
+  color: var(--text-soft);
+  margin-bottom: 24px;
+}
 
 /* Consolidated reduced-motion coverage for the shell animations above.
    Elements that JS hides after a .leaving/.closing animation still get
    hidden: the JS uses a timeout, not the animationend event. */
 @media (prefers-reduced-motion: reduce) {
-  .pile.launching { animation: none; opacity: 0; }
-  .pile.launching .stack-card { animation: none; }
-  .pile-count.count-changed { animation: none; }
+  .pile.launching {
+    animation: none;
+    opacity: 0;
+  }
+  .pile.launching .stack-card {
+    animation: none;
+  }
+  .pile-count.count-changed {
+    animation: none;
+  }
   .toast,
-  .update-banner { animation: none; }
-  .toast.leaving { animation: none; opacity: 0; }
+  .update-banner {
+    animation: none;
+  }
+  .toast.leaving {
+    animation: none;
+    opacity: 0;
+  }
   .modal-backdrop,
-  .modal-card { animation: none; }
+  .modal-card {
+    animation: none;
+  }
   .modal.closing .modal-backdrop,
-  .modal.closing .modal-card { animation: none; }
+  .modal.closing .modal-card {
+    animation: none;
+  }
   .boot-logo,
-  .boot-pulse { animation: none; }
-  .boot-skeleton { transition: none; }
-  .list-item.stagger-in { animation: none; }
+  .boot-pulse {
+    animation: none;
+  }
+  .boot-skeleton {
+    transition: none;
+  }
+  .list-item.stagger-in {
+    animation: none;
+  }
   .collection-search input,
-  .admin-search input { transition: none; }
+  .admin-search input {
+    transition: none;
+  }
 }

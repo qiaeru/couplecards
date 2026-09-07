@@ -8,15 +8,18 @@ import { SUPPORTED_LOCALES, FALLBACK_LOCALE } from '../lib/locales.js';
 
 function pickLocale(acceptLanguage) {
   if (!acceptLanguage) return FALLBACK_LOCALE;
-  const tags = acceptLanguage.split(',').map((entry) => {
-    const [tag, ...params] = entry.trim().split(';');
-    let q = 1;
-    for (const p of params) {
-      const m = p.trim().match(/^q=(\d+(?:\.\d+)?)$/i);
-      if (m) q = Number(m[1]);
-    }
-    return { tag: tag.toLowerCase(), q };
-  }).filter((entry) => entry.tag && entry.q > 0)
+  const tags = acceptLanguage
+    .split(',')
+    .map((entry) => {
+      const [tag, ...params] = entry.trim().split(';');
+      let q = 1;
+      for (const p of params) {
+        const m = p.trim().match(/^q=(\d+(?:\.\d+)?)$/i);
+        if (m) q = Number(m[1]);
+      }
+      return { tag: tag.toLowerCase(), q };
+    })
+    .filter((entry) => entry.tag && entry.q > 0)
     .sort((a, b) => b.q - a.q);
 
   for (const { tag } of tags) {
@@ -31,7 +34,10 @@ function pickLocale(acceptLanguage) {
 // disk I/O for no benefit.
 const manifests = new Map();
 for (const locale of SUPPORTED_LOCALES) {
-  manifests.set(locale, readFileSync(resolve(config.publicDir, `manifest.${locale}.webmanifest`), 'utf8'));
+  manifests.set(
+    locale,
+    readFileSync(resolve(config.publicDir, `manifest.${locale}.webmanifest`), 'utf8'),
+  );
 }
 
 export default async function manifestRoutes(app) {

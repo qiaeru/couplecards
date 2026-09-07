@@ -1,0 +1,17 @@
+node_modules/
+server/node_modules/
+public/vendor/
+var/
+server/var/
+package-lock.json
+
+# Released CHANGELOG sections are frozen: reflowing them would rewrite history.
+CHANGELOG.md
+
+# HTML is excluded on purpose: Prettier explodes every inline SVG into one
+# attribute per line, which triples the page files for no readability gain.
+*.html
+
+# Markdown is excluded on purpose: Prettier pads table cells to the full column
+# width, which contradicts the `| --- |` house style and produces noisy diffs.
+*.md

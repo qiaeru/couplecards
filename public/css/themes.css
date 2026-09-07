@@ -48,8 +48,8 @@
   --radius-md: 18px;
   --radius-lg: 26px;
 
-  --font: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Fraunces', 'Georgia', 'Times New Roman', serif;
+  --font: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Fraunces", "Georgia", "Times New Roman", serif;
 
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
   --dur-slow: 450ms;

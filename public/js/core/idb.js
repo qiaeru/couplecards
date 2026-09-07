@@ -17,7 +17,8 @@ function openDb() {
       const db = req.result;
       if (!db.objectStoreNames.contains('cards')) db.createObjectStore('cards', { keyPath: 'id' });
       if (!db.objectStoreNames.contains('state')) db.createObjectStore('state');
-      if (!db.objectStoreNames.contains('outbox')) db.createObjectStore('outbox', { keyPath: 'id', autoIncrement: true });
+      if (!db.objectStoreNames.contains('outbox'))
+        db.createObjectStore('outbox', { keyPath: 'id', autoIncrement: true });
     };
     req.onsuccess = () => resolve(req.result);
     req.onerror = () => reject(req.error);

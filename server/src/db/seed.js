@@ -20,20 +20,26 @@ export async function runSeed(logger) {
   const probe = await hashPassword('__startup_probe__');
   const probeOk = await verifyPassword(probe, '__startup_probe__');
   if (!probeOk) {
-    throw new Error('Argon2id self-test failed: hash-wasm cannot verify its own hashes on this machine');
+    throw new Error(
+      'Argon2id self-test failed: hash-wasm cannot verify its own hashes on this machine',
+    );
   }
 
   const userCount = db.prepare('SELECT COUNT(*) AS n FROM users').get().n;
   if (userCount === 0) {
     const locale = pickSeedLocale();
     const hash = await hashPassword(DEFAULT_ADMIN_PASSWORD);
-    db.prepare(`
+    db.prepare(
+      `
       INSERT INTO users (username, password_hash, role, must_change_password, locale)
       VALUES ('couplecards', ?, 'admin', 1, ?)
-    `).run(hash, locale);
+    `,
+    ).run(hash, locale);
 
-    db.prepare('INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)')
-      .run('seed_locale', locale);
+    db.prepare('INSERT OR REPLACE INTO settings (key, value) VALUES (?, ?)').run(
+      'seed_locale',
+      locale,
+    );
 
     // First-boot default for public registration. The admin GUI toggle owns
     // this value afterward; the env var only seeds the initial state so a
@@ -49,15 +55,22 @@ export async function runSeed(logger) {
   // the env var rather than at a button that would only last until the
   // next restart. CASCADE on bans and history cleans up automatically.
   if (config.enableDemoAccount) {
-    const existing = db.prepare('SELECT id FROM users WHERE username = ? AND is_demo = 1').get(DEMO_USERNAME);
+    const existing = db
+      .prepare('SELECT id FROM users WHERE username = ? AND is_demo = 1')
+      .get(DEMO_USERNAME);
     if (!existing) {
-      const locale = db.prepare("SELECT value FROM settings WHERE key = 'seed_locale'").get()?.value || 'en';
+      const locale =
+        db.prepare("SELECT value FROM settings WHERE key = 'seed_locale'").get()?.value || 'en';
       const hash = await hashPassword(DEMO_PASSWORD);
-      db.prepare(`
+      db.prepare(
+        `
         INSERT INTO users (username, password_hash, role, must_change_password, is_demo, locale)
         VALUES (?, ?, 'user', 0, 1, ?)
-      `).run(DEMO_USERNAME, hash, locale);
-      logger?.info('seeded demo account (username=demo, password=demo), state resets on each sign-in');
+      `,
+      ).run(DEMO_USERNAME, hash, locale);
+      logger?.info(
+        'seeded demo account (username=demo, password=demo), state resets on each sign-in',
+      );
     }
   } else {
     const removed = db.prepare('DELETE FROM users WHERE is_demo = 1').run();
@@ -93,7 +106,10 @@ export async function runSeed(logger) {
       }
     });
     applySeed();
-    logger?.info({ count: deck.length, locales: Object.keys(deck[0]?.translations || {}) }, 'seeded card deck');
+    logger?.info(
+      { count: deck.length, locales: Object.keys(deck[0]?.translations || {}) },
+      'seeded card deck',
+    );
   } else {
     backfillCardEmoji(logger);
   }
@@ -132,7 +148,8 @@ export async function maybeResetAdmin(logger) {
   if (!config.adminReset) return;
   const db = getDb();
   const hash = await hashPassword(DEFAULT_ADMIN_PASSWORD);
-  db.prepare(`
+  db.prepare(
+    `
     UPDATE users
     SET password_hash = ?,
         must_change_password = 1,
@@ -141,8 +158,11 @@ export async function maybeResetAdmin(logger) {
         session_epoch = session_epoch + 1,
         updated_at = datetime('now')
     WHERE role = 'admin'
-  `).run(hash);
-  logger?.warn('ADMIN_RESET was enabled: admin password reset to "changeme". Unset the variable and restart.');
+  `,
+  ).run(hash);
+  logger?.warn(
+    'ADMIN_RESET was enabled: admin password reset to "changeme". Unset the variable and restart.',
+  );
 }
 
 // Same reader and validation as the admin "sync from files" path, so a card

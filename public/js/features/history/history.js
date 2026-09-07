@@ -18,7 +18,8 @@ let currentFilter = 'all';
 // deleted since only show under "All" and the action filters.
 function matchesFilter(entry) {
   if (currentFilter === 'all') return true;
-  if (currentFilter === 'returned' || currentFilter === 'banned') return entry.action === currentFilter;
+  if (currentFilter === 'returned' || currentFilter === 'banned')
+    return entry.action === currentFilter;
   return getCardById(entry.cardId)?.pile === currentFilter;
 }
 
@@ -33,11 +34,11 @@ function groupByDate(history) {
   const weekAgo = today - 7 * 86400000;
   const monthAgo = today - 30 * 86400000;
   const buckets = {
-    today:     { label: t('history.groups.today'),     items: [] },
+    today: { label: t('history.groups.today'), items: [] },
     yesterday: { label: t('history.groups.yesterday'), items: [] },
-    week:      { label: t('history.groups.week'),      items: [] },
-    month:     { label: t('history.groups.month'),     items: [] },
-    older:     { label: t('history.groups.older'),     items: [] },
+    week: { label: t('history.groups.week'), items: [] },
+    month: { label: t('history.groups.month'), items: [] },
+    older: { label: t('history.groups.older'), items: [] },
   };
   history.forEach((entry) => {
     const tm = startOfDay(new Date(entry.drawnAt));
@@ -113,7 +114,10 @@ function render() {
         const replay = () => navigate('draw', { preview: entry.cardId });
         div.addEventListener('click', replay);
         div.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); replay(); }
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            replay();
+          }
         });
       }
 
@@ -136,7 +140,9 @@ function render() {
       right.className = 'list-item-right';
       const tag = document.createElement('span');
       tag.className = `stamp ${entry.action === 'returned' ? 'stamp-returned' : 'stamp-banned'}`;
-      tag.textContent = t(entry.action === 'returned' ? 'history.action.returned' : 'history.action.banned');
+      tag.textContent = t(
+        entry.action === 'returned' ? 'history.action.returned' : 'history.action.banned',
+      );
       right.appendChild(tag);
 
       row.appendChild(left);

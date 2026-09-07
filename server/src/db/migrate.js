@@ -21,7 +21,10 @@ export function runMigrations(logger) {
   `);
 
   const applied = new Set(
-    db.prepare('SELECT name FROM _migrations').all().map((r) => r.name),
+    db
+      .prepare('SELECT name FROM _migrations')
+      .all()
+      .map((r) => r.name),
   );
 
   const files = readdirSync(MIGRATIONS_DIR)

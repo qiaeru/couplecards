@@ -1,6 +1,8 @@
 /* SPDX-License-Identifier: MIT */
 
-body { font-family: var(--font); }
+body {
+  font-family: var(--font);
+}
 
 .auth-shell {
   min-height: 100vh;
@@ -63,9 +65,17 @@ body { font-family: var(--font); }
   line-height: 1.5;
 }
 
-.auth-form { display: flex; flex-direction: column; gap: 14px; }
-.auth-error:empty { display: none; }
-.auth-form .btn { margin-top: 6px; }
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.auth-error:empty {
+  display: none;
+}
+.auth-form .btn {
+  margin-top: 6px;
+}
 
 /* Attribution footer, only on the auth screens. */
 .auth-footer {
@@ -82,13 +92,17 @@ body { font-family: var(--font); }
   align-items: center;
   color: inherit;
 }
-.auth-footer-link:hover { color: var(--text); }
+.auth-footer-link:hover {
+  color: var(--text);
+}
 .auth-footer-logo {
   height: 1.35em;
   width: auto;
   display: block;
 }
-.auth-footer-sep { opacity: 0.45; }
+.auth-footer-sep {
+  opacity: 0.45;
+}
 
 /* qiaeru.com lockup: the head sits on an organic orange blob, mirroring the source
    site (CSS blob, not part of the SVG). */
@@ -97,7 +111,9 @@ body { font-family: var(--font); }
   display: inline-flex;
   transition: transform 0.2s ease;
 }
-.qiaeru-logo:hover { transform: scale(1.08); }
+.qiaeru-logo:hover {
+  transform: scale(1.08);
+}
 .qiaeru-logo::before {
   content: "";
   position: absolute;
@@ -125,10 +141,17 @@ body { font-family: var(--font); }
   text-align: center;
   font-size: 0.9rem;
 }
-.auth-alt a { color: var(--text-soft); }
-.auth-alt a:hover { color: var(--text); }
+.auth-alt a {
+  color: var(--text-soft);
+}
+.auth-alt a:hover {
+  color: var(--text);
+}
 
-#forgot-open .btn { margin-top: 10px; width: 100%; }
+#forgot-open .btn {
+  margin-top: 10px;
+  width: 100%;
+}
 
 .floating-bg {
   position: fixed;
@@ -137,7 +160,10 @@ body { font-family: var(--font); }
   overflow: hidden;
   z-index: 0;
 }
-.auth-shell { position: relative; z-index: 1; }
+.auth-shell {
+  position: relative;
+  z-index: 1;
+}
 .floating-icon {
   position: absolute;
   opacity: var(--repel-opacity, var(--base-opacity, 0.25));
@@ -155,14 +181,26 @@ body { font-family: var(--font); }
 }
 
 @keyframes float-y {
-  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
-  50%      { transform: translate3d(var(--drift, 0), -28px, 0) rotate(var(--rotate, 0deg)); }
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(var(--drift, 0), -28px, 0) rotate(var(--rotate, 0deg));
+  }
 }
 @keyframes float-fade {
-  0%, 100% { opacity: var(--base-opacity, 0.25); }
-  50%      { opacity: calc(var(--base-opacity, 0.25) + 0.18); }
+  0%,
+  100% {
+    opacity: var(--base-opacity, 0.25);
+  }
+  50% {
+    opacity: calc(var(--base-opacity, 0.25) + 0.18);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .floating-icon { animation: none; }
+  .floating-icon {
+    animation: none;
+  }
 }

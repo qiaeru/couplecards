@@ -18,7 +18,7 @@ function showStep(name) {
 }
 
 const ERROR_FIELDS = {
-  login:  ['login-username', 'login-password'],
+  login: ['login-username', 'login-password'],
   change: ['change-current', 'change-new', 'change-confirm'],
 };
 
@@ -48,7 +48,10 @@ function showChangeStep(user, policy) {
     input: $('change-new'),
     host: $('change-strength'),
     userInputs: [user.username],
-    minScore: user.role === 'admin' ? (policy?.zxcvbnMinScoreAdmin ?? 4) : (policy?.zxcvbnMinScoreUser ?? 3),
+    minScore:
+      user.role === 'admin'
+        ? (policy?.zxcvbnMinScoreAdmin ?? 4)
+        : (policy?.zxcvbnMinScoreUser ?? 3),
   });
 
   $('change-form').addEventListener('submit', async (e) => {
@@ -56,7 +59,10 @@ function showChangeStep(user, policy) {
     showError('change', null);
     const next = $('change-new').value;
     const confirm = $('change-confirm').value;
-    if (next !== confirm) { showError('change', 'changePassword.mismatch'); return; }
+    if (next !== confirm) {
+      showError('change', 'changePassword.mismatch');
+      return;
+    }
     try {
       await changePassword($('change-current').value, next);
       unbind();
@@ -89,9 +95,14 @@ async function init() {
   showStep('login');
   // Reveal the registration link only when the admin has opened sign-ups. The
   // "forgot password" link stays visible regardless.
-  registrationEnabled().then((enabled) => {
-    if (enabled) { const el = $('login-register'); if (el) el.hidden = false; }
-  }).catch(() => {});
+  registrationEnabled()
+    .then((enabled) => {
+      if (enabled) {
+        const el = $('login-register');
+        if (el) el.hidden = false;
+      }
+    })
+    .catch(() => {});
 
   $('login-form').addEventListener('submit', async (e) => {
     e.preventDefault();

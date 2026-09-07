@@ -10,26 +10,40 @@ const VIBRATION_KEY = 'couplecards:vibrations-enabled';
 const SOUND_KEY = 'couplecards:sounds-enabled';
 let vibrationsEnabled = true;
 let soundsEnabled = true;
-try { vibrationsEnabled = localStorage.getItem(VIBRATION_KEY) !== '0'; } catch {}
-try { soundsEnabled = localStorage.getItem(SOUND_KEY) !== '0'; } catch {}
+try {
+  vibrationsEnabled = localStorage.getItem(VIBRATION_KEY) !== '0';
+} catch {}
+try {
+  soundsEnabled = localStorage.getItem(SOUND_KEY) !== '0';
+} catch {}
 
 export function vibrate(pattern) {
   if (!vibrationsEnabled) return;
-  try { if (navigator.vibrate) navigator.vibrate(pattern); } catch {}
+  try {
+    if (navigator.vibrate) navigator.vibrate(pattern);
+  } catch {}
 }
 
-export function areVibrationsEnabled() { return vibrationsEnabled; }
+export function areVibrationsEnabled() {
+  return vibrationsEnabled;
+}
 
 export function setVibrationsEnabled(on) {
   vibrationsEnabled = !!on;
-  try { localStorage.setItem(VIBRATION_KEY, on ? '1' : '0'); } catch {}
+  try {
+    localStorage.setItem(VIBRATION_KEY, on ? '1' : '0');
+  } catch {}
 }
 
-export function areSoundsEnabled() { return soundsEnabled; }
+export function areSoundsEnabled() {
+  return soundsEnabled;
+}
 
 export function setSoundsEnabled(on) {
   soundsEnabled = !!on;
-  try { localStorage.setItem(SOUND_KEY, on ? '1' : '0'); } catch {}
+  try {
+    localStorage.setItem(SOUND_KEY, on ? '1' : '0');
+  } catch {}
 }
 
 // Optional `action` is { label, onClick } and renders a trailing button;
@@ -61,7 +75,9 @@ export function toast(message, options = {}) {
     btn.addEventListener('click', () => {
       clearTimeout(toast._timer);
       dismiss();
-      try { action.onClick(); } catch {}
+      try {
+        action.onClick();
+      } catch {}
     });
     el.appendChild(btn);
   }
@@ -88,16 +104,13 @@ function closeModalHost(host) {
 }
 
 // Generic confirmation modal with a focus trap. Resolves to true/false.
-export function showConfirm({
-  title,
-  body,
-  confirmLabel,
-  cancelLabel,
-  danger = false,
-} = {}) {
+export function showConfirm({ title, body, confirmLabel, cancelLabel, danger = false } = {}) {
   return new Promise((resolve) => {
     const modal = document.getElementById('modal');
-    if (!modal) { resolve(false); return; }
+    if (!modal) {
+      resolve(false);
+      return;
+    }
     const previouslyFocused = document.activeElement;
     const titleEl = document.getElementById('modal-title');
     const bodyEl = document.getElementById('modal-body');
@@ -111,9 +124,8 @@ export function showConfirm({
     confirmBtn.classList.toggle('btn-danger', danger);
     confirmBtn.classList.toggle('btn-primary', !danger);
     confirmBtn.disabled = false;
-    cancelBtn.hidden = !cancelLabel && cancelLabel !== undefined
-      ? false
-      : cancelLabel === '' ? true : false;
+    cancelBtn.hidden =
+      !cancelLabel && cancelLabel !== undefined ? false : cancelLabel === '' ? true : false;
 
     const focusables = () => [cancelBtn, confirmBtn].filter((b) => !b.hidden);
 
@@ -124,14 +136,19 @@ export function showConfirm({
       modal.querySelector('[data-modal-close]')?.removeEventListener('click', onCancel);
       document.removeEventListener('keydown', onKey);
       if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
-        try { previouslyFocused.focus(); } catch {}
+        try {
+          previouslyFocused.focus();
+        } catch {}
       }
       resolve(result);
     };
     const onConfirm = () => close(true);
     const onCancel = () => close(false);
     const onKey = (e) => {
-      if (e.key === 'Escape') { onCancel(); return; }
+      if (e.key === 'Escape') {
+        onCancel();
+        return;
+      }
       if (e.key === 'Enter' && document.activeElement !== cancelBtn) {
         onConfirm();
         return;
@@ -170,7 +187,17 @@ export function showConfirm({
 // shown only once).
 // Optional initialFocus: a function returning the element to focus on open,
 // for dialogs whose natural starting field is not the first focusable one.
-export function withModal({ title, bodyHtml, confirmLabel, cancelLabel, danger, onConfirm, onBodyReady, dismissable = true, initialFocus }) {
+export function withModal({
+  title,
+  bodyHtml,
+  confirmLabel,
+  cancelLabel,
+  danger,
+  onConfirm,
+  onBodyReady,
+  dismissable = true,
+  initialFocus,
+}) {
   const host = document.getElementById('modal');
   const titleEl = document.getElementById('modal-title');
   const bodyEl = document.getElementById('modal-body');
@@ -192,9 +219,12 @@ export function withModal({ title, bodyHtml, confirmLabel, cancelLabel, danger, 
   if (showCancel) cancelBtn.textContent = cancelLabel;
   openModalHost(host);
 
-  const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
-  const getFocusables = () => Array.from(host.querySelectorAll(FOCUSABLE))
-    .filter((el) => !el.hidden && el.offsetParent !== null);
+  const FOCUSABLE =
+    'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+  const getFocusables = () =>
+    Array.from(host.querySelectorAll(FOCUSABLE)).filter(
+      (el) => !el.hidden && el.offsetParent !== null,
+    );
 
   const close = () => {
     closeModalHost(host);
@@ -203,13 +233,16 @@ export function withModal({ title, bodyHtml, confirmLabel, cancelLabel, danger, 
     backdrop?.removeEventListener('click', cancel);
     document.removeEventListener('keydown', onKey);
     if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
-      try { previouslyFocused.focus(); } catch {}
+      try {
+        previouslyFocused.focus();
+      } catch {}
     }
   };
   const cancel = () => close();
   const handler = async () => {
-    try { await onConfirm?.({ close, confirmBtn }); }
-    catch {}
+    try {
+      await onConfirm?.({ close, confirmBtn });
+    } catch {}
   };
   const onKey = (event) => {
     if (event.key === 'Escape') {
@@ -253,13 +286,18 @@ export async function requestWakeLock() {
   try {
     if ('wakeLock' in navigator) {
       wakeLockSentinel = await navigator.wakeLock.request('screen');
-      wakeLockSentinel.addEventListener('release', () => { wakeLockSentinel = null; });
+      wakeLockSentinel.addEventListener('release', () => {
+        wakeLockSentinel = null;
+      });
     }
   } catch {}
 }
 export async function releaseWakeLock() {
   try {
-    if (wakeLockSentinel) { await wakeLockSentinel.release(); wakeLockSentinel = null; }
+    if (wakeLockSentinel) {
+      await wakeLockSentinel.release();
+      wakeLockSentinel = null;
+    }
   } catch {}
 }
 
@@ -274,7 +312,9 @@ window.addEventListener('appinstalled', () => {
   deferredInstallPrompt = null;
   document.dispatchEvent(new CustomEvent('pwa-installed'));
 });
-export function canInstall() { return deferredInstallPrompt !== null; }
+export function canInstall() {
+  return deferredInstallPrompt !== null;
+}
 export async function triggerInstall() {
   if (!deferredInstallPrompt) return false;
   deferredInstallPrompt.prompt();
@@ -282,15 +322,20 @@ export async function triggerInstall() {
     const { outcome } = await deferredInstallPrompt.userChoice;
     deferredInstallPrompt = null;
     return outcome === 'accepted';
-  } catch { return false; }
+  } catch {
+    return false;
+  }
 }
 
 // Service worker registration + update-available banner.
 export function registerServiceWorker() {
   if (!('serviceWorker' in navigator)) return;
-  if (location.protocol !== 'https:'
-    && location.hostname !== 'localhost'
-    && location.hostname !== '127.0.0.1') return;
+  if (
+    location.protocol !== 'https:' &&
+    location.hostname !== 'localhost' &&
+    location.hostname !== '127.0.0.1'
+  )
+    return;
 
   window.addEventListener('load', async () => {
     try {
@@ -320,9 +365,13 @@ function showUpdateBanner(worker) {
   const banner = document.getElementById('update-banner');
   if (!banner) return;
   banner.hidden = false;
-  document.getElementById('update-reload')?.addEventListener('click', () => {
-    worker.postMessage({ type: 'SKIP_WAITING' });
-  }, { once: true });
+  document.getElementById('update-reload')?.addEventListener(
+    'click',
+    () => {
+      worker.postMessage({ type: 'SKIP_WAITING' });
+    },
+    { once: true },
+  );
 }
 
 // Sync banner: shows "Offline" when navigator reports no connection, or
@@ -367,7 +416,10 @@ function refreshSyncBanner() {
 }
 
 export function initSyncBanner() {
-  pendingOutboxCount().then((count) => { syncPending = count; refreshSyncBanner(); });
+  pendingOutboxCount().then((count) => {
+    syncPending = count;
+    refreshSyncBanner();
+  });
   window.addEventListener('online', refreshSyncBanner);
   window.addEventListener('offline', refreshSyncBanner);
   on('sync:outbox-changed', ({ count } = { count: 0 }) => {

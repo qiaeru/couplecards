@@ -29,9 +29,10 @@ function int(name, defaultValue) {
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
 // Mandatory in production; a throwaway default in dev so `npm start` just works.
-const SESSION_SECRET = NODE_ENV === 'production'
-  ? required('SESSION_SECRET')
-  : (process.env.SESSION_SECRET || 'dev-secret-change-me-0123456789abcdef0123456789abcdef');
+const SESSION_SECRET =
+  NODE_ENV === 'production'
+    ? required('SESSION_SECRET')
+    : process.env.SESSION_SECRET || 'dev-secret-change-me-0123456789abcdef0123456789abcdef';
 
 // @fastify/secure-session requires an exactly 32-byte key. Truncate in bytes,
 // not characters: a multi-byte (accented) character inside the first 32

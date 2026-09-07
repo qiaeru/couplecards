@@ -73,7 +73,10 @@ async function init() {
     const username = $('register-username').value.trim().toLowerCase();
     const password = $('register-password').value;
     const confirm = $('register-confirm').value;
-    if (password !== confirm) { showError('registration.mismatch'); return; }
+    if (password !== confirm) {
+      showError('registration.mismatch');
+      return;
+    }
     const submit = e.target.querySelector('button[type="submit"]');
     submit.disabled = true;
     submit.textContent = t('registration.submitting');

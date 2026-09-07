@@ -10,11 +10,15 @@ export function readSessionUser(request) {
   if (!payload || typeof payload !== 'object') return null;
 
   const db = getDb();
-  const row = db.prepare(`
+  const row = db
+    .prepare(
+      `
     SELECT id, username, role, must_change_password AS mustChangePassword,
            is_demo AS isDemo, session_epoch AS sessionEpoch, locale
     FROM users WHERE id = ?
-  `).get(payload.id);
+  `,
+    )
+    .get(payload.id);
   if (!row) return null;
   if (row.sessionEpoch !== payload.epoch) return null;
   return {

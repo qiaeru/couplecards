@@ -1,0 +1,16 @@
+{
+  "printWidth": 100,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "arrowParens": "always",
+  "overrides": [
+    {
+      "files": ["*.json", "*.webmanifest"],
+      "options": { "printWidth": 120 }
+    },
+    {
+      "files": ["*.css", "*.yml", "*.yaml"],
+      "options": { "singleQuote": false }
+    }
+  ]
+}

@@ -17,7 +17,10 @@ export function applyFieldError(errorElId, fieldIds, code, extra = {}) {
     if (invalid) input.setAttribute('aria-invalid', 'true');
     else input.removeAttribute('aria-invalid');
   }
-  if (!code) { el.textContent = ''; return; }
+  if (!code) {
+    el.textContent = '';
+    return;
+  }
   const key = code.includes('.') ? code : `errors.${code}`;
   const fallback = t('errors.generic');
   el.textContent = t(key, extra) === key ? fallback : t(key, extra);

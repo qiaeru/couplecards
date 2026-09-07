@@ -1,8 +1,25 @@
 // SPDX-License-Identifier: MIT
 // User settings: language, vibrations, change password, logout, install PWA.
 
-import { areVibrationsEnabled, setVibrationsEnabled, areSoundsEnabled, setSoundsEnabled, canInstall, triggerInstall, toast, showConfirm, withModal } from '../../ui/shell.js';
-import { logout, setPreferences, getCachedUser, me, changePassword, getPasswordPolicy } from '../../core/auth.js';
+import {
+  areVibrationsEnabled,
+  setVibrationsEnabled,
+  areSoundsEnabled,
+  setSoundsEnabled,
+  canInstall,
+  triggerInstall,
+  toast,
+  showConfirm,
+  withModal,
+} from '../../ui/shell.js';
+import {
+  logout,
+  setPreferences,
+  getCachedUser,
+  me,
+  changePassword,
+  getPasswordPolicy,
+} from '../../core/auth.js';
 import { errorMessage } from '../../core/api.js';
 import { resetUserData, clearAllLocalState } from '../../core/sync.js';
 import { setLocale, getLocale, supportedLocales, t } from '../../core/i18n.js';
@@ -24,16 +41,20 @@ export async function mount() {
     const options = supportedLocales()
       .map((l) => ({ code: l, label: t(`settings.language.${l}`) }))
       .sort((a, b) => a.label.localeCompare(b.label));
-    langSelect.replaceChildren(...options.map(({ code, label }) => {
-      const opt = document.createElement('option');
-      opt.value = code;
-      opt.textContent = label;
-      return opt;
-    }));
+    langSelect.replaceChildren(
+      ...options.map(({ code, label }) => {
+        const opt = document.createElement('option');
+        opt.value = code;
+        opt.textContent = label;
+        return opt;
+      }),
+    );
     langSelect.value = getLocale();
     langSelect.addEventListener('change', async () => {
       await setLocale(langSelect.value);
-      try { await setPreferences({ locale: langSelect.value }); } catch {}
+      try {
+        await setPreferences({ locale: langSelect.value });
+      } catch {}
     });
   }
 
@@ -55,11 +76,16 @@ export async function mount() {
   // Install row: visibility driven by the PWA install prompt.
   const installRow = document.getElementById('install-row');
   const installBtn = document.getElementById('install-btn');
-  refreshInstall = () => { if (installRow) installRow.hidden = !canInstall(); };
+  refreshInstall = () => {
+    if (installRow) installRow.hidden = !canInstall();
+  };
   refreshInstall();
   document.addEventListener('pwa-install-available', refreshInstall);
   document.addEventListener('pwa-installed', refreshInstall);
-  installBtn?.addEventListener('click', async () => { await triggerInstall(); refreshInstall(); });
+  installBtn?.addEventListener('click', async () => {
+    await triggerInstall();
+    refreshInstall();
+  });
 
   // Reset data (history + bans). Hidden for the shared demo account: its
   // state is already wiped server-side at each sign-in.
@@ -128,10 +154,14 @@ export function unmount() {
 }
 
 async function openChangePasswordDialog() {
-  const user = getCachedUser() || await me();
-  if (!user) { navigate('home'); return; }
+  const user = getCachedUser() || (await me());
+  if (!user) {
+    navigate('home');
+    return;
+  }
   const policy = await getPasswordPolicy().catch(() => null);
-  const minScore = user.role === 'admin' ? (policy?.zxcvbnMinScoreAdmin ?? 4) : (policy?.zxcvbnMinScoreUser ?? 3);
+  const minScore =
+    user.role === 'admin' ? (policy?.zxcvbnMinScoreAdmin ?? 4) : (policy?.zxcvbnMinScoreUser ?? 3);
 
   withModal({
     title: t('changePassword.title'),
@@ -169,7 +199,10 @@ async function openChangePasswordDialog() {
       const confirm = document.getElementById('cp-confirm').value;
       const err = document.getElementById('cp-error');
       err.textContent = '';
-      if (next !== confirm) { err.textContent = t('changePassword.mismatch'); return; }
+      if (next !== confirm) {
+        err.textContent = t('changePassword.mismatch');
+        return;
+      }
       confirmBtn.disabled = true;
       try {
         await changePassword(current, next);

@@ -52,7 +52,9 @@ export async function initI18n(preferred) {
 export async function setLocale(locale) {
   if (!SUPPORTED.has(locale)) return;
   if (locale === current) return;
-  try { localStorage.setItem(LOCALE_KEY, locale); } catch {}
+  try {
+    localStorage.setItem(LOCALE_KEY, locale);
+  } catch {}
   await initI18n(locale);
 }
 
@@ -83,13 +85,21 @@ export function tn(key, count, params) {
   const category = rules.select(count);
   const variant = `${key}.${category}`;
   const otherKey = `${key}.other`;
-  const str = catalogue[variant] ?? catalogue[otherKey] ?? fallbackCatalogue[variant] ?? fallbackCatalogue[otherKey] ?? key;
+  const str =
+    catalogue[variant] ??
+    catalogue[otherKey] ??
+    fallbackCatalogue[variant] ??
+    fallbackCatalogue[otherKey] ??
+    key;
   return interpolate(str, { count, ...params });
 }
 
 export function fmtDate(date, options) {
   const d = typeof date === 'string' ? new Date(date) : date;
-  return new Intl.DateTimeFormat(current, options ?? { dateStyle: 'medium', timeStyle: 'short' }).format(d);
+  return new Intl.DateTimeFormat(
+    current,
+    options ?? { dateStyle: 'medium', timeStyle: 'short' },
+  ).format(d);
 }
 
 // Contextual date format for list entries. Month spelled in full, joined to
@@ -125,9 +135,13 @@ function announceLocale(locale) {
   const el = document.getElementById('screen-announce');
   if (!el) return;
   let name = locale;
-  try { name = new Intl.DisplayNames([locale], { type: 'language' }).of(locale) || locale; } catch {}
+  try {
+    name = new Intl.DisplayNames([locale], { type: 'language' }).of(locale) || locale;
+  } catch {}
   el.textContent = name;
-  setTimeout(() => { el.textContent = ''; }, 1500);
+  setTimeout(() => {
+    el.textContent = '';
+  }, 1500);
 }
 
 // Re-apply static translations whenever the locale changes, and announce the

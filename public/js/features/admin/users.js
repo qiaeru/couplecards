@@ -40,10 +40,18 @@ function renderUsersList(users) {
     const locked = u.lockedUntil ? new Date(u.lockedUntil + 'Z') : null;
     const isLocked = locked && locked > new Date();
     const badges = [];
-    if (isAdmin) badges.push(`<span class="action-tag admin-role">${escapeHtml(t('admin.users.admin'))}</span>`);
-    if (isDemo) badges.push(`<span class="action-tag demo-role">${escapeHtml(t('admin.users.demo'))}</span>`);
-    if (isLocked) badges.push(`<span class="action-tag banned">${escapeHtml(t('admin.users.locked'))}</span>`);
-    if (u.mustChangePassword) badges.push(`<span class="action-tag returned">${escapeHtml(t('admin.users.mustChange'))}</span>`);
+    if (isAdmin)
+      badges.push(
+        `<span class="action-tag admin-role">${escapeHtml(t('admin.users.admin'))}</span>`,
+      );
+    if (isDemo)
+      badges.push(`<span class="action-tag demo-role">${escapeHtml(t('admin.users.demo'))}</span>`);
+    if (isLocked)
+      badges.push(`<span class="action-tag banned">${escapeHtml(t('admin.users.locked'))}</span>`);
+    if (u.mustChangePassword)
+      badges.push(
+        `<span class="action-tag returned">${escapeHtml(t('admin.users.mustChange'))}</span>`,
+      );
     // Demo account can only be deleted; its password, username, and lock state
     // are managed by the seed / login logic.
     const showUnlock = isLocked && !isAdmin && !isDemo;
@@ -51,11 +59,21 @@ function renderUsersList(users) {
     const showReset = !isAdmin && !isDemo;
     const showDelete = !isAdmin;
     const actions = [
-      showUnlock ? `<button class="btn btn-sm" data-action="unlock" data-id="${u.id}">${escapeHtml(t('admin.users.unlock'))}</button>` : '',
-      showRename ? `<button class="btn btn-sm" data-action="rename" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('admin.users.rename'))}</button>` : '',
-      showReset ? `<button class="btn btn-sm" data-action="reset" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('admin.users.reset'))}</button>` : '',
-      showDelete ? `<button class="btn btn-sm btn-danger" data-action="delete" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('common.delete'))}</button>` : '',
-    ].filter(Boolean).join('');
+      showUnlock
+        ? `<button class="btn btn-sm" data-action="unlock" data-id="${u.id}">${escapeHtml(t('admin.users.unlock'))}</button>`
+        : '',
+      showRename
+        ? `<button class="btn btn-sm" data-action="rename" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('admin.users.rename'))}</button>`
+        : '',
+      showReset
+        ? `<button class="btn btn-sm" data-action="reset" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('admin.users.reset'))}</button>`
+        : '',
+      showDelete
+        ? `<button class="btn btn-sm btn-danger" data-action="delete" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('common.delete'))}</button>`
+        : '',
+    ]
+      .filter(Boolean)
+      .join('');
     row.innerHTML = `
       <div class="list-item-main">
         <div class="list-item-title">${escapeHtml(u.username)}</div>
@@ -131,7 +149,10 @@ function renameUser(id, username) {
       const err = document.getElementById('rename-user-error');
       err.textContent = '';
       const next = document.getElementById('rename-user-input').value.trim().toLowerCase();
-      if (!next || next === username) { close(); return; }
+      if (!next || next === username) {
+        close();
+        return;
+      }
       confirmBtn.disabled = true;
       try {
         await request(`/api/admin/users/${id}`, { method: 'PATCH', body: { username: next } });
@@ -195,13 +216,18 @@ function inactiveCutoff(period) {
 // falls back to creation for accounts that never logged in, like the server.
 function countInactive(period) {
   const cutoff = inactiveCutoff(period);
-  return allUsers.filter((u) => u.role === 'user' && !u.isDemo
-    && new Date((u.lastLoginAt || u.createdAt) + 'Z') < cutoff).length;
+  return allUsers.filter(
+    (u) =>
+      u.role === 'user' && !u.isDemo && new Date((u.lastLoginAt || u.createdAt) + 'Z') < cutoff,
+  ).length;
 }
 
 async function pruneInactive(period) {
   const count = countInactive(period);
-  if (count === 0) { toast(t('admin.users.inactive.none')); return; }
+  if (count === 0) {
+    toast(t('admin.users.inactive.none'));
+    return;
+  }
   const periodLabel = t(`admin.users.inactive.period.${period}`);
   const ok = await showConfirm({
     title: t('admin.users.inactive.confirm'),
@@ -211,7 +237,10 @@ async function pruneInactive(period) {
     danger: true,
   });
   if (!ok) return;
-  const res = await request('/api/admin/users/prune-inactive', { method: 'POST', body: { period } });
+  const res = await request('/api/admin/users/prune-inactive', {
+    method: 'POST',
+    body: { period },
+  });
   toast(tn('admin.users.inactive.toast', res.deleted));
   await renderUsers();
 }
@@ -237,7 +266,11 @@ export async function mount() {
 
   const toggle = document.getElementById('admin-registration-toggle');
   if (toggle) {
-    request('/api/admin/registration').then((d) => { toggle.checked = !!d.enabled; }).catch(() => {});
+    request('/api/admin/registration')
+      .then((d) => {
+        toggle.checked = !!d.enabled;
+      })
+      .catch(() => {});
     toggle.addEventListener('change', async () => {
       const enabled = toggle.checked;
       try {
@@ -266,7 +299,9 @@ export async function mount() {
 
   // Re-render from the cached list: usernames are locale-independent, only
   // the labels and date formats change, so no refetch is needed.
-  on('i18n:change', () => { renderUsersList(filterUsers()); });
+  on('i18n:change', () => {
+    renderUsersList(filterUsers());
+  });
 
   document.getElementById('admin-users-search')?.addEventListener('input', (e) => {
     usersQuery = e.target.value;

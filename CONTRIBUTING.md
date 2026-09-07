@@ -6,7 +6,7 @@ Thank you for considering a contribution. The project is intentionally small and
 
 - **English everywhere in the source tree.** This applies to comments, commit messages, pull request descriptions, documentation, identifiers (variables, functions, route paths, SQL columns), and anything else a reviewer reads. The only French strings allowed in the codebase live in `public/locales/fr.json`.
 - **No external network calls at runtime.** The app is self-contained and a fresh install must work offline after the initial boot.
-- **No new mandatory tooling** such as linters, formatters, or test frameworks that a non-technical maintainer would have to run locally. Build-time tools like esbuild are fine as long as they remain invisible inside the Docker build.
+- **No tooling a maintainer has to run.** The repo ships ESLint, Prettier, a set of consistency checks, and a test suite, but running an instance never touches any of them: `docker compose up` builds and boots without them, and CI enforces them on every pull request. Build-time tools like esbuild stay invisible inside the Docker build.
 - **No telemetry, no analytics, no third-party trackers.** Ever.
 
 ## Development setup
@@ -48,6 +48,33 @@ Open <http://localhost:3000>, then sign in with `couplecards` and the password `
 ## Project layout
 
 See [docs/architecture.md](./docs/architecture.md) for the full breakdown.
+
+## Checks
+
+Install the root dependencies once (`npm install`), then run everything with `npm run check`. CI runs the same four commands on every pull request, so a green local run means a green pull request.
+
+| Command | What it covers |
+| --- | --- |
+| `npm run format:check` | Prettier over JS, CSS, JSON, and YAML. `npm run format` rewrites in place. HTML and Markdown are excluded on purpose: Prettier explodes inline SVGs and pads Markdown tables. |
+| `npm run lint` | ESLint over the browser modules, the service worker, and the server. `npm run lint:fix` applies what it can. |
+| `npm run check:repo` | The invariants no linter knows about, described below. |
+| `npm test` | The server suite, on Node's built-in test runner. No framework to install. |
+
+`npm run check:repo` runs five checks, and you can run one alone by naming it, for example `node scripts/check.mjs i18n`:
+
+- `locales` compares the supported-locale list the server holds against the copy in `public/js/core/i18n.js`, and confirms each locale ships its catalogue, its web manifest, and its card file.
+- `i18n` confirms every locale carries the same keys as English with none left empty, that every key the source tree asks for exists, and that no key sits unused.
+- `sw-shell` confirms the service worker precaches every file under `public/js`, `public/css`, `public/views`, and `public/locales`, and that it lists nothing that no longer exists.
+- `cards` reads `data/cards.<locale>.json` through the server's own deck reader, so a deck that passes here is a deck the server accepts at boot. It also confirms every emoji slug has its SVG.
+- `references` resolves every relative and root-absolute import, plus the `src` and `href` attributes of the HTML pages. The comparison is case-sensitive, since Windows and macOS serve `core/API.js` for `core/api.js` and the Linux container does not.
+
+One check needs a diff base and therefore runs only in CI, or by hand against a base branch:
+
+```bash
+node scripts/check-sw-version.mjs origin/main
+```
+
+It fails when a change touches a precached asset without moving the `VERSION` constant in `public/sw.js`. Browsers keep serving the old cached shell until that string changes, so the fix ships and nobody sees it. Deck emoji under `public/icons/emoji/` are exempt, because the service worker caches them at runtime on first fetch.
 
 ## Licenses and dependencies
 

@@ -30,13 +30,22 @@ function onTabKey(event) {
   const currentName = event.currentTarget.id.replace(/^admin-tab-/, '');
   const currentIndex = TABS.indexOf(currentName);
   if (currentIndex < 0) return;
-  let nextIndex = null;
+  let nextIndex;
   switch (event.key) {
-    case 'ArrowLeft':  nextIndex = (currentIndex - 1 + TABS.length) % TABS.length; break;
-    case 'ArrowRight': nextIndex = (currentIndex + 1) % TABS.length; break;
-    case 'Home':       nextIndex = 0; break;
-    case 'End':        nextIndex = TABS.length - 1; break;
-    default: return;
+    case 'ArrowLeft':
+      nextIndex = (currentIndex - 1 + TABS.length) % TABS.length;
+      break;
+    case 'ArrowRight':
+      nextIndex = (currentIndex + 1) % TABS.length;
+      break;
+    case 'Home':
+      nextIndex = 0;
+      break;
+    case 'End':
+      nextIndex = TABS.length - 1;
+      break;
+    default:
+      return;
   }
   event.preventDefault();
   activateTab(TABS[nextIndex], { focus: true });
@@ -44,9 +53,18 @@ function onTabKey(event) {
 
 async function init() {
   const user = await me();
-  if (!user) { location.replace('/login.html?next=/admin.html'); return; }
-  if (user.role !== 'admin') { location.replace('/'); return; }
-  if (user.mustChangePassword) { location.replace('/login.html?forceChange=1'); return; }
+  if (!user) {
+    location.replace('/login.html?next=/admin.html');
+    return;
+  }
+  if (user.role !== 'admin') {
+    location.replace('/');
+    return;
+  }
+  if (user.mustChangePassword) {
+    location.replace('/login.html?forceChange=1');
+    return;
+  }
 
   await initI18n(user.locale);
   applyI18n(document);
@@ -68,16 +86,20 @@ async function init() {
     const options = supportedLocales()
       .map((l) => ({ code: l, label: t(`settings.language.${l}`) }))
       .sort((a, b) => a.label.localeCompare(b.label));
-    langSelect.replaceChildren(...options.map(({ code, label }) => {
-      const opt = document.createElement('option');
-      opt.value = code;
-      opt.textContent = label;
-      return opt;
-    }));
+    langSelect.replaceChildren(
+      ...options.map(({ code, label }) => {
+        const opt = document.createElement('option');
+        opt.value = code;
+        opt.textContent = label;
+        return opt;
+      }),
+    );
     langSelect.value = getLocale();
     langSelect.addEventListener('change', async () => {
       await setLocale(langSelect.value);
-      try { await setPreferences({ locale: langSelect.value }); } catch {}
+      try {
+        await setPreferences({ locale: langSelect.value });
+      } catch {}
     });
   }
 
