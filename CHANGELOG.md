@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Changed
 
 - The developer link in the sign-in footer now points to qiaeru.com, the site's new address.
+- The repository now ships ESLint, Prettier, five repo consistency checks and a server test suite, all run by CI on every pull request. Running an instance is unaffected: `docker compose up` needs none of them.
 
 ## [1.14.0] - 2026-08-24
 
