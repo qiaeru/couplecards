@@ -15,9 +15,10 @@ jobs:
       - name: Build Docker image
         run: docker build --build-arg VERSION=ci --build-arg REVISION=${{ github.sha }} -t couplecards:ci .
 
-      # The root package.json only has devDependencies, but those are exactly
-      # the libraries bundled into public/vendor/ and shipped to browsers, so
-      # install them and check without --production.
+      # The root package.json holds two kinds of devDependencies: the libraries
+      # bundled into public/vendor/ and shipped to browsers, and the local
+      # tooling (ESLint, Prettier). Scanning both is deliberate: it is one
+      # allowlist to maintain instead of two, and the tooling is small.
       - name: Install root dependencies
         run: npm ci --no-audit --no-fund
 
@@ -29,3 +30,44 @@ jobs:
         run: |
           npm install --omit=dev --no-audit --no-fund
           npx --yes license-checker --production --onlyAllow 'MIT;Apache-2.0;BSD-2-Clause;BSD-3-Clause;ISC;OFL-1.1;CC0-1.0;Unlicense;0BSD;BlueOak-1.0.0' --excludePrivatePackages
+
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # check-sw-version needs the merge base, which a shallow clone lacks.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            server/package-lock.json
+
+      - name: Install root dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Install server dependencies
+        working-directory: server
+        run: npm ci --no-audit --no-fund
+
+      - name: Format
+        run: npm run format:check
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Repo consistency
+        run: npm run check:repo
+
+      - name: Tests
+        run: npm test
+
+      # Any change to a precached asset must move the service worker's VERSION
+      # or clients keep serving the old shell from cache.
+      - name: Service worker cache version
+        if: github.event_name == 'pull_request'
+        run: node scripts/check-sw-version.mjs origin/${{ github.base_ref }}
