@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- The developer link in the sign-in footer now points to qiaeru.com, the site's new address.
+
 ## [1.14.0] - 2026-08-24
 
 ### Added

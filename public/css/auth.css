@@ -90,7 +90,7 @@ body { font-family: var(--font); }
 }
 .auth-footer-sep { opacity: 0.45; }
 
-/* qiae.ru lockup: the head sits on an organic orange blob, mirroring the source
+/* qiaeru.com lockup: the head sits on an organic orange blob, mirroring the source
    site (CSS blob, not part of the SVG). */
 .qiaeru-logo {
   position: relative;
