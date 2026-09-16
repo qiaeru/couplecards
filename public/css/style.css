@@ -1098,12 +1098,14 @@ body::before {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
+/* The track paints above the invisible checkbox: let taps fall through to
+   it, or the visible switch does nothing and only the row label toggles. */
 .slider {
   position: absolute;
   inset: 0;
   background: color-mix(in srgb, white 15%, transparent);
   border-radius: 999px;
-  cursor: pointer;
+  pointer-events: none;
   transition: background 0.2s;
 }
 .slider::before {
