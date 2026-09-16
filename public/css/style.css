@@ -222,17 +222,34 @@ body::before {
   }
 }
 
-/* View Transitions API (Chromium / Safari 18+): the outlet gets its own
-   group so the incoming screen slides in while the chrome stays put, and
-   the .screen entrance is dropped there so the swap animates once. */
+/* View Transitions API (Chromium / Safari 18+): the root snapshot slides in
+   and the .screen entrance is dropped there so the swap animates once. The
+   root, not the outlet, is what slides: an element snapshot is taken at its
+   scrolled position and would jump when the next screen lands at the top.
+   The chrome keeps its own groups so it stays put instead of sliding along. */
 @media (prefers-reduced-motion: no-preference) {
-  #view {
-    view-transition-name: view;
+  .app-bottom-nav {
+    view-transition-name: nav;
   }
-  ::view-transition-old(view) {
+  .demo-banner {
+    view-transition-name: demo-banner;
+  }
+  .sync-banner {
+    view-transition-name: sync-banner;
+  }
+  .update-banner {
+    view-transition-name: update-banner;
+  }
+  #toast {
+    view-transition-name: toast;
+  }
+  .scroll-to-top {
+    view-transition-name: scroll-top;
+  }
+  ::view-transition-old(root) {
     animation: screen-out 0.2s var(--ease-out) both;
   }
-  ::view-transition-new(view) {
+  ::view-transition-new(root) {
     animation: screen-in 0.32s var(--ease-out) both;
   }
   @supports (view-transition-name: none) {
