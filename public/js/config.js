@@ -3,11 +3,10 @@
 
 export const CONFIG = {
   draw: {
-    enterDuration: 700,
-    chargeDuration: 1900,
-    climaxDuration: 500,
-    flipDuration: 700,
-    revealDelay: 900,
+    enterDuration: 400,
+    chargeDuration: 800,
+    flipDuration: 500,
+    revealDelay: 150,
     reducedMotionShort: 150,
   },
   recentExclude: { home: 3, outdoor: 5 },

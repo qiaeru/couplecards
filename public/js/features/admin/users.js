@@ -41,16 +41,14 @@ function renderUsersList(users) {
     const isLocked = locked && locked > new Date();
     const badges = [];
     if (isAdmin)
-      badges.push(
-        `<span class="action-tag admin-role">${escapeHtml(t('admin.users.admin'))}</span>`,
-      );
+      badges.push(`<span class="tag tag-accent">${escapeHtml(t('admin.users.admin'))}</span>`);
     if (isDemo)
-      badges.push(`<span class="action-tag demo-role">${escapeHtml(t('admin.users.demo'))}</span>`);
+      badges.push(`<span class="tag tag-accent">${escapeHtml(t('admin.users.demo'))}</span>`);
     if (isLocked)
-      badges.push(`<span class="action-tag banned">${escapeHtml(t('admin.users.locked'))}</span>`);
+      badges.push(`<span class="tag tag-danger">${escapeHtml(t('admin.users.locked'))}</span>`);
     if (u.mustChangePassword)
       badges.push(
-        `<span class="action-tag returned">${escapeHtml(t('admin.users.mustChange'))}</span>`,
+        `<span class="tag tag-warning">${escapeHtml(t('admin.users.mustChange'))}</span>`,
       );
     // Demo account can only be deleted; its password, username, and lock state
     // are managed by the seed / login logic.

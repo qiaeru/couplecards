@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#1a0f35">
+  <meta name="theme-color" content="#16121d">
   <title>Couplecards - Administration</title>
   <link rel="stylesheet" href="/css/fonts.css">
   <link rel="stylesheet" href="/css/themes.css">
@@ -37,7 +37,7 @@
         <label for="admin-create-user-input" class="admin-inline-form-label" data-i18n="login.username">Username</label>
         <div class="admin-inline-form-row">
           <input type="text" id="admin-create-user-input" required minlength="3" maxlength="32" pattern="[a-z0-9._\-]+">
-          <button type="submit" class="btn btn-success btn-with-icon">
+          <button type="submit" class="btn btn-primary btn-with-icon">
             <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             <span data-i18n="admin.users.create">Create a user</span>
           </button>
@@ -46,11 +46,11 @@
       </form>
       <div class="admin-inline-form">
         <div class="admin-registration-row">
-          <span id="admin-registration-label" class="admin-inline-form-label" data-i18n="admin.registration">Public registration</span>
-          <label class="switch">
-            <input type="checkbox" id="admin-registration-toggle" aria-labelledby="admin-registration-label">
+          <label for="admin-registration-toggle" class="admin-inline-form-label" data-i18n="admin.registration">Public registration</label>
+          <span class="switch">
+            <input type="checkbox" id="admin-registration-toggle">
             <span class="slider"></span>
-          </label>
+          </span>
         </div>
         <small class="admin-inline-form-hint" data-i18n="admin.registration.hint"></small>
       </div>
@@ -65,7 +65,7 @@
               <option value="1y" data-i18n="admin.users.inactive.period.1y">1 year</option>
             </select>
           </label>
-          <button type="submit" class="btn btn-danger" id="admin-prune-submit" data-i18n="admin.users.inactive.delete">Delete inactive accounts</button>
+          <button type="submit" class="btn btn-danger-outline" id="admin-prune-submit" data-i18n="admin.users.inactive.delete">Delete inactive accounts</button>
         </div>
         <small class="admin-inline-form-hint" data-i18n="admin.users.inactive.hint"></small>
       </form>
@@ -88,7 +88,7 @@
           <div class="deck-tools-row">
             <button type="button" class="btn btn-sm" id="admin-deck-export" data-i18n="admin.cards.tools.export">Export a backup</button>
             <button type="button" class="btn btn-sm" id="admin-deck-import" data-i18n="admin.cards.tools.importBackup">Import a backup</button>
-            <button type="button" class="btn btn-sm btn-danger" id="admin-deck-delete-all" data-i18n="admin.cards.tools.deleteAll">Delete all cards</button>
+            <button type="button" class="btn btn-sm btn-danger-outline" id="admin-deck-delete-all" data-i18n="admin.cards.tools.deleteAll">Delete all cards</button>
             <input type="file" id="admin-deck-import-input" accept="application/zip,.zip,application/json,.json" hidden>
           </div>
         </div>
@@ -100,7 +100,7 @@
                data-i18n-attr="placeholder:admin.cards.search">
       </label>
 
-      <button id="admin-create-card-btn" class="btn btn-success btn-with-icon" type="button">
+      <button id="admin-create-card-btn" class="btn btn-primary btn-with-icon" type="button">
         <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         <span data-i18n="admin.cards.create">Add a card</span>
       </button>
@@ -110,12 +110,12 @@
     <section id="admin-panel-settings" class="admin-panel" role="tabpanel" aria-labelledby="admin-tab-settings" hidden>
       <div class="settings">
         <div class="setting-row">
-          <span id="admin-language-label" data-i18n="settings.language">Language</span>
-          <select id="admin-language" class="setting-select" aria-labelledby="admin-language-label"></select>
+          <label for="admin-language" data-i18n="settings.language">Language</label>
+          <select id="admin-language" class="setting-select"></select>
         </div>
         <div class="setting-row">
-          <span data-i18n="settings.logout">Log out</span>
-          <button class="btn btn-sm btn-danger" id="admin-logout" type="button" data-i18n="settings.logout.action">Log out</button>
+          <label for="admin-logout" data-i18n="settings.logout">Log out</label>
+          <button class="btn btn-sm" id="admin-logout" type="button" data-i18n="settings.logout.action">Log out</button>
         </div>
       </div>
     </section>

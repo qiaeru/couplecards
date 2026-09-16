@@ -47,8 +47,9 @@ export function setSoundsEnabled(on) {
 }
 
 // Optional `action` is { label, onClick } and renders a trailing button;
-// clicking it dismisses the toast and invokes onClick. Default duration
-// doubles to 5s when an action is present so the user has time to react.
+// clicking it dismisses the toast and invokes onClick. A toast with an action
+// has no timer: it stays until the user reacts, closes it, or another toast
+// replaces it.
 export function toast(message, options = {}) {
   const el = document.getElementById('toast');
   if (!el) return;
@@ -58,6 +59,7 @@ export function toast(message, options = {}) {
   // Animated dismissal; the timeout (not animationend) hides the element so
   // reduced motion, where the animation is disabled, still ends hidden.
   const dismiss = () => {
+    clearTimeout(toast._timer);
     el.classList.add('leaving');
     toast._hideTimer = setTimeout(() => {
       el.hidden = true;
@@ -65,7 +67,7 @@ export function toast(message, options = {}) {
     }, 200);
   };
   const action = options.action || null;
-  const duration = options.duration ?? (action ? 5000 : 1800);
+  const duration = options.duration ?? (action ? 0 : 1800);
   el.replaceChildren(document.createTextNode(message));
   if (action) {
     const btn = document.createElement('button');
@@ -73,7 +75,6 @@ export function toast(message, options = {}) {
     btn.className = 'toast-action';
     btn.textContent = action.label;
     btn.addEventListener('click', () => {
-      clearTimeout(toast._timer);
       dismiss();
       try {
         action.onClick();
@@ -81,9 +82,30 @@ export function toast(message, options = {}) {
     });
     el.appendChild(btn);
   }
+  if (duration <= 0) {
+    const close = document.createElement('button');
+    close.type = 'button';
+    close.className = 'toast-close';
+    close.setAttribute('aria-label', t('common.dismiss'));
+    close.innerHTML =
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+    close.addEventListener('click', dismiss);
+    el.appendChild(close);
+  }
   el.hidden = false;
-  toast._timer = setTimeout(dismiss, duration);
+  if (duration > 0) toast._timer = setTimeout(dismiss, duration);
+  toast._dismiss = duration > 0 ? null : dismiss;
 }
+
+// A toast that waits for the user must not outlive its screen: on the next
+// one it would cover the controls with a stale "Undo". Callers that toast
+// right after navigating wait for route:mounted, so the fresh toast survives.
+window.addEventListener('hashchange', () => {
+  if (toast._dismiss) {
+    toast._dismiss();
+    toast._dismiss = null;
+  }
+});
 
 // Animated modal dismissal shared by showConfirm and withModal. The timeout
 // (not animationend) hides the element so reduced motion, where the

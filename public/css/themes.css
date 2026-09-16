@@ -1,58 +1,89 @@
 /* SPDX-License-Identifier: MIT */
+/* Design tokens. Every color, size, radius, shadow and easing the other
+   stylesheets use lives here; `npm run check:repo` (css-tokens) fails when a
+   raw value shows up elsewhere. */
 
 :root {
-  --bg-0: #0f0820;
-  --bg-1: #1a0f35;
-  --bg-2: #2a1450;
-  --surface: rgba(50, 30, 84, 0.72);
-  --surface-solid: #261447;
-  --surface-border: rgba(255, 255, 255, 0.16);
+  /* Surfaces, from the page background up. */
+  --bg: #16121d;
+  --surface: #1f1a29;
+  --surface-2: #2a2338;
+  --border: rgba(255, 255, 255, 0.12);
+  --border-strong: rgba(255, 255, 255, 0.32);
+  --scrim: rgba(8, 5, 14, 0.7);
 
-  /* Shared parchment wash used by every tile (list items, setting rows,
-     admin forms, deck tools, modals, icon buttons) and by the rules panel.
-     Contains only image layers so consumers can pick their own base color
-     via `background-color` (translucent for floating tiles, opaque for
-     dialogs). */
-  --tile-surface:
-    radial-gradient(circle at 50% 0%, rgba(255, 210, 150, 0.06), transparent 55%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.015));
-  --text: #f7f2ff;
-  --text-soft: #d2c6ef;
-  --text-muted: #a89dcc;
+  /* Text, from the most to the least prominent. */
+  --text: #f4f0f9;
+  --text-2: #b9b0c9;
+  --text-3: #958ba3;
 
+  /* One accent (the brand pink), one destructive hue kept clear of it, one
+     positive hue, one warning hue. `-soft` variants are tinted fills for
+     tags, chips and quiet buttons. */
   --accent: #ec5a9e;
-  --accent-2: #f49cc5;
-  --accent-contrast: #1a0730;
+  --accent-soft: rgba(236, 90, 158, 0.1);
+  --on-accent: #1c0912;
+  --danger: #ff7a5c;
+  --danger-soft: rgba(255, 122, 92, 0.16);
+  --success: #4fd39a;
+  --success-soft: rgba(79, 211, 154, 0.16);
+  --warning: #e9b44c;
+  --warning-soft: rgba(233, 180, 76, 0.16);
 
-  --home-1: #ff9a6c;
-  --home-2: #ff5e8e;
-  --home-glow: rgba(255, 120, 150, 0.55);
+  /* Gold is reserved for the card itself. */
+  --gold: #e2c07c;
+  --gold-soft: rgba(226, 192, 124, 0.4);
+  --gold-faint: rgba(226, 192, 124, 0.14);
 
-  --outdoor-1: #7ab8ff;
-  --outdoor-2: #9b7aff;
-  --outdoor-glow: rgba(130, 160, 255, 0.55);
+  /* Pile hues, far apart from each other and from the accent. */
+  --home: #f0a070;
+  --home-soft: rgba(240, 160, 112, 0.16);
+  --outdoor: #7fb4e8;
+  --outdoor-soft: rgba(127, 180, 232, 0.16);
 
-  --danger: #ff6677;
-  --success: #2fcf8a;
-  /* Brighter variants for glowing stamps and labels sitting on the dark
-     card faces, where the base tones lack punch. */
-  --danger-bright: #ff6680;
-  --success-bright: #4ee09a;
+  /* The developer lockup in the auth footer mirrors qiaeru.com. */
+  --qiaeru-blob: #e3a282;
 
-  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
-  --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.55);
-  --shadow-color-pink: 0 14px 40px rgba(236, 90, 158, 0.35);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 24px 48px rgba(0, 0, 0, 0.5);
 
-  --radius-sm: 12px;
-  --radius-md: 18px;
-  --radius-lg: 26px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-pill: 999px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 48px;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.125rem;
+  --text-lg: 1.375rem;
+  --text-xl: 1.75rem;
+  --text-2xl: 2.25rem;
+  --leading-tight: 1.15;
+  --leading-snug: 1.3;
+  --leading-normal: 1.5;
 
   --font: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-display: "Fraunces", "Georgia", "Times New Roman", serif;
 
-  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
-  --dur-slow: 450ms;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --dur-fast: 150ms;
+  --dur: 250ms;
+  --dur-slow: 400ms;
+
+  /* Height of the bottom navigation, so floating layers can sit above it. */
+  --nav-height: 64px;
 
   color-scheme: dark;
 }

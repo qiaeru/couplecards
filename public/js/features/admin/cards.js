@@ -71,7 +71,7 @@ function renderCardsList(cards) {
     row.innerHTML = `
       <div class="list-item-main">
         <div class="list-item-header">
-          <span class="pile-badge ${card.pile}">${escapeHtml(t(`piles.${card.pile}.label`))}</span>
+          <span class="tag tag-${card.pile}">${escapeHtml(t(`piles.${card.pile}.label`))}</span>
           <span class="list-item-title">${escapeHtml(title)}${card.foil ? ' ✦' : ''}</span>
         </div>
         <div class="list-item-meta">${escapeHtml(description)}</div>

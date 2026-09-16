@@ -60,13 +60,14 @@ Install the root dependencies once (`npm install`), then run everything with `np
 | `npm run check:repo` | The invariants no linter knows about, described below. |
 | `npm test` | The server suite, on Node's built-in test runner. No framework to install. |
 
-`npm run check:repo` runs five checks, and you can run one alone by naming it, for example `node scripts/check.mjs i18n`:
+`npm run check:repo` runs six checks, and you can run one alone by naming it, for example `node scripts/check.mjs i18n`:
 
 - `locales` compares the supported-locale list the server holds against the copy in `public/js/core/i18n.js`, and confirms each locale ships its catalogue, its web manifest, and its card file.
 - `i18n` confirms every locale carries the same keys as English with none left empty, that every key the source tree asks for exists, and that no key sits unused.
 - `sw-shell` confirms the service worker precaches every file under `public/js`, `public/css`, `public/views`, and `public/locales`, and that it lists nothing that no longer exists.
 - `cards` reads `data/cards.<locale>.json` through the server's own deck reader, so a deck that passes here is a deck the server accepts at boot. It also confirms every emoji slug has its SVG.
 - `references` resolves every relative and root-absolute import, plus the `src` and `href` attributes of the HTML pages. The comparison is case-sensitive, since Windows and macOS serve `core/API.js` for `core/api.js` and the Linux container does not.
+- `css-tokens` keeps every stylesheet on the design tokens declared in `public/css/themes.css`: a raw color, a `font-size` in rem or px, or a `cubic-bezier()` anywhere else fails. Add the value as a token first, then use it.
 
 One check needs a diff base and therefore runs only in CI, or by hand against a base branch:
 

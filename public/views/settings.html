@@ -8,37 +8,37 @@
 </header>
 <div class="settings">
   <div class="setting-row" id="install-row" hidden>
-    <span data-i18n="settings.install">Install the app</span>
+    <label for="install-btn" data-i18n="settings.install">Install the app</label>
     <button class="btn btn-sm btn-primary" id="install-btn" type="button" data-i18n="settings.install.action">Install</button>
   </div>
   <div class="setting-row">
-    <span id="setting-language-label" data-i18n="settings.language">Language</span>
-    <select id="setting-language" class="setting-select" aria-labelledby="setting-language-label"></select>
+    <label for="setting-language" data-i18n="settings.language">Language</label>
+    <select id="setting-language" class="setting-select"></select>
   </div>
   <div class="setting-row">
-    <span id="setting-sounds-label" data-i18n="settings.sounds">Sound effects</span>
-    <label class="switch">
-      <input type="checkbox" id="setting-sounds" aria-labelledby="setting-sounds-label">
+    <label for="setting-sounds" data-i18n="settings.sounds">Sound effects</label>
+    <span class="switch">
+      <input type="checkbox" id="setting-sounds">
       <span class="slider"></span>
-    </label>
+    </span>
   </div>
   <div class="setting-row">
-    <span id="setting-vibrations-label" data-i18n="settings.vibrations">Vibrations</span>
-    <label class="switch">
-      <input type="checkbox" id="setting-vibrations" aria-labelledby="setting-vibrations-label">
+    <label for="setting-vibrations" data-i18n="settings.vibrations">Vibrations</label>
+    <span class="switch">
+      <input type="checkbox" id="setting-vibrations">
       <span class="slider"></span>
-    </label>
+    </span>
   </div>
   <div class="setting-row">
-    <span data-i18n="settings.changePassword">Change my password</span>
+    <label for="btn-change-password" data-i18n="settings.changePassword">Change my password</label>
     <button class="btn btn-sm" id="btn-change-password" type="button" data-i18n="common.edit">Edit</button>
   </div>
   <div class="setting-row" id="reset-data-row">
-    <span data-i18n="settings.resetData">Reset my data</span>
-    <button class="btn btn-sm btn-danger" id="btn-reset-data" type="button" data-i18n="settings.resetData.action">Reset</button>
+    <label for="btn-reset-data" data-i18n="settings.resetData">Reset my data</label>
+    <button class="btn btn-sm btn-danger-outline" id="btn-reset-data" type="button" data-i18n="settings.resetData.action">Reset</button>
   </div>
   <div class="setting-row">
-    <span data-i18n="settings.logout">Log out</span>
-    <button class="btn btn-sm btn-danger" id="btn-logout" type="button" data-i18n="settings.logout.action">Log out</button>
+    <label for="btn-logout" data-i18n="settings.logout">Log out</label>
+    <button class="btn btn-sm" id="btn-logout" type="button" data-i18n="settings.logout.action">Log out</button>
   </div>
 </div>

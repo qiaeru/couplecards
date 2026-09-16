@@ -52,10 +52,7 @@ async function boot() {
   wireBottomNav();
   if (user.isDemo) {
     const banner = document.getElementById('demo-banner');
-    if (banner) {
-      banner.textContent = t('demo.banner');
-      banner.hidden = false;
-    }
+    if (banner) banner.hidden = false;
   }
 
   startRouter();

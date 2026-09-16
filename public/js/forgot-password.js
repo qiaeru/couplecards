@@ -6,10 +6,8 @@
 
 import { registrationEnabled } from './core/auth.js';
 import { initI18n, applyI18n } from './core/i18n.js';
-import { mountFloatingBackground } from './ui/floating-bg.js';
 
 async function init() {
-  mountFloatingBackground();
   await initI18n();
   applyI18n(document);
 

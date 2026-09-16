@@ -8,6 +8,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
+- The interface has been redesigned around a calmer, editorial look: flat surfaces on a single dark tone, one accent color, Fraunces for titles, no glows, gradients or blurred glass. Buttons, tags, tiles and forms share one set of design tokens (type scale, spacing, radii, one easing curve), enforced by a new `css-tokens` repo check.
+- The revealed card is simpler and more legible: pile-tinted face, gold frame, larger emoji, no hatching, sparkles or holographic overlay. Rare cards keep a gold border, gold type and a "Rare" label.
+- The draw animation is shorter (about 1.8 s instead of 3.8 s): the card enters, the gold dust converges, the card flips. The shockwave, ember fallout, text cascade and idle float are gone.
+- On the draw screen, "Return to the pile" is the primary button and "Ban" an outlined one; "Log out" and "Reset" are no longer painted in the destructive red.
+- The Collection tiles show the emoji and the title at a readable size instead of a shrunken copy of the full card.
+- Toasts sit above the bottom navigation at full width, and a toast that offers "Undo" stays until you act, close it, or change screen.
+- Text on red, green and pile-colored buttons and tags is dark instead of white, and no interface text renders under 12 px.
+- The French "Undo" is now "Défaire" and the Italian one "Ripristina", so they no longer read like "Cancel". Error and sign-in copy drops the "Oops" and the exclamation marks.
+- The sign-in, registration and forgot-password pages drop the floating emoji background.
+
+### Fixed
+
+- The revealed card no longer disappears during the charge and flip phases of the draw animation: it stayed invisible for three seconds while the dust converged on an empty stage.
+- The sound and vibration switches show a visible focus ring when reached with the keyboard.
+- The draw-screen action buttons no longer slide in when the system asks for reduced motion.
+- "No matches" in the Collection spans the full width instead of being squeezed into the first grid column.
+- The demo banner follows a language change instead of staying in the language the app booted in.
+- The bottom navigation labels break at a soft hyphen on the narrowest phones ("Einstel-lungen") instead of mid-word.
+
 - The developer link in the sign-in footer now points to qiaeru.com, the site's new address.
 - The repository now ships ESLint, Prettier, five repo consistency checks and a server test suite, all run by CI on every pull request. Running an instance is unaffected: `docker compose up` needs none of them.
 - The server configures its request logging through the interface Fastify 6 will require, instead of the option that release removes. Production keeps skipping the per-request access log line, and a future Fastify upgrade can no longer turn that noise back on unnoticed.

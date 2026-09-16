@@ -6,7 +6,6 @@
 import { register, registrationEnabled, me } from './core/auth.js';
 import { initI18n, applyI18n, t } from './core/i18n.js';
 import { bindPasswordStrength } from './ui/password-strength.js';
-import { mountFloatingBackground } from './ui/floating-bg.js';
 import { applyFieldError } from './ui/form-error.js';
 
 const $ = (id) => document.getElementById(id);
@@ -35,7 +34,6 @@ function showStep(name) {
 }
 
 async function init() {
-  mountFloatingBackground();
   const existing = await me();
   await initI18n(existing?.locale);
   applyI18n(document);

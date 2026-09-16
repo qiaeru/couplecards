@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Draw screen: reveal animation, tilt, holographic effects, swipe-to-ban and
-// swipe-to-return.
+// Draw screen: reveal animation, tilt, swipe-to-ban and swipe-to-return.
 
 import {
   getCardById,
@@ -26,8 +25,8 @@ let currentCardId = null;
 let previewMode = false;
 let previewCardId = null;
 // Bumped on each startDraw and on unmount, so an in-flight reveal animation can
-// detect that the user has left and stop before its tail (sound, vibration,
-// ambient dust) fires on a screen that's already gone.
+// detect that the user has left and stop before its tail (sound, vibration)
+// fires on a screen that's already gone.
 let drawGeneration = 0;
 
 const $ = (id) => document.getElementById(id);
@@ -44,17 +43,9 @@ function prefersReducedMotion() {
   return reducedMotion;
 }
 
-// "Gold dust" reveal: motes converge into the card during the charge, a
-// shockwave + ember fallout replace the old white flash at landing, and a
-// thin ambient dust keeps drifting up while the revealed card floats.
-const DUST_COLORS = ['#ffe2ad', '#ffd3e4', '#fff3d6', '#ffcf8f', '#f7e6ff'];
-// Halve the particle counts on low-core phones; the choreography reads the
-// same, only the density changes.
+// Gold dust converges into the card during the charge. Halve the particle
+// count on low-core phones; the choreography reads the same.
 const DUST_DENSITY = (navigator.hardwareConcurrency || 8) <= 4 ? 0.5 : 1;
-
-function dustColor() {
-  return DUST_COLORS[Math.floor(Math.random() * DUST_COLORS.length)];
-}
 
 function spawnFx(host, className, vars, lifetime) {
   const el = document.createElement('div');
@@ -64,48 +55,38 @@ function spawnFx(host, className, vars, lifetime) {
   setTimeout(() => el.remove(), lifetime);
 }
 
-function spawnMote(host, swirl) {
+function spawnMote(host) {
   const ang = Math.random() * Math.PI * 2;
-  const dist = 220 + Math.random() * 300;
-  // Midpoint pushed sideways so the dust arcs into the card in one shared
-  // swirl direction instead of flying in straight lines.
-  const midAng = ang + swirl * (0.5 + Math.random() * 0.4);
-  const midDist = dist * (0.4 + Math.random() * 0.15);
+  const dist = 200 + Math.random() * 260;
   const depth = Math.random(); // 0 = near (big, sharp), 1 = far (small, blurred)
   spawnFx(
     host,
     'mote',
     {
       '--x0': `calc(-50% + ${Math.cos(ang) * dist}px)`,
-      '--y0': `calc(-55% + ${Math.sin(ang) * dist * 0.8}px)`,
-      '--xm': `calc(-50% + ${Math.cos(midAng) * midDist}px)`,
-      '--ym': `calc(-55% + ${Math.sin(midAng) * midDist * 0.8}px)`,
-      '--s': `${(5.5 - depth * 3.5).toFixed(1)}px`,
-      '--b': `${(depth * 1.8).toFixed(1)}px`,
-      '--t': `${(0.85 + Math.random() * 0.65).toFixed(2)}s`,
-      '--d': `${(Math.random() * 0.15).toFixed(2)}s`,
-      '--o': (0.55 + Math.random() * 0.45 - depth * 0.25).toFixed(2),
-      '--c': dustColor(),
+      '--y0': `calc(-50% + ${Math.sin(ang) * dist * 0.8}px)`,
+      '--s': `${(5 - depth * 3).toFixed(1)}px`,
+      '--b': `${(depth * 1.5).toFixed(1)}px`,
+      '--t': `${(0.6 + Math.random() * 0.4).toFixed(2)}s`,
+      '--d': `${(Math.random() * 0.2).toFixed(2)}s`,
+      '--o': (0.5 + Math.random() * 0.4 - depth * 0.25).toFixed(2),
     },
-    2200,
+    1400,
   );
 }
 
 let dustInterval = null;
 function startDust() {
-  // Preview is a static viewer with no ambient effects. Gating here, not just
-  // at call sites, keeps that rule in one place for every caller.
+  // Preview is a static viewer with no effects. Gating here, not just at call
+  // sites, keeps that rule in one place for every caller.
   if (previewMode || dustInterval || prefersReducedMotion()) return;
   const host = $('dust');
   if (!host) return;
-  const swirl = Math.random() < 0.5 ? 1 : -1;
-  for (let i = 0; i < Math.round(70 * DUST_DENSITY); i++) spawnMote(host, swirl);
-  // Continuous inflow after the opening burst, so the swirl densifies as the
-  // tension rises instead of thinning out.
+  for (let i = 0; i < Math.round(40 * DUST_DENSITY); i++) spawnMote(host);
   const perTick = Math.max(1, Math.round(2 * DUST_DENSITY));
   dustInterval = setInterval(() => {
-    for (let i = 0; i < perTick; i++) spawnMote(host, swirl);
-  }, 55);
+    for (let i = 0; i < perTick; i++) spawnMote(host);
+  }, 60);
 }
 function stopDust() {
   if (dustInterval) {
@@ -114,115 +95,19 @@ function stopDust() {
   }
 }
 
-// Landing: two expanding rings (pile-tinted, then rose) and a dense golden
-// fallout raining below the card.
-function spawnLanding(glowColor) {
-  const host = $('landing');
-  if (!host || prefersReducedMotion()) return;
-  spawnFx(host, 'shockwave', { '--c': glowColor }, 1000);
-  setTimeout(() => {
-    spawnFx(host, 'shockwave', { '--c': 'rgba(255, 180, 210, 0.5)' }, 1000);
-  }, 120);
-  for (let i = 0; i < Math.round(70 * DUST_DENSITY); i++) {
-    const depth = Math.random();
-    spawnFx(
-      host,
-      'ember',
-      {
-        '--x0': `calc(-50% + ${(Math.random() * 260 - 130).toFixed(0)}px)`,
-        '--y0': `calc(-50% + ${(Math.random() * 340 - 180).toFixed(0)}px)`,
-        '--dx': `${(Math.random() * 180 - 90).toFixed(0)}px`,
-        '--dy': `${(100 + Math.random() * 160).toFixed(0)}px`,
-        '--s': `${(5 - depth * 3).toFixed(1)}px`,
-        '--t': `${(1.8 + Math.random() * 1.6).toFixed(2)}s`,
-        '--d': `${(Math.random() * 0.5).toFixed(2)}s`,
-        '--c': dustColor(),
-      },
-      4200,
-    );
-  }
-}
-
-let ambientInterval = null;
-function startAmbient() {
-  if (previewMode || ambientInterval || prefersReducedMotion()) return;
-  const host = $('ambient');
-  if (!host) return;
-  // The layer sits behind the card, and on phones the card fills almost the
-  // whole stage, so dust born across the full stage width was mostly hidden.
-  // Spawn in the visible bands instead: beside and below the actual card.
-  const tilt = $('card-tilt');
-  const halfW = (tilt?.clientWidth || 300) / 2;
-  const halfH = (tilt?.clientHeight || 440) / 2;
-  const spawnDrift = () => {
-    const depth = Math.random();
-    const zone = Math.random();
-    let x0;
-    let y0;
-    if (zone < 0.8) {
-      // Side bands, both directions equally likely. Clamped to the viewport
-      // edge so narrow phones still get dust inside the visible sliver.
-      const dir = zone < 0.4 ? -1 : 1;
-      const maxX = window.innerWidth / 2 - 14;
-      x0 = dir * Math.min(halfW + 10 + Math.random() * 80, maxX);
-      y0 = -halfH * 0.3 + Math.random() * halfH * 1.3;
-    } else {
-      // Below the card, between it and the action buttons.
-      x0 = (Math.random() * 2 - 1) * (halfW + 60);
-      y0 = halfH + 10 + Math.random() * 60;
-    }
-    spawnFx(
-      host,
-      'drift',
-      {
-        '--x0': `calc(-50% + ${x0.toFixed(0)}px)`,
-        '--y0': `calc(-50% + ${y0.toFixed(0)}px)`,
-        '--dx': `${(Math.random() * 60 - 30).toFixed(0)}px`,
-        '--dy': `${-(80 + Math.random() * 80).toFixed(0)}px`,
-        '--s': `${(3.5 - depth * 2).toFixed(1)}px`,
-        '--b': `${(depth * 1.5).toFixed(1)}px`,
-        '--t': `${(4 + Math.random() * 2.5).toFixed(2)}s`,
-        '--o': (0.55 - depth * 0.3).toFixed(2),
-        '--c': dustColor(),
-      },
-      7000,
-    );
-  };
-  const perTick = Math.max(2, Math.round(3 * DUST_DENSITY));
-  ambientInterval = setInterval(() => {
-    for (let i = 0; i < perTick; i++) spawnDrift();
-  }, 550);
-}
-function stopAmbient() {
-  if (ambientInterval) {
-    clearInterval(ambientInterval);
-    ambientInterval = null;
-  }
-}
-
 function wait(ms) {
   return new Promise((r) => setTimeout(r, ms));
 }
 
 function resetStage() {
-  stopAmbient();
   const f = $('card-flip');
   if (!f) return;
-  const glow = $('bg-glow');
   const dust = $('dust');
-  const landing = $('landing');
-  const ambient = $('ambient');
   const a = $('draw-actions');
   const tilt = $('card-tilt');
-  const front = document.querySelector('#card-flip .card-front');
 
   f.className = 'card-flip';
-  if (glow) glow.className = 'bg-glow';
   if (dust) dust.innerHTML = '';
-  if (landing) landing.innerHTML = '';
-  if (ambient) ambient.innerHTML = '';
-  $('card-ground')?.classList.remove('active');
-  $('reveal-streak')?.classList.remove('go');
   if (a) a.hidden = true;
   const preview = $('preview-actions');
   if (preview) preview.hidden = true;
@@ -235,11 +120,6 @@ function resetStage() {
     tilt.style.setProperty('--ry', '0deg');
     tilt.style.setProperty('--tx', '0px');
     tilt.style.setProperty('--tz', '0deg');
-  }
-  if (front) {
-    front.classList.remove('holo-on', 'idle-shine');
-    front.style.setProperty('--px', '50');
-    front.style.setProperty('--py', '50');
   }
   const ban = tilt?.querySelector('.swipe-label-ban');
   const ret = tilt?.querySelector('.swipe-label-return');
@@ -286,20 +166,12 @@ let returnRaf = 0;
 function applyTilt(rx, ry) {
   if (prefersReducedMotion()) return;
   const tilt = $('card-tilt');
-  const front = document.querySelector('#card-flip .card-front');
-  if (!tilt || !front) return;
+  if (!tilt) return;
   const MAX = CONFIG.tilt.maxDegrees;
   const clampedRx = Math.max(-MAX, Math.min(MAX, rx));
   const clampedRy = Math.max(-MAX, Math.min(MAX, ry));
   tilt.style.setProperty('--rx', `${clampedRx}deg`);
   tilt.style.setProperty('--ry', `${clampedRy}deg`);
-  const px = 50 + (clampedRy / MAX) * 40;
-  const py = 50 - (clampedRx / MAX) * 40;
-  front.style.setProperty('--px', px.toFixed(1));
-  front.style.setProperty('--py', py.toFixed(1));
-  // holo-on also fades the idle shine out through CSS; removing the class
-  // here instead would cut the streak mid-sweep with no transition.
-  front.classList.add('holo-on');
 }
 
 function smoothReturnToCenter() {
@@ -356,11 +228,6 @@ function smoothReturnToCenter() {
 }
 
 function resetTilt() {
-  const front = document.querySelector('#card-flip .card-front');
-  if (front) {
-    front.classList.remove('holo-on');
-    front.classList.add('idle-shine');
-  }
   smoothReturnToCenter();
 }
 
@@ -629,7 +496,7 @@ async function startDraw(pile) {
   previewMode = false;
   // Claim this generation. If unmount or a newer draw bumps the counter while
   // we await, stale() turns true and we bail; the bail itself touches no shared
-  // state (wake lock, dust, ambient) so it can't clobber a concurrent draw,
+  // state (wake lock, dust) so it can't clobber a concurrent draw,
   // unmount having already cleaned those up. Returns true only on full
   // completion, so mount() skips its listener setup when we bailed.
   const myGen = ++drawGeneration;
@@ -670,11 +537,7 @@ async function startDraw(pile) {
   playDraw();
 
   const f = $('card-flip');
-  const glow = $('bg-glow');
   const a = $('draw-actions');
-
-  f.classList.add(pile === 'home' ? 'glow-home' : 'glow-outdoor');
-  const glowColor = pile === 'home' ? '#ffb47a' : '#8ab4ff';
 
   const reduced = prefersReducedMotion();
   void f.offsetWidth;
@@ -690,39 +553,21 @@ async function startDraw(pile) {
     await wait(400);
     if (stale()) return false;
   } else {
-    // Charge: the card levitates while gold dust swirls into it.
-    glow.classList.add('active');
+    // Charge: the card lifts while gold dust converges into it, then flips.
     f.classList.add('charging');
     startDust();
     await wait(CONFIG.draw.chargeDuration);
     if (stale()) return false;
-    // Inhale: one sharp contraction before the release.
     stopDust();
     f.classList.remove('charging');
-    f.classList.add('climax');
-    await wait(CONFIG.draw.climaxDuration);
-    if (stale()) return false;
-    // Flip, with a light streak sweeping the face as it turns.
-    f.classList.remove('climax');
     f.classList.add('flipping');
-    $('reveal-streak')?.classList.add('go');
     await wait(CONFIG.draw.flipDuration);
     if (stale()) return false;
   }
 
   f.classList.add('settled');
   f.classList.remove('flipping', 'enter');
-  glow.classList.remove('active');
   stopDust();
-  if (!reduced) {
-    spawnLanding(glowColor);
-    // Cascade the card text in and let the card float above its shadow.
-    f.classList.add('reveal-cascade', 'floaty');
-    $('card-ground')?.classList.add('active');
-  }
-
-  const front = document.querySelector('#card-flip .card-front');
-  front.classList.add('idle-shine');
 
   await wait(reduced ? CONFIG.draw.reducedMotionShort : CONFIG.draw.revealDelay);
   if (stale()) return false;
@@ -731,7 +576,6 @@ async function startDraw(pile) {
   announceCard(card);
   a.hidden = false;
   attachTilt();
-  startAmbient();
   return true;
 }
 
@@ -790,14 +634,12 @@ function doRedraw() {
   addHistory({ cardId: id, drawnAt: new Date().toISOString(), action: 'returned' });
   vibrate(CONFIG.vibrations.redrawAction);
   playRedraw();
-  stopAmbient();
   if (pile) startDraw(pile);
 }
 
 // toastArg is either a string (plain toast) or { message, action } for a
 // snackbar with an action button.
 function finishWith(swipeClass, toastArg) {
-  stopAmbient();
   refreshHomeCounts();
   releaseWakeLock();
   const tilt = $('card-tilt');
@@ -805,9 +647,17 @@ function finishWith(swipeClass, toastArg) {
   if (a) a.hidden = true;
   const backToHome = () => {
     if (tilt) tilt.classList.remove('swipe-out-right', 'swipe-out-left');
+    // The undo toast is shown once Home is mounted: the route change itself
+    // dismisses action toasts, so one shown before it would vanish at once.
+    document.addEventListener(
+      'route:mounted',
+      () => {
+        if (typeof toastArg === 'string') toast(toastArg);
+        else if (toastArg) toast(toastArg.message, { action: toastArg.action });
+      },
+      { once: true },
+    );
     navigate('home');
-    if (typeof toastArg === 'string') toast(toastArg);
-    else if (toastArg) toast(toastArg.message, { action: toastArg.action });
   };
   if (swipeClass && tilt) {
     tilt.classList.add(swipeClass);
@@ -857,18 +707,7 @@ function showCardDirectly(cardId) {
   resetStage();
   const f = $('card-flip');
   const preview = $('preview-actions');
-  f.classList.add(pile === 'home' ? 'glow-home' : 'glow-outdoor');
   f.classList.add('settled');
-  // The previewed card floats over its shadow like a freshly revealed one,
-  // so the object feels alive everywhere it appears. The one-shot effects
-  // (dust, landing shockwave, text cascade) stay reserved for the live
-  // reveal: replaying them on every card opened from Collection or History
-  // would turn them into noise.
-  if (!prefersReducedMotion()) {
-    f.classList.add('floaty');
-    $('card-ground')?.classList.add('active');
-  }
-  frontEl.classList.add('idle-shine');
   announceCard(card);
   if (preview) preview.hidden = false;
   updatePreviewActions(cardId);
@@ -964,21 +803,12 @@ function onVisibilityChange() {
       clearTimeout(inactivityTimer);
       inactivityTimer = 0;
     }
-    // Stop the ambient effects while the tab is backgrounded. Browsers
-    // throttle background timers but still execute each tick (DOM node
-    // create / setTimeout queue), and the visuals are invisible anyway.
-    stopAmbient();
+    // Stop the dust while the tab is backgrounded: browsers throttle background
+    // timers but still execute each tick, and the visuals are invisible anyway.
     stopDust();
     return;
   }
   bumpInactivity();
-  // Resume the ambient dust when the user is back and a card has been
-  // revealed (the settled class means the flip animation has landed). The
-  // converging dust stays off: it only runs during the pre-reveal build-up.
-  // startAmbient no-ops in preview, so no guard is needed here.
-  if ($('card-flip')?.classList.contains('settled')) {
-    startAmbient();
-  }
 }
 
 let localeUnsubscribers = [];
@@ -1034,7 +864,6 @@ export async function mount({ params }) {
 
 export function unmount() {
   document.removeEventListener('keydown', onDrawKeydown);
-  stopAmbient();
   stopDust();
   detachTilt();
   releaseWakeLock();

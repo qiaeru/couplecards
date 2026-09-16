@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: MIT
 // Runs the repo consistency checks. These guard invariants no linter knows
-// about: locale parity, the service worker precache list, the seed decks, and
-// every local file reference. Dependency-free on purpose, so `node
-// scripts/check.mjs` works on a bare clone.
+// about: locale parity, the service worker precache list, the seed decks,
+// every local file reference, and the design tokens the stylesheets use.
+// Dependency-free on purpose, so `node scripts/check.mjs` works on a bare
+// clone.
 //
 // Usage: node scripts/check.mjs [name ...]
 
@@ -11,8 +12,9 @@ import { run as i18n } from './checks/i18n.mjs';
 import { run as swShell } from './checks/sw-shell.mjs';
 import { run as cards } from './checks/cards.mjs';
 import { run as references } from './checks/references.mjs';
+import { run as cssTokens } from './checks/css-tokens.mjs';
 
-const CHECKS = { locales, i18n, 'sw-shell': swShell, cards, references };
+const CHECKS = { locales, i18n, 'sw-shell': swShell, cards, references, 'css-tokens': cssTokens };
 
 const requested = process.argv.slice(2);
 const unknown = requested.filter((name) => !(name in CHECKS));

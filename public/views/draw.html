@@ -5,10 +5,7 @@
     <span data-i18n="draw.title">Couplecards</span>
   </div>
   <div class="draw-stage" id="draw-stage">
-    <div class="bg-glow" id="bg-glow"></div>
     <div class="fx-layer" id="dust"></div>
-    <div class="fx-layer" id="ambient"></div>
-    <div class="card-ground" id="card-ground" aria-hidden="true"></div>
     <div class="card-tilt" id="card-tilt">
       <div class="swipe-label swipe-label-ban" aria-hidden="true" data-i18n="draw.swipe.ban">Ban</div>
       <div class="swipe-label swipe-label-return" aria-hidden="true" data-i18n="draw.swipe.return">Return to the pile</div>
@@ -19,14 +16,6 @@
           </div>
         </div>
         <div class="card-face card-front">
-          <div class="foil-sparkles" aria-hidden="true">
-            <span class="foil-sparkle"></span>
-            <span class="foil-sparkle"></span>
-            <span class="foil-sparkle"></span>
-            <span class="foil-sparkle"></span>
-            <span class="foil-sparkle"></span>
-            <span class="foil-sparkle"></span>
-          </div>
           <div class="card-frame">
             <div class="card-pile-label" id="card-pile-label"></div>
             <div class="card-art"><span class="card-art-emoji" id="card-emoji"></span></div>
@@ -35,25 +24,20 @@
               <span class="card-divider-ornament"><img class="heart-icon" src="/icons/heart-gold.svg" alt="" draggable="false"></span>
             </div>
             <p class="card-description" id="card-description"></p>
-            <div class="card-footer-mark" aria-hidden="true">·  ·  ·</div>
           </div>
-          <div class="holo holo-rainbow"></div>
-          <div class="holo holo-glare"></div>
-          <div class="reveal-streak" id="reveal-streak" aria-hidden="true"></div>
         </div>
       </div>
     </div>
-    <div class="fx-layer fx-above" id="landing"></div>
   </div>
   <div class="draw-actions" id="draw-actions" hidden>
-    <button class="btn btn-md btn-danger" id="action-ban" aria-keyshortcuts="ArrowLeft" data-i18n="draw.action.ban">Ban</button>
-    <button class="btn btn-md btn-success" id="action-return" aria-keyshortcuts="ArrowRight" data-i18n="draw.action.return">Return to the pile</button>
+    <button class="btn btn-md btn-danger-outline" id="action-ban" aria-keyshortcuts="ArrowLeft" data-i18n="draw.action.ban">Ban</button>
+    <button class="btn btn-md btn-primary" id="action-return" aria-keyshortcuts="ArrowRight" data-i18n="draw.action.return">Return to the pile</button>
     <button class="btn btn-md btn-ghost" id="action-redraw" data-i18n="draw.action.redraw">Draw another from the same pile</button>
   </div>
   <div class="draw-actions preview-actions" id="preview-actions" hidden>
-    <button class="btn btn-md btn-danger" id="preview-action-ban" data-i18n="collection.action.ban" type="button">Ban</button>
+    <button class="btn btn-md btn-danger-outline" id="preview-action-ban" data-i18n="collection.action.ban" type="button">Ban</button>
     <button class="btn btn-md btn-success" id="preview-action-unban" data-i18n="collection.action.unban" type="button" hidden>Restore</button>
-    <button class="btn btn-md btn-primary" id="action-close" data-i18n="draw.action.close" type="button">Close preview</button>
+    <button class="btn btn-md" id="action-close" data-i18n="draw.action.close" type="button">Close preview</button>
   </div>
   <div id="card-announce" class="sr-only" role="status" aria-live="polite"></div>
 </div>

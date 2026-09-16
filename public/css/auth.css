@@ -1,8 +1,5 @@
 /* SPDX-License-Identifier: MIT */
-
-body {
-  font-family: var(--font);
-}
+/* Sign-in, registration and forgot-password pages. */
 
 .auth-shell {
   min-height: 100vh;
@@ -10,82 +7,80 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 28px;
-  padding: 36px 18px 32px;
+  gap: var(--space-7);
+  padding: calc(env(safe-area-inset-top, 0px) + var(--space-8)) var(--space-4)
+    calc(env(safe-area-inset-bottom, 0px) + var(--space-7));
 }
 .auth-shell .auth-card {
   margin-top: auto;
   margin-bottom: auto;
 }
-
 .brand-title {
   margin: 0;
 }
 
 .auth-card {
-  position: relative;
   width: 100%;
-  max-width: 440px;
-  background-image: var(--tile-surface);
-  background-color: var(--surface);
-  border: 1px solid var(--surface-border);
+  max-width: 420px;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 28px;
-  box-shadow: var(--shadow-lg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  overflow: hidden;
+  padding: var(--space-6);
 }
-/* Warm gold hairline along the top edge, same parchment family as the
-   in-app tiles and the bottom nav. */
-.auth-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 14%;
-  right: 14%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 210, 150, 0.45), transparent);
-  pointer-events: none;
-}
-
 .auth-title {
   font-family: var(--font-display);
-  font-size: 1.8rem;
-  font-weight: 600;
-  letter-spacing: -0.015em;
-  margin: 0 0 8px;
+  font-size: var(--text-xl);
+  font-weight: 500;
+  line-height: var(--leading-tight);
+  letter-spacing: -0.01em;
+  margin: 0 0 var(--space-5);
   color: var(--text);
+  text-wrap: balance;
 }
-
 .auth-subtitle {
-  color: var(--text-soft);
-  font-size: 0.95rem;
-  margin: 0 0 22px;
-  line-height: 1.5;
+  color: var(--text-2);
+  font-size: var(--text-base);
+  margin: calc(-1 * var(--space-3)) 0 var(--space-5);
+  text-wrap: pretty;
 }
-
 .auth-form {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: var(--space-2);
 }
 .auth-error:empty {
   display: none;
 }
 .auth-form .btn {
-  margin-top: 6px;
+  margin-top: var(--space-2);
 }
 
-/* Attribution footer, only on the auth screens. */
+.auth-alt {
+  margin: var(--space-4) 0 0;
+  text-align: center;
+  font-size: var(--text-sm);
+}
+.auth-alt a {
+  color: var(--text-2);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: from-font;
+}
+.auth-alt a:hover {
+  color: var(--text);
+}
+#forgot-open .btn {
+  margin-top: var(--space-3);
+  width: 100%;
+}
+
 .auth-footer {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  color: var(--text-soft);
-  font-size: 0.85rem;
+  gap: var(--space-2);
+  color: var(--text-2);
+  font-size: var(--text-sm);
 }
 .auth-footer-link {
   display: inline-flex;
@@ -103,104 +98,20 @@ body {
 .auth-footer-sep {
   opacity: 0.45;
 }
-
-/* qiaeru.com lockup: the head sits on an organic orange blob, mirroring the source
-   site (CSS blob, not part of the SVG). */
+/* qiaeru.com lockup: the head sits on an organic blob, like on the source site. */
 .qiaeru-logo {
   position: relative;
   display: inline-flex;
-  transition: transform 0.2s ease;
-}
-.qiaeru-logo:hover {
-  transform: scale(1.08);
 }
 .qiaeru-logo::before {
   content: "";
   position: absolute;
   inset: -3px;
   z-index: 0;
-  background-color: #e3a282;
+  background-color: var(--qiaeru-blob);
   border-radius: 42% 58% 63% 37% / 41% 44% 56% 59%;
 }
 .qiaeru-logo img {
   position: relative;
   z-index: 1;
-}
-
-.field-hint {
-  display: block;
-  margin-top: 4px;
-  color: var(--text-soft);
-  font-size: 0.82rem;
-  line-height: 1.4;
-}
-
-/* Secondary links under an auth card (register, forgot password, back to sign in). */
-.auth-alt {
-  margin: 16px 0 0;
-  text-align: center;
-  font-size: 0.9rem;
-}
-.auth-alt a {
-  color: var(--text-soft);
-}
-.auth-alt a:hover {
-  color: var(--text);
-}
-
-#forgot-open .btn {
-  margin-top: 10px;
-  width: 100%;
-}
-
-.floating-bg {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 0;
-}
-.auth-shell {
-  position: relative;
-  z-index: 1;
-}
-.floating-icon {
-  position: absolute;
-  opacity: var(--repel-opacity, var(--base-opacity, 0.25));
-  animation:
-    float-y var(--duration, 22s) ease-in-out infinite,
-    float-fade var(--duration, 22s) ease-in-out infinite;
-  filter: blur(var(--blur, 0.3px));
-  transition: opacity 0.3s ease;
-  will-change: transform, opacity;
-}
-.floating-icon > img {
-  display: block;
-  transform: translate3d(var(--repel-x, 0), var(--repel-y, 0), 0);
-  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
-@keyframes float-y {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-  }
-  50% {
-    transform: translate3d(var(--drift, 0), -28px, 0) rotate(var(--rotate, 0deg));
-  }
-}
-@keyframes float-fade {
-  0%,
-  100% {
-    opacity: var(--base-opacity, 0.25);
-  }
-  50% {
-    opacity: calc(var(--base-opacity, 0.25) + 0.18);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .floating-icon {
-    animation: none;
-  }
 }

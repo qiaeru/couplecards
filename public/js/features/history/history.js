@@ -90,8 +90,6 @@ function render() {
     return;
   }
 
-  // Staggered entrance, capped so long histories never feel slow to load.
-  let stagger = 0;
   for (const group of groupByDate(visible)) {
     const header = document.createElement('div');
     header.className = 'history-group-header';
@@ -105,8 +103,7 @@ function render() {
       const foil = !!card?.foil;
 
       const div = document.createElement('div');
-      div.className = 'list-item stagger-in';
-      div.style.setProperty('--i', String(Math.min(stagger++, 8)));
+      div.className = 'list-item';
       if (card) {
         div.classList.add('clickable');
         div.setAttribute('role', 'button');
@@ -126,7 +123,7 @@ function render() {
       const left = document.createElement('div');
       left.className = 'list-item-main';
       const pileBadge = pile
-        ? `<span class="pile-badge ${pile}">${escapeHtml(t(`piles.${pile}.label`))}</span>`
+        ? `<span class="tag tag-${pile}">${escapeHtml(t(`piles.${pile}.label`))}</span>`
         : '';
       left.innerHTML = `
         <div class="list-item-header">
@@ -139,7 +136,7 @@ function render() {
       const right = document.createElement('div');
       right.className = 'list-item-right';
       const tag = document.createElement('span');
-      tag.className = `stamp ${entry.action === 'returned' ? 'stamp-returned' : 'stamp-banned'}`;
+      tag.className = `tag ${entry.action === 'returned' ? 'tag-success' : 'tag-danger'}`;
       tag.textContent = t(
         entry.action === 'returned' ? 'history.action.returned' : 'history.action.banned',
       );

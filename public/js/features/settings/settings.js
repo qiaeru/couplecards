@@ -123,7 +123,6 @@ export async function mount() {
       body: t('settings.logout.confirm'),
       confirmLabel: t('settings.logout'),
       cancelLabel: t('common.cancel'),
-      danger: true,
     });
     if (!ok) return;
     await logout();
