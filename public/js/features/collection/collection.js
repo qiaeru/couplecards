@@ -25,6 +25,64 @@ function discoveredIds() {
   return ids;
 }
 
+function buildCardFront(card, title, description, locale) {
+  const front = document.createElement('div');
+  front.className = 'card-face card-front';
+  front.classList.add(card.pile === 'home' ? 'for-home' : 'for-outdoor');
+  if (card.foil) front.classList.add('is-foil');
+
+  const frame = document.createElement('div');
+  frame.className = 'card-frame';
+
+  const pileLabel = document.createElement('div');
+  pileLabel.className = 'card-pile-label';
+  pileLabel.textContent = t(`piles.${card.pile}.label`);
+
+  const art = document.createElement('div');
+  art.className = 'card-art';
+  const emojiSpan = document.createElement('span');
+  emojiSpan.className = 'card-art-emoji';
+  // Lazy: the grid can hold the whole discovered deck, so defer off-screen art.
+  emojiSpan.appendChild(
+    createEmojiImg(card.emoji || (card.pile === 'home' ? 'house' : 'city'), '', { lazy: true }),
+  );
+  art.appendChild(emojiSpan);
+
+  // Not a heading: the tile is a role="button", and dozens of headings inside
+  // buttons pollute screen-reader heading navigation.
+  const titleEl = document.createElement('div');
+  titleEl.className = 'card-title';
+  titleEl.textContent = title;
+  titleEl.setAttribute('lang', locale);
+
+  const divider = document.createElement('div');
+  divider.className = 'card-divider';
+  divider.setAttribute('aria-hidden', 'true');
+  const ornament = document.createElement('span');
+  ornament.className = 'card-divider-ornament';
+  const heart = document.createElement('img');
+  heart.className = 'heart-icon';
+  heart.src = '/icons/heart-gold.svg';
+  heart.alt = '';
+  heart.draggable = false;
+  ornament.appendChild(heart);
+  divider.appendChild(ornament);
+
+  const desc = document.createElement('p');
+  desc.className = 'card-description';
+  desc.textContent = description;
+  desc.setAttribute('lang', locale);
+
+  const footer = document.createElement('div');
+  footer.className = 'card-footer-mark';
+  footer.setAttribute('aria-hidden', 'true');
+  footer.textContent = '·  ·  ·';
+
+  frame.append(pileLabel, art, titleEl, divider, desc, footer);
+  front.appendChild(frame);
+  return front;
+}
+
 function buildTile(card, discovered) {
   const banned = isBanned(card.id);
   const tile = document.createElement('div');
@@ -36,7 +94,7 @@ function buildTile(card, discovered) {
 
   if (discovered) {
     if (freshIds.has(card.id)) tile.classList.add('is-fresh');
-    const { title, locale } = getCardText(card);
+    const { title, description, locale } = getCardText(card);
     tile.setAttribute('role', 'button');
     tile.setAttribute('tabindex', '0');
     tile.setAttribute(
@@ -45,19 +103,7 @@ function buildTile(card, discovered) {
     );
     // Opening is handled by the grid, see onGridClick.
     tile.dataset.cardId = card.id;
-    const emojiSpan = document.createElement('span');
-    emojiSpan.className = 'coll-tile-emoji';
-    // Lazy: the grid can hold the whole discovered deck, so defer off-screen art.
-    emojiSpan.appendChild(
-      createEmojiImg(card.emoji || (card.pile === 'home' ? 'house' : 'city'), '', { lazy: true }),
-    );
-    // Not a heading: the tile is a role="button", and dozens of headings inside
-    // buttons pollute screen-reader heading navigation.
-    const titleEl = document.createElement('span');
-    titleEl.className = 'coll-tile-title';
-    titleEl.textContent = title;
-    titleEl.setAttribute('lang', locale);
-    tile.append(emojiSpan, titleEl);
+    tile.appendChild(buildCardFront(card, title, description, locale));
     if (banned) {
       const cross = document.createElement('div');
       cross.className = 'coll-tile-cross';

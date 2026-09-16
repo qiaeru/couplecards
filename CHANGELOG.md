@@ -8,22 +8,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
-- The interface has been redesigned around a calmer, editorial look: flat surfaces on a single dark tone, one accent color, Fraunces for titles, and a handful of deliberate touches of depth (a light edge on raised tiles, a glow under the primary button, a pile-tinted halo and a slow float behind the revealed card) in place of the blanket glows, gradients and blurred glass. Buttons, tags, tiles and forms share one set of design tokens (type scale, spacing, radii, one easing curve), enforced by a new `css-tokens` repo check.
-- The revealed card is simpler and more legible: pile-tinted face, gold frame, larger emoji, no hatching, sparkles or holographic overlay. Rare cards keep a gold border, gold type and a "Rare" label.
-- The draw animation is shorter (about 1.8 s instead of 3.8 s): the card enters, the gold dust converges, the card flips. The shockwave, ember fallout and text cascade are gone; a light still follows the pointer while the card tilts.
-- On the draw screen, "Return to the pile" is the primary button and "Ban" an outlined one; "Log out" and "Reset" are no longer painted in the destructive red.
-- The Collection tiles show the emoji and the title at a readable size instead of a shrunken copy of the full card.
+- Every stylesheet now draws its colors, sizes, radii, shadows and easing curves from one token file (`public/css/themes.css`), and a new `css-tokens` repo check fails CI on a raw value anywhere else. The look of the app is unchanged; what changed is that no text renders under 12 px and text on red, green and pile-colored fills is dark instead of white, so every pair meets the contrast ratio.
 - Toasts sit above the bottom navigation at full width, and a toast that offers "Undo" stays until you act, close it, or change screen.
-- Text on red, green and pile-colored buttons and tags is dark instead of white, and no interface text renders under 12 px.
+- "Log out" is a neutral button, "Reset my data" and the admin delete buttons are outlined, so the filled red is reserved for confirmations.
+- The Collection tiles keep their mini-card look with text at a readable size; the description shows on wide grids and the full card is one tap away.
 - The French "Undo" is now "Défaire" and the Italian one "Ripristina", so they no longer read like "Cancel". Error and sign-in copy drops the "Oops" and the exclamation marks.
 - The floating emoji behind the sign-in, registration and forgot-password cards are fewer and fainter, and keep clear of the wordmark.
-- Admin: deleting a user or a card is an outlined button instead of a filled one, the initial-password dialog makes "Copy password" the primary action and asks you to confirm you saved it, the card editor states the translation hint once, and the Save and Cancel buttons of a long form stay in reach while it scrolls.
+- Admin: the initial-password dialog makes "Copy password" the primary action and asks you to confirm you saved it, the card editor states the translation hint once, the Save and Cancel buttons of a long form stay in reach while it scrolls, and the deck sync and import dialogs say that "Apply" waits for the preview.
 - The 404 and 500 pages carry the wordmark like every other page.
+- The developer lockup in the sign-in footer uses the new qiaeru.com logo, on the same morphing blob as the site, and the link points to qiaeru.com.
+- The repository now ships ESLint, Prettier, six repo consistency checks and a server test suite, all run by CI on every pull request. Running an instance is unaffected: `docker compose up` needs none of them.
+- The server configures its request logging through the interface Fastify 6 will require, instead of the option that release removes. Production keeps skipping the per-request access log line, and a future Fastify upgrade can no longer turn that noise back on unnoticed.
 
 ### Fixed
 
 - The revealed card no longer disappears during the charge and flip phases of the draw animation: it stayed invisible for three seconds while the dust converged on an empty stage.
-- The sound and vibration switches show a visible focus ring when reached with the keyboard.
+- The sound and vibration switches show a visible focus ring when reached with the keyboard, and tapping the text of a settings row toggles its control.
 - The draw-screen action buttons no longer slide in when the system asks for reduced motion.
 - "No matches" in the Collection spans the full width instead of being squeezed into the first grid column.
 - The demo banner follows a language change instead of staying in the language the app booted in.
@@ -32,11 +32,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - The offline banner and an "Undo" toast no longer overlap when both are on screen.
 - When a pile is empty, the two piles sit side by side so the notice and its "Restore cards" button stay above the navigation instead of under it.
 - On a phone held sideways, the draw screen puts the action buttons beside the card instead of over its description, and on very short screens the illustration panel shrinks before the text does.
-- The deck sync and import dialogs say that "Apply" waits for the preview instead of showing a disabled button with no explanation.
-
-- The developer link in the sign-in footer now points to qiaeru.com, the site's new address.
-- The repository now ships ESLint, Prettier, five repo consistency checks and a server test suite, all run by CI on every pull request. Running an instance is unaffected: `docker compose up` needs none of them.
-- The server configures its request logging through the interface Fastify 6 will require, instead of the option that release removes. Production keeps skipping the per-request access log line, and a future Fastify upgrade can no longer turn that noise back on unnoticed.
 
 ## [1.14.0] - 2026-08-24
 
