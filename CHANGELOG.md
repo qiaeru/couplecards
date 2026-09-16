@@ -30,6 +30,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - The bottom navigation labels break at a soft hyphen on the narrowest phones ("Einstel-lungen") instead of mid-word.
 - Registration and password forms flag only the field at fault and move focus to it: an invalid username is reported as such instead of "Both passwords must match", and a mismatch points at the confirmation field.
 - The offline banner and an "Undo" toast no longer overlap when both are on screen.
+- When a pile is empty, the two piles sit side by side so the notice and its "Restore cards" button stay above the navigation instead of under it.
 - On a phone held sideways, the draw screen puts the action buttons beside the card instead of over its description, and on very short screens the illustration panel shrinks before the text does.
 - The deck sync and import dialogs say that "Apply" waits for the preview instead of showing a disabled button with no explanation.
 

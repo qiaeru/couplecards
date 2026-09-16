@@ -418,6 +418,13 @@ body {
     max-width: 480px;
   }
 }
+/* With the empty-pile notice below, two stacked piles would push it under the
+   navigation: go side by side so notice and button stay in view. */
+.piles:has(+ .pile-notice:not([hidden])) {
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  max-width: 320px;
+}
 
 .pile {
   -webkit-appearance: none;
