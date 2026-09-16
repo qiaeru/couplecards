@@ -22,6 +22,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Errors say what to do next: the generic message ends with "Try again", a lost connection is reported as such instead of "Something went wrong", and error toasts stay on screen until you close them.
 - Rare cards carry a "Rare" badge in the History and in the admin card list instead of a bare star, and the Collection tells screen readers which cards are rare.
 - The Collection search and the language selector render at 16 px so iOS no longer zooms into them.
+- The app is much lighter on the phone: the drifting page background, the rare-card heart pattern and the long lists no longer repaint on every frame. At rest the browser did as much drawing work as during a scroll; it now does none. The glass blur stays on the floating surfaces (navigation, toasts, dialogs) and leaves the buttons and list rows, whose fill hid it anyway.
+- Screen changes animate once (the new screen slides in while the navigation stays put) instead of stacking a slide on a crossfade.
+- A search or a filter with no result offers "Clear the search" or "Show all" instead of a dead end, and the filter chips are taller for the thumb.
+- The sign-in and registration buttons keep their label while the request runs and show a spinner beside it, instead of swapping the text.
+- The rules no longer end on a wink about swiping; the sentence stops at what the gesture does.
+- The fonts are preloaded, so the first paint shows the app's own type instead of a system fallback.
+- Admin: the page has one main landmark and "Skip to main content" lands on it whatever tab is open.
 
 ### Fixed
 

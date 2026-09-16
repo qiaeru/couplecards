@@ -236,6 +236,21 @@ function render() {
       <div class="empty-title">${escapeHtml(t(empty.title))}</div>
       <div class="empty-hint">${escapeHtml(t(empty.hint))}</div>
     </div>`;
+    // A dead end offers the way out: drop the query, or widen the filter.
+    if (q) {
+      grid.querySelector('.empty').appendChild(
+        emptyAction(t('collection.search.clear'), () => {
+          const input = document.getElementById('collection-search');
+          if (input) input.value = '';
+          currentQuery = '';
+          render();
+        }),
+      );
+    } else if (cards.length > 0) {
+      grid
+        .querySelector('.empty')
+        .appendChild(emptyAction(t('common.showAll'), () => selectFilter('all')));
+    }
     return;
   }
   const frag = document.createDocumentFragment();
@@ -262,14 +277,26 @@ function onGridKeydown(event) {
   navigate('draw', { preview: tile.dataset.cardId });
 }
 
-function onFilterClick(event) {
-  const btn = event.target.closest('[data-filter]');
-  if (!btn) return;
-  currentFilter = btn.dataset.filter;
+function emptyAction(label, onClick) {
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'btn btn-sm';
+  btn.textContent = label;
+  btn.addEventListener('click', onClick);
+  return btn;
+}
+
+function selectFilter(filter) {
+  currentFilter = filter;
   document.querySelectorAll('[data-filter]').forEach((b) => {
-    b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+    b.setAttribute('aria-pressed', b.dataset.filter === filter ? 'true' : 'false');
   });
   render();
+}
+
+function onFilterClick(event) {
+  const btn = event.target.closest('[data-filter]');
+  if (btn) selectFilter(btn.dataset.filter);
 }
 
 export function mount({ params } = {}) {

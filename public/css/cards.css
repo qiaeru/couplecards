@@ -1538,7 +1538,8 @@ body:has(#screen-draw) .demo-banner {
   border: 1px solid var(--surface-border);
   background: color-mix(in srgb, white 4%, transparent);
   color: var(--text-soft);
-  padding: 6px 12px;
+  padding: 8px 14px;
+  min-height: 36px;
   border-radius: 999px;
   font: inherit;
   font-size: var(--text-sm);

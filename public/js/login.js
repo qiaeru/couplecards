@@ -122,7 +122,7 @@ async function init() {
     const password = $('login-password').value;
     const submit = e.target.querySelector('button[type="submit"]');
     submit.disabled = true;
-    submit.textContent = t('login.submitting');
+    submit.setAttribute('aria-busy', 'true');
     try {
       const user = await login(username, password);
       if (user.mustChangePassword) {
@@ -143,7 +143,7 @@ async function init() {
       }
     } finally {
       submit.disabled = false;
-      submit.textContent = t('login.submit');
+      submit.removeAttribute('aria-busy');
     }
   });
 }

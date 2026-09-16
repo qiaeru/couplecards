@@ -87,6 +87,12 @@ function render() {
       <div class="empty-title">${escapeHtml(t('history.empty.filter.title'))}</div>
       <div class="empty-hint">${escapeHtml(t('history.empty.filter.hint'))}</div>
     </div>`;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn btn-sm';
+    btn.textContent = t('common.showAll');
+    btn.addEventListener('click', () => selectFilter('all'));
+    host.querySelector('.empty').appendChild(btn);
     return;
   }
 
@@ -156,14 +162,17 @@ function render() {
   }
 }
 
-function onFilterClick(event) {
-  const btn = event.target.closest('[data-filter]');
-  if (!btn) return;
-  currentFilter = btn.dataset.filter;
+function selectFilter(filter) {
+  currentFilter = filter;
   document.querySelectorAll('[data-filter]').forEach((b) => {
-    b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+    b.setAttribute('aria-pressed', b.dataset.filter === filter ? 'true' : 'false');
   });
   render();
+}
+
+function onFilterClick(event) {
+  const btn = event.target.closest('[data-filter]');
+  if (btn) selectFilter(btn.dataset.filter);
 }
 
 export function mount() {

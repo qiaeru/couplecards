@@ -222,12 +222,28 @@ body::before {
   }
 }
 
-/* View Transitions API (Chromium / Safari 18+): smooth crossfade between screens */
+/* View Transitions API (Chromium / Safari 18+): the outlet gets its own
+   group so the incoming screen slides in while the chrome stays put, and
+   the .screen entrance is dropped there so the swap animates once. */
 @media (prefers-reduced-motion: no-preference) {
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation-duration: 0.32s;
-    animation-timing-function: var(--ease-out);
+  #view {
+    view-transition-name: view;
+  }
+  ::view-transition-old(view) {
+    animation: screen-out 0.2s var(--ease-out) both;
+  }
+  ::view-transition-new(view) {
+    animation: screen-in 0.32s var(--ease-out) both;
+  }
+  @supports (view-transition-name: none) {
+    .screen {
+      animation: none;
+    }
+  }
+}
+@keyframes screen-out {
+  to {
+    opacity: 0;
   }
 }
 
@@ -382,6 +398,28 @@ body::before {
 }
 .btn:active {
   transform: scale(0.96);
+}
+/* Busy submit: the label stays and a ring spins beside it, so the button
+   keeps its width and its name while the request runs. */
+.btn[aria-busy="true"]::before {
+  content: "";
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  border: 2px solid currentColor;
+  border-inline-end-color: transparent;
+  border-radius: 50%;
+  animation: btn-spin 0.8s linear infinite;
+}
+@keyframes btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn[aria-busy="true"]::before {
+    animation: none;
+  }
 }
 
 .btn-primary {

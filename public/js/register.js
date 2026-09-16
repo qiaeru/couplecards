@@ -4,7 +4,7 @@
 // redirects, or shows the closed state when registration is disabled.
 
 import { register, registrationEnabled, me } from './core/auth.js';
-import { initI18n, applyI18n, t } from './core/i18n.js';
+import { initI18n, applyI18n } from './core/i18n.js';
 import { bindPasswordStrength } from './ui/password-strength.js';
 import { applyFieldError } from './ui/form-error.js';
 import { mountFloatingBackground } from './ui/floating-bg.js';
@@ -87,7 +87,7 @@ async function init() {
     }
     const submit = e.target.querySelector('button[type="submit"]');
     submit.disabled = true;
-    submit.textContent = t('registration.submitting');
+    submit.setAttribute('aria-busy', 'true');
     try {
       const user = await register(username, password);
       redirectAfterAuth(user);
@@ -105,7 +105,7 @@ async function init() {
       }
     } finally {
       submit.disabled = false;
-      submit.textContent = t('registration.submit');
+      submit.removeAttribute('aria-busy');
     }
   });
 }

@@ -16,7 +16,7 @@
   <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
 </head>
 <body>
-  <a href="#admin-panel-users" class="skip-link" data-i18n="common.skipToContent">Skip to main content</a>
+  <a href="#admin-main" class="skip-link" data-i18n="common.skipToContent">Skip to main content</a>
   <div id="screen-announce" class="sr-only" role="status" aria-live="polite"></div>
   <div id="admin-boot" class="boot-skeleton">
     <div class="boot-logo"><img class="title-icon" src="/icons/icon.svg" alt="" aria-hidden="true" draggable="false"><span>Couplecards</span></div>
@@ -34,6 +34,7 @@
       <button type="button" id="admin-tab-settings" class="admin-tab admin-tab-right" role="tab" aria-selected="false" tabindex="-1" data-i18n="settings.title">Settings</button>
     </nav>
 
+    <main id="admin-main" tabindex="-1">
     <section id="admin-panel-users" class="admin-panel" role="tabpanel" aria-labelledby="admin-tab-users" tabindex="-1">
       <form id="admin-create-user-form" class="admin-inline-form">
         <label for="admin-create-user-input" class="admin-inline-form-label" data-i18n="login.username">Username</label>
@@ -124,6 +125,7 @@
         </div>
       </div>
     </section>
+    </main>
 
     <button type="button" id="scroll-to-top" class="scroll-to-top" data-i18n-attr="aria-label:common.scrollTop" aria-label="Back to top">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
