@@ -163,7 +163,7 @@ body {
 .skip-link {
   position: fixed;
   top: -60px;
-  left: var(--space-2);
+  inset-inline-start: var(--space-2);
   background: var(--accent);
   color: var(--on-accent);
   padding: var(--space-3) var(--space-4);
@@ -779,7 +779,7 @@ select option {
 
 .scroll-to-top {
   position: fixed;
-  right: calc(var(--space-4) + env(safe-area-inset-right, 0px));
+  inset-inline-end: calc(var(--space-4) + env(safe-area-inset-right, 0px));
   bottom: calc(var(--space-5) + env(safe-area-inset-bottom, 0px));
   width: 44px;
   height: 44px;

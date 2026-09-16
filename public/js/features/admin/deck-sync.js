@@ -117,7 +117,7 @@ function openSyncDialog() {
     <div class="deck-sync-actions">
       <button type="button" class="btn" id="deck-sync-preview-btn">${escapeHtml(t('admin.deckSync.preview'))}</button>
     </div>
-    <div id="deck-sync-summary-host"></div>
+    <div id="deck-sync-summary-host"><p class="deck-sync-backup-hint">${escapeHtml(t('admin.deckSync.previewHint'))}</p></div>
     <div class="cp-error" id="deck-sync-error" role="alert"></div>
   `;
 
@@ -187,9 +187,9 @@ function openSyncDialog() {
 
     function rebuild() {
       document.getElementById('modal-body').innerHTML = renderBody();
-      document.getElementById('deck-sync-summary-host').innerHTML = lastPreview
-        ? renderSummary(lastPreview)
-        : '';
+      if (lastPreview) {
+        document.getElementById('deck-sync-summary-host').innerHTML = renderSummary(lastPreview);
+      }
       wireBody();
     }
   }
@@ -208,7 +208,7 @@ function openImportDialog(deck, filename) {
     <div class="deck-sync-actions">
       <button type="button" class="btn" id="deck-sync-preview-btn">${escapeHtml(t('admin.deckSync.preview'))}</button>
     </div>
-    <div id="deck-sync-summary-host"></div>
+    <div id="deck-sync-summary-host"><p class="deck-sync-backup-hint">${escapeHtml(t('admin.deckSync.previewHint'))}</p></div>
     <div class="cp-error" id="deck-sync-error" role="alert"></div>
   `;
 
@@ -270,9 +270,9 @@ function openImportDialog(deck, filename) {
 
     function rebuild() {
       document.getElementById('modal-body').innerHTML = renderBody();
-      document.getElementById('deck-sync-summary-host').innerHTML = lastPreview
-        ? renderSummary(lastPreview)
-        : '';
+      if (lastPreview) {
+        document.getElementById('deck-sync-summary-host').innerHTML = renderSummary(lastPreview);
+      }
       wireBody();
     }
   }

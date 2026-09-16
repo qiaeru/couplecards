@@ -484,9 +484,42 @@ body:has(#screen-draw) .toast {
     width: min(260px, 72vw);
     height: min(360px, 58vh);
   }
+  .card-art {
+    min-height: 0;
+  }
   .card-art-emoji .emoji {
     width: 48px;
     height: 48px;
+  }
+}
+/* Landscape phones: the card takes the height, the actions stack beside it
+   and the wordmark (decorative) makes room. */
+@media (max-height: 620px) and (orientation: landscape) {
+  #screen-draw.screen {
+    flex-direction: row;
+    gap: var(--space-7);
+    padding: 0 var(--space-6);
+  }
+  .draw-title {
+    display: none;
+  }
+  .draw-stage {
+    height: min(360px, 84vh);
+    width: min(245px, 57vh);
+    margin-bottom: 0;
+  }
+  .draw-actions,
+  .preview-actions {
+    position: static;
+    grid-template-columns: 1fr;
+    width: 220px;
+    margin: 0;
+  }
+  .draw-actions #action-redraw {
+    grid-column: auto;
+  }
+  body:has(#screen-draw) .toast {
+    top: var(--space-3);
   }
 }
 
