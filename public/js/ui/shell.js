@@ -215,6 +215,7 @@ export function withModal({
   confirmLabel,
   cancelLabel,
   danger,
+  neutral,
   onConfirm,
   onBodyReady,
   dismissable = true,
@@ -234,7 +235,7 @@ export function withModal({
   bodyEl.innerHTML = bodyHtml;
   confirmBtn.textContent = confirmLabel;
   confirmBtn.classList.toggle('btn-danger', !!danger);
-  confirmBtn.classList.toggle('btn-primary', !danger);
+  confirmBtn.classList.toggle('btn-primary', !danger && !neutral);
   confirmBtn.disabled = false;
   const showCancel = cancelLabel != null;
   cancelBtn.hidden = !showCancel;

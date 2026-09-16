@@ -7,13 +7,18 @@ import { register, registrationEnabled, me } from './core/auth.js';
 import { initI18n, applyI18n, t } from './core/i18n.js';
 import { bindPasswordStrength } from './ui/password-strength.js';
 import { applyFieldError } from './ui/form-error.js';
+import { mountFloatingBackground } from './ui/floating-bg.js';
 
 const $ = (id) => document.getElementById(id);
 
 const ERROR_FIELDS = ['register-username', 'register-password', 'register-confirm'];
 
-function showError(code, extra = {}) {
-  applyFieldError('register-error', ERROR_FIELDS, code, extra);
+// `fields` narrows the aria-invalid flags to the inputs actually at fault;
+// the first of them takes focus so the fix starts where the error is.
+function showError(code, extra = {}, fields = ERROR_FIELDS) {
+  applyFieldError('register-error', ERROR_FIELDS, null);
+  applyFieldError('register-error', fields, code, extra);
+  if (code) $(fields[0])?.focus();
 }
 
 function redirectAfterAuth(user) {
@@ -34,6 +39,7 @@ function showStep(name) {
 }
 
 async function init() {
+  mountFloatingBackground();
   const existing = await me();
   await initI18n(existing?.locale);
   applyI18n(document);
@@ -71,8 +77,12 @@ async function init() {
     const username = $('register-username').value.trim().toLowerCase();
     const password = $('register-password').value;
     const confirm = $('register-confirm').value;
+    if (!$('register-username').checkValidity()) {
+      showError('registration.usernameHint', {}, ['register-username']);
+      return;
+    }
     if (password !== confirm) {
-      showError('registration.mismatch');
+      showError('registration.mismatch', {}, ['register-confirm']);
       return;
     }
     const submit = e.target.querySelector('button[type="submit"]');
@@ -86,6 +96,10 @@ async function init() {
         showError('login.errors.rateLimited');
       } else if (err?.code === 'REGISTRATION_DISABLED') {
         showStep('register-disabled');
+      } else if (err?.code === 'USERNAME_TAKEN' || err?.code === 'USERNAME_RESERVED') {
+        showError(err.code, {}, ['register-username']);
+      } else if (String(err?.code || '').startsWith('PASSWORD_')) {
+        showError(err.code, {}, ['register-password']);
       } else {
         showError(err?.code || 'generic');
       }

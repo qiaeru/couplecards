@@ -173,7 +173,7 @@
   "admin.users.initialPassword.title": "Initial password for {{username}}",
   "admin.users.initialPassword.warn": "This password is shown only once. Copy and share it securely. The user will be forced to change it on first sign-in.",
   "admin.users.initialPassword.copy": "Copy password",
-  "admin.users.initialPassword.close": "Password saved",
+  "admin.users.initialPassword.close": "I saved the password",
   "admin.users.reset": "Reset password",
   "admin.users.reset.confirm": "Reset password for {{username}}?",
   "admin.users.reset.body": "A new one-time password will be generated. The user will have to change it on next sign-in.",

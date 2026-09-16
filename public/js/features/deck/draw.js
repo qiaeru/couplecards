@@ -95,6 +95,18 @@ function stopDust() {
   }
 }
 
+// Revealed-card ambiance shared by the live draw and the preview: the
+// pile-tinted halo and the slow float. The float is a CSS animation, so the
+// reduced-motion block in cards.css switches it off.
+function settleStage(pile) {
+  const halo = $('stage-halo');
+  if (halo) {
+    halo.classList.remove('for-home', 'for-outdoor');
+    halo.classList.add(pile === 'home' ? 'for-home' : 'for-outdoor', 'active');
+  }
+  $('card-flip')?.classList.add('floaty');
+}
+
 function wait(ms) {
   return new Promise((r) => setTimeout(r, ms));
 }
@@ -105,10 +117,17 @@ function resetStage() {
   const dust = $('dust');
   const a = $('draw-actions');
   const tilt = $('card-tilt');
+  const front = document.querySelector('#card-flip .card-front');
 
   f.className = 'card-flip';
   if (dust) dust.innerHTML = '';
   if (a) a.hidden = true;
+  $('stage-halo')?.classList.remove('active');
+  if (front) {
+    front.classList.remove('glare-on');
+    front.style.setProperty('--px', '50');
+    front.style.setProperty('--py', '50');
+  }
   const preview = $('preview-actions');
   if (preview) preview.hidden = true;
   stopDust();
@@ -166,12 +185,16 @@ let returnRaf = 0;
 function applyTilt(rx, ry) {
   if (prefersReducedMotion()) return;
   const tilt = $('card-tilt');
-  if (!tilt) return;
+  const front = document.querySelector('#card-flip .card-front');
+  if (!tilt || !front) return;
   const MAX = CONFIG.tilt.maxDegrees;
   const clampedRx = Math.max(-MAX, Math.min(MAX, rx));
   const clampedRy = Math.max(-MAX, Math.min(MAX, ry));
   tilt.style.setProperty('--rx', `${clampedRx}deg`);
   tilt.style.setProperty('--ry', `${clampedRy}deg`);
+  front.style.setProperty('--px', (50 + (clampedRy / MAX) * 40).toFixed(1));
+  front.style.setProperty('--py', (50 - (clampedRx / MAX) * 40).toFixed(1));
+  front.classList.add('glare-on');
 }
 
 function smoothReturnToCenter() {
@@ -228,6 +251,7 @@ function smoothReturnToCenter() {
 }
 
 function resetTilt() {
+  document.querySelector('#card-flip .card-front')?.classList.remove('glare-on');
   smoothReturnToCenter();
 }
 
@@ -568,6 +592,7 @@ async function startDraw(pile) {
   f.classList.add('settled');
   f.classList.remove('flipping', 'enter');
   stopDust();
+  settleStage(pile);
 
   await wait(reduced ? CONFIG.draw.reducedMotionShort : CONFIG.draw.revealDelay);
   if (stale()) return false;
@@ -708,6 +733,7 @@ function showCardDirectly(cardId) {
   const f = $('card-flip');
   const preview = $('preview-actions');
   f.classList.add('settled');
+  settleStage(pile);
   announceCard(card);
   if (preview) preview.hidden = false;
   updatePreviewActions(cardId);

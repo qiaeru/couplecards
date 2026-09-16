@@ -173,7 +173,7 @@
   "admin.users.initialPassword.title": "Mot de passe initial pour {{username}}",
   "admin.users.initialPassword.warn": "Ce mot de passe n'est affiché qu'une seule fois. Copiez-le et transmettez-le en main propre. L'utilisateur sera forcé de le modifier à la première connexion.",
   "admin.users.initialPassword.copy": "Copier le mot de passe",
-  "admin.users.initialPassword.close": "Mot de passe enregistré",
+  "admin.users.initialPassword.close": "J'ai noté le mot de passe",
   "admin.users.reset": "Réinitialiser le mot de passe",
   "admin.users.reset.confirm": "Réinitialiser le mot de passe de {{username}} ?",
   "admin.users.reset.body": "Un nouveau mot de passe à usage unique sera généré. L'utilisateur devra le modifier à sa prochaine connexion.",

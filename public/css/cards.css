@@ -163,6 +163,39 @@ body:has(#screen-draw) .toast {
   animation: none;
   transform: rotateY(180deg) scale(1);
 }
+/* Once revealed the card breathes: a slow float, no other motion. */
+.card-flip.settled.floaty {
+  animation: card-float 5s ease-in-out 0.4s infinite;
+}
+@keyframes card-float {
+  0%,
+  100% {
+    transform: rotateY(180deg) scale(1) translateY(0);
+  }
+  50% {
+    transform: rotateY(180deg) scale(1) translateY(-6px);
+  }
+}
+
+/* Soft pile-tinted light behind the stage, fading in with the reveal. */
+.stage-halo {
+  position: absolute;
+  inset: -20%;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--halo, transparent), transparent 62%);
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease);
+  pointer-events: none;
+}
+.stage-halo.active {
+  opacity: 1;
+}
+.stage-halo.for-home {
+  --halo: var(--glow-home);
+}
+.stage-halo.for-outdoor {
+  --halo: var(--glow-outdoor);
+}
 /* Hide the back explicitly past the flip midpoint: backface-visibility is
    not always honored on mobile. */
 .card-flip.flipping .card-back {
@@ -362,6 +395,27 @@ body:has(#screen-draw) .toast {
   pointer-events: none;
   background: linear-gradient(135deg, transparent 35%, var(--gold-faint) 50%, transparent 65%);
 }
+.card-front.is-foil {
+  box-shadow: var(--shadow-lg), var(--glow-gold);
+}
+
+/* Light that follows the pointer or the gyroscope while the card tilts. */
+.card-glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at calc(var(--px, 50) * 1%) calc(var(--py, 50) * 1%),
+    var(--gold-faint),
+    transparent 55%
+  );
+  opacity: 0;
+  transition: opacity var(--dur) var(--ease);
+}
+.card-front.glare-on .card-glare {
+  opacity: 1;
+}
 .card-front.is-foil .card-frame {
   border-color: var(--gold-soft);
 }
@@ -444,6 +498,12 @@ body:has(#screen-draw) .toast {
   }
   .card-flip.flipping {
     animation: card-flip-rm var(--dur-slow) var(--ease) forwards;
+  }
+  .card-flip.settled.floaty {
+    animation: none;
+  }
+  .stage-halo {
+    transition: none;
   }
   @keyframes card-flip-rm {
     from {
@@ -615,6 +675,7 @@ body:has(#screen-draw) .toast {
 .coll-tile.is-foil {
   border: 2px solid var(--gold);
   background: color-mix(in srgb, var(--gold) 10%, var(--surface));
+  box-shadow: var(--glow-gold);
 }
 .coll-tile.is-foil .coll-tile-title {
   color: var(--gold);

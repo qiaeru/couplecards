@@ -76,7 +76,9 @@ body {
 }
 body {
   overflow-x: hidden;
-  background: var(--bg);
+  background-color: var(--bg);
+  background-image: radial-gradient(ellipse 120% 60% at 50% -10%, var(--bg-cast), transparent 70%);
+  background-repeat: no-repeat;
 }
 
 #app {
@@ -239,6 +241,7 @@ body {
   background: var(--accent);
   color: var(--on-accent);
   border-color: transparent;
+  box-shadow: var(--shadow-accent);
 }
 .btn-success {
   background: var(--success);
@@ -454,7 +457,7 @@ body {
 }
 .pile::after {
   z-index: -1;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-md), var(--highlight);
 }
 .pile::before {
   z-index: -2;
@@ -558,6 +561,7 @@ body {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
+  box-shadow: var(--highlight);
   padding: var(--space-4);
   content-visibility: auto;
   contain-intrinsic-size: auto 96px;
@@ -693,6 +697,7 @@ body {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
+  box-shadow: var(--highlight);
   padding: var(--space-3) var(--space-4);
   display: flex;
   justify-content: space-between;
@@ -816,6 +821,7 @@ select option {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
+  box-shadow: var(--highlight);
   color: var(--text);
   text-wrap: pretty;
 }
@@ -890,7 +896,7 @@ select option {
   color: var(--text);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-md), var(--highlight);
   font-size: var(--text-sm);
   font-weight: 500;
   line-height: var(--leading-snug);
@@ -911,6 +917,9 @@ select option {
     opacity: 0;
     translate: 0 8px;
   }
+}
+#toast:not([hidden]) ~ .sync-banner {
+  bottom: calc(var(--nav-height) + var(--space-3) + 56px + env(safe-area-inset-bottom, 0px));
 }
 .toast-action {
   -webkit-appearance: none;
@@ -1009,7 +1018,7 @@ select option {
   max-height: calc(100vh - var(--space-8));
   overflow-y: auto;
   overscroll-behavior: contain;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-lg), var(--highlight);
   animation: modal-in var(--dur) var(--ease);
 }
 @keyframes modal-in {
@@ -1040,14 +1049,26 @@ select option {
 .modal-body > p:first-child {
   margin-top: 0;
 }
+/* Sticky so the buttons of a long form (the admin card editor) stay in
+   reach while its body scrolls; the negative margins re-span the padding. */
 .modal-actions {
+  position: sticky;
+  bottom: calc(-1 * var(--space-6));
   display: flex;
   gap: var(--space-2);
   justify-content: flex-end;
   flex-wrap: wrap;
+  margin: 0 calc(-1 * var(--space-6)) calc(-1 * var(--space-6));
+  padding: var(--space-3) var(--space-6) var(--space-6);
+  background: var(--surface);
 }
 .modal-actions .btn {
-  min-width: 100px;
+  flex: 1 1 140px;
+}
+.field input[readonly] {
+  color: var(--text-2);
+  background: transparent;
+  border-color: var(--border);
 }
 
 /* ===== Boot splash ===== */
@@ -1132,9 +1153,6 @@ select option {
   border-radius: var(--radius-sm);
   font-family: inherit;
   font-size: var(--text-base);
-}
-.field input[readonly] {
-  color: var(--text-2);
 }
 .field textarea {
   resize: vertical;
@@ -1228,6 +1246,9 @@ select option {
   margin: 120px auto;
   padding: var(--space-6);
   text-align: center;
+}
+.error-page .brand-title {
+  margin-bottom: var(--space-7);
 }
 .error-page .title {
   margin-bottom: var(--space-3);

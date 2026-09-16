@@ -173,7 +173,7 @@
   "admin.users.initialPassword.title": "Contraseña inicial de {{username}}",
   "admin.users.initialPassword.warn": "Esta contraseña se muestra una sola vez. Cópiala y entrégala en persona. El usuario tendrá que cambiarla en su primer inicio de sesión.",
   "admin.users.initialPassword.copy": "Copiar la contraseña",
-  "admin.users.initialPassword.close": "Contraseña anotada",
+  "admin.users.initialPassword.close": "He guardado la contraseña",
   "admin.users.reset": "Restablecer la contraseña",
   "admin.users.reset.confirm": "¿Restablecer la contraseña de {{username}}?",
   "admin.users.reset.body": "Se generará una contraseña nueva de un solo uso. El usuario deberá cambiarla en su próximo inicio de sesión.",

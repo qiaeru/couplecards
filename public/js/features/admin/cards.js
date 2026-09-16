@@ -78,7 +78,7 @@ function renderCardsList(cards) {
       </div>
       <div class="list-item-actions">
         <button class="btn btn-sm" data-action="edit" data-id="${escapeHtml(card.id)}">${escapeHtml(t('common.edit'))}</button>
-        <button class="btn btn-sm btn-danger" data-action="delete" data-id="${escapeHtml(card.id)}">${escapeHtml(t('common.delete'))}</button>
+        <button class="btn btn-sm btn-danger-outline" data-action="delete" data-id="${escapeHtml(card.id)}">${escapeHtml(t('common.delete'))}</button>
       </div>
     `;
     host.appendChild(row);
@@ -90,7 +90,6 @@ function renderTranslationSection(locale, existing) {
   return `
     <fieldset class="field-group card-translation">
       <legend>${escapeHtml(localeLabel(locale))}</legend>
-      <p class="field-hint">${escapeHtml(t('admin.cards.translation.hint'))}</p>
       <label class="field">
         <span>${escapeHtml(t('admin.cards.cardTitle'))}</span>
         <input type="text" name="title-${locale}" maxlength="${TITLE_MAX}"
@@ -134,6 +133,7 @@ function openCardDialog({ card = null } = {}) {
             <option value="outdoor" ${card?.pile === 'outdoor' ? 'selected' : ''}>${escapeHtml(t('piles.outdoor.label'))}</option>
           </select>
         </label>
+        <p class="field-hint">${escapeHtml(t('admin.cards.translation.hint'))}</p>
         ${SUPPORTED_LOCALES.map((loc) => renderTranslationSection(loc, card)).join('')}
         <label class="field-inline">
           <input type="checkbox" id="card-foil" ${card?.foil ? 'checked' : ''}>

@@ -17,14 +17,21 @@
 }
 .brand-title {
   margin: 0;
+  /* Keeps the wordmark readable over the floating icons. */
+  text-shadow:
+    0 0 24px var(--bg),
+    0 0 8px var(--bg);
 }
 
 .auth-card {
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: 420px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg), var(--highlight);
   padding: var(--space-6);
 }
 .auth-title {
@@ -114,4 +121,55 @@
 .qiaeru-logo img {
   position: relative;
   z-index: 1;
+}
+
+/* Emoji drifting behind the auth card; the pointer nudges them aside. */
+.floating-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.auth-shell {
+  position: relative;
+  z-index: 1;
+}
+.floating-icon {
+  position: absolute;
+  opacity: var(--repel-opacity, var(--base-opacity, 0.2));
+  animation:
+    float-y var(--duration, 22s) ease-in-out infinite,
+    float-fade var(--duration, 22s) ease-in-out infinite;
+  filter: blur(var(--blur, 0.3px));
+  transition: opacity var(--dur) var(--ease);
+  will-change: transform, opacity;
+}
+.floating-icon > img {
+  display: block;
+  transform: translate3d(var(--repel-x, 0), var(--repel-y, 0), 0);
+  transition: transform var(--dur) var(--ease);
+}
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(var(--drift, 0), -24px, 0) rotate(var(--rotate, 0deg));
+  }
+}
+@keyframes float-fade {
+  0%,
+  100% {
+    opacity: var(--base-opacity, 0.2);
+  }
+  50% {
+    opacity: calc(var(--base-opacity, 0.2) + 0.14);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .floating-icon {
+    animation: none;
+  }
 }

@@ -200,6 +200,7 @@ async function openChangePasswordDialog() {
       err.textContent = '';
       if (next !== confirm) {
         err.textContent = t('changePassword.mismatch');
+        document.getElementById('cp-confirm').focus();
         return;
       }
       confirmBtn.disabled = true;

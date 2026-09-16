@@ -173,7 +173,7 @@
   "admin.users.initialPassword.title": "Anfangspasswort für {{username}}",
   "admin.users.initialPassword.warn": "Dieses Passwort wird nur ein einziges Mal angezeigt. Kopiere es und übergib es persönlich. Der Benutzer muss es bei der ersten Anmeldung ändern.",
   "admin.users.initialPassword.copy": "Passwort kopieren",
-  "admin.users.initialPassword.close": "Passwort gespeichert",
+  "admin.users.initialPassword.close": "Ich habe das Passwort gespeichert",
   "admin.users.reset": "Passwort zurücksetzen",
   "admin.users.reset.confirm": "Passwort von {{username}} zurücksetzen?",
   "admin.users.reset.body": "Es wird ein neues Einmalpasswort erzeugt. Der Benutzer muss es bei der nächsten Anmeldung ändern.",

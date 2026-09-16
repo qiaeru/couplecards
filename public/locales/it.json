@@ -173,7 +173,7 @@
   "admin.users.initialPassword.title": "Password iniziale per {{username}}",
   "admin.users.initialPassword.warn": "Questa password viene mostrata una sola volta. Copiala e consegnala di persona. L'utente dovrà cambiarla al primo accesso.",
   "admin.users.initialPassword.copy": "Copia la password",
-  "admin.users.initialPassword.close": "Password annotata",
+  "admin.users.initialPassword.close": "Ho salvato la password",
   "admin.users.reset": "Reimposta la password",
   "admin.users.reset.confirm": "Reimpostare la password di {{username}}?",
   "admin.users.reset.body": "Verrà generata una nuova password monouso. L'utente dovrà cambiarla al prossimo accesso.",

@@ -47,6 +47,15 @@
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
   --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.35);
   --shadow-lg: 0 24px 48px rgba(0, 0, 0, 0.5);
+  /* A thin light edge along the top of raised surfaces, and the three glows
+     the app allows itself: the primary button, the revealed card, rare cards. */
+  --highlight: inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  --shadow-accent: 0 8px 24px rgba(236, 90, 158, 0.28);
+  --glow-home: rgba(240, 160, 112, 0.34);
+  --glow-outdoor: rgba(127, 180, 232, 0.34);
+  --glow-gold: 0 0 20px rgba(226, 192, 124, 0.25);
+  /* Page background: a faint warm cast at the top, so the dark is not flat. */
+  --bg-cast: rgba(236, 90, 158, 0.07);
 
   --radius-sm: 8px;
   --radius-md: 12px;

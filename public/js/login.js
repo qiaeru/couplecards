@@ -6,6 +6,7 @@ import { login, me, changePassword, getPasswordPolicy, registrationEnabled } fro
 import { initI18n, applyI18n, t, fmtDate } from './core/i18n.js';
 import { bindPasswordStrength } from './ui/password-strength.js';
 import { applyFieldError } from './ui/form-error.js';
+import { mountFloatingBackground } from './ui/floating-bg.js';
 
 const $ = (id) => document.getElementById(id);
 
@@ -21,8 +22,12 @@ const ERROR_FIELDS = {
   change: ['change-current', 'change-new', 'change-confirm'],
 };
 
-function showError(scope, code, extra = {}) {
-  applyFieldError(`${scope}-error`, ERROR_FIELDS[scope] || [], code, extra);
+// `fields` narrows the aria-invalid flags to the inputs at fault, and the
+// first of them takes focus so the fix starts where the error is.
+function showError(scope, code, extra = {}, fields = ERROR_FIELDS[scope] || []) {
+  applyFieldError(`${scope}-error`, ERROR_FIELDS[scope] || [], null);
+  applyFieldError(`${scope}-error`, fields, code, extra);
+  if (code) $(fields[0])?.focus();
 }
 
 function redirectAfterAuth(user) {
@@ -59,7 +64,7 @@ function showChangeStep(user, policy) {
     const next = $('change-new').value;
     const confirm = $('change-confirm').value;
     if (next !== confirm) {
-      showError('change', 'changePassword.mismatch');
+      showError('change', 'changePassword.mismatch', {}, ['change-confirm']);
       return;
     }
     try {
@@ -68,12 +73,20 @@ function showChangeStep(user, policy) {
       const refreshed = await me();
       redirectAfterAuth(refreshed || user);
     } catch (err) {
-      showError('change', err.code || 'generic');
+      const code = err.code || 'generic';
+      const field = code === 'INVALID_CREDENTIALS' ? 'change-current' : 'change-new';
+      showError(
+        'change',
+        code,
+        {},
+        code.startsWith('PASSWORD_') || code === 'INVALID_CREDENTIALS' ? [field] : undefined,
+      );
     }
   });
 }
 
 async function init() {
+  mountFloatingBackground();
   const existing = await me();
   await initI18n(existing?.locale);
   applyI18n(document);

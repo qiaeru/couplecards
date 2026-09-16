@@ -67,7 +67,7 @@ function renderUsersList(users) {
         ? `<button class="btn btn-sm" data-action="reset" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('admin.users.reset'))}</button>`
         : '',
       showDelete
-        ? `<button class="btn btn-sm btn-danger" data-action="delete" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('common.delete'))}</button>`
+        ? `<button class="btn btn-sm btn-danger-outline" data-action="delete" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('common.delete'))}</button>`
         : '',
     ]
       .filter(Boolean)
@@ -92,11 +92,14 @@ function showInitialPassword(username, password) {
       <p>${escapeHtml(t('admin.users.initialPassword.warn'))}</p>
       <div class="initial-password-box">
         <code id="initial-password-value">${escapeHtml(password)}</code>
-        <button type="button" class="btn" id="initial-password-copy">${escapeHtml(t('admin.users.initialPassword.copy'))}</button>
+        <button type="button" class="btn btn-primary" id="initial-password-copy">${escapeHtml(t('admin.users.initialPassword.copy'))}</button>
       </div>
     `,
     confirmLabel: t('admin.users.initialPassword.close'),
     cancelLabel: null,
+    // Copying is the action that matters; closing is neutral and worded as
+    // the promise it asks for.
+    neutral: true,
     dismissable: false,
     onBodyReady: () => {
       document.getElementById('initial-password-copy')?.addEventListener('click', async () => {
