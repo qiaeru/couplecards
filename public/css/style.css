@@ -64,15 +64,13 @@
 
 /* Honor prefers-reduced-transparency: disable blurs */
 @media (prefers-reduced-transparency: reduce) {
-  .btn,
-  .icon-btn,
-  .list-item,
-  .setting-row,
+  .toast,
   .update-banner,
-  .modal-backdrop,
-  .modal-card,
-  .stack-card-top,
-  .pile-count {
+  .sync-banner,
+  .app-bottom-nav,
+  .auth-card,
+  .scroll-to-top,
+  .modal-backdrop {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
   }
@@ -112,23 +110,24 @@ body {
 body {
   overflow-x: hidden;
   background: var(--bg-0);
-  background-image:
-    radial-gradient(circle at 0% 0%, var(--bg-2) 0%, transparent 45%),
-    radial-gradient(circle at 100% 100%, var(--bg-1) 0%, transparent 45%),
-    linear-gradient(160deg, var(--bg-0), var(--bg-1));
-  background-attachment: fixed;
-  background-size:
-    110% 110%,
-    110% 110%,
-    100% 100%;
-  background-repeat: no-repeat;
-  background-position:
-    0% 0%,
-    100% 100%,
-    0% 0%;
   transition: color 0.3s;
   position: relative;
+}
+/* The page gradient lives on a fixed pseudo-element and drifts by transform:
+   animating background-position on body re-rasterized the whole viewport on
+   every frame, for the whole session. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: -10%;
+  background:
+    radial-gradient(circle at 5% 5%, var(--bg-2) 0%, transparent 45%),
+    radial-gradient(circle at 95% 95%, var(--bg-1) 0%, transparent 45%),
+    linear-gradient(160deg, var(--bg-0), var(--bg-1));
   animation: bg-shimmer 42s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: -2;
+  will-change: transform;
 }
 body::before {
   content: "";
@@ -158,28 +157,19 @@ body::before {
     transform: translate(55px, 35px) scale(1.08);
   }
 }
-/* Counter-drifting second layer applied directly to the body background
-   positions. Moves opposite to bg-drift so the two strata never line up
-   the same way twice, which is what sells the subtle "alive" feeling. */
+/* Moves opposite to bg-drift so the two strata never line up the same way
+   twice, which is what sells the subtle "alive" feeling. */
 @keyframes bg-shimmer {
   from {
-    background-position:
-      0% 0%,
-      100% 100%,
-      0% 0%;
+    transform: translate(3%, 2%);
   }
   to {
-    background-position:
-      6% 4%,
-      94% 96%,
-      0% 0%;
+    transform: translate(-3%, -2%);
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  body::before {
-    animation: none;
-  }
-  body {
+  body::before,
+  body::after {
     animation: none;
   }
 }
@@ -361,8 +351,6 @@ body::before {
   appearance: none;
   border: 1px solid var(--surface-border);
   background: var(--surface);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
   color: var(--text);
   padding: 13px 20px;
   border-radius: 999px;
@@ -497,8 +485,6 @@ body::before {
   border: 1px solid var(--surface-border);
   background-image: var(--tile-surface);
   background-color: var(--surface);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
   color: var(--text);
   cursor: pointer;
   box-shadow: var(--shadow-sm);
@@ -807,8 +793,6 @@ body::before {
   background: color-mix(in srgb, black 28%, transparent);
   padding: 4px 12px;
   border-radius: 999px;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
   transition: background 0.3s ease;
 }
 .pile-count.count-changed {
@@ -893,14 +877,10 @@ body::before {
 .list-item {
   background-image: var(--tile-surface);
   background-color: var(--surface);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
   border: 1px solid var(--surface-border);
   border-radius: var(--radius-md);
   padding: 16px 18px;
   box-shadow: var(--shadow-sm);
-  content-visibility: auto;
-  contain-intrinsic-size: auto 96px;
 }
 .list-item-row {
   display: flex;
@@ -1078,8 +1058,6 @@ body::before {
 .setting-row {
   background-image: var(--tile-surface);
   background-color: var(--surface);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
   border: 1px solid var(--surface-border);
   border-radius: var(--radius-md);
   padding: 14px 18px;

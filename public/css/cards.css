@@ -492,8 +492,12 @@ body:has(#screen-draw) .demo-banner {
 /* Holographic heart pattern confined to the illustration panel. The 2px
    inset keeps the hearts inside the panel's gold ring (1.5px box-shadow),
    so the rim stays clean and preserves the 3D feel. */
+/* The layer is oversized by one travel distance and slides by transform:
+   animating background-position repainted every foil face on every frame,
+   which showed on a Collection full of rare cards. */
 .card-front.is-foil .card-art::before {
-  inset: 2px;
+  inset: -130px 2px 2px -130px;
+  will-change: transform;
   background: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'%3E%3Cpath d='M22 33 C 11 26, 5 18, 12 12 C 16 8, 21 10, 22 15 C 23 10, 28 8, 32 12 C 39 18, 33 26, 22 33 Z' fill='%23ffffff' fill-opacity='0.35'/%3E%3C/svg%3E")
     0 0 / 44px 44px repeat;
   mix-blend-mode: overlay;
@@ -501,10 +505,10 @@ body:has(#screen-draw) .demo-banner {
 }
 @keyframes foil-hearts-slide {
   from {
-    background-position: 0 0;
+    transform: translate(0, 0);
   }
   to {
-    background-position: 132px 88px;
+    transform: translate(132px, 88px);
   }
 }
 
@@ -1299,8 +1303,6 @@ body:has(#screen-draw) .demo-banner {
   background: color-mix(in srgb, white 10%, transparent);
   color: var(--text);
   border-color: color-mix(in srgb, white 18%, transparent);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
 }
 .draw-actions .btn {
   padding: 12px 14px;
@@ -1689,10 +1691,9 @@ body:has(#screen-draw) .demo-banner {
   border-radius: inherit;
   transform: none;
   overflow: hidden;
-  /* Skip the faces scrolled out of view: the grid holds the whole deck. The
-     tile's aspect-ratio fixes the height, so nothing reflows on the way in,
-     and the foil heart-slide below pauses while its face is skipped. */
-  content-visibility: auto;
+  /* No content-visibility here: skipping the faces out of view made every
+     scroll re-rasterize the tiles coming in, four times the cost of keeping
+     them painted (measured on a 120-card grid). */
 }
 .coll-tile .card-frame {
   inset: 5px;
@@ -1876,14 +1877,18 @@ body:has(#screen-draw) .demo-banner {
 }
 /* The heart-pattern overlay on the illustration panel uses 44px tiles at
    full size; in the mini card we scale it down so the density matches, and
-   slow the slide so the perceptual speed lines up with the revealed card. */
+   slow the slide so the perceptual speed lines up with the revealed card.
+   The travel stays a multiple of the tile so the loop has no seam. */
 .coll-tile .card-front.is-foil .card-art::before {
   background-size: 14px 14px;
-  animation-duration: 70s;
+  animation: foil-hearts-slide-mini 70s linear infinite;
 }
-@media (min-width: 720px) {
-  .coll-tile .card-front.is-foil .card-art::before {
-    background-size: 18px 18px;
+@keyframes foil-hearts-slide-mini {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(126px, 84px);
   }
 }
 
@@ -1918,6 +1923,9 @@ body:has(#screen-draw) .demo-banner {
 @media (prefers-reduced-motion: reduce) {
   .coll-tile {
     transition: none;
+  }
+  .coll-tile .card-front.is-foil .card-art::before {
+    animation: none;
   }
   .coll-tile.is-fresh {
     animation: none;

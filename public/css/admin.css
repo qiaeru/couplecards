@@ -96,8 +96,6 @@ body {
   border: 1px solid var(--surface-border);
   border-radius: var(--radius-md);
   padding: 16px 18px;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
 }
 .admin-inline-form-label {
   font-size: var(--text-sm);
