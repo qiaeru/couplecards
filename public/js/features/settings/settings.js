@@ -108,8 +108,9 @@ export async function mount() {
       try {
         await resetUserData();
         toast(t('settings.resetData.toast'));
-      } catch {
-        toast(t('errors.generic'));
+      } catch (err) {
+        // An error toast waits for the user instead of fading out.
+        toast(errorMessage(err), { duration: 0 });
       } finally {
         resetBtn.disabled = false;
       }

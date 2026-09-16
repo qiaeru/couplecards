@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Every stylesheet now draws its colors, sizes, radii, shadows and easing curves from one token file (`public/css/themes.css`), and a new `css-tokens` repo check fails CI on a raw value anywhere else. The look of the app is unchanged; what changed is that no text renders under 12 px and text on red, green and pile-colored fills is dark instead of white, so every pair meets the contrast ratio.
 - Toasts sit above the bottom navigation at full width, and a toast that offers "Undo" stays until you act, close it, or change screen.
-- "Log out" is a neutral button, "Reset my data" and the admin delete buttons are outlined, so the filled red is reserved for confirmations.
+- "Sign out" is a neutral button, "Reset my data" and the admin delete buttons are outlined, so the filled red is reserved for confirmations. The English label says "Sign out" everywhere, to match "Sign in".
 - The Collection tiles keep their mini-card look with text at a readable size; the description shows on wide grids and the full card is one tap away.
 - The French "Undo" is now "Défaire" and the Italian one "Ripristina", so they no longer read like "Cancel". Error and sign-in copy drops the "Oops" and the exclamation marks.
 - The floating emoji behind the sign-in, registration and forgot-password cards are fewer and fainter, and keep clear of the wordmark.
@@ -19,6 +19,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - The developer lockup in the sign-in footer uses the new qiaeru.com logo, on the same morphing blob as the site, and the link points to qiaeru.com.
 - The repository now ships ESLint, Prettier, six repo consistency checks and a server test suite, all run by CI on every pull request. Running an instance is unaffected: `docker compose up` needs none of them.
 - The server configures its request logging through the interface Fastify 6 will require, instead of the option that release removes. Production keeps skipping the per-request access log line, and a future Fastify upgrade can no longer turn that noise back on unnoticed.
+- Errors say what to do next: the generic message ends with "Try again", a lost connection is reported as such instead of "Something went wrong", and error toasts stay on screen until you close them.
+- Rare cards carry a "Rare" badge in the History and in the admin card list instead of a bare star, and the Collection tells screen readers which cards are rare.
+- The Collection search and the language selector render at 16 px so iOS no longer zooms into them.
 
 ### Fixed
 
@@ -32,6 +35,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - The offline banner and an "Undo" toast no longer overlap when both are on screen.
 - When a pile is empty, the two piles sit side by side so the notice and its "Restore cards" button stay above the navigation instead of under it.
 - On a phone held sideways, the draw screen puts the action buttons beside the card instead of over its description, and on very short screens the illustration panel shrinks before the text does.
+- Tapping a switch on its track (sounds, vibrations, admin public registration) toggles it; only the row text and the keyboard used to.
+- On the draw screen, the bottom navigation, the "Back to top" button and the demo banner are hidden from the keyboard and screen readers instead of sitting under the card, and "Back to top" leaves the tab order whenever it is invisible.
+- Destructive confirmations open with the focus on Cancel, and Enter inside a dialog form submits it.
+- The "almost empty" count and hint on a pile sit on a dark amber pill that meets the contrast ratio.
+- Buttons lift on hover only where a pointer can hover, so a tapped button no longer stays raised on touch.
+- Dialog and admin section titles follow the heading order, and the "?" on undiscovered cards is brighter.
 
 ## [1.14.0] - 2026-08-24
 

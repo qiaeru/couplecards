@@ -128,10 +128,13 @@ function render() {
       const pileBadge = pile
         ? `<span class="pile-badge ${pile}">${escapeHtml(t(`piles.${pile}.label`))}</span>`
         : '';
+      const rareBadge = foil
+        ? `<span class="tag tag-accent">${escapeHtml(t('draw.foil.rare'))}</span>`
+        : '';
       left.innerHTML = `
         <div class="list-item-header">
-          ${pileBadge}
-          <span class="list-item-title">${escapeHtml(title)}${foil ? ' ✦' : ''}</span>
+          <span class="list-item-badges">${pileBadge}${rareBadge}</span>
+          <span class="list-item-title">${escapeHtml(title)}</span>
         </div>
         <div class="list-item-meta">${escapeHtml(t('history.entry.drawnAt', { when: fmtDateLong(entry.drawnAt) }))}</div>
       `;

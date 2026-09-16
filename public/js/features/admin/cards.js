@@ -71,8 +71,11 @@ function renderCardsList(cards) {
     row.innerHTML = `
       <div class="list-item-main">
         <div class="list-item-header">
-          <span class="tag tag-${card.pile}">${escapeHtml(t(`piles.${card.pile}.label`))}</span>
-          <span class="list-item-title">${escapeHtml(title)}${card.foil ? ' ✦' : ''}</span>
+          <span class="list-item-badges">
+            <span class="tag tag-${card.pile}">${escapeHtml(t(`piles.${card.pile}.label`))}</span>
+            ${card.foil ? `<span class="tag tag-accent">${escapeHtml(t('admin.cards.foil'))}</span>` : ''}
+          </span>
+          <span class="list-item-title">${escapeHtml(title)}</span>
         </div>
         <div class="list-item-meta">${escapeHtml(description)}</div>
       </div>
@@ -249,7 +252,7 @@ export async function mount() {
         }
       }
     } catch (err) {
-      toast(errorMessage(err));
+      toast(errorMessage(err), { duration: 0 });
     }
   });
   await renderCards();

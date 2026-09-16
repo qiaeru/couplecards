@@ -21,7 +21,7 @@ async function loadFflate() {
 async function exportDeck() {
   const resp = await fetch('/api/admin/cards/export', { credentials: 'same-origin' });
   if (!resp.ok) {
-    toast(t('errors.generic'));
+    toast(t('errors.generic'), { duration: 0 });
     return;
   }
   const blob = await resp.blob();
@@ -78,7 +78,7 @@ function renderSummary(result) {
       `<div>${escapeHtml(t('admin.deckSync.summary.kept', { count: keptOutsideFile }))}</div>`,
     );
   }
-  return `<div class="deck-sync-summary"><h4>${escapeHtml(t('admin.deckSync.summary.title'))}</h4>${parts.join('')}</div>`;
+  return `<div class="deck-sync-summary"><h3>${escapeHtml(t('admin.deckSync.summary.title'))}</h3>${parts.join('')}</div>`;
 }
 
 function renderModeOptions(selectedMode) {
@@ -164,7 +164,7 @@ function openSyncDialog() {
         await exportDeck();
         toast(t('admin.deckSync.backupDone'));
       } catch {
-        toast(t('errors.generic'));
+        toast(t('errors.generic'), { duration: 0 });
       }
     });
     document.getElementById('deck-sync-preview-btn')?.addEventListener('click', async () => {
@@ -319,7 +319,7 @@ async function pickAndImport() {
       const deck = await parseBackup(file);
       openImportDialog(deck, file.name);
     } catch {
-      toast(t('errors.INVALID_DECK'));
+      toast(t('errors.INVALID_DECK'), { duration: 0 });
     }
   };
   input.click();
@@ -339,7 +339,7 @@ async function deleteAllCards() {
     toast(t('admin.cards.deleteAll.toast'));
     window.dispatchEvent(new CustomEvent('admin:cards-refresh'));
   } catch (err) {
-    toast(errorMessage(err));
+    toast(errorMessage(err), { duration: 0 });
   }
 }
 
@@ -348,7 +348,7 @@ export function mountDeckTools(onAfterChange) {
     try {
       await exportDeck();
     } catch {
-      toast(t('errors.generic'));
+      toast(t('errors.generic'), { duration: 0 });
     }
   });
   document.getElementById('admin-deck-sync')?.addEventListener('click', () => openSyncDialog());

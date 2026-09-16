@@ -20,6 +20,15 @@ body:has(#screen-draw) .toast {
   top: calc(env(safe-area-inset-top, 0px) + 68px);
   bottom: auto;
 }
+/* The overlay covers the bottom navigation, the scroll-to-top button and the
+   demo banner, but all three stay in the DOM: pull them out of the tab order
+   and the accessibility tree so a keyboard user cannot land on an invisible
+   control, and so the banner stops showing through the translucent stage. */
+body:has(#screen-draw) .app-bottom-nav,
+body:has(#screen-draw) .scroll-to-top,
+body:has(#screen-draw) .demo-banner {
+  visibility: hidden;
+}
 
 .draw-title {
   position: absolute;
@@ -704,7 +713,7 @@ body:has(#screen-draw) .toast {
 .card-frame {
   position: absolute;
   inset: 14px;
-  border-radius: 14px;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   padding: 18px 22px 16px;
@@ -1688,7 +1697,7 @@ body:has(#screen-draw) .toast {
 .coll-tile .card-frame {
   inset: 5px;
   padding: 6px 8px 5px;
-  border-radius: 9px;
+  border-radius: 7px;
 }
 .coll-tile .card-pile-label {
   font-size: var(--text-xs);
@@ -1779,7 +1788,7 @@ body:has(#screen-draw) .toast {
   font-family: var(--font);
   font-size: var(--icon-md);
   font-weight: 700;
-  color: color-mix(in srgb, white 22%, transparent);
+  color: color-mix(in srgb, white 40%, transparent);
   z-index: 1;
 }
 

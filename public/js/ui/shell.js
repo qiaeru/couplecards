@@ -196,7 +196,9 @@ export function showConfirm({ title, body, confirmLabel, cancelLabel, danger = f
     document.addEventListener('keydown', onKey);
 
     openModalHost(modal);
-    setTimeout(() => confirmBtn.focus(), 50);
+    // A destructive dialog opens on Cancel, so a key still held down from the
+    // button that opened it cannot confirm the loss.
+    setTimeout(() => (danger && !cancelBtn.hidden ? cancelBtn : confirmBtn).focus(), 50);
   });
 }
 
@@ -272,6 +274,13 @@ export function withModal({
       if (!dismissable) return;
       event.preventDefault();
       cancel();
+      return;
+    }
+    // The dialog forms have no submit button, so Enter in a field would do
+    // nothing: route it to the confirm action like a regular form.
+    if (event.key === 'Enter' && event.target?.tagName === 'INPUT') {
+      event.preventDefault();
+      if (!confirmBtn.disabled) confirmBtn.click();
       return;
     }
     if (event.key !== 'Tab') return;

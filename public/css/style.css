@@ -384,9 +384,13 @@ body::before {
   letter-spacing: -0.005em;
   text-decoration: none;
 }
-.btn:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
+/* Hover only on devices that have one: on touch the lifted state would
+   stick to a tapped button that stays on screen (preview Ban / Restore). */
+@media (hover: hover) {
+  .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
 }
 .btn:active {
   transform: scale(0.96);
@@ -398,8 +402,10 @@ body::before {
   border-color: transparent;
   box-shadow: var(--shadow-color-pink);
 }
-.btn-primary:hover {
-  box-shadow: 0 18px 46px color-mix(in srgb, var(--accent) 38%, transparent);
+@media (hover: hover) {
+  .btn-primary:hover {
+    box-shadow: 0 18px 46px color-mix(in srgb, var(--accent) 38%, transparent);
+  }
 }
 
 .btn-danger {
@@ -426,8 +432,10 @@ body::before {
   border-color: transparent;
   box-shadow: 0 14px 40px color-mix(in srgb, var(--success) 30%, transparent);
 }
-.btn-success:hover {
-  box-shadow: 0 18px 46px color-mix(in srgb, var(--success) 40%, transparent);
+@media (hover: hover) {
+  .btn-success:hover {
+    box-shadow: 0 18px 46px color-mix(in srgb, var(--success) 40%, transparent);
+  }
 }
 
 .btn-sm {
@@ -761,7 +769,7 @@ body::before {
   position: absolute;
   inset: 10px;
   border: 2px dashed color-mix(in srgb, var(--gold) 35%, transparent);
-  border-radius: calc(var(--radius-lg) - 6px);
+  border-radius: calc(var(--radius-lg) - 10px);
   pointer-events: none;
 }
 
@@ -771,7 +779,7 @@ body::before {
   position: absolute;
   inset: 10px;
   border: 1.5px dashed color-mix(in srgb, white 35%, transparent);
-  border-radius: calc(var(--radius-lg) - 6px);
+  border-radius: calc(var(--radius-lg) - 10px);
   pointer-events: none;
 }
 
@@ -806,19 +814,23 @@ body::before {
 .pile-count.count-changed {
   animation: count-pop 0.5s var(--ease-out);
 }
+/* Amber mixed into ink, not into the pile gradient: on the warm pile colors
+   a translucent amber left the count and the hint under 3:1. */
 .pile.low .pile-count {
-  background: color-mix(in srgb, var(--warning) 22%, transparent);
+  background: color-mix(in srgb, var(--warning) 22%, var(--ink));
   color: var(--warning-text);
 }
 .pile-low-hint {
   display: block;
   margin-top: 8px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--warning) 22%, var(--ink));
   font-size: var(--text-xs);
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--warning-text);
-  text-shadow: 0 1px 4px color-mix(in srgb, var(--warning) 40%, transparent);
 }
 
 /* Empty-pile notice. Sits below the piles rather than inside the button,
@@ -934,7 +946,7 @@ body::before {
   color: var(--success-bright);
 }
 .action-tag.banned {
-  background: color-mix(in srgb, var(--danger) 18%, transparent);
+  background: color-mix(in srgb, var(--danger) 12%, transparent);
   color: var(--danger);
 }
 .action-tag.admin-role,
@@ -967,7 +979,7 @@ body::before {
   color: var(--success-bright);
 }
 .tag-danger {
-  background: color-mix(in srgb, var(--danger) 18%, transparent);
+  background: color-mix(in srgb, var(--danger) 12%, transparent);
   color: var(--danger);
 }
 .tag-warning {
@@ -1018,7 +1030,8 @@ body::before {
   padding: 7px 10px;
   border-radius: var(--radius-sm);
   font-family: inherit;
-  font-size: var(--text-sm);
+  /* 16px: iOS Safari zooms the page when a focused field renders smaller. */
+  font-size: var(--text-base);
 }
 
 .scroll-to-top {
@@ -1039,9 +1052,13 @@ body::before {
   opacity: 0;
   transform: translateY(12px);
   pointer-events: none;
+  /* visibility keeps the hidden button out of the tab order; transitioning
+     it too lets the fade-out finish before the element disappears. */
+  visibility: hidden;
   transition:
     opacity 0.2s ease,
-    transform 0.2s ease;
+    transform 0.2s ease,
+    visibility 0.2s;
   z-index: 40;
   -webkit-appearance: none;
   appearance: none;
@@ -1056,6 +1073,7 @@ body::before {
   opacity: 1;
   transform: none;
   pointer-events: auto;
+  visibility: visible;
 }
 .setting-row {
   background-image: var(--tile-surface);
@@ -1394,6 +1412,7 @@ body::before {
   max-width: 460px;
   width: 100%;
   max-height: calc(100vh - 40px);
+  max-height: calc(100dvh - 40px);
   overflow-y: auto;
   box-shadow: var(--shadow-lg);
   animation: modal-in 0.25s var(--ease-out);
@@ -1576,7 +1595,8 @@ body::before {
   padding: 8px 14px 8px 38px;
   border-radius: 999px;
   font-family: inherit;
-  font-size: var(--text-sm);
+  /* 16px: iOS Safari zooms the page when a focused field renders smaller. */
+  font-size: var(--text-base);
   transition:
     box-shadow 0.18s ease,
     border-color 0.18s ease;
@@ -1698,6 +1718,9 @@ select option:hover {
   gap: 6px;
   flex-wrap: wrap;
   margin-top: 6px;
+}
+.list-item-header .list-item-badges {
+  margin-top: 0;
 }
 /* Password strength meter */
 .pw-strength {

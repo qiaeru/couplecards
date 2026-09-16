@@ -97,10 +97,17 @@ function buildTile(card, discovered) {
     const { title, description, locale } = getCardText(card);
     tile.setAttribute('role', 'button');
     tile.setAttribute('tabindex', '0');
-    tile.setAttribute(
-      'aria-label',
-      t(banned ? 'collection.tile.banned.label' : 'collection.tile.drawn.label', { title }),
-    );
+    // The gold border is the only visual mark of a rare card at this size,
+    // so the name carries the rarity for everyone else. Literal keys: the
+    // i18n check resolves usage statically.
+    const labelKey = banned
+      ? card.foil
+        ? 'collection.tile.bannedRare.label'
+        : 'collection.tile.banned.label'
+      : card.foil
+        ? 'collection.tile.drawnRare.label'
+        : 'collection.tile.drawn.label';
+    tile.setAttribute('aria-label', t(labelKey, { title }));
     // Opening is handled by the grid, see onGridClick.
     tile.dataset.cardId = card.id;
     tile.appendChild(buildCardFront(card, title, description, locale));
@@ -113,6 +120,8 @@ function buildTile(card, discovered) {
       tile.appendChild(cross);
     }
   } else {
+    // A label on a plain div is not announced: the role makes it an image.
+    tile.setAttribute('role', 'img');
     tile.setAttribute('aria-label', t('collection.tile.locked.label'));
     const placeholder = document.createElement('div');
     placeholder.className = 'coll-tile-placeholder';

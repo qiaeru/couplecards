@@ -259,7 +259,7 @@ export async function mount() {
       await createUser(username);
       input.value = '';
     } catch (err) {
-      toast(errorMessage(err));
+      toast(errorMessage(err), { duration: 0 });
     } finally {
       btn.disabled = false;
     }
@@ -279,7 +279,7 @@ export async function mount() {
         toast(t(enabled ? 'admin.registration.toast.on' : 'admin.registration.toast.off'));
       } catch (err) {
         toggle.checked = !enabled;
-        toast(errorMessage(err));
+        toast(errorMessage(err), { duration: 0 });
       }
     });
   }
@@ -292,7 +292,7 @@ export async function mount() {
     try {
       await pruneInactive(period);
     } catch (err) {
-      toast(errorMessage(err));
+      toast(errorMessage(err), { duration: 0 });
     } finally {
       btn.disabled = false;
     }
@@ -320,7 +320,7 @@ export async function mount() {
       else if (btn.dataset.action === 'delete') await deleteUser(id, username);
       else if (btn.dataset.action === 'unlock') await unlockUser(id);
     } catch (err) {
-      toast(errorMessage(err));
+      toast(errorMessage(err), { duration: 0 });
     }
   });
 

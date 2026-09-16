@@ -97,13 +97,16 @@ export async function request(path, options = {}) {
 
 // Localized user-facing message for an ApiError (or any thrown value). Falls
 // back to errors.generic when the server code has no matching translation,
-// so unknown codes never leak as raw "errors.SOMETHING_WEIRD" strings.
+// so unknown codes never leak as raw "errors.SOMETHING_WEIRD" strings. A
+// fetch() that never reached the server throws a TypeError: that one is a
+// connection problem, not a server error.
 export function errorMessage(err) {
   if (err instanceof ApiError) {
     const key = `errors.${err.code}`;
     const localised = t(key);
     if (localised !== key) return localised;
   }
+  if (err instanceof TypeError) return t('errors.network');
   return t('errors.generic');
 }
 

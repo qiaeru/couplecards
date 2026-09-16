@@ -312,7 +312,7 @@ body {
   gap: 4px;
   font-size: var(--text-sm);
 }
-.deck-sync-summary h4 {
+.deck-sync-summary h3 {
   margin: 0 0 4px;
   font-family: var(--font-display);
   font-size: var(--text-base);
