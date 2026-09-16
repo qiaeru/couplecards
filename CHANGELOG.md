@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.15.0] - 2026-09-16
+
 ### Changed
 
 - Every stylesheet now draws its colors, sizes, radii, shadows and easing curves from one token file (`public/css/themes.css`), and a new `css-tokens` repo check fails CI on a raw value anywhere else. The look of the app is unchanged; what changed is that no text renders under 12 px and text on red, green and pile-colored fills is dark instead of white, so every pair meets the contrast ratio.
@@ -22,7 +24,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Errors say what to do next: the generic message ends with "Try again", a lost connection is reported as such instead of "Something went wrong", and error toasts stay on screen until you close them.
 - Rare cards carry a "Rare" badge in the History and in the admin card list instead of a bare star, and the Collection tells screen readers which cards are rare.
 - The Collection search and the language selector render at 16 px so iOS no longer zooms into them.
-- The app is much lighter on the phone: the drifting page background, the rare-card heart pattern and the long lists no longer repaint on every frame. At rest the browser did as much drawing work as during a scroll; it now does none. The glass blur stays on the floating surfaces (navigation, toasts, dialogs) and leaves the buttons and list rows, whose fill hid it anyway.
+- The app is much lighter on the phone: at rest the browser no longer redraws the drifting background on every frame, the rare-card heart pattern and the long lists stopped repainting while you scroll, and the glass blur stays on the floating surfaces only (navigation, toasts, dialogs).
 - Screen changes animate once (the new screen slides in while the navigation stays put) instead of stacking a slide on a crossfade.
 - A search or a filter with no result offers "Clear the search" or "Show all" instead of a dead end, and the filter chips are taller for the thumb.
 - The sign-in and registration buttons keep their label while the request runs and show a spinner beside it, instead of swapping the text.
@@ -33,7 +35,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Fixed
 
 - The revealed card no longer disappears during the charge and flip phases of the draw animation: it stayed invisible for three seconds while the dust converged on an empty stage.
-- The sound and vibration switches show a visible focus ring when reached with the keyboard, and tapping the text of a settings row toggles its control.
+- The sound and vibration switches show a visible focus ring when reached with the keyboard, and a tap anywhere on a settings row, its text or the switch itself, toggles the control; only the keyboard used to reach the switch track.
 - The draw-screen action buttons no longer slide in when the system asks for reduced motion.
 - "No matches" in the Collection spans the full width instead of being squeezed into the first grid column.
 - The demo banner follows a language change instead of staying in the language the app booted in.
@@ -42,7 +44,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - The offline banner and an "Undo" toast no longer overlap when both are on screen.
 - When a pile is empty, the two piles sit side by side so the notice and its "Restore cards" button stay above the navigation instead of under it.
 - On a phone held sideways, the draw screen puts the action buttons beside the card instead of over its description, and on very short screens the illustration panel shrinks before the text does.
-- Tapping a switch on its track (sounds, vibrations, admin public registration) toggles it; only the row text and the keyboard used to.
 - On the draw screen, the bottom navigation, the "Back to top" button and the demo banner are hidden from the keyboard and screen readers instead of sitting under the card, and "Back to top" leaves the tab order whenever it is invisible.
 - Destructive confirmations open with the focus on Cancel, and Enter inside a dialog form submits it.
 - The "almost empty" count and hint on a pile sit on a dark amber pill that meets the contrast ratio.
