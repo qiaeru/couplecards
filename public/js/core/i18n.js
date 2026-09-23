@@ -105,10 +105,20 @@ export function fmtDate(date, options) {
 // Contextual date format for list entries. Month spelled in full, joined to
 // the time via a locale-specific separator ("à" / "at") from common.dateAtTime.
 // Example: "23 avril 2026 à 12:29" (FR).
+// Building an Intl formatter costs far more than using one, and the History
+// list formats up to 500 dates per repaint, so the pair is kept per locale.
+let longFormatters = null;
 export function fmtDateLong(date) {
   const d = typeof date === 'string' ? new Date(date) : date;
-  const datePart = new Intl.DateTimeFormat(current, { dateStyle: 'long' }).format(d);
-  const timePart = new Intl.DateTimeFormat(current, { timeStyle: 'short' }).format(d);
+  if (longFormatters?.locale !== current) {
+    longFormatters = {
+      locale: current,
+      date: new Intl.DateTimeFormat(current, { dateStyle: 'long' }),
+      time: new Intl.DateTimeFormat(current, { timeStyle: 'short' }),
+    };
+  }
+  const datePart = longFormatters.date.format(d);
+  const timePart = longFormatters.time.format(d);
   return t('common.dateAtTime', { date: datePart, time: timePart });
 }
 

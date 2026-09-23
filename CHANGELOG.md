@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Signing out now signs you out on every device, so a copied session cookie stops working too. The shared demo account is the exception.
 - A version tag publishes the Docker image only once the full CI passes on that commit, and the service worker cache check also runs on direct pushes to `main`, not only on pull requests.
 - The app downloads about 560 KB less on first load: the interface font is cut to the Latin characters the five languages use (105 KB instead of 352 KB), and the offline cache no longer stores the rarely used font subsets up front.
+- The History screen repaints much faster on long histories: formatting 500 dates took about 100 ms and now takes about 2 ms.
 
 ### Fixed
 
