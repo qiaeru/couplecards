@@ -5,6 +5,8 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  # The release workflow runs the same jobs before it publishes an image.
+  workflow_call:
 
 jobs:
   build:
@@ -67,7 +69,12 @@ jobs:
         run: npm test
 
       # Any change to a precached asset must move the service worker's VERSION
-      # or clients keep serving the old shell from cache.
+      # or clients keep serving the old shell from cache. Work lands on main
+      # directly, so a push is compared with the tip it replaced. A tag push
+      # has no previous tip (all zeros) and is skipped.
       - name: Service worker cache version
-        if: github.event_name == 'pull_request'
-        run: node scripts/check-sw-version.mjs origin/${{ github.base_ref }}
+        env:
+          BASE: ${{ github.event_name == 'pull_request' && format('origin/{0}', github.base_ref) || github.event.before }}
+        run: |
+          if [ -z "$BASE" ] || [ "$BASE" = "0000000000000000000000000000000000000000" ]; then exit 0; fi
+          node scripts/check-sw-version.mjs "$BASE"

@@ -7,11 +7,19 @@ on:
 
 permissions:
   contents: read
-  packages: write
 
 jobs:
+  # A tag must never ship a commit that fails the checks: main is not
+  # protected, so nothing else guarantees CI passed on it.
+  ci:
+    uses: ./.github/workflows/ci.yml
+
   publish:
+    needs: ci
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - uses: actions/checkout@v7
 

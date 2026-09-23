@@ -51,7 +51,7 @@ See [docs/architecture.md](./docs/architecture.md) for the full breakdown.
 
 ## Checks
 
-Install the root dependencies once (`npm install`), then run everything with `npm run check`. CI runs the same four commands on every pull request, so a green local run means a green pull request.
+Install the root dependencies once (`npm install`), then run everything with `npm run check`. CI runs the same four commands on every push to `main` and every pull request, so a green local run means a green CI run. A version tag publishes the Docker image only after these checks pass on the tagged commit.
 
 | Command | What it covers |
 | --- | --- |
@@ -69,7 +69,7 @@ Install the root dependencies once (`npm install`), then run everything with `np
 - `references` resolves every relative and root-absolute import, plus the `src` and `href` attributes of the HTML pages. The comparison is case-sensitive, since Windows and macOS serve `core/API.js` for `core/api.js` and the Linux container does not.
 - `css-tokens` keeps every stylesheet on the design tokens declared in `public/css/themes.css`: a raw color, a `font-size` in rem or px, or a `cubic-bezier()` anywhere else fails. Add the value as a token first, then use it.
 
-One check needs a diff base and therefore runs only in CI, or by hand against a base branch:
+One check needs a diff base and therefore runs only in CI (against the target branch of a pull request, or the previous tip of `main` for a direct push), or by hand against a base branch:
 
 ```bash
 node scripts/check-sw-version.mjs origin/main
@@ -91,7 +91,7 @@ Before adding a new package, run the license check from the project root and ins
 npx license-checker --production --onlyAllow 'MIT;Apache-2.0;BSD-2-Clause;BSD-3-Clause;ISC;OFL-1.1;CC0-1.0;Unlicense;0BSD;BlueOak-1.0.0'
 ```
 
-The GitHub Actions workflow enforces this check automatically on every pull request.
+The GitHub Actions workflow enforces this check automatically on every push and pull request.
 
 ## Internationalization
 
