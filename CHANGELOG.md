@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- The server runs on the latest patch releases of Fastify 5.12.5, @fastify/secure-session 8.4.0 and @fastify/static 10.1.4.
+
 ## [1.16.0] - 2026-09-23
 
 ### Changed
