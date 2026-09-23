@@ -191,7 +191,7 @@ export default async function authRoutes(app) {
         return reply.code(409).send({ error: 'USERNAME_RESERVED' });
       }
 
-      const check = validatePassword(request.body.password, {
+      const check = await validatePassword(request.body.password, {
         role: 'user',
         userInputs: [username, 'couplecards'],
       });
@@ -283,7 +283,7 @@ export default async function authRoutes(app) {
       const ok = await verifyPassword(row.password_hash, currentPassword);
       if (!ok) return reply.code(401).send({ error: 'INVALID_CREDENTIALS' });
 
-      const check = validatePassword(newPassword, {
+      const check = await validatePassword(newPassword, {
         role: row.role,
         userInputs: [row.username, 'couplecards'],
       });

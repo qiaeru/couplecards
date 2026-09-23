@@ -1,29 +1,10 @@
 // SPDX-License-Identifier: MIT
-// Argon2id hashing via hash-wasm (no native compile) and zxcvbn-ts strength
-// scoring with the EN + FR dictionaries.
+// Argon2id hashing via hash-wasm (no native compile) and the password policy,
+// whose zxcvbn-ts scoring runs in a one-shot worker (password-strength.js).
 
 import { randomBytes } from 'node:crypto';
+import { Worker } from 'node:worker_threads';
 import { argon2id, argon2Verify } from 'hash-wasm';
-import { ZxcvbnFactory } from '@zxcvbn-ts/core';
-import * as zxcvbnCommonPackage from '@zxcvbn-ts/language-common';
-import * as zxcvbnEnPackage from '@zxcvbn-ts/language-en';
-import * as zxcvbnFrPackage from '@zxcvbn-ts/language-fr';
-import * as zxcvbnDePackage from '@zxcvbn-ts/language-de';
-import * as zxcvbnItPackage from '@zxcvbn-ts/language-it';
-import * as zxcvbnEsPackage from '@zxcvbn-ts/language-es-es';
-
-const zxcvbn = new ZxcvbnFactory({
-  translations: zxcvbnEnPackage.translations,
-  graphs: zxcvbnCommonPackage.adjacencyGraphs,
-  dictionary: {
-    ...zxcvbnCommonPackage.dictionary,
-    ...zxcvbnEnPackage.dictionary,
-    ...zxcvbnFrPackage.dictionary,
-    ...zxcvbnDePackage.dictionary,
-    ...zxcvbnItPackage.dictionary,
-    ...zxcvbnEsPackage.dictionary,
-  },
-});
 
 // Argon2id parameters above the OWASP 2024 minimum (t=2, m=19 MiB). Bumped to
 // t=3 to widen the margin against GPU/ASIC attacks at a ~15 ms login cost.
@@ -62,7 +43,21 @@ export async function verifyPassword(hash, plain) {
   }
 }
 
-export function validatePassword(password, { role = 'user', userInputs = [] } = {}) {
+function scoreStrength(password, userInputs) {
+  return new Promise((resolve, reject) => {
+    const worker = new Worker(new URL('./password-strength.js', import.meta.url), {
+      workerData: { password, userInputs },
+    });
+    worker.once('message', resolve);
+    worker.once('error', reject);
+    // A clean exit after the message is a no-op: the promise already settled.
+    worker.once('exit', (code) =>
+      reject(new Error(`password-strength worker exited with ${code}`)),
+    );
+  });
+}
+
+export async function validatePassword(password, { role = 'user', userInputs = [] } = {}) {
   if (typeof password !== 'string') {
     return { ok: false, code: 'PASSWORD_INVALID', score: 0 };
   }
@@ -92,7 +87,7 @@ export function validatePassword(password, { role = 'user', userInputs = [] } = 
     }
   }
 
-  const result = zxcvbn.check(password, userInputs.filter(Boolean));
+  const result = await scoreStrength(password, userInputs.filter(Boolean));
   const threshold = role === 'admin' ? POLICY.zxcvbnMinScoreAdmin : POLICY.zxcvbnMinScoreUser;
   if (result.score < threshold) {
     return {

@@ -15,13 +15,13 @@ import {
 // Long, mixed and not in any dictionary: passes every hard rule and scores 4.
 const STRONG = 'Trombone7-Quiver!Latch';
 
-test('a strong password is accepted', () => {
-  const result = validatePassword(STRONG);
+test('a strong password is accepted', async () => {
+  const result = await validatePassword(STRONG);
   assert.equal(result.ok, true);
   assert.ok(result.score >= POLICY.zxcvbnMinScoreUser);
 });
 
-test('each hard rule reports its own code', () => {
+test('each hard rule reports its own code', async () => {
   const cases = [
     ['Ab1!short', 'PASSWORD_TOO_SHORT'],
     ['Trombone7- Quiver!', 'PASSWORD_CONTAINS_WHITESPACE'],
@@ -31,15 +31,15 @@ test('each hard rule reports its own code', () => {
     ['Trombone7QuiverLatch', 'PASSWORD_MISSING_SPECIAL'],
   ];
   for (const [password, code] of cases) {
-    const result = validatePassword(password);
+    const result = await validatePassword(password);
     assert.equal(result.ok, false, `${password} should be rejected`);
     assert.equal(result.code, code, `wrong code for ${password}`);
   }
 });
 
-test('a non-string password is rejected rather than thrown on', () => {
+test('a non-string password is rejected rather than thrown on', async () => {
   for (const value of [undefined, null, 42, {}]) {
-    assert.deepEqual(validatePassword(value), {
+    assert.deepEqual(await validatePassword(value), {
       ok: false,
       code: 'PASSWORD_INVALID',
       score: 0,
@@ -47,19 +47,19 @@ test('a non-string password is rejected rather than thrown on', () => {
   }
 });
 
-test('a password containing the username is rejected, whatever the case', () => {
-  const result = validatePassword('Trombone7-Quiver!Latch', { userInputs: ['quiver'] });
+test('a password containing the username is rejected, whatever the case', async () => {
+  const result = await validatePassword('Trombone7-Quiver!Latch', { userInputs: ['quiver'] });
   assert.equal(result.ok, false);
   assert.equal(result.code, 'PASSWORD_CONTAINS_USERNAME');
 });
 
-test('admins face a stricter zxcvbn threshold than users', () => {
+test('admins face a stricter zxcvbn threshold than users', async () => {
   assert.ok(POLICY.zxcvbnMinScoreAdmin > POLICY.zxcvbnMinScoreUser);
   // Structured enough to clear the hard rules, predictable enough to score
   // below the admin threshold.
   const middling = 'Password2024!x';
-  const asUser = validatePassword(middling, { role: 'user' });
-  const asAdmin = validatePassword(middling, { role: 'admin' });
+  const asUser = await validatePassword(middling, { role: 'user' });
+  const asAdmin = await validatePassword(middling, { role: 'admin' });
   assert.ok(asAdmin.score < POLICY.zxcvbnMinScoreAdmin);
   assert.equal(asAdmin.ok, false);
   assert.equal(asAdmin.code, 'PASSWORD_TOO_WEAK');
@@ -84,12 +84,12 @@ test('a malformed hash returns false instead of throwing', async () => {
   assert.equal(await verifyPassword('not-a-phc-string', STRONG), false);
 });
 
-test('the generated initial password satisfies the policy it is handed to', () => {
+test('the generated initial password satisfies the policy it is handed to', async () => {
   // Five draws: enough to catch a generator that only sometimes satisfies the
   // hard rules, cheap enough that zxcvbn scoring stays off the critical path.
   for (let i = 0; i < 5; i += 1) {
     const generated = generateInitialPassword();
-    const result = validatePassword(generated, { role: 'admin' });
+    const result = await validatePassword(generated, { role: 'admin' });
     assert.equal(result.ok, true, `generated password rejected: ${generated}`);
   }
 });

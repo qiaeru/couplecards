@@ -56,8 +56,10 @@ COPY --chown=app:app data ./data
 RUN mkdir -p /app/var && chown app:app /app/var
 USER app
 EXPOSE 3000
+# Plain bash over /dev/tcp rather than `node -e "fetch(...)"`: booting a Node
+# process every 30 s cost ~50 MB and a CPU spike per probe, bash a few ms.
 HEALTHCHECK --interval=30s --timeout=5s --retries=3 \
-  CMD ["node", "-e", "fetch('http://127.0.0.1:' + (process.env.PORT || 3000) + '/api/health').then((r) => process.exit(r.ok ? 0 : 1), () => process.exit(1))"]
+  CMD ["bash", "-c", "exec 3<>/dev/tcp/127.0.0.1/${PORT:-3000} && printf 'GET /api/health HTTP/1.0\\r\\n\\r\\n' >&3 && head -n 1 <&3 | grep -q ' 200 '"]
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
 CMD ["node", "server/src/index.js"]
