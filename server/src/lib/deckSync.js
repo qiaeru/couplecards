@@ -134,7 +134,7 @@ export function readDbDeck() {
   return [...byId.values()];
 }
 
-function diffDecks(current, next) {
+function diffDecks(current, next, mode) {
   const currentMap = new Map(current.map((c) => [c.id, c]));
   const nextMap = new Map(next.map((c) => [c.id, c]));
   const added = [];
@@ -152,7 +152,7 @@ function diffDecks(current, next) {
       c.foil !== n.foil ||
       (c.emoji ?? null) !== (n.emoji ?? null) ||
       c.sortOrder !== n.sortOrder ||
-      !sameTranslations(c.translations, n.translations)
+      !sameTranslations(c.translations, n.translations, mode)
     ) {
       updated.push(n.id);
     } else {
@@ -165,11 +165,11 @@ function diffDecks(current, next) {
   return { added, updated, removed, unchanged };
 }
 
-// `mirror` deletes DB-only rows; `upsert` keeps them.
+// `mirror` deletes DB-only cards and translations; `upsert` keeps both.
 export function applyDeckSync(nextCards, mode) {
   if (mode !== 'mirror' && mode !== 'upsert') throw deckError('INVALID_MODE');
   const current = readDbDeck();
-  const diff = diffDecks(current, nextCards);
+  const diff = diffDecks(current, nextCards, mode);
   const db = getDb();
   const insertCard = db.prepare(`
     INSERT INTO cards (id, pile, foil, emoji, sort_order)
@@ -203,7 +203,7 @@ export function applyDeckSync(nextCards, mode) {
         const t = c.translations[locale];
         if (t) {
           replaceTr.run(c.id, locale, t.title, t.description);
-        } else {
+        } else if (mode === 'mirror') {
           deleteTr.run(c.id, locale);
         }
       }
@@ -224,7 +224,7 @@ export function applyDeckSync(nextCards, mode) {
 }
 
 export function summariseDiff(current, next, mode) {
-  const diff = diffDecks(current, next);
+  const diff = diffDecks(current, next, mode);
   return {
     added: diff.added.length,
     updated: diff.updated.length,
@@ -314,8 +314,10 @@ function readTranslation(raw) {
   return { title, description };
 }
 
-function sameTranslations(a, b) {
-  const keys = new Set([...Object.keys(a), ...Object.keys(b)]);
+// Upsert only writes the locales the payload carries, so a locale missing from
+// it (a single-language backup, a partial ZIP) is not a difference.
+function sameTranslations(a, b, mode) {
+  const keys = mode === 'upsert' ? Object.keys(b) : new Set([...Object.keys(a), ...Object.keys(b)]);
   for (const k of keys) {
     if (!a[k] || !b[k]) return false;
     if (a[k].title !== b[k].title || a[k].description !== b[k].description) return false;

@@ -123,6 +123,25 @@ test('the repo seed decks are readable and complete', () => {
   );
 });
 
+test('upsert with a single locale keeps the other translations', () => {
+  const [first] = readDbDeck();
+  const locales = Object.keys(first.translations).sort();
+  assert.ok(locales.length > 1, 'the seed card should be multilingual');
+
+  const frOnly = {
+    ...first,
+    translations: { fr: { ...first.translations.fr, title: 'Titre modifié' } },
+  };
+  assert.equal(summariseDiff(readDbDeck(), [frOnly], 'upsert').updated, 1);
+  applyDeckSync([frOnly], 'upsert');
+
+  const after = readDbDeck().find((c) => c.id === first.id);
+  assert.deepEqual(Object.keys(after.translations).sort(), locales);
+  assert.equal(after.translations.fr.title, 'Titre modifié');
+  // The locales the payload leaves out are not a difference either.
+  assert.equal(summariseDiff(readDbDeck(), [frOnly], 'upsert').unchanged, 1);
+});
+
 test('mirror removes cards absent from the payload, upsert keeps them', () => {
   const before = readDbDeck().length;
   assert.ok(before > 0, 'the seed should have populated the deck');
