@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - The History screen repaints much faster on long histories: formatting 500 dates took about 100 ms and now takes about 2 ms.
 - The database drops three indexes no query used, so every ban and card edit writes a little less.
 - Building the Docker image is faster: an edit to the repo checks no longer reinstalls every build dependency, and the browser bundles are built once instead of under arm64 emulation.
+- CI starts the built Docker image and waits for its health check, so an image that cannot boot fails before a release.
 
 ### Fixed
 

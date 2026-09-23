@@ -17,6 +17,22 @@ jobs:
       - name: Build Docker image
         run: docker build --build-arg VERSION=ci --build-arg REVISION=${{ github.sha }} -t couplecards:ci .
 
+      # Boots the image with a fast health-check interval so the Dockerfile's
+      # own HEALTHCHECK probe decides: a broken start, a missing file or a
+      # probe that can no longer reach /api/health fails here, not at release.
+      - name: Boot the image until it reports healthy
+        run: |
+          docker run -d --name smoke --health-interval=2s \
+            -e SESSION_SECRET="$(openssl rand -base64 48)" couplecards:ci
+          for _ in $(seq 1 30); do
+            status=$(docker inspect -f '{{.State.Health.Status}}' smoke)
+            if [ "$status" = healthy ]; then exit 0; fi
+            if [ "$(docker inspect -f '{{.State.Running}}' smoke)" != true ]; then break; fi
+            sleep 2
+          done
+          docker logs smoke
+          exit 1
+
       # The root package.json holds two kinds of devDependencies: the libraries
       # bundled into public/vendor/ and shipped to browsers, and the local
       # tooling (ESLint, Prettier). Scanning both is deliberate: it is one
