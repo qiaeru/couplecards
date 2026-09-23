@@ -153,13 +153,14 @@ export async function maybeResetAdmin(logger) {
     UPDATE users
     SET password_hash = ?,
         must_change_password = 1,
-        failed_attempts = 0,
-        locked_until = NULL,
         session_epoch = session_epoch + 1,
         updated_at = datetime('now')
     WHERE role = 'admin'
   `,
   ).run(hash);
+  db.prepare(
+    `DELETE FROM login_failures WHERE user_id IN (SELECT id FROM users WHERE role = 'admin')`,
+  ).run();
   logger?.warn(
     'ADMIN_RESET was enabled: admin password reset to "changeme". Unset the variable and restart.',
   );

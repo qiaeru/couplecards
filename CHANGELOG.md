@@ -23,6 +23,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - A crafted sign-in link can no longer send you to another site once you are signed in.
 - The nginx deployment variant no longer lets a visitor choose the IP address the rate limits count, which let anyone bypass the sign-in limits.
+- A run of wrong passwords now locks the account only for the IP address that typed them. The admin and demo usernames are public, so anyone could keep those accounts locked out.
 
 ## [1.15.0] - 2026-09-16
 

@@ -18,8 +18,9 @@ function selectUser(id) {
   const row = getDb()
     .prepare(
       `
-    SELECT id, username, role, must_change_password, is_demo, locked_until, failed_attempts,
-           locale, created_at, updated_at, last_login_at
+    SELECT id, username, role, must_change_password, is_demo, locale, created_at, updated_at,
+           last_login_at, (SELECT MAX(f.locked_until) FROM login_failures f
+             WHERE f.user_id = users.id AND f.locked_until > datetime('now')) AS locked_until
     FROM users WHERE id = ?
   `,
     )
@@ -32,7 +33,6 @@ function selectUser(id) {
     mustChangePassword: row.must_change_password === 1,
     isDemo: row.is_demo === 1,
     lockedUntil: row.locked_until,
-    failedAttempts: row.failed_attempts,
     locale: row.locale,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
@@ -47,8 +47,9 @@ export default async function userRoutes(app) {
     const rows = getDb()
       .prepare(
         `
-      SELECT id, username, role, must_change_password, is_demo, locked_until, failed_attempts,
-             locale, created_at, updated_at, last_login_at
+      SELECT id, username, role, must_change_password, is_demo, locale, created_at, updated_at,
+             last_login_at, (SELECT MAX(f.locked_until) FROM login_failures f
+             WHERE f.user_id = users.id AND f.locked_until > datetime('now')) AS locked_until
       FROM users ORDER BY created_at ASC
     `,
       )
@@ -60,7 +61,6 @@ export default async function userRoutes(app) {
       mustChangePassword: r.must_change_password === 1,
       isDemo: r.is_demo === 1,
       lockedUntil: r.locked_until,
-      failedAttempts: r.failed_attempts,
       locale: r.locale,
       createdAt: r.created_at,
       updatedAt: r.updated_at,
@@ -276,12 +276,12 @@ export default async function userRoutes(app) {
       db.prepare(
         `
       UPDATE users SET password_hash = ?, must_change_password = 1,
-        failed_attempts = 0, locked_until = NULL,
         session_epoch = session_epoch + 1,
         updated_at = datetime('now')
       WHERE id = ?
     `,
       ).run(hash, id);
+      db.prepare('DELETE FROM login_failures WHERE user_id = ?').run(id);
       return { ...selectUser(id), initialPassword };
     },
   );
@@ -299,18 +299,10 @@ export default async function userRoutes(app) {
       },
     },
     async (request, reply) => {
-      const db = getDb();
-      const info = db
-        .prepare(
-          `
-      UPDATE users SET locked_until = NULL, failed_attempts = 0,
-        updated_at = datetime('now')
-      WHERE id = ?
-    `,
-        )
-        .run(request.params.id);
-      if (info.changes === 0) return reply.code(404).send({ error: 'USER_NOT_FOUND' });
-      return selectUser(request.params.id);
+      const user = selectUser(request.params.id);
+      if (!user) return reply.code(404).send({ error: 'USER_NOT_FOUND' });
+      getDb().prepare('DELETE FROM login_failures WHERE user_id = ?').run(request.params.id);
+      return { ...user, lockedUntil: null };
     },
   );
 }

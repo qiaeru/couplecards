@@ -40,7 +40,7 @@ Click **Rename** next to the user and enter the new username. The same rules as 
 
 ### Unlock an account
 
-After 10 failed login attempts in a row, an account is locked for 15 minutes. Click **Unlock** next to the user to clear the lock immediately.
+After 10 failed login attempts in a row from the same IP address, the account is locked for 15 minutes for that address only: the user can still sign in from anywhere else, so a stranger guessing at a known username cannot lock its owner out. Click **Unlock** next to the user to clear every lock on the account immediately.
 
 ### Delete a user
 

@@ -77,7 +77,7 @@ export default async function authRoutes(app) {
         .prepare(
           `
       SELECT id, username, password_hash, role, must_change_password, is_demo,
-             session_epoch, failed_attempts, locked_until, locale
+             session_epoch, locale
       FROM users WHERE username = ?
     `,
         )
@@ -88,8 +88,14 @@ export default async function authRoutes(app) {
         return reply.code(401).send({ error: 'INVALID_CREDENTIALS' });
       }
 
-      if (row.locked_until) {
-        const unlockAt = new Date(row.locked_until + 'Z');
+      // Failures are counted per (user, IP): the admin and demo usernames are
+      // public, and a per-user lock let anyone keep those accounts locked out.
+      const ip = request.ip;
+      const failures = db
+        .prepare('SELECT locked_until FROM login_failures WHERE user_id = ? AND ip = ?')
+        .get(row.id, ip);
+      if (failures?.locked_until) {
+        const unlockAt = new Date(failures.locked_until + 'Z');
         if (unlockAt > new Date()) {
           return reply
             .code(423)
@@ -97,13 +103,8 @@ export default async function authRoutes(app) {
         }
         // Lock expired: restore a full window of attempts. Without this reset
         // the counter stays at the threshold and a single wrong password
-        // re-locks the account for another full period, indefinitely.
-        db.prepare(
-          `
-        UPDATE users SET failed_attempts = 0, locked_until = NULL, updated_at = datetime('now')
-        WHERE id = ?
-      `,
-        ).run(row.id);
+        // re-locks the address for another full period, indefinitely.
+        db.prepare('DELETE FROM login_failures WHERE user_id = ? AND ip = ?').run(row.id, ip);
       }
 
       const ok = await verifyPassword(row.password_hash, password);
@@ -117,22 +118,32 @@ export default async function authRoutes(app) {
           .slice(0, 19);
         db.prepare(
           `
-        UPDATE users SET failed_attempts = failed_attempts + 1,
+        INSERT INTO login_failures (user_id, ip, failed_attempts) VALUES (?, ?, 1)
+        ON CONFLICT (user_id, ip) DO UPDATE SET
+          failed_attempts = failed_attempts + 1,
           locked_until = CASE WHEN failed_attempts + 1 >= ? THEN ? ELSE locked_until END,
           updated_at = datetime('now')
-        WHERE id = ?
       `,
-        ).run(LOCKOUT_THRESHOLD, until, row.id);
+        ).run(row.id, ip, LOCKOUT_THRESHOLD, until);
+        // Forget addresses that stopped failing a day ago, so the table stays
+        // small and a forgotten typo does not count toward a lock for good.
+        db.prepare(
+          `
+        DELETE FROM login_failures
+        WHERE updated_at < datetime('now', '-1 day')
+          AND (locked_until IS NULL OR locked_until < datetime('now'))
+      `,
+        ).run();
         return reply.code(401).send({ error: 'INVALID_CREDENTIALS' });
       }
 
       db.prepare(
         `
-      UPDATE users SET failed_attempts = 0, locked_until = NULL,
-        last_login_at = datetime('now'), updated_at = datetime('now')
+      UPDATE users SET last_login_at = datetime('now'), updated_at = datetime('now')
       WHERE id = ?
     `,
       ).run(row.id);
+      db.prepare('DELETE FROM login_failures WHERE user_id = ? AND ip = ?').run(row.id, ip);
 
       // Shared demo account: wipe bans and history at each sign-in so visitors
       // always start from a clean slate and nothing leaks between sessions.
@@ -310,11 +321,11 @@ export default async function authRoutes(app) {
         `
       UPDATE users SET password_hash = ?, must_change_password = 0,
         session_epoch = session_epoch + 1,
-        failed_attempts = 0, locked_until = NULL,
         updated_at = datetime('now')
       WHERE id = ?
     `,
       ).run(hash, userId);
+      db.prepare('DELETE FROM login_failures WHERE user_id = ?').run(userId);
 
       const updated = db.prepare('SELECT session_epoch FROM users WHERE id = ?').get(userId);
       writeSessionUser(request, { id: userId, sessionEpoch: updated.session_epoch });
