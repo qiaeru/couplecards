@@ -23,6 +23,9 @@ let history = [];
 let cardsLocale = null;
 let initialized = false;
 let flushing = false;
+// Set when a flush is requested while one runs: the running pass works on the
+// outbox as it was when it started, so the newcomers need a second pass.
+let flushAgain = false;
 
 function uuid() {
   if (crypto.randomUUID) return crypto.randomUUID();
@@ -97,6 +100,7 @@ async function loadStateFromApiOrCache() {
     const data = await request('/api/state');
     banned = normaliseBanned(data.banned);
     history = data.history;
+    replayOutbox(await idb.listOutbox());
     await idb.setBanned(bannedToList());
     await idb.setHistory(history);
   } catch (err) {
@@ -105,6 +109,25 @@ async function loadStateFromApiOrCache() {
     history = cached.history;
     if (err?.status && err.status !== 0) throw err;
   }
+}
+
+// The server has not seen the queued changes yet. Replaying them over its
+// state keeps a reload from bringing back an undone draw or a lifted ban.
+function replayOutbox(items) {
+  for (const item of items) {
+    if (item.kind === 'ban') {
+      if (!banned.has(item.cardId)) banned.set(item.cardId, null);
+    } else if (item.kind === 'unban') {
+      banned.delete(item.cardId);
+    } else if (item.kind === 'history') {
+      if (!history.some((e) => e.clientUuid === item.entry.clientUuid)) {
+        history = [item.entry, ...history];
+      }
+    } else if (item.kind === 'history-delete') {
+      history = history.filter((e) => e.clientUuid !== item.clientUuid);
+    }
+  }
+  history = history.slice(0, HISTORY_CAP);
 }
 
 // Warm the service worker's runtime cache with the deck's emoji art so a later
@@ -334,7 +357,10 @@ async function flushBanItem(item) {
 }
 
 async function flushOutbox() {
-  if (flushing) return;
+  if (flushing) {
+    flushAgain = true;
+    return;
+  }
   if (!navigator.onLine) return;
   flushing = true;
   try {
@@ -402,6 +428,10 @@ async function flushOutbox() {
     notifyOutboxChanged();
   } finally {
     flushing = false;
+    if (flushAgain) {
+      flushAgain = false;
+      flushOutbox().catch(() => {});
+    }
   }
 }
 

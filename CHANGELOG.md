@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - The app now opens without a connection, as advertised. The offline cache never installed, so there was no offline mode and no "new version" banner, and opening the app offline showed "Couplecards failed to load".
 - When another account signs in on the same device, the previous account's local data and pending changes are cleared instead of carried over.
 - The HTTPS deployment guides work as written: the commands now load the `.env` file at the project root, the Traefik variant runs on current Docker versions, nginx certificate renewals no longer fail after 90 days, and every guide says how to give the container its data directory on Linux.
+- An undo made while the previous change was still being sent now reaches the server, and a reload no longer brings back an undone draw or a lifted ban while the server has not caught up.
 
 ### Security
 
