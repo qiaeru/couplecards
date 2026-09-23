@@ -111,8 +111,10 @@ const translationSchema = {
   type: 'object',
   required: ['title', 'description'],
   properties: {
-    title: { type: 'string', minLength: 1, maxLength: TITLE_MAX },
-    description: { type: 'string', minLength: 1, maxLength: DESCRIPTION_MAX },
+    // The text is trimmed before it is stored, so a blank value would save an
+    // empty string, and deckSync rejects the whole export that carries it.
+    title: { type: 'string', minLength: 1, maxLength: TITLE_MAX, pattern: '\\S' },
+    description: { type: 'string', minLength: 1, maxLength: DESCRIPTION_MAX, pattern: '\\S' },
   },
   additionalProperties: false,
 };

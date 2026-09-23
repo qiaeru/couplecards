@@ -179,6 +179,21 @@ test('creating and deleting a card moves the ETag both ways', async () => {
   assert.notEqual((await getCards()).headers.etag, afterCreate);
 });
 
+test('a blank title or description is refused instead of saved empty', async () => {
+  for (const text of [
+    { title: '   ', description: 'Description' },
+    { title: 'Title', description: '\n\t ' },
+  ]) {
+    const response = await app.inject({
+      method: 'POST',
+      url: '/api/cards',
+      headers: admin.headers(),
+      payload: { id: 'test-blank-001', pile: 'home', translations: { en: text } },
+    });
+    assert.equal(response.statusCode, 400, JSON.stringify(text));
+  }
+});
+
 test('a player cannot mutate the deck', async () => {
   const response = await app.inject({
     method: 'DELETE',
