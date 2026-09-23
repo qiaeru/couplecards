@@ -3,6 +3,7 @@
 
 import { request, invalidateCsrf } from './api.js';
 import { emit } from './events.js';
+import { idb } from './idb.js';
 
 let cachedUser = null;
 
@@ -53,6 +54,7 @@ export async function me({ allow401 = true } = {}) {
   try {
     const data = await request('/api/auth/me', { allow401 });
     cachedUser = data;
+    await rememberUser(data);
     emit('auth:changed', data);
     return data;
   } catch (err) {
@@ -60,8 +62,28 @@ export async function me({ allow401 = true } = {}) {
       cachedUser = null;
       return null;
     }
+    // Server out of reach: open as the last user seen on this device, so the
+    // cached shell, deck and state still work offline. The next request that
+    // reaches the server checks the session again.
+    if (err instanceof TypeError || err?.status >= 500) {
+      const last = await idb.getUser().catch(() => null);
+      if (last) {
+        cachedUser = last;
+        return last;
+      }
+    }
     throw err;
   }
+}
+
+// Local data belongs to one account: someone else signing in on this device
+// must not inherit the previous user's state or flush their queued changes.
+async function rememberUser(user) {
+  try {
+    const last = await idb.getUser();
+    if (last && last.id !== user.id) await idb.clearAll();
+    await idb.setUser(user);
+  } catch {}
 }
 
 export function getCachedUser() {

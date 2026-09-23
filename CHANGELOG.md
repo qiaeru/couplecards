@@ -15,6 +15,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Admin: importing a deck in "Add and update" mode no longer deletes the languages the file leaves out. A single-language backup used to wipe every other translation of the cards it updated.
 - You stay signed in for 30 days after your last visit, as documented. Sessions used to end after 24 hours.
+- The app now opens without a connection, as advertised. The offline cache never installed, so there was no offline mode and no "new version" banner, and opening the app offline showed "Couplecards failed to load".
+- When another account signs in on the same device, the previous account's local data and pending changes are cleared instead of carried over.
 
 ### Security
 

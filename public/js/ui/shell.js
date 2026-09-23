@@ -369,7 +369,9 @@ export function registerServiceWorker() {
   )
     return;
 
-  window.addEventListener('load', async () => {
+  // Boot awaits the network before calling this, so `load` has usually fired
+  // already and a plain listener would never run.
+  const register = async () => {
     try {
       const reg = await navigator.serviceWorker.register('/sw.js');
       if (reg.waiting) showUpdateBanner(reg.waiting);
@@ -383,10 +385,19 @@ export function registerServiceWorker() {
         });
       });
     } catch {}
-  });
+  };
+  if (document.readyState === 'complete') register();
+  else window.addEventListener('load', register, { once: true });
 
+  // The first install claims the page too, but the page already runs the
+  // current code: only a worker replacing another one warrants a reload.
+  let hadController = !!navigator.serviceWorker.controller;
   let reloaded = false;
   navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!hadController) {
+      hadController = true;
+      return;
+    }
     if (reloaded) return;
     reloaded = true;
     location.reload();

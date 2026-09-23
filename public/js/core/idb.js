@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Minimal IndexedDB wrapper. Three stores:
 //   cards  (key = id):         cached deck + version metadata
-//   state  (key = kind):       { banned: [...] } and { history: [...] }
+//   state  (key = kind):       banned, history, cardsVersion, and the last signed-in user
 //   outbox (key = autoinc):    queued mutations pending server sync
 
 const DB_NAME = 'couplecards';
@@ -73,6 +73,12 @@ export const idb = {
   },
   async setBanned(banned) {
     return tx('state', 'readwrite', (store) => promisifyRequest(store.put(banned, 'banned')));
+  },
+  async getUser() {
+    return tx('state', 'readonly', (store) => promisifyRequest(store.get('user')));
+  },
+  async setUser(user) {
+    return tx('state', 'readwrite', (store) => promisifyRequest(store.put(user, 'user')));
   },
   async setHistory(history) {
     return tx('state', 'readwrite', (store) => promisifyRequest(store.put(history, 'history')));

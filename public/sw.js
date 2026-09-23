@@ -8,7 +8,7 @@
 // behind, since the page got the stale copy while the revalidation stored the
 // fresh one, and left the admin card list one edit behind for good.
 
-const VERSION = 'couplecards-v69';
+const VERSION = 'couplecards-v70';
 const SHELL = [
   '/',
   '/index.html',
@@ -98,7 +98,11 @@ self.addEventListener('install', (event) => {
       const cache = await caches.open(VERSION);
       // Cache each asset individually: with addAll a single failing asset
       // would silently abandon the whole shell and break offline support.
-      const results = await Promise.allSettled(SHELL.map((url) => cache.add(url)));
+      // `reload` skips the HTTP cache, which would otherwise hand a new
+      // VERSION the files the browser fetched before the upgrade.
+      const results = await Promise.allSettled(
+        SHELL.map((url) => cache.add(new Request(url, { cache: 'reload' }))),
+      );
       const failed = SHELL.filter((_, i) => results[i].status === 'rejected');
       if (failed.length > 0) {
         console.warn(
