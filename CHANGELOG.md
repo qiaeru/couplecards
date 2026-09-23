@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
-- The server runs on the latest patch releases of Fastify 5.12.5, @fastify/secure-session 8.4.0 and @fastify/static 10.1.4.
+- The server runs on Fastify 5.12.5, @fastify/secure-session 8.4.0 and @fastify/static 10.1.4. Fastify 5.12.5 fixes a crash that needs HTTP/2 served by Fastify itself, which Couplecards does not use.
 
 ## [1.16.0] - 2026-09-23
 
