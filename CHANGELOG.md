@@ -6,34 +6,36 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.16.0] - 2026-09-23
+
 ### Changed
 
-- The server uses far less memory, about 55 MB at rest instead of about 210 MB. The password-strength dictionaries now load only while a new password is checked (about a second slower to save a password), and the container health check no longer starts a full Node.js process every 30 seconds.
-- Signing out now signs you out on every device, so a copied session cookie stops working too. The shared demo account is the exception.
-- A version tag publishes the Docker image only once the full CI passes on that commit, and the service worker cache check also runs on direct pushes to `main`, not only on pull requests.
 - The app downloads about 560 KB less on first load: the interface font is cut to the Latin characters the five languages use (105 KB instead of 352 KB), and the offline cache no longer stores the rarely used font subsets up front.
 - The History screen repaints much faster on long histories: formatting 500 dates took about 100 ms and now takes about 2 ms.
+- Signing out now signs you out on every device, so a copied session cookie stops working too. The shared demo account is the exception.
+- The server uses far less memory, about 55 MB at rest instead of about 210 MB. The password-strength dictionaries now load only while a new password is checked (about a second slower to save a password), and the container health check no longer starts a full Node.js process every 30 seconds.
 - The database drops three indexes no query used, so every ban and card edit writes a little less.
 - Building the Docker image is faster: an edit to the repo checks no longer reinstalls every build dependency, and the browser bundles are built once instead of under arm64 emulation.
-- CI starts the built Docker image and waits for its health check, so an image that cannot boot fails before a release.
+- Releases are safer: a version tag publishes the Docker image only once the full CI passes on that commit, CI boots the built image and waits for its health check, and the service worker cache check also runs on direct pushes to `main`.
 
 ### Fixed
 
-- Admin: importing a deck in "Add and update" mode no longer deletes the languages the file leaves out. A single-language backup used to wipe every other translation of the cards it updated.
-- You stay signed in for 30 days after your last visit, as documented. Sessions used to end after 24 hours.
 - The app now opens without a connection, as advertised. The offline cache never installed, so there was no offline mode and no "new version" banner, and opening the app offline showed "Couplecards failed to load".
-- When another account signs in on the same device, the previous account's local data and pending changes are cleared instead of carried over.
-- The HTTPS deployment guides work as written: the commands now load the `.env` file at the project root, the Traefik variant runs on current Docker versions, nginx certificate renewals no longer fail after 90 days, and every guide says how to give the container its data directory on Linux.
-- Admin: a card title or description made only of spaces is refused instead of being saved empty, which made the next deck export impossible to import.
-- Tapping a tab in the bottom navigation opens the screen at the top again. It used to reopen at the old scroll position, which is kept for the Back button only.
-- The screen goes back to sleep after "Draw another": a redraw used to leave it on until you switched apps.
+- You stay signed in for 30 days after your last visit, as documented. Sessions used to end after 24 hours.
 - An undo made while the previous change was still being sent now reaches the server, and a reload no longer brings back an undone draw or a lifted ban while the server has not caught up.
+- Tapping a tab in the bottom navigation opens the screen at the top again. The previous scroll position is kept for the Back button only.
+- The screen goes back to sleep after "Draw another": a redraw used to leave it on until you switched apps.
+- When another account signs in on the same device, the previous account's local data and pending changes are cleared instead of carried over.
+- Admin: importing a deck in "Add and update" mode no longer deletes the languages the file leaves out. A single-language backup used to wipe every other translation of the cards it updated.
+- Admin: a card title or description made only of spaces is refused instead of being saved empty, which made the next deck export impossible to import.
+- The HTTPS deployment guides work as written: the commands now load the `.env` file at the project root, the Traefik variant runs on current Docker versions, nginx certificate renewals no longer fail after 90 days, and every guide says how to give the container its data directory on Linux.
+- The configuration docs match the code: `SEED_LOCALE` accepts all five languages and sets the starting language of the admin and demo accounts, and `.env` no longer offers `COOKIE_SECURE` and `TRUST_PROXY`, which the Compose files set themselves.
 
 ### Security
 
 - A crafted sign-in link can no longer send you to another site once you are signed in.
-- The nginx deployment variant no longer lets a visitor choose the IP address the rate limits count, which let anyone bypass the sign-in limits.
 - A run of wrong passwords now locks the account only for the IP address that typed them. The admin and demo usernames are public, so anyone could keep those accounts locked out.
+- The nginx deployment variant no longer lets a visitor choose the IP address the rate limits count, which let anyone bypass the sign-in limits.
 
 ## [1.15.0] - 2026-09-16
 
