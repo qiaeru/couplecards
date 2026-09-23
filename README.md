@@ -17,10 +17,10 @@ The app works offline once loaded.
 
 A hosted demo is available at **<https://couplecards.qiaeru.com/>**. Sign in with `demo` / `demo`. The demo account's state is wiped on every sign-in, so feel free to click anything.
 
-| Home | Reveal |
-| :--: | :--: |
-| ![Couplecards home screen with the two piles](./docs/assets/screenshot1.png) | ![A drawn Couplecards card](./docs/assets/screenshot2.png) |
-| *The two piles on the home screen* | *A card revealed from the deck* |
+| Home | Draw | Collection |
+| :--: | :--: | :--: |
+| <img src="./docs/assets/home.png" width="260" alt="Couplecards home screen with the Home and Outdoor piles"> | <img src="./docs/assets/reveal.webp" width="260" alt="Tapping the Outdoor pile flips a rare card with the full reveal animation"> | <img src="./docs/assets/collection.png" width="260" alt="The Collection grid with discovered, banned and still hidden cards"> |
+| *Two piles, one tap* | *A rare card revealed* | *Every card found so far* |
 
 ## Highlights
 
