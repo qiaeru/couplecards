@@ -85,6 +85,24 @@ export async function signIn(app, username, password) {
   return session(app, cookieOf(response));
 }
 
+export const ADMIN_PASSWORD = 'Trombone7-Quiver!Latch';
+
+// The seeded admin lands with must_change_password = 1, so every admin route
+// answers 409 until the password is changed. Returns a ready admin session.
+export async function signInAdmin(app) {
+  const fresh = await signIn(app, 'couplecards', 'changeme');
+  const changed = await app.inject({
+    method: 'POST',
+    url: '/api/auth/change-password',
+    headers: fresh.headers(),
+    payload: { currentPassword: 'changeme', newPassword: ADMIN_PASSWORD },
+  });
+  if (changed.statusCode !== 200) {
+    throw new Error(`admin password change failed: ${changed.statusCode} ${changed.body}`);
+  }
+  return session(app, cookieOf(changed) || fresh.cookie);
+}
+
 // The login reply and the change-password reply both re-issue the cookie, so
 // the token has to be minted against whichever one is current.
 export async function session(app, cookie) {

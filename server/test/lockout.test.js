@@ -6,7 +6,7 @@
 
 import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
-import { withServer, signIn, session, cookieOf } from './helpers.js';
+import { withServer, signInAdmin } from './helpers.js';
 
 let context;
 let app;
@@ -17,17 +17,7 @@ before(async () => {
   context = await withServer({ demo: true });
   app = context.app;
   demoId = context.db.getDb().prepare(`SELECT id FROM users WHERE username = 'demo'`).get().id;
-
-  // The seeded admin must change its password before any admin route answers.
-  const fresh = await signIn(app, 'couplecards', 'changeme');
-  const changed = await app.inject({
-    method: 'POST',
-    url: '/api/auth/change-password',
-    headers: fresh.headers(),
-    payload: { currentPassword: 'changeme', newPassword: 'Trombone7-Quiver!Latch' },
-  });
-  assert.equal(changed.statusCode, 200, changed.body);
-  admin = await session(app, cookieOf(changed) || fresh.cookie);
+  admin = await signInAdmin(app);
 });
 
 after(() => context.cleanup());

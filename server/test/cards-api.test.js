@@ -7,9 +7,7 @@
 
 import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
-import { withServer, signIn, session, cookieOf } from './helpers.js';
-
-const ADMIN_PASSWORD = 'Trombone7-Quiver!Latch';
+import { withServer, signIn, signInAdmin } from './helpers.js';
 
 let context;
 let app;
@@ -20,18 +18,7 @@ before(async () => {
   context = await withServer({ demo: true });
   app = context.app;
   player = await signIn(app, 'demo', 'demo');
-
-  // The seeded admin lands with must_change_password = 1, so every admin route
-  // answers 409 until the password is changed. Do it once, up front.
-  const fresh = await signIn(app, 'couplecards', 'changeme');
-  const changed = await app.inject({
-    method: 'POST',
-    url: '/api/auth/change-password',
-    headers: fresh.headers(),
-    payload: { currentPassword: 'changeme', newPassword: ADMIN_PASSWORD },
-  });
-  assert.equal(changed.statusCode, 200, changed.body);
-  admin = await session(app, cookieOf(changed) || fresh.cookie);
+  admin = await signInAdmin(app);
 });
 
 after(() => context.cleanup());
