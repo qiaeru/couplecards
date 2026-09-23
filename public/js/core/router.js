@@ -13,7 +13,6 @@ const scrollPositions = new Map();
 let currentRoute = null;
 let currentModule = null;
 let outlet = null;
-let isHistoryNav = false;
 // Bumped on every render() call. Each await inside render() re-checks it so a
 // render overtaken by a newer navigation stops instead of overwriting the
 // newer view with its own stale partial, module, scroll reset, and focus.
@@ -49,13 +48,23 @@ export async function navigate(name, params = {}) {
   const hash =
     '#/' + name + (Object.keys(params).length ? '?' + new URLSearchParams(params).toString() : '');
   if (location.hash === hash) {
-    await render();
+    await render({ fresh: true });
   } else {
     location.hash = hash;
   }
 }
 
-async function render() {
+// popstate cannot tell back/forward apart: it also fires on every hash change,
+// link taps included. A fresh navigation creates a history entry with no
+// state, so stamping entries on first render means that meeting a stamp again
+// can only be a trip through the history.
+function isRevisit() {
+  if (history.state?.visited) return true;
+  history.replaceState({ ...history.state, visited: true }, '');
+  return false;
+}
+
+async function render({ fresh = false } = {}) {
   if (!outlet) return;
   const { segment, params } = parsePath();
   if (!features.has(segment)) return;
@@ -64,8 +73,7 @@ async function render() {
   // Snapshot the scroll position of the screen we are about to leave, so a
   // future browser back can restore it.
   if (currentRoute) scrollPositions.set(currentRoute, window.scrollY);
-  const restoreScroll = isHistoryNav;
-  isHistoryNav = false;
+  const restoreScroll = isRevisit() && !fresh;
 
   if (currentModule && typeof currentModule.unmount === 'function') {
     try {
@@ -117,14 +125,7 @@ async function render() {
 }
 
 export function startRouter() {
-  // popstate fires before hashchange when the user navigates the history
-  // (browser back / forward, in-app history.back). Capturing it lets us
-  // distinguish "go back" from "fresh link click" and decide whether to
-  // restore the previous scroll position or land at the top.
-  window.addEventListener('popstate', () => {
-    isHistoryNav = true;
-  });
-  window.addEventListener('hashchange', render);
+  window.addEventListener('hashchange', () => render());
   if (!location.hash) {
     location.replace('#/home');
   } else {
