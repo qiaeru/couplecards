@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - You stay signed in for 30 days after your last visit, as documented. Sessions used to end after 24 hours.
 - The app now opens without a connection, as advertised. The offline cache never installed, so there was no offline mode and no "new version" banner, and opening the app offline showed "Couplecards failed to load".
 - When another account signs in on the same device, the previous account's local data and pending changes are cleared instead of carried over.
+- The HTTPS deployment guides work as written: the commands now load the `.env` file at the project root, the Traefik variant runs on current Docker versions, nginx certificate renewals no longer fail after 90 days, and every guide says how to give the container its data directory on Linux.
 
 ### Security
 

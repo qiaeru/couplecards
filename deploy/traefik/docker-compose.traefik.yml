@@ -3,11 +3,11 @@
 # Run from project root:
 #   export COUPLECARDS_DOMAIN=couplecards.example.com
 #   export LETSENCRYPT_EMAIL=you@example.com
-#   docker compose -f deploy/traefik/docker-compose.traefik.yml up -d
+#   docker compose --env-file .env -f deploy/traefik/docker-compose.traefik.yml up -d
 
 services:
   traefik:
-    image: traefik:v3.1
+    image: traefik:v3
     restart: unless-stopped
     command:
       - "--providers.docker=true"

@@ -46,6 +46,8 @@ A hosted demo is available at **<https://couplecards.qiaeru.com/>**. Sign in wit
 cp .env.example .env
 # Generate a secret with: openssl rand -base64 48
 # Paste it into .env as SESSION_SECRET
+# Linux only: the container runs as UID 999 and must own its data directory
+mkdir -p var && sudo chown 999:999 var
 docker compose up -d --build
 ```
 

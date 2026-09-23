@@ -16,6 +16,8 @@ cp .env.example .env
 # Generate a secret:
 openssl rand -base64 48
 # Paste the result as SESSION_SECRET in .env
+# Linux only, see "Volumes and backups" below
+mkdir -p var && sudo chown 999:999 var
 docker compose up -d --build
 ```
 
@@ -37,7 +39,7 @@ See [configuration.md](./configuration.md) for the full reference. The only mand
 
 ## Volumes and backups
 
-The SQLite database lives at `/app/var/couplecards.db` inside the container and is bind-mounted to `./var/couplecards.db` on the host, relative to the Compose file you run.
+The SQLite database lives at `/app/var/couplecards.db` inside the container and is bind-mounted to `./var/couplecards.db` on the host, at the project root. The variants in `deploy/` mount that same directory.
 
 The container runs as a non-root user with **UID 999, GID 999**. The host directory you bind-mount to `/app/var` must be owned by that UID/GID, otherwise the server cannot open the database file and will crash at startup with `SQLITE_ERROR: unable to open database file`. Create the directory before the first `docker compose up` and `chown` it:
 
@@ -83,6 +85,7 @@ If you lose the admin password:
 The image is published automatically on every version tag by the `release` workflow.
 
 ```bash
+mkdir -p var && sudo chown 999:999 var
 docker run -d --name couplecards -p 3000:3000 \
   -e SESSION_SECRET="$(openssl rand -base64 48)" \
   -v $PWD/var:/app/var \
@@ -98,9 +101,13 @@ git pull
 docker compose up -d --build
 ```
 
-Database migrations run automatically on boot. To pull the latest image from GHCR without rebuilding:
+Database migrations run automatically on boot. The Compose files build the image from the source, so `git pull` is what brings a new version.
+
+A container started from the GHCR image is upgraded by pulling the new image and recreating the container:
 
 ```bash
-docker compose pull
-docker compose up -d
+docker pull ghcr.io/qiaeru/couplecards:latest
+docker rm -f couplecards
 ```
+
+Then start it again with the `docker run` command above. The data in `./var` is kept. The example generates a new `SESSION_SECRET` on every run, which signs everyone out; pass a fixed value instead to keep sessions across upgrades.
