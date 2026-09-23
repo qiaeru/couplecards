@@ -315,13 +315,15 @@ export function withModal({
 // Screen-wake lock while a draw animation is in progress.
 let wakeLockSentinel = null;
 export async function requestWakeLock() {
+  // "Draw another" asks again while the lock is held: overwriting the sentinel
+  // orphaned the first lock, and the screen stayed on until the tab was hidden.
+  if (wakeLockSentinel || !('wakeLock' in navigator)) return;
   try {
-    if ('wakeLock' in navigator) {
-      wakeLockSentinel = await navigator.wakeLock.request('screen');
-      wakeLockSentinel.addEventListener('release', () => {
-        wakeLockSentinel = null;
-      });
-    }
+    const sentinel = await navigator.wakeLock.request('screen');
+    sentinel.addEventListener('release', () => {
+      if (wakeLockSentinel === sentinel) wakeLockSentinel = null;
+    });
+    wakeLockSentinel = sentinel;
   } catch {}
 }
 export async function releaseWakeLock() {
