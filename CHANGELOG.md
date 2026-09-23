@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Security
 
 - A crafted sign-in link can no longer send you to another site once you are signed in.
+- The nginx deployment variant no longer lets a visitor choose the IP address the rate limits count, which let anyone bypass the sign-in limits.
 
 ## [1.15.0] - 2026-09-16
 
