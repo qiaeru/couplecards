@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - The app downloads about 560 KB less on first load: the interface font is cut to the Latin characters the five languages use (105 KB instead of 352 KB), and the offline cache no longer stores the rarely used font subsets up front.
 - The History screen repaints much faster on long histories: formatting 500 dates took about 100 ms and now takes about 2 ms.
 - The database drops three indexes no query used, so every ban and card edit writes a little less.
+- Building the Docker image is faster: an edit to the repo checks no longer reinstalls every build dependency, and the browser bundles are built once instead of under arm64 emulation.
 
 ### Fixed
 

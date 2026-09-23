@@ -13,11 +13,13 @@ COPY server/package.json server/package-lock.json ./
 RUN npm ci --omit=dev --no-audit --no-fund
 
 # ---- Stage 2: Browser vendor bundle (zxcvbn-ts) ----
-FROM node:24-slim AS vendor
+# The bundles are plain JavaScript, identical for every target, so this stage
+# runs natively on the build machine instead of under arm64 emulation.
+FROM --platform=$BUILDPLATFORM node:24-slim AS vendor
 WORKDIR /build
 COPY package.json package-lock.json ./
-COPY scripts ./scripts
 RUN npm ci --no-audit --no-fund
+COPY scripts ./scripts
 COPY public ./public
 RUN node scripts/build-vendor.mjs
 

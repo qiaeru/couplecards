@@ -12,6 +12,7 @@ server/test/
 docs/
 deploy/
 *.md
+**/CLAUDE.md
 !CREDITS.md
 !LICENSE
 .claude/
