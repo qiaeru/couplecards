@@ -33,7 +33,7 @@ A hosted demo is available at **<https://couplecards.qiaeru.com/>**. Sign in wit
 
 ### Under the hood
 
-- **Backend.** Node.js 24 and Fastify 5, with SQLite through the built-in `node:sqlite` module. The entire database is a single file on disk (`var/couplecards.db`). Password hashing uses `hash-wasm` (pure WebAssembly), so the server has zero native dependencies and no compilation step.
+- **Backend.** Node.js 24 and Fastify 5, with SQLite through the built-in `node:sqlite` module. The entire database is a single file on disk (`var/couplecards.db`). Password hashing uses `hash-wasm` (pure WebAssembly), so nothing is compiled at install time: the only native module, `sodium-native` (session encryption), installs from a prebuilt binary.
 - **Authentication.** Argon2id password hashes, session cookies flagged `HttpOnly` and `SameSite=Strict`, CSRF protection, per-route rate limiting, account lockout after repeated failures, and a forced password change on first sign-in for admin-created accounts.
 - **Frontend.** Vanilla ES modules organized into `core`, `features`, and `ui`. No client-side build step is required to edit a feature. Two vendor bundles produced by esbuild during the Docker build (zxcvbn for password strength, fflate for the deck export/import) are the only artifacts that need a build step.
 - **Offline first.** IndexedDB caches the deck, an outbox replays mutations on reconnect, and a Service Worker precaches the app shell so the app still opens with no network.

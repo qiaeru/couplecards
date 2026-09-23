@@ -17,7 +17,7 @@ Prerequisites:
 - Docker with the Compose plugin, optional for frontend-only work.
 - A modern browser.
 
-The backend has zero native dependencies. It runs on `node:sqlite` (built into Node since version 24) and on `hash-wasm` (Argon2id compiled to WebAssembly). There is nothing to compile, no prebuilt binary to chase, and no toolchain to install beyond Node itself.
+The backend compiles nothing at install time. It runs on `node:sqlite` (built into Node since version 24) and on `hash-wasm` (Argon2id compiled to WebAssembly). The one native module, `sodium-native` (pulled in by `@fastify/secure-session`), ships prebuilt binaries for glibc, which is why the Docker image stays on Debian slim rather than Alpine. There is no toolchain to install beyond Node itself.
 
 ```bash
 # Clone

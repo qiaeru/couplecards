@@ -20,7 +20,7 @@ Audience: admins who self-host the app and want a clear picture of the measures 
 ## CSRF and input validation
 
 - Every mutating request under `/api/*` requires a CSRF token bound to the session cookie (`@fastify/csrf-protection`). The check is wired as a global hook so all mutating routes are covered by default. The login and registration endpoints are exempt because they have no session cookie yet; they rely on `SameSite=Strict` and their own rate limits instead.
-- Every request body, query, and params object is validated against a JSON schema with `additionalProperties: false`. Unknown fields produce a `400 VALIDATION_ERROR` rather than being silently ignored.
+- Every request body, query, and params object is validated against a JSON schema with `additionalProperties: false`. Unknown fields are stripped before the handler runs (Fastify removes them during validation), so they never reach the code; a field of the wrong type or length produces a `400 VALIDATION_ERROR`.
 - The server does not accept cross-origin requests.
 
 ## Rate limiting and lockout
@@ -74,7 +74,7 @@ The optional `demo` account, enabled with `ENABLE_DEMO_ACCOUNT=1`, is a delibera
 
 - Fastify's Pino logger runs at `info` in production and emits only error and per-route lines. The per-request access log line is disabled in production (a PWA cold start pulls ~30 static assets and the log encoding cost dominated the serve cost for the deployment's single-instance profile).
 - Password fields (`req.body.password`, `req.body.newPassword`, `req.body.currentPassword`) and the generated initial password are redacted from every log line.
-- The login route counts failed attempts per account and IP address (used for lockout) but does not write a historical journal of authentication attempts. A successful sign-in resets the counter of its address, and counters idle for a day are dropped, so a compromised account leaves no in-app trace of when or from where the attacker connected. This is an explicit trade-off for the small-scale, two-person threat model the app targets. Operators who want an audit trail should front the app with a reverse proxy that records its own access log (every variant under [`deploy/`](../deploy/) does).
+- The login route counts failed attempts per account and IP address (used for lockout) but does not write a historical journal of authentication attempts. A successful sign-in resets the counter of its address, and counters idle for a day are dropped, so a compromised account leaves no in-app trace of when or from where the attacker connected. This is an explicit trade-off for the small-scale, two-person threat model the app targets. Operators who want an audit trail should front the app with a reverse proxy that records its own access log. Of the variants under [`deploy/`](../deploy/), nginx keeps one by default; Caddy needs a `log` directive in its Caddyfile and Traefik the `--accesslog=true` flag.
 
 ## Vulnerability disclosure
 
