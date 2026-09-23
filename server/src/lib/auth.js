@@ -3,6 +3,11 @@
 
 import { getDb } from '../db/index.js';
 
+// A session lasts 30 days from the last visit: readSessionUser renews it at
+// most once a day, so an active user is never signed out.
+export const SESSION_TTL_SECONDS = 60 * 60 * 24 * 30;
+const SESSION_RENEW_SECONDS = 60 * 60 * 24;
+
 export function readSessionUser(request) {
   const session = request.session;
   if (!session) return null;
@@ -21,6 +26,9 @@ export function readSessionUser(request) {
     .get(payload.id);
   if (!row) return null;
   if (row.sessionEpoch !== payload.epoch) return null;
+  // secure-session stamps `__ts` only when the session is written and expires
+  // it from there; touching it re-issues the cookie with a fresh stamp.
+  if (Date.now() / 1000 - session.get('__ts') > SESSION_RENEW_SECONDS) session.touch();
   return {
     id: row.id,
     username: row.username,

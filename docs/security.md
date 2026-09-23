@@ -13,8 +13,8 @@ Audience: admins who self-host the app and want a clear picture of the measures 
 
 ## Session management
 
-- Session cookies are issued by `@fastify/secure-session`. Each cookie is signed and AES-encrypted with the `SESSION_SECRET`. It carries the `HttpOnly` flag, the `SameSite=Strict` attribute, the `Secure` flag over HTTPS, and a maximum age of 30 days.
-- Every user row carries a session counter. Changing the password increments the counter, which invalidates every existing session for that user.
+- Session cookies are issued by `@fastify/secure-session`. Each cookie is signed and AES-encrypted with the `SESSION_SECRET`. It carries the `HttpOnly` flag, the `SameSite=Strict` attribute, and the `Secure` flag over HTTPS. A session lasts 30 days from the last visit: the server renews the cookie at most once a day, so an active user stays signed in and an idle one is signed out after 30 days.
+- Every user row carries a session counter. Changing the password or signing out increments the counter, which invalidates every existing session for that user, on every device. The shared demo account is the exception on sign-out, so one visitor leaving does not sign the others out.
 - The `ADMIN_RESET` recovery flow also bumps the admin session counter so any previously issued admin cookie stops working.
 
 ## CSRF and input validation

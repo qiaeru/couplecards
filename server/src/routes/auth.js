@@ -240,6 +240,18 @@ export default async function authRoutes(app) {
   );
 
   app.post('/auth/logout', async (request) => {
+    // The cookie is stateless, so a copy of it would outlive the logout. Bumping
+    // the counter kills every copy, which signs this user out on all devices.
+    // The shared demo account is skipped: one visitor leaving must not sign
+    // every other visitor out.
+    const user = readSessionUser(request);
+    if (user && !user.isDemo) {
+      getDb()
+        .prepare(
+          `UPDATE users SET session_epoch = session_epoch + 1, updated_at = datetime('now') WHERE id = ?`,
+        )
+        .run(user.id);
+    }
     clearSession(request);
     return { ok: true };
   });

@@ -9,10 +9,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Changed
 
 - The server uses far less memory, about 55 MB at rest instead of about 210 MB. The password-strength dictionaries now load only while a new password is checked (about a second slower to save a password), and the container health check no longer starts a full Node.js process every 30 seconds.
+- Signing out now signs you out on every device, so a copied session cookie stops working too. The shared demo account is the exception.
 
 ### Fixed
 
 - Admin: importing a deck in "Add and update" mode no longer deletes the languages the file leaves out. A single-language backup used to wipe every other translation of the cards it updated.
+- You stay signed in for 30 days after your last visit, as documented. Sessions used to end after 24 hours.
 
 ### Security
 

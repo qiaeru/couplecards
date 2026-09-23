@@ -4,17 +4,20 @@
 import fp from 'fastify-plugin';
 import secureSession from '@fastify/secure-session';
 import { config } from '../config.js';
+import { SESSION_TTL_SECONDS } from '../lib/auth.js';
 
 export default fp(async function sessionPlugin(app) {
   await app.register(secureSession, {
     key: config.sessionKey,
     cookieName: 'couplecards.sid',
+    // The library's own expiry (24 h by default) wins over the cookie maxAge.
+    expiry: SESSION_TTL_SECONDS,
     cookie: {
       path: '/',
       httpOnly: true,
       sameSite: 'strict',
       secure: config.cookieSecure,
-      maxAge: 60 * 60 * 24 * 30, // 30 days
+      maxAge: SESSION_TTL_SECONDS,
     },
   });
 
