@@ -14,6 +14,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Admin: importing a deck in "Add and update" mode no longer deletes the languages the file leaves out. A single-language backup used to wipe every other translation of the cards it updated.
 
+### Security
+
+- A crafted sign-in link can no longer send you to another site once you are signed in.
+
 ## [1.15.0] - 2026-09-16
 
 ### Changed

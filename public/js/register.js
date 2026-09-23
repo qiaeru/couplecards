@@ -22,11 +22,18 @@ function showError(code, extra = {}, fields = ERROR_FIELDS) {
 }
 
 function redirectAfterAuth(user) {
-  const params = new URLSearchParams(location.search);
-  const next = params.get('next');
-  if (next && /^\/[^/\\]/.test(next)) {
-    location.replace(next);
-    return;
+  const next = new URLSearchParams(location.search).get('next');
+  if (next) {
+    // Parse rather than pattern-match: browsers drop tabs and newlines, so
+    // "/\t/evil.example" looks like a local path and still leaves the origin.
+    let target = null;
+    try {
+      target = new URL(next, location.origin);
+    } catch {}
+    if (target?.origin === location.origin) {
+      location.replace(target.pathname + target.search + target.hash);
+      return;
+    }
   }
   location.replace(user?.role === 'admin' ? '/admin.html' : '/');
 }

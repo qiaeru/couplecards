@@ -31,11 +31,18 @@ function showError(scope, code, extra = {}, fields = ERROR_FIELDS[scope] || []) 
 }
 
 function redirectAfterAuth(user) {
-  const params = new URLSearchParams(location.search);
-  const next = params.get('next');
-  if (next && /^\/[^/\\]/.test(next)) {
-    location.replace(next);
-    return;
+  const next = new URLSearchParams(location.search).get('next');
+  if (next) {
+    // Parse rather than pattern-match: browsers drop tabs and newlines, so
+    // "/\t/evil.example" looks like a local path and still leaves the origin.
+    let target = null;
+    try {
+      target = new URL(next, location.origin);
+    } catch {}
+    if (target?.origin === location.origin) {
+      location.replace(target.pathname + target.search + target.hash);
+      return;
+    }
   }
   // Admins go straight to /admin.html; everyone else gets the home SPA.
   location.replace(user?.role === 'admin' ? '/admin.html' : '/');
