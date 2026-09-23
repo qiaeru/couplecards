@@ -1,7 +1,7 @@
 This folder ships open source fonts released under the SIL Open Font License v1.1. The full OFL text is available at https://openfontlicense.org/.
 
 Bundled fonts:
-  * Inter — Copyright (c) 2020 The Inter Project Authors (https://github.com/rsms/inter). Covers Latin (extended), Cyrillic, Greek, and Vietnamese.
+  * Inter — Copyright (c) 2020 The Inter Project Authors (https://github.com/rsms/inter). Variable font (InterVariable 4.001) cut into unicode-range WOFF2 subsets. Covers Latin (extended) and Vietnamese; the Greek and Cyrillic glyphs of the upstream font are left out.
   * Fraunces — Copyright (c) 2020 The Fraunces Project Authors (https://github.com/undercasetype/Fraunces). Variable font shipped as unicode-range WOFF2 subsets sourced from Google Fonts v38. Covers Latin (extended) and Vietnamese; the upstream font does not include Greek or Cyrillic glyphs.
 
 The unmodified OFL text applies to each font in this directory. See the respective upstream repositories for attribution and derivative rules.

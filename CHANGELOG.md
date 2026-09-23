@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - The server uses far less memory, about 55 MB at rest instead of about 210 MB. The password-strength dictionaries now load only while a new password is checked (about a second slower to save a password), and the container health check no longer starts a full Node.js process every 30 seconds.
 - Signing out now signs you out on every device, so a copied session cookie stops working too. The shared demo account is the exception.
 - A version tag publishes the Docker image only once the full CI passes on that commit, and the service worker cache check also runs on direct pushes to `main`, not only on pull requests.
+- The app downloads about 560 KB less on first load: the interface font is cut to the Latin characters the five languages use (105 KB instead of 352 KB), and the offline cache no longer stores the rarely used font subsets up front.
 
 ### Fixed
 

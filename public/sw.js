@@ -8,7 +8,7 @@
 // behind, since the page got the stale copy while the revalidation stored the
 // fresh one, and left the admin card list one edit behind for good.
 
-const VERSION = 'couplecards-v73';
+const VERSION = 'couplecards-v74';
 const SHELL = [
   '/',
   '/index.html',
@@ -69,13 +69,11 @@ const SHELL = [
   '/locales/de.json',
   '/locales/it.json',
   '/locales/es.json',
-  '/fonts/InterVariable.woff2',
+  // Only the Latin subsets: the shipped locales never reach the others, and
+  // the fetch handler caches them on first use anyway.
+  '/fonts/inter/variable-latin.woff2',
   '/fonts/fraunces/variable-latin.woff2',
-  '/fonts/fraunces/variable-latin-ext.woff2',
-  '/fonts/fraunces/variable-vietnamese.woff2',
   '/fonts/fraunces/italic-latin.woff2',
-  '/fonts/fraunces/italic-latin-ext.woff2',
-  '/fonts/fraunces/italic-vietnamese.woff2',
   '/icons/icon.svg',
   '/icons/icon-maskable.svg',
   '/icons/favicon.ico',

@@ -4,7 +4,7 @@ Couplecards is released under the [MIT License](./LICENSE). Every third-party as
 
 ## Fonts
 
-- **Inter.** Copyright © The Inter Project Authors, licensed under the [SIL Open Font License 1.1](https://openfontlicense.org/). Source: <https://github.com/rsms/inter>. Covers Latin Extended, Cyrillic, Greek, and Vietnamese.
+- **Inter.** Copyright © The Inter Project Authors, licensed under the [SIL Open Font License 1.1](https://openfontlicense.org/). Source: <https://github.com/rsms/inter>. Shipped as Latin, Latin Extended, and Vietnamese subsets of the variable font; the upstream Greek and Cyrillic glyphs are left out.
 - **Fraunces.** Copyright © The Fraunces Project Authors, licensed under the [SIL Open Font License 1.1](https://openfontlicense.org/). Source: <https://github.com/undercasetype/Fraunces>. Shipped as unicode-range WOFF2 subsets taken from Google Fonts v38, with one variable file per style (the upright file ships the wght / opsz / SOFT / WONK axes, the italic file ships wght / opsz). Covers Latin, Latin Extended, and Vietnamese; Fraunces upstream does not include Greek or Cyrillic glyphs, so locales using those scripts fall back to Georgia / system serif.
 
 The full OFL text ships with the repository at `public/fonts/OFL.txt`.
