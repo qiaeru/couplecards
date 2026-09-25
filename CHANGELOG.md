@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.17.0] - 2026-09-25
+
 ### Added
 
 - Nine new cards join the seed deck, five at home (two of them foil) and four outdoors, from a whispered fight over the toilet paper to a tango trial class that settles who leads. Seven new emoji are bundled for them.
