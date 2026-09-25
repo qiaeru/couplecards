@@ -509,6 +509,46 @@
       "description": "Cada uno escribe tres deseos inconfesables y se sortea uno. Ejecución inmediata."
     },
     {
+      "id": "home-075",
+      "pile": "home",
+      "foil": false,
+      "emoji": "face-with-steam-from-nose",
+      "title": "Pelea en susurros",
+      "description": "Pelea falsa sobre hacia dónde va el papel higiénico, en susurros para no despertar a los niños."
+    },
+    {
+      "id": "home-076",
+      "pile": "home",
+      "foil": false,
+      "emoji": "clipboard",
+      "title": "Junta extraordinaria",
+      "description": "Reunión de pareja muy oficial, votación a mano alzada. Primer punto, quién saca la basura."
+    },
+    {
+      "id": "home-077",
+      "pile": "home",
+      "foil": false,
+      "emoji": "sparkling-heart",
+      "title": "Primera cita, toma dos",
+      "description": "Repetimos nuestra primera cita en el salón, incomodidad incluida. Esta vez, con retoques."
+    },
+    {
+      "id": "home-078",
+      "pile": "home",
+      "foil": true,
+      "emoji": "stopwatch",
+      "title": "Contrarreloj",
+      "description": "Hacer el amor en diez minutos, antes de que cruja el monitor de bebé. Eficiencia obligatoria."
+    },
+    {
+      "id": "home-079",
+      "pile": "home",
+      "foil": true,
+      "emoji": "bubbles",
+      "title": "Centrifugado",
+      "description": "Hacer el amor sobre la lavadora en pleno centrifugado. Por fin una tarea que nos disputamos."
+    },
+    {
       "id": "out-001",
       "pile": "outdoor",
       "emoji": "spaghetti",
@@ -1012,6 +1052,38 @@
       "emoji": "love-hotel",
       "title": "Amantes de paso",
       "description": "Hotel a plena luz del día, nombres falsos en recepción. Dos horas y cero remordimientos."
+    },
+    {
+      "id": "out-080",
+      "pile": "outdoor",
+      "foil": false,
+      "emoji": "couch-and-lamp",
+      "title": "Pareja de catálogo",
+      "description": "En IKEA vivimos una vida perfecta de cinco minutos en cada habitación de exposición."
+    },
+    {
+      "id": "out-081",
+      "pile": "outdoor",
+      "foil": false,
+      "emoji": "woman-dancing",
+      "title": "Quién lleva a quién",
+      "description": "Clase de prueba de tango. Por fin descubrimos quién manda de verdad en esta pareja."
+    },
+    {
+      "id": "out-082",
+      "pile": "outdoor",
+      "foil": false,
+      "emoji": "lion",
+      "title": "Retrato animal",
+      "description": "En el zoo, cada uno busca el animal que más se parece al otro. Hay que argumentarlo."
+    },
+    {
+      "id": "out-083",
+      "pile": "outdoor",
+      "foil": false,
+      "emoji": "hot-pepper",
+      "title": "Lágrimas de chile",
+      "description": "Restaurante picante, cada plato un grado más fuerte. El primero que llore paga la cuenta."
     }
   ]
 }

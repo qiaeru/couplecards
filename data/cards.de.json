@@ -509,6 +509,46 @@
       "description": "Jeder schreibt drei unaussprechliche Gelüste auf, eins wird gezogen. Sofort fällig."
     },
     {
+      "id": "home-075",
+      "pile": "home",
+      "foil": false,
+      "emoji": "face-with-steam-from-nose",
+      "title": "Flüsterstreit",
+      "description": "Scheinstreit, wie rum das Klopapier hängt. Nur geflüstert, damit die Kinder weiterschlafen."
+    },
+    {
+      "id": "home-076",
+      "pile": "home",
+      "foil": false,
+      "emoji": "clipboard",
+      "title": "Außerordentliche Sitzung",
+      "description": "Hochoffizielles Paarmeeting, Abstimmung per Handzeichen. Punkt eins, wer bringt den Müll raus."
+    },
+    {
+      "id": "home-077",
+      "pile": "home",
+      "foil": false,
+      "emoji": "sparkling-heart",
+      "title": "Erstes Date, Klappe zwei",
+      "description": "Wir spielen unser erstes Date im Wohnzimmer nach, samt Peinlichkeit. Diesmal mit Korrekturen."
+    },
+    {
+      "id": "home-078",
+      "pile": "home",
+      "foil": true,
+      "emoji": "stopwatch",
+      "title": "Babyfon-Countdown",
+      "description": "Sex in zehn Minuten, bevor das Babyfon knackt. Effizienz ist Pflicht."
+    },
+    {
+      "id": "home-079",
+      "pile": "home",
+      "foil": true,
+      "emoji": "bubbles",
+      "title": "Schleudergang",
+      "description": "Sex auf der Waschmaschine im Schleudergang. Endlich eine Hausarbeit, um die wir uns streiten."
+    },
+    {
       "id": "out-001",
       "pile": "outdoor",
       "emoji": "spaghetti",
@@ -1012,6 +1052,38 @@
       "emoji": "love-hotel",
       "title": "Affäre am Nachmittag",
       "description": "Hotelzimmer am helllichten Tag, falsche Namen an der Rezeption. Zwei Stunden, null Reue."
+    },
+    {
+      "id": "out-080",
+      "pile": "outdoor",
+      "foil": false,
+      "emoji": "couch-and-lamp",
+      "title": "Musterpaar",
+      "description": "Bei IKEA leben wir in jedem Ausstellungsraum fünf Minuten lang ein perfektes Leben."
+    },
+    {
+      "id": "out-081",
+      "pile": "outdoor",
+      "foil": false,
+      "emoji": "woman-dancing",
+      "title": "Wer führt hier",
+      "description": "Tango-Probestunde. Endlich finden wir heraus, wer in dieser Beziehung wirklich das Sagen hat."
+    },
+    {
+      "id": "out-082",
+      "pile": "outdoor",
+      "foil": false,
+      "emoji": "lion",
+      "title": "Tierisches Porträt",
+      "description": "Im Zoo sucht jeder das Tier, das dem anderen am ähnlichsten sieht. Begründung Pflicht."
+    },
+    {
+      "id": "out-083",
+      "pile": "outdoor",
+      "foil": false,
+      "emoji": "hot-pepper",
+      "title": "Chilitränen",
+      "description": "Scharfes Restaurant, jeder Gang eine Stufe schärfer. Wer zuerst weint, zahlt die Rechnung."
     }
   ]
 }

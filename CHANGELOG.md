@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+
+- Nine new cards join the seed deck, five at home (two of them foil) and four outdoors, from a whispered fight over the toilet paper to a tango trial class that settles who leads. Seven new emoji are bundled for them.
+
 ### Changed
 
 - Another quality pass over the seed deck: five near-duplicate cards leave, thirty-four get a clearer action or a sharper joke, and the German, Italian, and Spanish decks drop their French calques. An existing installation picks up the new text with the admin "Sync from files" action; the removed cards only leave in "Full mirror" mode.

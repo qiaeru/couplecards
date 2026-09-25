@@ -509,6 +509,46 @@
       "description": "Chacun écrit trois envies inavouables, on en tire une au sort. Exécution immédiate."
     },
     {
+      "id": "home-075",
+      "pile": "home",
+      "foil": false,
+      "emoji": "face-with-steam-from-nose",
+      "title": "Engueulade chuchotée",
+      "description": "Dispute bidon sur le sens du rouleau de PQ, en chuchotant pour ne pas réveiller les petits."
+    },
+    {
+      "id": "home-076",
+      "pile": "home",
+      "foil": false,
+      "emoji": "clipboard",
+      "title": "AG extraordinaire",
+      "description": "Réunion de couple très officielle, vote à main levée. Premier point, qui sort les poubelles."
+    },
+    {
+      "id": "home-077",
+      "pile": "home",
+      "foil": false,
+      "emoji": "sparkling-heart",
+      "title": "Premier rencard, prise 2",
+      "description": "On rejoue notre premier rencard au salon, gêne comprise. Cette fois, retouches autorisées."
+    },
+    {
+      "id": "home-078",
+      "pile": "home",
+      "foil": true,
+      "emoji": "stopwatch",
+      "title": "Contre-la-montre",
+      "description": "Faire l'amour en dix minutes chrono, avant que le baby-phone ne crachote. Efficacité exigée."
+    },
+    {
+      "id": "home-079",
+      "pile": "home",
+      "foil": true,
+      "emoji": "bubbles",
+      "title": "Cycle essorage",
+      "description": "Faire l'amour sur la machine à laver en plein essorage. Enfin une corvée qu'on se dispute."
+    },
+    {
       "id": "out-001",
       "pile": "outdoor",
       "emoji": "spaghetti",
@@ -1012,6 +1052,38 @@
       "emoji": "love-hotel",
       "title": "Amants de passage",
       "description": "Hôtel en pleine journée et faux noms à l'accueil. Deux heures et zéro remords."
+    },
+    {
+      "id": "out-080",
+      "pile": "outdoor",
+      "foil": false,
+      "emoji": "couch-and-lamp",
+      "title": "Couple témoin",
+      "description": "Au rayon meubles d'IKEA, on vit une vie parfaite de cinq minutes dans chaque pièce d'expo."
+    },
+    {
+      "id": "out-081",
+      "pile": "outdoor",
+      "foil": false,
+      "emoji": "woman-dancing",
+      "title": "Qui mène la danse",
+      "description": "Cours d'essai de tango. On découvre enfin qui commande vraiment dans ce couple."
+    },
+    {
+      "id": "out-082",
+      "pile": "outdoor",
+      "foil": false,
+      "emoji": "lion",
+      "title": "Portrait animalier",
+      "description": "Au zoo, chacun trouve l'animal qui ressemble le plus à l'autre. Argumentaire exigé."
+    },
+    {
+      "id": "out-083",
+      "pile": "outdoor",
+      "foil": false,
+      "emoji": "hot-pepper",
+      "title": "Larmes de piment",
+      "description": "Resto épicé, on monte d'un cran à chaque plat. Le premier qui pleure paie l'addition."
     }
   ]
 }

@@ -509,6 +509,46 @@
       "description": "We each write three unspeakable desires and draw one. Carried out on the spot."
     },
     {
+      "id": "home-075",
+      "pile": "home",
+      "foil": false,
+      "emoji": "face-with-steam-from-nose",
+      "title": "Whisper fight",
+      "description": "Fake fight over which way the toilet paper goes, whispered so the kids stay asleep."
+    },
+    {
+      "id": "home-076",
+      "pile": "home",
+      "foil": false,
+      "emoji": "clipboard",
+      "title": "Emergency board meeting",
+      "description": "A very official couple meeting, show-of-hands vote included. Item one, who takes out the trash."
+    },
+    {
+      "id": "home-077",
+      "pile": "home",
+      "foil": false,
+      "emoji": "sparkling-heart",
+      "title": "First date, take two",
+      "description": "Replay our first date in the living room, awkwardness included. This time, edits are allowed."
+    },
+    {
+      "id": "home-078",
+      "pile": "home",
+      "foil": true,
+      "emoji": "stopwatch",
+      "title": "Beat the baby monitor",
+      "description": "Sex against a ten-minute clock, before the baby monitor crackles. Efficiency required."
+    },
+    {
+      "id": "home-079",
+      "pile": "home",
+      "foil": true,
+      "emoji": "bubbles",
+      "title": "Spin cycle",
+      "description": "Sex on the washing machine mid-spin. Finally a chore we fight over."
+    },
+    {
       "id": "out-001",
       "pile": "outdoor",
       "emoji": "spaghetti",
@@ -1012,6 +1052,38 @@
       "emoji": "love-hotel",
       "title": "Afternoon affair",
       "description": "Daytime hotel room, fake names at the desk. Two hours, zero remorse."
+    },
+    {
+      "id": "out-080",
+      "pile": "outdoor",
+      "foil": false,
+      "emoji": "couch-and-lamp",
+      "title": "Showroom couple",
+      "description": "At IKEA, live a perfect five-minute life in every showroom."
+    },
+    {
+      "id": "out-081",
+      "pile": "outdoor",
+      "foil": false,
+      "emoji": "woman-dancing",
+      "title": "Who leads",
+      "description": "Tango trial class. Find out, at last, who really runs this relationship."
+    },
+    {
+      "id": "out-082",
+      "pile": "outdoor",
+      "foil": false,
+      "emoji": "lion",
+      "title": "Spirit animal",
+      "description": "At the zoo, each finds the animal that looks most like the other. Justification required."
+    },
+    {
+      "id": "out-083",
+      "pile": "outdoor",
+      "foil": false,
+      "emoji": "hot-pepper",
+      "title": "Chili tears",
+      "description": "Spicy restaurant, one notch hotter each dish. First to cry pays the bill."
     }
   ]
 }
