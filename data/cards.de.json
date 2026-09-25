@@ -12,23 +12,23 @@
       "id": "home-002",
       "pile": "home",
       "emoji": "game-die",
-      "title": "Spiele in böser Absicht",
-      "description": "Brettduell mit Schummelpflicht. Der Verlierer schuldet einen unvernünftigen Gefallen."
+      "title": "Mogeln ist Pflicht",
+      "description": "Brettspielduell mit Schummelpflicht. Wer verliert, schuldet einen unverschämten Gefallen."
     },
     {
       "id": "home-003",
       "pile": "home",
       "emoji": "person-getting-massage",
-      "title": "Wandermassage",
-      "description": "Massage, die schnell entgleist. Sobald ein Kleidungsstück fällt, geht es direkt weiter."
+      "title": "Massage ohne Rezept",
+      "description": "Massage, die schnell entgleist. Sobald ein Kleidungsstück fällt, geht es zur Sache."
     },
     {
       "id": "home-004",
       "pile": "home",
       "foil": true,
       "emoji": "clapper-board",
-      "title": "Fleischige Filmkunst",
-      "description": "Erotikfilm für „die Handlung\". Wie viele Minuten, bis wir den Bildschirm loslassen?"
+      "title": "Fleischliche Filmkunst",
+      "description": "Erotikfilm wegen „der Handlung“. Wir wetten, nach wie vielen Minuten keiner mehr hinschaut."
     },
     {
       "id": "home-005",
@@ -49,7 +49,7 @@
       "pile": "home",
       "emoji": "musical-notes",
       "title": "Playback-Battle",
-      "description": "Mime deine Hymne mit Rockstar-Inbrunst. Wer am wenigsten überzeugt, faltet die Wäsche."
+      "description": "Mime deinen Kultsong mit Rockstar-Inbrunst. Wer am wenigsten überzeugt, faltet die Wäsche."
     },
     {
       "id": "home-008",
@@ -63,14 +63,14 @@
       "pile": "home",
       "emoji": "see-no-evil-monkey",
       "title": "Blindes Vertrauen",
-      "description": "Augen verbunden, Mund offen. Du probierst, was ich biete, und stehst zu jedem Gesicht."
+      "description": "Augen verbunden, Mund offen. Du probierst, was ich dir gebe, und stehst zu jeder Grimasse."
     },
     {
       "id": "home-010",
       "pile": "home",
       "emoji": "bed",
       "title": "Rechtsfreier Raum",
-      "description": "Kissenfestung im Wohnzimmer. Ein enger Raum für recht unkatholische Annäherungen."
+      "description": "Kissenfestung im Wohnzimmer. Ein enger Raum für höchst unsittliche Annäherungen."
     },
     {
       "id": "home-011",
@@ -78,21 +78,21 @@
       "foil": true,
       "emoji": "camera",
       "title": "Belastendes Material",
-      "description": "Improvisiertes Fotoshooting. Wir starten mit Porträts und enden mit brisanten Akten."
+      "description": "Improvisiertes Fotoshooting. Wir starten mit Porträts und enden mit Erpressungsmaterial."
     },
     {
       "id": "home-012",
       "pile": "home",
       "emoji": "woman-dancing",
       "title": "Schienbein-Schule",
-      "description": "Eleganter Walzer oder wilder Rock. Möbel sind deine Gegner, meine Arme dein Refugium."
+      "description": "Tanzen im Wohnzimmer zwischen Couchtisch und Sofa. Wir zählen blaue Flecken, nicht Schritte."
     },
     {
       "id": "home-013",
       "pile": "home",
       "emoji": "headphone",
-      "title": "Blindtest mit Strafe",
-      "description": "Errate den Künstler oder akzeptiere das Pfand. Deine Musiklücken werden teuer."
+      "title": "Musikquiz mit Folgen",
+      "description": "Errate den Interpreten oder kassier eine Strafe. Deine Musiklücken werden teuer."
     },
     {
       "id": "home-014",
@@ -108,21 +108,21 @@
       "foil": true,
       "emoji": "open-book",
       "title": "Lektüre für Erwachsene",
-      "description": "Lies mir einen frechen Text mit ernstem Gesicht vor. Lachst du, fängst du mit Pfand neu an."
+      "description": "Lies mir etwas Schlüpfriges mit Notarsmiene vor. Wer lacht, fängt mit Strafe von vorn an."
     },
     {
       "id": "home-016",
       "pile": "home",
       "emoji": "tropical-drink",
-      "title": "Schrankalchemie",
-      "description": "Improvisierte Cocktails, garantierter Rausch. Geschmack zweifelhaft, Küsse vorrangig."
+      "title": "Gemeine Cocktails",
+      "description": "Jeder mixt einen Cocktail, benannt nach einer Macke des anderen. Der Schnarcher geht auf ex."
     },
     {
       "id": "home-017",
       "pile": "home",
       "emoji": "no-mobile-phones",
       "title": "Digital-Entzug",
-      "description": "Handys eingezogen. Jetzt heißt es handgemachte Spiele improvisieren, viel fesselnder."
+      "description": "Handys den ganzen Abend in die Schublade. Mal sehen, ob wir uns noch was zu sagen haben."
     },
     {
       "id": "home-018",
@@ -136,22 +136,22 @@
       "pile": "home",
       "emoji": "magnifying-glass-tilted-left",
       "title": "Hartes Verhör",
-      "description": "Indiskrete Fragen, kein Joker. Antworte oder nimm eine Konsequenz hin, die rot werden lässt."
+      "description": "Wer hat die Schoki gegessen? Ein Bulle, ein Verdächtiger. Das Alibi muss zehn Minuten halten."
     },
     {
       "id": "home-020",
       "pile": "home",
       "foil": true,
       "emoji": "person-in-lotus-position",
-      "title": "Sonntags-Kamasutra",
-      "description": "Zu ehrgeiziges Paaryoga. Gleichgewicht ist optional, Hautkontakt ist Pflicht."
+      "title": "Kamasutra für Anfänger",
+      "description": "Paaryoga, splitternackt. Gleichgewicht ist optional, Aufeinanderfallen ist Pflicht."
     },
     {
       "id": "home-021",
       "pile": "home",
       "emoji": "candle",
       "title": "Stimmungsstrategie",
-      "description": "Kerzen und gedimmtes Licht. Wir richten die Bühne für eine Nacht ohne Ausgehen ein."
+      "description": "In zehn Minuten wird das Schlafzimmer zur Hochzeitssuite. Erlaubt ist, was rumliegt, auch Lego."
     },
     {
       "id": "home-022",
@@ -165,14 +165,14 @@
       "pile": "home",
       "emoji": "teacup-without-handle",
       "title": "Frührente",
-      "description": "Kräutertee und Decke, Oma-und-Opa-Modus. Flaute vor dem Sturm unter der Bettdecke."
+      "description": "Kräutertee und Decke, Oma-und-Opa-Modus. Die Ruhe vor dem Sturm unter der Bettdecke."
     },
     {
       "id": "home-024",
       "pile": "home",
       "emoji": "musical-notes",
       "title": "Musikprozess",
-      "description": "Lasst uns die aktuellen Hits zerlegen. Bösgläubigkeit Pflicht, Snobismus ermutigt."
+      "description": "Wir hören die aktuellen Hits und zerlegen sie. Früher war alles besser, ist bewiesen."
     },
     {
       "id": "home-026",
@@ -186,7 +186,7 @@
       "pile": "home",
       "emoji": "framed-picture",
       "title": "Museum der Schande",
-      "description": "Alte Fotos im Schnelldurchlauf. Lachen wir über frühere Looks wie alte Veteranen."
+      "description": "Alte Fotos im Schnelldurchlauf. Wir lachen über unsere alten Looks, Opa erzählt vom Krieg."
     },
     {
       "id": "home-029",
@@ -200,7 +200,7 @@
       "pile": "home",
       "emoji": "takeout-box",
       "title": "Ferne Aromen",
-      "description": "Exotisches Menü blind bestellt. Wer sich verschluckt, hat wirklich gereist."
+      "description": "Exotisches Essen blind bestellt. Wer sich verschluckt, ist wirklich verreist."
     },
     {
       "id": "home-031",
@@ -208,15 +208,7 @@
       "foil": true,
       "emoji": "man-cook",
       "title": "Schürze als Outfit",
-      "description": "Kochen mit der Schürze als einzigem Kleidungsstück. Am Herd steigt die Temperatur."
-    },
-    {
-      "id": "home-032",
-      "pile": "home",
-      "foil": true,
-      "emoji": "joker",
-      "title": "Strategisches Ausziehen",
-      "description": "Eine indiskrete Frage. Kneifst du, fällt eine Schicht. Geheimnisse haben ihren Preis."
+      "description": "Kochen mit der Schürze als einzigem Kleidungsstück. Aufs Frittieren verzichten wir lieber."
     },
     {
       "id": "home-033",
@@ -231,15 +223,15 @@
       "pile": "home",
       "foil": true,
       "emoji": "strawberry",
-      "title": "Fleischbuffet",
+      "title": "Leibgericht",
       "description": "Sinnliche Verkostung direkt auf der Haut. Wir genießen ohne Hände, aber mit Appetit."
     },
     {
       "id": "home-035",
       "pile": "home",
       "emoji": "foot",
-      "title": "Sinnliche Pediküre",
-      "description": "Fußmassage mit Podologen-Allüren. Die Entspannung weicht schnell etwas anderem."
+      "title": "Hochstapler-Podologe",
+      "description": "Fußmassage mit ernster Diagnose für jeden einzelnen Zeh. Zahlt keine Kasse."
     },
     {
       "id": "home-036",
@@ -255,7 +247,7 @@
       "foil": true,
       "emoji": "feather",
       "title": "Folter mit der Feder",
-      "description": "Langsames Spiel der Sinne. Deine Ungeduld, mich zu berühren, wird dein schönstes Problem."
+      "description": "Nackt und reglos, einer Feder ausgeliefert. Nicht bewegen, nicht lachen, nicht betteln."
     },
     {
       "id": "home-038",
@@ -271,7 +263,7 @@
       "foil": true,
       "emoji": "crown",
       "title": "Ausschließliche Hingabe",
-      "description": "Vergiss dein eigenes Vergnügen. Mein einziges Ziel ist, dich Sterne sehen zu lassen."
+      "description": "Heute Abend kann mein Vergnügen warten. Mein einziges Ziel ist, dich Sterne sehen zu lassen."
     },
     {
       "id": "home-041",
@@ -305,14 +297,14 @@
       "id": "home-045",
       "pile": "home",
       "emoji": "scissors",
-      "title": "Kunstrohwerkstatt",
-      "description": "Wir basteln zusammen etwas Sinnloses. Wegwerfen werden wir es, aber wir lachen viel."
+      "title": "Kunst für die Tonne",
+      "description": "Wir basteln zusammen etwas Sinnloses. Es landet im Müll, aber gelacht haben wir."
     },
     {
       "id": "home-046",
       "pile": "home",
       "emoji": "bowl-with-spoon",
-      "title": "Resteküche-Alchemie",
+      "title": "Das perfekte Resteessen",
       "description": "Totale Improvisation mit dem Kühlschrank. Ist es essbar, haben wir irgendwo geschummelt."
     },
     {
@@ -321,7 +313,7 @@
       "foil": true,
       "emoji": "hourglass-done",
       "title": "Unerträgliche Langsamkeit",
-      "description": "Jede Geste extrem verlangsamen. Langsamkeit ist die süßeste Provokation."
+      "description": "Sex in Zeitlupe, wie in einer Tierdoku. Wer zuerst schneller wird, verliert."
     },
     {
       "id": "home-048",
@@ -329,7 +321,7 @@
       "foil": true,
       "emoji": "graduation-cap",
       "title": "Privatstunde",
-      "description": "Klassisches Rollenspiel. Wer Strafe verdient oder Sehr-gut, sehen wir gleich."
+      "description": "Klassisches Rollenspiel. Mal sehen, wer eine Strafe verdient und wer eine glatte Eins."
     },
     {
       "id": "home-049",
@@ -352,7 +344,7 @@
       "pile": "home",
       "emoji": "hamburger",
       "title": "Fettkritik",
-      "description": "Bewerten wir geliefertes Fast Food wie ein Sternehotel. Pompöse Worte zum Cholesterin Pflicht."
+      "description": "Geliefertes Fast Food bewerten wie Sterneküche. Hochtrabende Worte übers Cholesterin Pflicht."
     },
     {
       "id": "home-052",
@@ -380,7 +372,7 @@
       "pile": "home",
       "emoji": "coin",
       "title": "Kopf, du verlierst",
-      "description": "Wir setzen unvernünftige Pfänder auf Kopf oder Zahl. Der Verlierer steht bis zum Ende."
+      "description": "Wir wetten unverschämte Strafen auf einen Münzwurf. Wer verliert, zieht es voll durch."
     },
     {
       "id": "home-056",
@@ -400,7 +392,7 @@
       "id": "home-058",
       "pile": "home",
       "emoji": "performing-arts",
-      "title": "Sonntags-Shakespeare",
+      "title": "Shakespeare für Arme",
       "description": "Spiel eine unmögliche Szene mit unbewegter Miene. Wer zuerst rausfällt, verliert die Ehre."
     },
     {
@@ -422,14 +414,14 @@
       "pile": "home",
       "emoji": "broom",
       "title": "Subversiver Hausputz",
-      "description": "Aufgaben zu zweit auf Zeit. Jedes Schimpfen oder Seufzen ist sofort ein Pfand."
+      "description": "Putzen zu zweit mit Stoppuhr. Jedes Stöhnen oder Seufzen kostet sofort eine Strafe."
     },
     {
       "id": "home-062",
       "pile": "home",
       "emoji": "microphone",
       "title": "Wohnzimmer-Karaoke",
-      "description": "Improvisiertes Mikro auf YouTube. Der Schiefer-Singer bezahlt die Wasserrunde."
+      "description": "Haarbürste als Mikro, YouTube an. Wer am schiefsten singt, gibt eine Runde Wasser aus."
     },
     {
       "id": "home-063",
@@ -450,7 +442,7 @@
       "pile": "home",
       "emoji": "envelope",
       "title": "Briefe an die Zukunft",
-      "description": "Brief an euch in zehn Jahren. Vorlesen Pflicht, mit Cringe rechnen."
+      "description": "Ein Brief an uns in zehn Jahren. Vorlesen ist Pflicht, mit Fremdscham rechnen."
     },
     {
       "id": "home-066",
@@ -477,7 +469,7 @@
       "id": "home-069",
       "pile": "home",
       "emoji": "writing-hand",
-      "title": "Roman in Tag-Team",
+      "title": "Vierhändiger Roman",
       "description": "Eine Geschichte Satz für Satz im Wechsel. Bonus für jede absurde Wendung."
     },
     {
@@ -485,7 +477,7 @@
       "pile": "home",
       "emoji": "clown-face",
       "title": "Schlechte Witze",
-      "description": "Jeder erzählt seine drei schlimmsten Witze. Der Unlustigste räumt ab."
+      "description": "Jeder erzählt seine drei schlechtesten Witze. Lachen verboten, auch nicht aus Mitleid."
     },
     {
       "id": "home-071",
@@ -520,8 +512,8 @@
       "id": "out-001",
       "pile": "outdoor",
       "emoji": "spaghetti",
-      "title": "Italiener",
-      "description": "Pasta und schwere Blicke. Wir spielen das große Spiel mit fetten Andeutungen."
+      "title": "Susi und Strolch",
+      "description": "Italiener und tiefe Blicke. Wir versuchen die Spaghetti-Szene, Würde nicht garantiert."
     },
     {
       "id": "out-002",
@@ -542,7 +534,7 @@
       "pile": "outdoor",
       "emoji": "sunrise",
       "title": "Klischee-Horizont",
-      "description": "Sonnenuntergang ohne Scham. Wir tun tief, denken aber längst an den Nachtisch."
+      "description": "Hoch zum schönsten Aussichtspunkt der Gegend. Wir tun tiefsinnig, denken aber längst an Kuchen."
     },
     {
       "id": "out-005",
@@ -576,16 +568,8 @@
       "id": "out-009",
       "pile": "outdoor",
       "emoji": "guitar",
-      "title": "Groupies für einen Abend",
-      "description": "Konzert eines lokalen Niemands. Werden wir Fan Nummer eins eines Triangelspielers."
-    },
-    {
-      "id": "out-010",
-      "pile": "outdoor",
-      "foil": true,
-      "emoji": "evergreen-tree",
-      "title": "Waldflucht",
-      "description": "Frische Luft schnappen, dann tief im Wald verstecken. Weit weg von Stadt und Blicken."
+      "title": "Groupies für einen Tag",
+      "description": "Wir werden die hysterischsten Fans eines Straßenmusikers. Zugabe fordern, sogar bei Panflöte."
     },
     {
       "id": "out-011",
@@ -619,8 +603,8 @@
       "id": "out-015",
       "pile": "outdoor",
       "emoji": "carrot",
-      "title": "Bobo-Bummel",
-      "description": "Auf dem Markt vergessene Gemüse kaufen, die wir nie kochen werden."
+      "title": "Hipster-Bummel",
+      "description": "Auf dem Markt alte Gemüsesorten kaufen, die wir nie zubereiten können."
     },
     {
       "id": "out-016",
@@ -634,7 +618,7 @@
       "pile": "outdoor",
       "emoji": "grapes",
       "title": "Ledernoten",
-      "description": "Snobistische Verkostung. Schwenk dein Glas und droppe komplizierte Worte vor dem Rausch."
+      "description": "Snob-Verkostung. Glas schwenken und mit Fachbegriffen um sich werfen, bevor der Rausch kommt."
     },
     {
       "id": "out-018",
@@ -669,7 +653,7 @@
       "pile": "outdoor",
       "emoji": "potted-plant",
       "title": "Pflanzenkiller",
-      "description": "Eine Pflanze wählen und auf ihren Todestag wetten. Geben wir ihr einen lächerlichen Namen."
+      "description": "Im Gartencenter eine Pflanze adoptieren und auf ihren Todestag wetten. Alberner Name Pflicht."
     },
     {
       "id": "out-023",
@@ -686,20 +670,6 @@
       "description": "Mit Ton spielen wie in Ghost. Hässlich, aber der Kontakt ist sexy."
     },
     {
-      "id": "out-025",
-      "pile": "outdoor",
-      "emoji": "tumbler-glass",
-      "title": "Halsfeuer",
-      "description": "Spirituosen-Verkostung. Gemeinsam grimmig dreinblicken und so tun, als verstünden wir alles."
-    },
-    {
-      "id": "out-026",
-      "pile": "outdoor",
-      "emoji": "beer-mug",
-      "title": "Lokales Bier",
-      "description": "Die Biere aus der Nachbarschaft testen. Mit Sixpack und scharfer Meinung zurück."
-    },
-    {
       "id": "out-027",
       "pile": "outdoor",
       "emoji": "world-map",
@@ -711,35 +681,35 @@
       "pile": "outdoor",
       "emoji": "person-climbing",
       "title": "Spider-Paar",
-      "description": "Klettern zu zweit. Fällst du, fang ich dich (nach dem Lachen über den Sturz)."
+      "description": "Klettern zu zweit. Fällst du, fang ich dich auf (sobald ich fertig gelacht habe)."
     },
     {
       "id": "out-029",
       "pile": "outdoor",
       "emoji": "soccer-ball",
       "title": "Sonntags-Hooligans",
-      "description": "Lokales Match. Schreien für ein unbekanntes Team, Hauptsache laut."
+      "description": "Kreisligaspiel. Wir brüllen für ein Team, das wir nicht kennen. Hauptsache laut."
     },
     {
       "id": "out-030",
       "pile": "outdoor",
       "emoji": "bikini",
       "title": "Dessous-Show",
-      "description": "Ich wähle, du probierst. Die richtige Session findet ohnehin zu Hause statt."
+      "description": "Ich wähle, du probierst. Die eigentliche Vorführung gibt es sowieso zu Hause."
     },
     {
       "id": "out-031",
       "pile": "outdoor",
       "emoji": "chess-pawn",
-      "title": "Strategie und Schnaps",
-      "description": "Spielebar. Wir verstehen die Regeln nicht, gewinnen aber durch böse Absicht."
+      "title": "Hausregeln",
+      "description": "Spielecafé. Wir verstehen die Regeln nicht, also erfinden wir eigene."
     },
     {
       "id": "out-032",
       "pile": "outdoor",
       "emoji": "hot-beverage",
       "title": "Fremde auf der Terrasse",
-      "description": "Zufallscafé, wir kommen getrennt an. Bagger mich an wie ein reiches, leichtes Ziel."
+      "description": "Zufallscafé, wir kommen getrennt an. Bagger mich an, als wäre ich reich und leicht zu haben."
     },
     {
       "id": "out-034",
@@ -754,8 +724,8 @@
       "pile": "outdoor",
       "foil": true,
       "emoji": "peach",
-      "title": "Libertinerkundung",
-      "description": "Besuch eines Swingerclubs als Touristen. Schauen ist schon ein wirksames Vorspiel."
+      "title": "Swingerclub-Tourismus",
+      "description": "Ein Nachmittag im Swingerclub, ganz als Touristen. Schauen ist schon Vorspiel."
     },
     {
       "id": "out-036",
@@ -763,15 +733,15 @@
       "foil": true,
       "emoji": "fork-and-knife-with-plate",
       "title": "Absolute Diskretion",
-      "description": "Wandernde Hände im Restaurant. Bleib steinern, ich kümmere mich um dich."
+      "description": "Wandernde Hände im Restaurant. Verzieh keine Miene, ich kümmere mich um dich."
     },
     {
       "id": "out-037",
       "pile": "outdoor",
       "foil": true,
       "emoji": "zipper-mouth-face",
-      "title": "Geheimkommando",
-      "description": "Ohne Unterwäsche ausgehen. Das Geheimnis macht jeden Blick brennend."
+      "title": "Unten ohne",
+      "description": "Ohne Unterwäsche aus dem Haus. Mit diesem Geheimnis brennt jeder Blick."
     },
     {
       "id": "out-039",
@@ -785,14 +755,14 @@
       "pile": "outdoor",
       "emoji": "books",
       "title": "Beredter Titel",
-      "description": "Such in der Buchhandlung ein Buch, dessen Titel zusammenfasst, was du heute willst."
+      "description": "Such in der Buchhandlung ein Buch, dessen Titel verrät, was du heute Abend mit mir vorhast."
     },
     {
       "id": "out-041",
       "pile": "outdoor",
       "emoji": "joystick",
       "title": "Retro-Spielhalle",
-      "description": "Pac-Man und Beat-em-ups. Zehnjährig sein und die legendäre Bösgläubigkeit hervorholen."
+      "description": "Pac-Man und Prügelspiele. Wir werden wieder zehn und schieben jede Niederlage aufs Gerät."
     },
     {
       "id": "out-042",
@@ -806,7 +776,7 @@
       "pile": "outdoor",
       "emoji": "bottle-with-popping-cork",
       "title": "Weinhandel-Roulette",
-      "description": "Zufälliger Weinhandel, wir wählen die Flasche mit dem dümmsten Namen. Sei es drum."
+      "description": "Zufälliger Weinhändler, wir nehmen die Flasche mit dem dümmsten Namen. Komme, was wolle."
     },
     {
       "id": "out-044",
@@ -818,9 +788,9 @@
     {
       "id": "out-045",
       "pile": "outdoor",
-      "emoji": "selfie",
-      "title": "Doppelkinn",
-      "description": "Wettbewerb ums hässlichste Foto in der Öffentlichkeit. Wer am wenigsten Würde hat, gewinnt."
+      "emoji": "playground-slide",
+      "title": "Große Pause für Eltern",
+      "description": "Die Kinder sind in der Schule, wir erobern die Schaukeln auf dem Spielplatz. Null Scham."
     },
     {
       "id": "out-046",
@@ -835,7 +805,7 @@
       "foil": true,
       "emoji": "love-letter",
       "title": "Sexting auf Distanz",
-      "description": "Mitten in der Menge schick mir eine freche Nachricht. Bloß nicht erröten."
+      "description": "Schick mir mitten in der Menge eine heiße Nachricht. Bloß nicht rot werden."
     },
     {
       "id": "out-048",
@@ -858,14 +828,7 @@
       "foil": true,
       "emoji": "automobile",
       "title": "Rückbank",
-      "description": "Parkplatz im Wald am hellichten Nachmittag, Rückbank. Unbequem und furchtbar gut."
-    },
-    {
-      "id": "out-051",
-      "pile": "outdoor",
-      "emoji": "chair",
-      "title": "Menschen-Safari",
-      "description": "Auf einer Bank wetten wir auf den Beruf der Passanten. Bonus für jeden Paarstreit."
+      "description": "Waldparkplatz am helllichten Tag, Rückbank. Unbequem und verdammt gut."
     },
     {
       "id": "out-053",
@@ -878,29 +841,29 @@
       "id": "out-054",
       "pile": "outdoor",
       "emoji": "popcorn",
-      "title": "Käse und Popcorn",
-      "description": "Der mieseste Film. Ziel ist, den Eimer vor dem Titel leer zu haben."
+      "title": "Blaumachen im Kino",
+      "description": "Kino um 14 Uhr an einem Dienstag, leerer Saal. Wir fühlen uns wie Teenies, die schwänzen."
     },
     {
       "id": "out-055",
       "pile": "outdoor",
       "emoji": "pancakes",
       "title": "Brunch der Überlebenden",
-      "description": "Fettiges um 15 Uhr nach einer wilden Nacht. Verdiente Belohnung der Krieger."
+      "description": "Eier, Speck und Kaffee satt nach einer Nacht voller Kinderalarm. Der Lohn der Tapferen."
     },
     {
       "id": "out-056",
       "pile": "outdoor",
       "emoji": "takeout-box",
       "title": "Frühlingsrollen satt",
-      "description": "Den China-Buffet rentabel machen. Die Würde endet beim dritten Gang."
+      "description": "Holen wir am China-Buffet alles raus. Die Würde endet beim dritten Nachschlag."
     },
     {
       "id": "out-057",
       "pile": "outdoor",
       "emoji": "hiking-boot",
       "title": "Symbol-Wanderung",
-      "description": "Zwei Kilometer laufen, um den riesigen Aperitif zu rechtfertigen. Reine Psycho-Mühe."
+      "description": "Zwei Kilometer laufen, um den riesigen Aperitif danach zu rechtfertigen. Reine Kopfsache."
     },
     {
       "id": "out-058",
@@ -921,14 +884,14 @@
       "pile": "outdoor",
       "emoji": "thinking-face",
       "title": "Erfundene Leben",
-      "description": "Erfinden wir die schamhaftesten Geheimnisse der Fremden. Das Schmutzigste gewinnt."
+      "description": "Auf einer Bank erfinden wir das geheime Leben der Passanten. Das Schmuddeligste gewinnt."
     },
     {
       "id": "out-061",
       "pile": "outdoor",
       "emoji": "shallow-pan-of-food",
       "title": "Tapas-Tour",
-      "description": "Mehrere Gerichte naschen und unzählige verstohlene Berührungen unter dem Tisch."
+      "description": "Kleine Teller zum Teilen, theoretisch. Um den letzten Bissen wird mit der Gabel gekämpft."
     },
     {
       "id": "out-062",
@@ -948,7 +911,7 @@
       "id": "out-065",
       "pile": "outdoor",
       "emoji": "shortcake",
-      "title": "Tortenschlacht",
+      "title": "Tortenmassaker",
       "description": "Eine komplizierte Torte mit dem Teelöffel zerlegen. Der Konditor wäre beleidigt."
     },
     {
@@ -970,28 +933,28 @@
       "pile": "outdoor",
       "emoji": "water-pistol",
       "title": "Lasertag",
-      "description": "Todeskampf gegen Fremde. Wer den anderen aus Versehen trifft, zahlt sofort ein Pfand."
+      "description": "Kampf auf Leben und Tod gegen Fremde. Wer den anderen trifft, zahlt sofort eine Strafe."
     },
     {
       "id": "out-069",
       "pile": "outdoor",
       "emoji": "person-rowing-boat",
       "title": "Synchron-Tretboot",
-      "description": "Treten zu zweit ohne jede Koordination. Echtes Risiko ist die öffentliche Demütigung."
+      "description": "Treten zu zweit ohne jede Koordination. Das einzige Risiko ist die öffentliche Blamage."
     },
     {
       "id": "out-070",
       "pile": "outdoor",
       "emoji": "flag-in-hole",
       "title": "Schräges Minigolf",
-      "description": "Wackliges Putten. Bösgläubigkeit Pflicht, Mogeln erlaubt, solange wir lachen."
+      "description": "Wackliges Putten. Faule Ausreden Pflicht, Mogeln erlaubt, solange wir lachen."
     },
     {
       "id": "out-071",
       "pile": "outdoor",
       "emoji": "shopping-bags",
       "title": "Trödelstrategie",
-      "description": "Jeder Fund muss dem anderen verteidigt werden. Der Unüberzeugende geht leer aus."
+      "description": "Jeder Fund muss vor dem anderen verteidigt werden. Wer weniger überzeugt, geht leer aus."
     },
     {
       "id": "out-072",
@@ -1012,7 +975,7 @@
       "pile": "outdoor",
       "emoji": "speedboat",
       "title": "Flussbootfahrt",
-      "description": "Flusskreuzfahrt mit dummem Audio-Kommentar. Flüstere deine Spitzen den Touristen zu."
+      "description": "Bootstour zwischen Touristen. Wir winken jedem Ufer zu wie Stars auf Tournee."
     },
     {
       "id": "out-075",

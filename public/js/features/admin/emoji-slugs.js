@@ -101,6 +101,7 @@ export const EMOJI_SLUGS = [
   'person-in-steamy-room',
   'person-rowing-boat',
   'pizza',
+  'playground-slide',
   'popcorn',
   'potted-plant',
   'puzzle-piece',

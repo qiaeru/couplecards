@@ -85,7 +85,7 @@
       "pile": "home",
       "emoji": "woman-dancing",
       "title": "École du tibia",
-      "description": "Valse élégante ou rock sauvage. Les meubles sont tes adversaires, mes bras ton refuge."
+      "description": "Danse de salon entre la table basse et le canapé. On compte les bleus, pas les pas."
     },
     {
       "id": "home-013",
@@ -114,15 +114,15 @@
       "id": "home-016",
       "pile": "home",
       "emoji": "tropical-drink",
-      "title": "Alchimie de placard",
-      "description": "Cocktails improvisés et ivresse garantie. Le goût est suspect, les baisers prioritaires."
+      "title": "Cocktails vexants",
+      "description": "Chacun invente un cocktail nommé d'après un défaut de l'autre. Le Ronfleur se boit cul sec."
     },
     {
       "id": "home-017",
       "pile": "home",
       "emoji": "no-mobile-phones",
       "title": "Sevrage digital",
-      "description": "Téléphones confisqués. Il va falloir improviser des jeux manuels beaucoup plus prenants."
+      "description": "Téléphones au fond d'un tiroir toute la soirée. On vérifie si on a encore des choses à se dire."
     },
     {
       "id": "home-018",
@@ -136,22 +136,22 @@
       "pile": "home",
       "emoji": "magnifying-glass-tilted-left",
       "title": "Interrogatoire musclé",
-      "description": "Questions indiscrètes sans joker. Réponds ou accepte une conséquence qui fera rougir."
+      "description": "Qui a fini le chocolat ? Un flic, un suspect, et un alibi qui doit tenir dix minutes."
     },
     {
       "id": "home-020",
       "pile": "home",
       "foil": true,
       "emoji": "person-in-lotus-position",
-      "title": "Kamasutra du dimanche",
-      "description": "Yoga duo trop ambitieux. L'équilibre est une option, le contact cutané est obligatoire."
+      "title": "Kamasutra pour débutants",
+      "description": "Yoga à deux, tout nus. L'équilibre est en option, tomber l'un sur l'autre est obligatoire."
     },
     {
       "id": "home-021",
       "pile": "home",
       "emoji": "candle",
       "title": "Stratégie d'ambiance",
-      "description": "Bougies et lumière tamisée. On prépare le décor d'une nuit où sortir n'est pas une option."
+      "description": "Dix minutes pour transformer la chambre en suite nuptiale avec ce qui traîne, Lego compris."
     },
     {
       "id": "home-022",
@@ -172,7 +172,7 @@
       "pile": "home",
       "emoji": "musical-notes",
       "title": "Procès musical",
-      "description": "Démolissons les tubes du moment. Mauvaise foi exigée et snobisme encouragé."
+      "description": "On écoute les tubes du moment et on les démolit. Tout était mieux avant, c'est prouvé."
     },
     {
       "id": "home-026",
@@ -208,15 +208,7 @@
       "foil": true,
       "emoji": "man-cook",
       "title": "Chef en tenue légère",
-      "description": "Cuisiner avec le tablier pour seul vêtement. La température grimpe aux fourneaux."
-    },
-    {
-      "id": "home-032",
-      "pile": "home",
-      "foil": true,
-      "emoji": "joker",
-      "title": "Dépouillement stratégique",
-      "description": "Une question indiscrète. Si tu te dégonfles, tu perds une couche. Tes secrets coûtent cher."
+      "description": "Cuisiner avec le tablier pour seul vêtement. On évitera la friture."
     },
     {
       "id": "home-033",
@@ -238,8 +230,8 @@
       "id": "home-035",
       "pile": "home",
       "emoji": "foot",
-      "title": "Pédicurie sensuelle",
-      "description": "Massage des pieds, prétention de podologue. La détente cède vite à autre chose."
+      "title": "Podologue imposteur",
+      "description": "Massage des pieds et diagnostic très grave pour chaque orteil. Consultation non remboursée."
     },
     {
       "id": "home-036",
@@ -255,7 +247,7 @@
       "foil": true,
       "emoji": "feather",
       "title": "Torture à la plume",
-      "description": "Jeu lent de sensations. L'impatience de me toucher sera ton plus beau problème."
+      "description": "Sans vêtements et sans bouger, à la merci d'une plume. Interdiction de rire ou de supplier."
     },
     {
       "id": "home-038",
@@ -271,7 +263,7 @@
       "foil": true,
       "emoji": "crown",
       "title": "Dévouement exclusif",
-      "description": "Oublie ton propre plaisir. Mon unique mission est de te faire grimper au rideau."
+      "description": "Ce soir, j'oublie mon propre plaisir. Ma seule mission est de te faire grimper au rideau."
     },
     {
       "id": "home-041",
@@ -312,7 +304,7 @@
       "id": "home-046",
       "pile": "home",
       "emoji": "bowl-with-spoon",
-      "title": "Alchimie des restes",
+      "title": "Top Chef des restes",
       "description": "Improvisation totale avec le frigo. Si c'est mangeable, on a triché quelque part."
     },
     {
@@ -321,7 +313,7 @@
       "foil": true,
       "emoji": "hourglass-done",
       "title": "Lenteur insoutenable",
-      "description": "Ralentir chaque geste à l'extrême. La lenteur est la plus douce des provocations."
+      "description": "Faire l'amour au ralenti, façon documentaire animalier. Le premier qui accélère a perdu."
     },
     {
       "id": "home-048",
@@ -400,7 +392,7 @@
       "id": "home-058",
       "pile": "home",
       "emoji": "performing-arts",
-      "title": "Molière du dimanche",
+      "title": "Molière en carton",
       "description": "Joue une scène improbable, imperturbable. Le premier qui décroche a perdu son honneur."
     },
     {
@@ -464,7 +456,7 @@
       "pile": "home",
       "emoji": "books",
       "title": "Wikipedia roulette",
-      "description": "Page Wikipedia au hasard. Présentation à l'autre avec sérieux d'universitaire."
+      "description": "Page Wikipedia au hasard. On la présente à l'autre avec le sérieux d'un universitaire."
     },
     {
       "id": "home-068",
@@ -485,7 +477,7 @@
       "pile": "home",
       "emoji": "clown-face",
       "title": "Blagues nulles",
-      "description": "Chacun raconte ses 3 pires blagues. Le moins drôle débarrasse."
+      "description": "Chacun sort ses trois pires blagues. Interdiction de rire, même par pitié."
     },
     {
       "id": "home-071",
@@ -520,8 +512,8 @@
       "id": "out-001",
       "pile": "outdoor",
       "emoji": "spaghetti",
-      "title": "Restaurant italien",
-      "description": "Pâtes et regards appuyés. On joue le grand jeu avec des sous-entendus très lourds."
+      "title": "La Belle et le Clochard",
+      "description": "Resto italien et regards appuyés. On tente la scène du spaghetti, dignité non garantie."
     },
     {
       "id": "out-002",
@@ -542,7 +534,7 @@
       "pile": "outdoor",
       "emoji": "sunrise",
       "title": "Horizon cliché",
-      "description": "Coucher de soleil assumé. On fait semblant d'être profonds en pensant déjà au dessert."
+      "description": "Grimper au plus beau point de vue du coin. On fait les profonds en pensant déjà au goûter."
     },
     {
       "id": "out-005",
@@ -576,16 +568,8 @@
       "id": "out-009",
       "pile": "outdoor",
       "emoji": "guitar",
-      "title": "Groupies d'un soir",
-      "description": "Concert local inconnu. Devenons les fans numéro 1 d'un mec qui joue du triangle."
-    },
-    {
-      "id": "out-010",
-      "pile": "outdoor",
-      "foil": true,
-      "emoji": "evergreen-tree",
-      "title": "Évasion sylvestre",
-      "description": "Prendre l'air pour mieux s'isoler en forêt à l'abri de la ville (et des regards)."
+      "title": "Groupies d'un jour",
+      "description": "On devient les fans hystériques d'un musicien de rue. Rappel exigé, même à la flûte de Pan."
     },
     {
       "id": "out-011",
@@ -669,7 +653,7 @@
       "pile": "outdoor",
       "emoji": "potted-plant",
       "title": "Tueur de plantes",
-      "description": "Choisir une plante et parier sur sa date de décès. Donnons-lui un nom ridicule."
+      "description": "En jardinerie, on adopte une plante et on parie sur sa date de décès. Nom ridicule obligatoire."
     },
     {
       "id": "out-023",
@@ -686,25 +670,11 @@
       "description": "On joue avec la terre comme dans Ghost. C'est moche, mais le contact est sexy."
     },
     {
-      "id": "out-025",
-      "pile": "outdoor",
-      "emoji": "tumbler-glass",
-      "title": "Feu de gorge",
-      "description": "Dégustation de spiritueux. On grimace ensemble en feignant de comprendre quelque chose."
-    },
-    {
-      "id": "out-026",
-      "pile": "outdoor",
-      "emoji": "beer-mug",
-      "title": "Mousses locales",
-      "description": "Tester les bières du coin. On repart avec un pack et un avis très tranché."
-    },
-    {
       "id": "out-027",
       "pile": "outdoor",
       "emoji": "world-map",
       "title": "Chasse au trésor",
-      "description": "Geocaching avec sérieux de détective. Cherchons des boîtes comme des adultes bizarres."
+      "description": "Geocaching avec le sérieux d'un détective. Cherchons des boîtes comme des adultes bizarres."
     },
     {
       "id": "out-028",
@@ -731,8 +701,8 @@
       "id": "out-031",
       "pile": "outdoor",
       "emoji": "chess-pawn",
-      "title": "Stratégie et picole",
-      "description": "Bar à jeux. On ne comprend rien aux règles, mais on gagne par mauvaise foi."
+      "title": "Règles maison",
+      "description": "Café-jeux. On ne comprend rien aux règles, alors on invente les nôtres."
     },
     {
       "id": "out-032",
@@ -755,7 +725,7 @@
       "foil": true,
       "emoji": "peach",
       "title": "Exploration libertine",
-      "description": "Visite d'un club libertin en touriste. Regarder est déjà un préliminaire efficace."
+      "description": "Un après-midi au club libertin, en simples touristes. Regarder est déjà un préliminaire."
     },
     {
       "id": "out-036",
@@ -818,9 +788,9 @@
     {
       "id": "out-045",
       "pile": "outdoor",
-      "emoji": "selfie",
-      "title": "Double menton",
-      "description": "Concours de la photo la plus laide en public. Celui qui a le moins de dignité gagne."
+      "emoji": "playground-slide",
+      "title": "Récré des parents",
+      "description": "Pendant que les enfants sont à l'école, on squatte les balançoires du square. Honte assumée."
     },
     {
       "id": "out-046",
@@ -861,13 +831,6 @@
       "description": "Parking en forêt en plein après-midi, banquette arrière. Inconfortable et terriblement bon."
     },
     {
-      "id": "out-051",
-      "pile": "outdoor",
-      "emoji": "chair",
-      "title": "Safari humain",
-      "description": "Sur un banc, on parie sur le métier des passants. Bonus pour chaque engueulade de couple."
-    },
-    {
       "id": "out-053",
       "pile": "outdoor",
       "emoji": "p-button",
@@ -878,15 +841,15 @@
       "id": "out-054",
       "pile": "outdoor",
       "emoji": "popcorn",
-      "title": "Navet et popcorn",
-      "description": "Le film le plus nul. Le but est de finir le seau avant que le titre s'affiche."
+      "title": "Séance buissonnière",
+      "description": "Ciné à 14h un mardi, salle vide. On se sent comme des ados qui sèchent les cours."
     },
     {
       "id": "out-055",
       "pile": "outdoor",
       "emoji": "pancakes",
       "title": "Brunch des rescapés",
-      "description": "Manger gras à 15h après une nuit agitée. La juste récompense des guerriers."
+      "description": "Œufs, bacon, café à volonté après une nuit hachée par les petits. La récompense des guerriers."
     },
     {
       "id": "out-056",
@@ -921,14 +884,14 @@
       "pile": "outdoor",
       "emoji": "thinking-face",
       "title": "Vies inventées",
-      "description": "Imaginons les secrets honteux des inconnus. Le plus glauque l'emporte."
+      "description": "Sur un banc, on invente la vie secrète des passants. Le plus glauque l'emporte."
     },
     {
       "id": "out-061",
       "pile": "outdoor",
       "emoji": "shallow-pan-of-food",
       "title": "Tournée des tapas",
-      "description": "Picorer plusieurs plats et multiplier les contacts tactiles sous la table."
+      "description": "Petits plats à partager, en théorie. Le dernier morceau se dispute à la fourchette."
     },
     {
       "id": "out-062",
@@ -1012,7 +975,7 @@
       "pile": "outdoor",
       "emoji": "speedboat",
       "title": "Bateau-mouche",
-      "description": "Tour fluvial avec commentaires audio idiots. Chuchote tes critiques aux touristes voisins."
+      "description": "Tour en bateau au milieu des touristes. On salue chaque quai comme des stars en tournée."
     },
     {
       "id": "out-075",
