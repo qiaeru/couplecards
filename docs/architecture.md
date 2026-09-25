@@ -21,14 +21,17 @@ couplecards/
 ├── public/                       Frontend (plain ES modules, no build step for source)
 │   ├── index.html                SPA shell
 │   ├── login.html                login and forced-change flow
+│   ├── register.html             self-registration (when the admin opens it)
+│   ├── forgot-password.html      explains why a lost password cannot be recovered
 │   ├── admin.html                admin panel (users, cards, deck maintenance, language toggle)
 │   ├── 404.html, 500.html        localized error pages
 │   ├── views/                    SPA partials loaded by the router
 │   ├── js/
-│   │   ├── app.js, login.js, admin.js       page entry points
-│   │   ├── core/                 api, auth, events, i18n, idb, router, sync
-│   │   ├── features/             home, deck, history, collection, settings, rules, admin
-│   │   └── ui/                   shell, emoji, password-strength, sound
+│   │   ├── app.js, login.js, register.js, forgot-password.js, admin.js, error-page.js   page entry points
+│   │   ├── config.js             client tuning: animation timings, vibrations, recent-draw exclusion
+│   │   ├── core/                 api, auth, dom, events, i18n, idb, router, sync
+│   │   ├── features/             home, deck (draw screen), history, collection, settings, rules, admin
+│   │   └── ui/                   shell, emoji, floating-bg, form-error, password-strength, scroll-to-top, sound
 │   ├── css/, fonts/, icons/, locales/, vendor/
 │   └── sw.js                     Service Worker
 ├── data/
@@ -72,7 +75,7 @@ sync.banCard(id) → IndexedDB update → outbox enqueue (flush attempt fails)
 
 ## Router
 
-The SPA router lives in `public/js/core/router.js` and is roughly seventy lines of code. A route name maps to a partial HTML file in `public/views/<name>.html` and to a dynamically imported feature module at `public/js/features/<name>/<name>.js`. Each feature module exports a `mount({ params })` function and an optional `unmount()` function. Scroll positions are recorded per route and restored only when the user navigates back through history (browser back, in-app `history.back()`); regular link clicks always land at the top.
+The SPA router lives in `public/js/core/router.js`. A route name maps to a partial HTML file in `public/views/<name>.html` and to a dynamically imported feature module that `app.js` registers with `registerFeature(name, loader)`, usually `public/js/features/<name>/<name>.js` (the `draw` route loads `features/deck/draw.js`). Each feature module exports a `mount({ params })` function and an optional `unmount()` function. Scroll positions are recorded per route and restored only when the user navigates back through history (browser back, in-app `history.back()`); regular link clicks always land at the top.
 
 ## State management
 
@@ -86,7 +89,7 @@ The SPA router lives in `public/js/core/router.js` and is roughly seventy lines 
 
 ## Card draw
 
-`drawRandom(pile, recentIds)` in `public/js/core/sync.js` picks the next card for a pile. It first removes the user's banned cards (`availableCards`), then excludes the most recently drawn ids in that pile (`CONFIG.recentExclude`, three by default) so the same card does not come back two draws in a row. From the remaining pool it does a weighted random pick: standard cards weigh `1.0`, foil cards weigh `FOIL_WEIGHT = 0.3`. The constant lives at the top of `sync.js` and exists to keep the appearance rate of foil cards (the rare, explicitly sexual variant) low even when their share of the deck is non-trivial. With the current FR deck (27 foil out of 150), the effective foil draw rate is around 9.2% on the home pile and 3.5% on the outdoor pile, well below what the raw counts would suggest.
+`drawRandom(pile, recentIds)` in `public/js/core/sync.js` picks the next card for a pile. It first removes the user's banned cards (`availableCards`), then excludes the most recently drawn ids in that pile (`CONFIG.recentExclude` in `public/js/config.js`: three at home, five outdoors) so the same card does not come back two draws in a row. From the remaining pool it does a weighted random pick: standard cards weigh `1.0`, foil cards weigh `FOIL_WEIGHT = 0.3`. The constant lives at the top of `sync.js` and exists to keep the appearance rate of foil cards (the rare, explicitly sexual variant) low even when their share of the deck is non-trivial. With the current FR deck (27 foil out of 150), the effective foil draw rate is around 9.2% on the home pile and 3.5% on the outdoor pile, well below what the raw counts would suggest.
 
 ## Collection screen
 
@@ -103,7 +106,7 @@ The backend has a single source of truth for supported locales in `server/src/li
 - An `i18n:change` event is emitted by `setLocale()`. The i18n module reapplies translations to the DOM on every change, and feature modules listen to it when they cache card text.
 - Card content lives in the database table `card_translations(card_id, locale, title, description)` so the same deck serves every supported language. The seed files under `data/cards.<locale>.json` are merged at first-run seed to populate every translation at once. Structural fields on the `cards` row are language-neutral (`id`, `pile`, `foil`, `emoji`) and must agree across locales; the seed aborts on a mismatch.
 
-The procedure to add a third language is documented end-to-end in [i18n.md](./i18n.md).
+The procedure to add another language is documented end-to-end in [i18n.md](./i18n.md).
 
 ## Backend routes
 
