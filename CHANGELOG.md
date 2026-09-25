@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - The Caddy deployment now serves your domain: `CADDY_DOMAIN` never reached the Caddy container, which fell back to `localhost` and never obtained a certificate for it. The stack now refuses to start when the variable is missing.
 - The admin tab bar (Users, Cards, Settings) no longer shows a small scrollbar on laptop and desktop screens.
+- The container is now reported unhealthy when its database can no longer be read. `/api/health` used to answer 200 in that case, so Docker kept calling a broken instance healthy.
 
 ## [1.16.0] - 2026-09-23
 

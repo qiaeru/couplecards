@@ -111,7 +111,7 @@ Four guard levels are referenced below: **public** (no auth needed), **session**
 
 | Method | Path | Auth | Notes |
 | --- | --- | --- | --- |
-| `GET` | `/api/health` | public | Liveness probe |
+| `GET` | `/api/health` | public | Liveness probe. 503 when the database is unreachable, which the Docker `HEALTHCHECK` reports as unhealthy |
 | `GET` | `/api/auth/csrf` | public | Issues a double-submit token |
 | `GET` | `/api/auth/password-policy` | public | Hard rules and zxcvbn thresholds |
 | `POST` | `/api/auth/login` | public | Rate-limited to 5 attempts per minute per IP |
