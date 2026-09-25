@@ -52,7 +52,7 @@ body {
   content: "";
   position: absolute;
   left: 50%;
-  bottom: -9px;
+  bottom: -8px;
   transform: translateX(-50%);
   width: 28px;
   height: 2px;
