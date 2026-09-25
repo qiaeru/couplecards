@@ -26,7 +26,8 @@ body:has(#screen-draw) .toast {
    control, and so the banner stops showing through the translucent stage. */
 body:has(#screen-draw) .app-bottom-nav,
 body:has(#screen-draw) .scroll-to-top,
-body:has(#screen-draw) .demo-banner {
+body:has(#screen-draw) .demo-banner,
+body:has(#screen-draw) .floating-sides {
   visibility: hidden;
 }
 

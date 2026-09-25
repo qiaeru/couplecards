@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Added
 
 - Nine new cards join the seed deck, five at home (two of them foil) and four outdoors, from a whispered fight over the toilet paper to a tango trial class that settles who leads. Seven new emoji are bundled for them.
+- The empty margins beside the app now hold the floating emoji of the sign-in page, quieter and kept clear of the content: on every screen on a tablet or a computer, and beside the two piles of the home screen on a phone. They step aside for the card draw.
 
 ### Changed
 

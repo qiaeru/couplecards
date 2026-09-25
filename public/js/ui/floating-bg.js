@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: MIT
-// Parallax of emojis behind the auth card. Single depth value per icon drives size/blur/opacity together.
+// Parallax of emojis behind the auth card, and in the side margins of the app.
+// Single depth value per icon drives size/blur/opacity together.
 
 import { createEmojiImg } from './emoji.js';
 
@@ -26,57 +27,50 @@ const SLUGS = [
 ];
 
 let mounted = false;
+let sidesMounted = false;
 
-export function mountFloatingBackground(count = 18) {
-  if (mounted) return;
-  mounted = true;
+function createIcon(
+  slug,
+  left,
+  top,
+  { maxSize, minSize, nearOpacity, farOpacity, centered = false },
+) {
+  const item = document.createElement('span');
+  item.className = 'floating-icon';
 
-  const wrap = document.createElement('div');
-  wrap.className = 'floating-bg';
-  wrap.setAttribute('aria-hidden', 'true');
+  const depth = Math.random();
+  const size = Math.round(maxSize - depth * (maxSize - minSize));
+  const blur = (depth * 3.5).toFixed(2);
+  const baseOpacity = (nearOpacity - depth * (nearOpacity - farOpacity)).toFixed(2);
+  const duration = 14 + depth * 20;
+  const delay = -Math.random() * duration;
+  const drift = (Math.random() * 40 - 20).toFixed(1);
+  const rotate = (Math.random() * 30 - 15).toFixed(1);
 
-  const items = [];
-  for (let i = 0; i < count; i++) {
-    const slug = SLUGS[i % SLUGS.length];
-    const item = document.createElement('span');
-    item.className = 'floating-icon';
-
-    const depth = Math.random();
-    const size = Math.round(120 - depth * 70);
-    const blur = (depth * 3.5).toFixed(2);
-    const baseOpacity = (0.38 - depth * 0.26).toFixed(2);
-    const duration = 14 + depth * 20;
-    const delay = -Math.random() * duration;
-    const drift = (Math.random() * 40 - 20).toFixed(1);
-    const rotate = (Math.random() * 30 - 15).toFixed(1);
-
-    // Anywhere but the band where the wordmark sits.
-    let left = Math.random() * 100;
-    let top = Math.random() * 100;
-    while (top < 22 && left > 12 && left < 88) {
-      left = Math.random() * 100;
-      top = Math.random() * 100;
-    }
-    item.style.left = `${left}%`;
-    item.style.top = `${top}%`;
-    item.style.animationDuration = `${duration.toFixed(1)}s`;
-    item.style.animationDelay = `${delay.toFixed(1)}s`;
-    item.style.setProperty('--drift', `${drift}px`);
-    item.style.setProperty('--rotate', `${rotate}deg`);
-    item.style.setProperty('--blur', `${blur}px`);
-    item.style.setProperty('--base-opacity', baseOpacity);
-    item.style.zIndex = String(Math.round((1 - depth) * 10));
-
-    const img = createEmojiImg(slug);
-    img.style.width = `${size}px`;
-    img.style.height = `${size}px`;
-    item.appendChild(img);
-    wrap.appendChild(item);
-    items.push(item);
+  item.style.left = `${left}%`;
+  item.style.top = `${top}%`;
+  // Centered icons sit on their point, so a narrow band can bound them.
+  if (centered) {
+    const half = `calc(${-size / 2}px * var(--icon-scale, 1))`;
+    item.style.margin = `${half} 0 0 ${half}`;
   }
+  item.style.animationDuration = `${duration.toFixed(1)}s`;
+  item.style.animationDelay = `${delay.toFixed(1)}s`;
+  item.style.setProperty('--drift', `${drift}px`);
+  item.style.setProperty('--rotate', `${rotate}deg`);
+  item.style.setProperty('--blur', `${blur}px`);
+  item.style.setProperty('--base-opacity', baseOpacity);
+  item.style.zIndex = String(Math.round((1 - depth) * 10));
 
-  document.body.insertBefore(wrap, document.body.firstChild);
+  const img = createEmojiImg(slug);
+  // --icon-scale lets the stylesheet shrink the side icons on smaller screens.
+  img.style.width = `calc(${size}px * var(--icon-scale, 1))`;
+  img.style.height = img.style.width;
+  item.appendChild(img);
+  return item;
+}
 
+function repelFromPointer(items) {
   const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
   if (reduce) return;
 
@@ -116,4 +110,76 @@ export function mountFloatingBackground(count = 18) {
     my = e.clientY;
     if (!rafId) rafId = requestAnimationFrame(apply);
   });
+}
+
+export function mountFloatingBackground(count = 18) {
+  if (mounted) return;
+  mounted = true;
+
+  const wrap = document.createElement('div');
+  wrap.className = 'floating-bg';
+  wrap.setAttribute('aria-hidden', 'true');
+
+  const items = [];
+  for (let i = 0; i < count; i++) {
+    // Anywhere but the band where the wordmark sits.
+    let left = Math.random() * 100;
+    let top = Math.random() * 100;
+    while (top < 22 && left > 12 && left < 88) {
+      left = Math.random() * 100;
+      top = Math.random() * 100;
+    }
+    const item = createIcon(SLUGS[i % SLUGS.length], left, top, {
+      maxSize: 120,
+      minSize: 50,
+      nearOpacity: 0.38,
+      farOpacity: 0.12,
+    });
+    wrap.appendChild(item);
+    items.push(item);
+  }
+
+  document.body.insertBefore(wrap, document.body.firstChild);
+  repelFromPointer(items);
+}
+
+// The app keeps its screens in a narrow column, so on a tablet or a computer
+// the margins on each side stay empty. Fills them with a quieter version of the
+// auth background, kept out of the column so it never sits behind text. The
+// stylesheet decides where it shows (.floating-sides): every screen when the
+// margins are wide enough, the strips beside the piles of home on a phone.
+export function mountSideBackground(perSide = 6) {
+  if (sidesMounted) return;
+  sidesMounted = true;
+
+  const wrap = document.createElement('div');
+  wrap.className = 'floating-bg floating-sides';
+  wrap.setAttribute('aria-hidden', 'true');
+
+  // Shuffled so the two sides don't show the same icons in the same order.
+  const slugs = [...SLUGS].sort(() => Math.random() - 0.5);
+  const items = [];
+  for (const side of ['left', 'right']) {
+    const band = document.createElement('div');
+    band.className = `floating-band floating-band-${side}`;
+    for (let i = 0; i < perSide; i++) {
+      // One icon per horizontal slice keeps them spread down the whole
+      // height instead of clumping.
+      const top = ((i + 0.2 + Math.random() * 0.6) / perSide) * 100;
+      const left = 25 + Math.random() * 50;
+      const item = createIcon(slugs[items.length % slugs.length], left, top, {
+        maxSize: 84,
+        minSize: 40,
+        nearOpacity: 0.24,
+        farOpacity: 0.08,
+        centered: true,
+      });
+      band.appendChild(item);
+      items.push(item);
+    }
+    wrap.appendChild(band);
+  }
+
+  document.body.insertBefore(wrap, document.body.firstChild);
+  repelFromPointer(items);
 }

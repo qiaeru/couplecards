@@ -7,6 +7,7 @@ import { initSync } from './core/sync.js';
 import { registerFeature, setOutlet, startRouter } from './core/router.js';
 import { registerServiceWorker, initSyncBanner } from './ui/shell.js';
 import { initScrollToTop } from './ui/scroll-to-top.js';
+import { mountSideBackground } from './ui/floating-bg.js';
 
 async function boot() {
   const user = await me();
@@ -57,6 +58,7 @@ async function boot() {
 
   startRouter();
   initScrollToTop();
+  mountSideBackground();
   initSyncBanner();
   registerServiceWorker();
 }

@@ -174,6 +174,106 @@ body::before {
   }
 }
 
+/* Floating emojis: behind the auth card, and in the app margins
+   (public/js/ui/floating-bg.js). */
+.floating-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.floating-icon {
+  position: absolute;
+  opacity: var(--repel-opacity, var(--base-opacity, 0.25));
+  animation:
+    float-y var(--duration, 22s) ease-in-out infinite,
+    float-fade var(--duration, 22s) ease-in-out infinite;
+  filter: blur(var(--blur, 0.3px));
+  transition: opacity 0.3s ease;
+  will-change: transform, opacity;
+}
+.floating-icon > img {
+  display: block;
+  transform: translate3d(var(--repel-x, 0), var(--repel-y, 0), 0);
+  transition: transform 0.25s var(--ease-out);
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(calc(var(--drift, 0px) * var(--icon-scale, 1)), -28px, 0)
+      rotate(var(--rotate, 0deg));
+  }
+}
+@keyframes float-fade {
+  0%,
+  100% {
+    opacity: var(--base-opacity, 0.25);
+  }
+  50% {
+    opacity: calc(var(--base-opacity, 0.25) + 0.18);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-icon {
+    animation: none;
+  }
+}
+
+/* App only: the margins beside the screen column, under the content and above
+   the page gradient. Icons are centered on their point and stay within the
+   middle half of a band, so their drift ends in the air before the column. */
+.floating-sides {
+  z-index: -1;
+}
+.floating-band {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  /* Half of the 560 px .screen column, plus 24 px of air before it. */
+  width: calc(50% - 304px);
+}
+.floating-band-left {
+  left: 0;
+}
+.floating-band-right {
+  right: 0;
+}
+@media (max-width: 1023.98px) {
+  .floating-sides {
+    --icon-scale: 0.5;
+  }
+}
+/* Too narrow for margins, too wide for the stacked piles below. */
+@media (max-width: 759.98px) {
+  .floating-sides {
+    display: none;
+  }
+}
+/* Phones: only home has room, in the strips beside the stacked piles (at most
+   186 px wide, see .piles). Half the icons, fainter, and no blur, which costs
+   a phone GPU on every frame. */
+@media (max-width: 539.98px) {
+  body:has(#view .piles) .floating-sides {
+    display: block;
+    opacity: 0.75;
+  }
+  .floating-band {
+    width: calc(50% - 105px);
+  }
+  .floating-band .floating-icon {
+    filter: none;
+  }
+  .floating-band .floating-icon:nth-child(even) {
+    display: none;
+  }
+}
+
 #app {
   min-height: 100vh;
   min-height: 100dvh;
@@ -245,6 +345,9 @@ body::before {
   }
   .scroll-to-top {
     view-transition-name: scroll-top;
+  }
+  .floating-sides {
+    view-transition-name: floating-sides;
   }
   ::view-transition-old(root) {
     animation: screen-out 0.2s var(--ease-out) both;
