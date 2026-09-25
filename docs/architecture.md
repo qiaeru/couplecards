@@ -33,7 +33,7 @@ couplecards/
 │   └── sw.js                     Service Worker
 ├── data/
 │   └── cards.<locale>.json       One file per supported locale (en, fr, de, it, es), loaded at first-run seed
-├── scripts/                      build-time helpers (vendor bundle, SPDX retrofit)
+├── scripts/                      vendor bundle build and the repo checks
 ├── deploy/                       reverse proxy presets for Caddy, Traefik, and nginx
 ├── docs/                         you are here
 └── docker-compose.yml, Dockerfile

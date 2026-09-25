@@ -107,7 +107,7 @@ The bundled fonts are Inter for the sans-serif stack and Fraunces for the serif 
 ## Commit and pull request style
 
 - Keep commits small and focused. One concern per pull request.
-- Write the commit subject in imperative English, for example `Add sync outbox`.
+- Write the commit subject as a [Conventional Commit](https://www.conventionalcommits.org/) in imperative English, for example `feat(sync): add the outbox`.
 - Reference related issues by number in the commit body when relevant.
 - Every new source file must carry an SPDX header on its first line (`// SPDX-License-Identifier: MIT`).
 
