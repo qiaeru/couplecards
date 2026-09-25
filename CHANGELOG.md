@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - The server runs on Fastify 5.12.5, @fastify/secure-session 8.4.0 and @fastify/static 10.1.4. Fastify 5.12.5 fixes a crash that needs HTTP/2 served by Fastify itself, which Couplecards does not use.
 
+### Fixed
+
+- The Caddy deployment now serves your domain: `CADDY_DOMAIN` never reached the Caddy container, which fell back to `localhost` and never obtained a certificate for it. The stack now refuses to start when the variable is missing.
+
 ## [1.16.0] - 2026-09-23
 
 ### Changed

@@ -25,6 +25,9 @@ services:
   caddy:
     image: caddy:2-alpine
     restart: unless-stopped
+    # The Caddyfile reads the site address from Caddy's own environment.
+    environment:
+      CADDY_DOMAIN: ${CADDY_DOMAIN:?Set CADDY_DOMAIN}
     ports:
       - "80:80"
       - "443:443"
