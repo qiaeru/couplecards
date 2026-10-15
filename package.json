@@ -38,6 +38,6 @@
     "eslint-config-prettier": "^10.1.8",
     "fflate": "^0.8.3",
     "globals": "^17.13.0",
-    "prettier": "^3.9.9"
+    "prettier": "^3.9.10"
   }
 }
