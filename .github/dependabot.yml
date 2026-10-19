@@ -1,18 +1,16 @@
 version: 2
 updates:
+  # One monthly PR for the root and the server together. The cooldown skips
+  # releases younger than a week, which are the ones that get yanked or
+  # patched. Security updates ignore both the schedule and the cooldown.
   - package-ecosystem: npm
-    directory: /
+    directories:
+      - /
+      - /server
     schedule:
-      interval: weekly
-    groups:
-      patch-and-minor:
-        update-types:
-          - patch
-          - minor
-  - package-ecosystem: npm
-    directory: /server
-    schedule:
-      interval: weekly
+      interval: monthly
+    cooldown:
+      default-days: 7
     groups:
       patch-and-minor:
         update-types:
@@ -21,8 +19,14 @@ updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: weekly
+      interval: monthly
+    cooldown:
+      default-days: 7
+    groups:
+      actions:
+        patterns:
+          - "*"
   - package-ecosystem: docker
     directory: /
     schedule:
-      interval: weekly
+      interval: monthly
