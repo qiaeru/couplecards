@@ -8,7 +8,7 @@
 // behind, since the page got the stale copy while the revalidation stored the
 // fresh one, and left the admin card list one edit behind for good.
 
-const VERSION = 'couplecards-v77';
+const VERSION = 'couplecards-v78';
 const SHELL = [
   '/',
   '/index.html',
@@ -47,6 +47,7 @@ const SHELL = [
   '/js/features/settings/settings.js',
   '/js/features/rules/rules.js',
   '/js/features/deck/draw.js',
+  '/js/features/deck/tilt.js',
   '/js/features/admin/users.js',
   '/js/features/admin/cards.js',
   '/js/features/admin/deck-sync.js',

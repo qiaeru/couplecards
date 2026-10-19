@@ -94,7 +94,7 @@ export async function mount() {
       if (btn.disabled || btn.classList.contains('empty')) return;
       pileLaunching = true;
       vibrate(CONFIG.vibrations.pileTap);
-      const { requestOrientationIfNeeded } = await import('../deck/draw.js');
+      const { requestOrientationIfNeeded } = await import('../deck/tilt.js');
       await requestOrientationIfNeeded();
       btn.classList.add('launching');
       const pile = btn.dataset.pile;
