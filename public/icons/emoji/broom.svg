@@ -1,21 +1,21 @@
 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M25.6575 3.5L14.8606 22.2344" stroke="#9F6261" stroke-width="2.75" stroke-linecap="round"/>
-<path d="M25.6575 3.5L14.8606 22.2344" stroke="url(#paint0_linear_18_26124)" stroke-width="2.75" stroke-linecap="round"/>
-<path d="M25.6575 3.5L14.8606 22.2344" stroke="url(#paint1_radial_18_26124)" stroke-width="2.75" stroke-linecap="round"/>
-<path d="M25.6575 3.5L14.8606 22.2344" stroke="url(#paint2_radial_18_26124)" stroke-width="2.75" stroke-linecap="round"/>
+<path d="M25.66 3.5L14.86 22.23" stroke="#9F6261" stroke-width="2.75" stroke-linecap="round"/>
+<path d="M25.66 3.5L14.86 22.23" stroke="url(#paint0_linear_18_26124)" stroke-width="2.75" stroke-linecap="round"/>
+<path d="M25.66 3.5L14.86 22.23" stroke="url(#paint1_radial_18_26124)" stroke-width="2.75" stroke-linecap="round"/>
+<path d="M25.66 3.5L14.86 22.23" stroke="url(#paint2_radial_18_26124)" stroke-width="2.75" stroke-linecap="round"/>
 <g filter="url(#filter0_f_18_26124)">
-<path d="M25.7331 3.89606L15.1484 22.2344" stroke="#96596B" stroke-width="0.75" stroke-linecap="round"/>
+<path d="M25.73 3.9L15.15 22.23" stroke="#96596B" stroke-width="0.75" stroke-linecap="round"/>
 </g>
 <g filter="url(#filter1_ii_18_26124)">
-<path d="M9.70374 23.3281L4.56353 28.1328C3.96994 28.7343 4.33631 29.6093 5.06344 29.6093H12.5793C15.009 29.4921 16.3528 28.414 16.8485 26.6284L17.3918 24.539C17.7903 22.6093 17.1515 21.298 15.8059 20.5234C14.3732 19.6987 12.5963 19.9555 11.5201 21.2103L9.70374 23.3281Z" fill="url(#paint3_linear_18_26124)"/>
-<path d="M9.70374 23.3281L4.56353 28.1328C3.96994 28.7343 4.33631 29.6093 5.06344 29.6093H12.5793C15.009 29.4921 16.3528 28.414 16.8485 26.6284L17.3918 24.539C17.7903 22.6093 17.1515 21.298 15.8059 20.5234C14.3732 19.6987 12.5963 19.9555 11.5201 21.2103L9.70374 23.3281Z" fill="url(#paint4_radial_18_26124)"/>
-<path d="M9.70374 23.3281L4.56353 28.1328C3.96994 28.7343 4.33631 29.6093 5.06344 29.6093H12.5793C15.009 29.4921 16.3528 28.414 16.8485 26.6284L17.3918 24.539C17.7903 22.6093 17.1515 21.298 15.8059 20.5234C14.3732 19.6987 12.5963 19.9555 11.5201 21.2103L9.70374 23.3281Z" fill="url(#paint5_linear_18_26124)"/>
-<path d="M9.70374 23.3281L4.56353 28.1328C3.96994 28.7343 4.33631 29.6093 5.06344 29.6093H12.5793C15.009 29.4921 16.3528 28.414 16.8485 26.6284L17.3918 24.539C17.7903 22.6093 17.1515 21.298 15.8059 20.5234C14.3732 19.6987 12.5963 19.9555 11.5201 21.2103L9.70374 23.3281Z" fill="url(#paint6_radial_18_26124)"/>
+<path d="M9.7 23.33L4.56 28.13C3.97 28.73 4.34 29.61 5.06 29.61H12.58C15.01 29.49 16.35 28.41 16.85 26.63L17.39 24.54C17.79 22.61 17.15 21.3 15.81 20.52C14.37 19.7 12.6 19.96 11.52 21.21L9.7 23.33Z" fill="url(#paint3_linear_18_26124)"/>
+<path d="M9.7 23.33L4.56 28.13C3.97 28.73 4.34 29.61 5.06 29.61H12.58C15.01 29.49 16.35 28.41 16.85 26.63L17.39 24.54C17.79 22.61 17.15 21.3 15.81 20.52C14.37 19.7 12.6 19.96 11.52 21.21L9.7 23.33Z" fill="url(#paint4_radial_18_26124)"/>
+<path d="M9.7 23.33L4.56 28.13C3.97 28.73 4.34 29.61 5.06 29.61H12.58C15.01 29.49 16.35 28.41 16.85 26.63L17.39 24.54C17.79 22.61 17.15 21.3 15.81 20.52C14.37 19.7 12.6 19.96 11.52 21.21L9.7 23.33Z" fill="url(#paint5_linear_18_26124)"/>
+<path d="M9.7 23.33L4.56 28.13C3.97 28.73 4.34 29.61 5.06 29.61H12.58C15.01 29.49 16.35 28.41 16.85 26.63L17.39 24.54C17.79 22.61 17.15 21.3 15.81 20.52C14.37 19.7 12.6 19.96 11.52 21.21L9.7 23.33Z" fill="url(#paint6_radial_18_26124)"/>
 </g>
-<path d="M11.2668 21.5469L17.3137 24.8282" stroke="url(#paint7_linear_18_26124)" stroke-width="0.6" stroke-linecap="round"/>
-<path d="M11.2668 21.5469L17.3137 24.8282" stroke="url(#paint8_radial_18_26124)" stroke-width="0.6" stroke-linecap="round"/>
-<path d="M10.2434 22.7734L16.9543 26.5469" stroke="url(#paint9_linear_18_26124)" stroke-width="0.6" stroke-linecap="round"/>
-<path d="M10.2434 22.7734L16.9543 26.5469" stroke="url(#paint10_radial_18_26124)" stroke-width="0.6" stroke-linecap="round"/>
+<path d="M11.27 21.55L17.31 24.83" stroke="url(#paint7_linear_18_26124)" stroke-width="0.6" stroke-linecap="round"/>
+<path d="M11.27 21.55L17.31 24.83" stroke="url(#paint8_radial_18_26124)" stroke-width="0.6" stroke-linecap="round"/>
+<path d="M10.24 22.77L16.95 26.55" stroke="url(#paint9_linear_18_26124)" stroke-width="0.6" stroke-linecap="round"/>
+<path d="M10.24 22.77L16.95 26.55" stroke="url(#paint10_radial_18_26124)" stroke-width="0.6" stroke-linecap="round"/>
 <rect x="14.683" y="18.6825" width="3.80279" height="1.31895" rx="0.659474" transform="rotate(30 14.683 18.6825)" fill="url(#paint11_linear_18_26124)"/>
 <rect x="14.683" y="18.6825" width="3.80279" height="1.31895" rx="0.659474" transform="rotate(30 14.683 18.6825)" fill="url(#paint12_radial_18_26124)"/>
 <rect x="14.683" y="18.6825" width="3.80279" height="1.31895" rx="0.659474" transform="rotate(30 14.683 18.6825)" fill="url(#paint13_radial_18_26124)"/>
