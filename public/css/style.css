@@ -1073,25 +1073,6 @@ body::before {
   background: linear-gradient(135deg, var(--outdoor-1), var(--outdoor-2));
 }
 
-.action-tag {
-  font-size: var(--text-xs);
-  font-weight: 700;
-  padding: 3px 10px;
-  border-radius: 999px;
-}
-.action-tag.returned {
-  background: color-mix(in srgb, var(--success) 18%, transparent);
-  color: var(--success-bright);
-}
-.action-tag.banned {
-  background: color-mix(in srgb, var(--danger) 12%, transparent);
-  color: var(--danger);
-}
-.action-tag.admin-role,
-.action-tag.demo-role {
-  background: color-mix(in srgb, var(--gold) 14%, transparent);
-  color: var(--gold);
-}
 .tag {
   display: inline-block;
   font-size: var(--text-xs);
@@ -1111,10 +1092,6 @@ body::before {
 }
 .tag-outdoor {
   background: linear-gradient(135deg, var(--outdoor-1), var(--outdoor-2));
-}
-.tag-success {
-  background: color-mix(in srgb, var(--success) 18%, transparent);
-  color: var(--success-bright);
 }
 .tag-danger {
   background: color-mix(in srgb, var(--danger) 12%, transparent);
