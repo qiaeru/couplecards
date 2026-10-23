@@ -9,9 +9,7 @@ A self-hosted web app that lets couples draw activity cards to break the routine
 
 The deck is split into two piles, "Home" and "Outdoor". Each instance has one administrator and as many player accounts as you want. The admin can create accounts directly, or open public registration so anyone can sign up from the login page. In practice a couple often shares a single account.
 
-The app works offline once loaded.
-
-> **Self-hosted, your call on sign-ups.** Start it, sign in, then create accounts or open public registration from the admin panel. There is no telemetry and no external network call at runtime.
+The app works offline once loaded, with no telemetry and no external network call at runtime.
 
 ## Try the demo
 
@@ -26,9 +24,9 @@ A hosted demo is available at **<https://couplecards.qiaeru.com/>**. Sign in wit
 
 ### What it does
 
-- **Two piles, one ritual.** The deck splits into a "Home" pile and an "Outdoor" pile. Tap a pile, the top card flips with a foil-shimmer reveal, and a swipe sends it back to the deck or bans it from future draws.
+- **Two piles.** The deck splits into a "Home" pile and an "Outdoor" pile. Tap a pile, the top card flips with a foil-shimmer reveal, and a swipe sends it back to the deck or bans it from future draws.
 - **Personal deck memory.** Each player gets their own history, their own ban list, and a low-pile warning when a stack runs thin. Banned cards can be restored with one tap. Drawing a second time from the same pile returns the previous card so the deck stays balanced.
-- **Accounts your way.** The built-in admin creates accounts for each player, or opens public registration so people sign up themselves from the login page. The admin also manages the shared card library (create, edit, ban, export, import, sync from JSON), sets the activity language, and can sweep away accounts left inactive for months. No third-party identity provider.
+- **Accounts.** The built-in admin creates accounts for each player, or opens public registration so people sign up themselves from the login page. The admin also manages the shared card library (create, edit, ban, export, import, sync from JSON), sets the activity language, and can sweep away accounts left inactive for months. No third-party identity provider.
 - **Responsive PWA, five languages.** French, English, German, Italian, and Spanish all ship out of the box. Works on phone, tablet, and desktop with a dark theme, a foil-and-glow visual language, full keyboard and screen-reader support, install-to-home-screen on iOS and Android, and offline use after the first load.
 
 ### Under the hood
@@ -59,7 +57,7 @@ Open <http://localhost:3000>. On the first boot:
 
 ## Documentation
 
-- [Deployment guide](./docs/deployment.md) covers environment variables, volumes, backups, emergency reset and the GHCR image.
+- [Deployment guide](./docs/deployment.md) covers environment variables, volumes, backups, emergency reset, and the GHCR image.
 - [Admin guide](./docs/administration.md) explains user and card management, the deck maintenance tools, and the role model.
 - [Configuration reference](./docs/configuration.md) lists every environment variable.
 - [Security model](./docs/security.md) details the threat model and hardening choices.
@@ -79,7 +77,7 @@ Three ready-to-use Compose variants live in [`deploy/`](./deploy/):
 
 ## Credits
 
-Every third-party asset ships locally under a permissive open-source license. The project uses the Inter and Fraunces fonts (SIL OFL 1.1), the Fluent UI Emoji icon set (MIT), Fastify, hash-wasm, zxcvbn-ts and esbuild. See [CREDITS.md](./CREDITS.md) for the full attribution list.
+Every third-party asset ships locally under a permissive open-source license. The project uses the Inter and Fraunces fonts (SIL OFL 1.1), the Fluent UI Emoji icon set (MIT), Fastify, hash-wasm, zxcvbn-ts, and esbuild. See [CREDITS.md](./CREDITS.md) for the full attribution list.
 
 ## License
 

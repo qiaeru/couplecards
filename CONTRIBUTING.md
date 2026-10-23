@@ -7,7 +7,7 @@ Thank you for considering a contribution. The project is intentionally small and
 - **English everywhere in the source tree.** This applies to comments, commit messages, pull request descriptions, documentation, identifiers (variables, functions, route paths, SQL columns), and anything else a reviewer reads. The only French strings allowed in the codebase live in `public/locales/fr.json`.
 - **No external network calls at runtime.** The app is self-contained and a fresh install must work offline after the initial boot.
 - **No tooling a maintainer has to run.** The repo ships ESLint, Prettier, a set of consistency checks, and a test suite, but running an instance never touches any of them: `docker compose up` builds and boots without them, and CI enforces them on every pull request. Build-time tools like esbuild stay invisible inside the Docker build.
-- **No telemetry, no analytics, no third-party trackers.** Ever.
+- **No telemetry, no analytics, no third-party trackers.**
 
 ## Development setup
 
