@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - The card emoji artwork downloads about 10 % lighter, with no visible change.
 
+### Security
+
+- Updated Fastify to 5.12.7 and the transitive `ip-address` dependency to 10.7.4 to pull in the upstream fixes for GHSA-389g-gv7q-r4x8 (a request-header validation bypass) and GHSA-rxp7-6hxx-x8q5 (a long IPv6 string that could stall the server).
+
 ## [1.17.0] - 2026-09-25
 
 ### Added
