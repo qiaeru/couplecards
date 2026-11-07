@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Security
+
+- Updated the transitive `fast-uri` dependency to 4.2.3 (and to 3.1.9 under `ajv`) to pull in the upstream fixes for GHSA-xhq7-xmqj-769h, GHSA-w74x-v6f9-j3xg, GHSA-333x-w4r6-6crp, and GHSA-wjr9-j795-jxcr, four URI-parsing vulnerabilities.
+- Updated `@fastify/static` to 10.1.10, which brings `glob` 14.0.4 and `minimatch` 11.0.5 with the upstream fixes for GHSA-3g3m-2fjr-6pw4 and GHSA-g3hv-75wg-m249.
+
 ## [1.17.1] - 2026-10-23
 
 ### Changed
