@@ -6,7 +6,7 @@
 
 import { test, before, after, mock } from 'node:test';
 import assert from 'node:assert/strict';
-import { withServer, signIn, cookieOf } from './helpers.js';
+import { withServer, signIn, cookieOf, seededAdminPassword } from './helpers.js';
 
 const DAY = 24 * 60 * 60 * 1000;
 
@@ -47,7 +47,7 @@ test('a session slides for 30 days from the last visit', async (t) => {
 });
 
 test('logout revokes every copy of the cookie', async () => {
-  const s = await signIn(app, 'couplecards', 'changeme');
+  const s = await signIn(app, 'couplecards', seededAdminPassword());
   const copy = s.cookie;
   assert.equal((await logout(s)).statusCode, 200);
   assert.equal((await me(copy)).statusCode, 401);

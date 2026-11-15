@@ -20,7 +20,7 @@ This variant uses Traefik v3 with the Let's Encrypt HTTP-01 challenge and an aut
    docker compose --env-file .env -f deploy/traefik/docker-compose.traefik.yml up -d
    ```
 
-4. On first boot, visit `https://couplecards.example.com`, sign in with `couplecards` and the password `changeme`, then pick a strong new password when prompted.
+4. On first boot, visit `https://couplecards.example.com`, sign in with `couplecards` and the password printed in the logs (`docker compose -f deploy/traefik/docker-compose.traefik.yml logs couplecards`), then pick a strong new password when prompted.
 
 ## Notes
 

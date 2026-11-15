@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Security
 
+- The admin account no longer starts with the fixed password `changeme`, which let anyone who reached a fresh instance before its owner take it over. The first boot now generates a random password and prints it once in the server logs, and so does `ADMIN_RESET`. An existing instance whose admin never changed `changeme` gets a random password at the next start, printed in the logs the same way.
 - Updated the transitive `fast-uri` dependency to 4.2.3 (and to 3.1.9 under `ajv`) to pull in the upstream fixes for GHSA-xhq7-xmqj-769h, GHSA-w74x-v6f9-j3xg, GHSA-333x-w4r6-6crp, and GHSA-wjr9-j795-jxcr, four URI-parsing vulnerabilities.
 - Updated `@fastify/static` to 10.1.10, which brings `glob` 14.0.4 and `minimatch` 11.0.5 with the upstream fixes for GHSA-3g3m-2fjr-6pw4 and GHSA-g3hv-75wg-m249.
 

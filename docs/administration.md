@@ -12,7 +12,7 @@ A single person can take both roles if they are technically inclined. They would
 
 ## First sign-in
 
-After `docker compose up`, open <http://localhost:3000> (or your HTTPS domain). The login page asks for credentials. Use `couplecards` as the username and `changeme` as the password. The default admin login is deliberately not `admin` to avoid attracting generic credential-stuffing probes.
+After `docker compose up`, open <http://localhost:3000> (or your HTTPS domain). The login page asks for credentials. Use `couplecards` as the username. The password is random, generated on the first boot and printed once in the server logs: run `docker compose logs couplecards` and look for the block framed by lines of `=` signs. There is no fixed default password, so nobody who reaches the instance before you can take the admin account. The default admin login is deliberately not `admin` to avoid attracting generic credential-stuffing probes.
 
 You are immediately asked to change the password. It must be 12 characters or longer, include at least one uppercase letter, one lowercase letter, one digit, and one special character, and pass a zxcvbn score of 4 or higher (the stricter threshold applied to the admin account).
 

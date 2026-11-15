@@ -1,14 +1,16 @@
 // SPDX-License-Identifier: MIT
-// First-run seed: default admin, optional demo account, multilingual starter
+// First-run seed: admin with a random password, optional demo account, multilingual starter
 // deck from every data/cards.*.json.
 
 import { config } from '../config.js';
 import { getDb, transaction, setSetting } from './index.js';
-import { hashPassword, verifyPassword } from '../lib/password.js';
+import { hashPassword, verifyPassword, generateInitialPassword } from '../lib/password.js';
 import { SUPPORTED_LOCALES } from '../lib/locales.js';
 import { readSeedDecks } from '../lib/deckSync.js';
 
-const DEFAULT_ADMIN_PASSWORD = 'changeme';
+// Fixed admin password of releases up to 1.17.1, still checked at boot to
+// rotate admins nobody has claimed yet.
+const LEGACY_ADMIN_PASSWORD = 'changeme';
 const DEMO_USERNAME = 'demo';
 const DEMO_PASSWORD = 'demo';
 
@@ -28,7 +30,8 @@ export async function runSeed(logger) {
   const userCount = db.prepare('SELECT COUNT(*) AS n FROM users').get().n;
   if (userCount === 0) {
     const locale = pickSeedLocale();
-    const hash = await hashPassword(DEFAULT_ADMIN_PASSWORD);
+    const password = generateInitialPassword();
+    const hash = await hashPassword(password);
     db.prepare(
       `
       INSERT INTO users (username, password_hash, role, must_change_password, locale)
@@ -46,8 +49,10 @@ export async function runSeed(logger) {
     // headless deployment can open registration without touching the panel.
     setSetting('registration_enabled', config.enableRegistration ? '1' : '0');
 
-    logger?.info({ locale }, 'seeded default admin (username=couplecards, password=changeme)');
+    announceAdminPassword(logger, 'Admin account created.', 'couplecards', password);
   }
+
+  await rotateLegacyAdminPassword(logger);
 
   // ENABLE_DEMO_ACCOUNT is the single source of truth for the demo row:
   // flag on seeds it when missing, flag off prunes it when still present.
@@ -147,7 +152,8 @@ function backfillCardEmoji(logger) {
 export async function maybeResetAdmin(logger) {
   if (!config.adminReset) return;
   const db = getDb();
-  const hash = await hashPassword(DEFAULT_ADMIN_PASSWORD);
+  const password = generateInitialPassword();
+  const hash = await hashPassword(password);
   db.prepare(
     `
     UPDATE users
@@ -161,8 +167,69 @@ export async function maybeResetAdmin(logger) {
   db.prepare(
     `DELETE FROM login_failures WHERE user_id IN (SELECT id FROM users WHERE role = 'admin')`,
   ).run();
+  announceAdminPassword(
+    logger,
+    'ADMIN_RESET is set: admin password reset. Unset the variable and restart.',
+    adminUsernames(db),
+    password,
+  );
+}
+
+// An admin still waiting for its first password change with the old fixed
+// password is open to whoever signs in first, since the forced change only
+// asks for that public password. Rotate it to a random one, and bump the
+// epoch so a session opened with the old password dies too.
+async function rotateLegacyAdminPassword(logger) {
+  const db = getDb();
+  const pending = db
+    .prepare(
+      "SELECT id, password_hash FROM users WHERE role = 'admin' AND must_change_password = 1",
+    )
+    .all();
+  const legacy = [];
+  for (const row of pending) {
+    if (await verifyPassword(row.password_hash, LEGACY_ADMIN_PASSWORD)) legacy.push(row.id);
+  }
+  if (legacy.length === 0) return;
+  const password = generateInitialPassword();
+  const hash = await hashPassword(password);
+  const update = db.prepare(`
+    UPDATE users
+    SET password_hash = ?, session_epoch = session_epoch + 1, updated_at = datetime('now')
+    WHERE id = ?
+  `);
+  transaction(() => {
+    for (const id of legacy) update.run(hash, id);
+  })();
+  announceAdminPassword(
+    logger,
+    'The admin account still had the old default password: it was replaced.',
+    adminUsernames(db, legacy),
+    password,
+  );
+}
+
+function adminUsernames(db, ids = null) {
+  const rows = db.prepare("SELECT id, username FROM users WHERE role = 'admin'").all();
+  return rows
+    .filter((r) => !ids || ids.includes(r.id))
+    .map((r) => r.username)
+    .join(', ');
+}
+
+// The only place the generated password ever appears. Printed with warn so it
+// stands out in `docker compose logs`; the account must change it on sign-in.
+function announceAdminPassword(logger, headline, username, password) {
+  const rule = '='.repeat(64);
   logger?.warn(
-    'ADMIN_RESET was enabled: admin password reset to "changeme". Unset the variable and restart.',
+    [
+      rule,
+      headline,
+      `  Username: ${username}`,
+      `  Password: ${password}`,
+      'Sign in with these and pick your own password.',
+      rule,
+    ].join('\n'),
   );
 }
 

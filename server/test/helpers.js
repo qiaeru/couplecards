@@ -36,6 +36,22 @@ function prepareEnv({ demo = true, production = false } = {}) {
   return dir;
 }
 
+// The seed prints the generated admin password once, in a warn line. Read it
+// back from there, the way an operator would from the container logs.
+export function seedLogger(sink = []) {
+  return {
+    info() {},
+    warn(message) {
+      sink.push(message);
+    },
+  };
+}
+
+export function passwordFrom(messages) {
+  const match = messages.map((m) => /^ {2}Password: (\S+)$/m.exec(m)).findLast(Boolean);
+  return match ? match[1] : null;
+}
+
 // Migrated, seeded database with no HTTP layer. For the tests that only need
 // tables and rows.
 export async function withDatabase(options = {}) {
@@ -44,7 +60,9 @@ export async function withDatabase(options = {}) {
   const { runSeed } = await import('../src/db/seed.js');
   const db = await import('../src/db/index.js');
   runMigrations(null);
-  await runSeed(null);
+  const messages = [];
+  await runSeed(seedLogger(messages));
+  initialAdminPassword = passwordFrom(messages);
   return {
     db,
     dir,
@@ -87,15 +105,21 @@ export async function signIn(app, username, password) {
 
 export const ADMIN_PASSWORD = 'Trombone7-Quiver!Latch';
 
+// Random password the seed gave the admin, before the forced change.
+let initialAdminPassword = null;
+export function seededAdminPassword() {
+  return initialAdminPassword;
+}
+
 // The seeded admin lands with must_change_password = 1, so every admin route
 // answers 409 until the password is changed. Returns a ready admin session.
 export async function signInAdmin(app) {
-  const fresh = await signIn(app, 'couplecards', 'changeme');
+  const fresh = await signIn(app, 'couplecards', initialAdminPassword);
   const changed = await app.inject({
     method: 'POST',
     url: '/api/auth/change-password',
     headers: fresh.headers(),
-    payload: { currentPassword: 'changeme', newPassword: ADMIN_PASSWORD },
+    payload: { currentPassword: initialAdminPassword, newPassword: ADMIN_PASSWORD },
   });
   if (changed.statusCode !== 200) {
     throw new Error(`admin password change failed: ${changed.statusCode} ${changed.body}`);

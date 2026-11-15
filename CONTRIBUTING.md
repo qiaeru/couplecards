@@ -43,7 +43,7 @@ cp .env.example .env
 docker compose up -d --build
 ```
 
-Open <http://localhost:3000>, then sign in with `couplecards` and the password `changeme`.
+Open <http://localhost:3000>, then sign in with `couplecards` and the password printed in the logs (`docker compose logs couplecards`). With `npm run dev`, it appears in the terminal.
 
 ## Project layout
 

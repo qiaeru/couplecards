@@ -19,7 +19,7 @@ This is the simplest way to expose Couplecards over HTTPS. Caddy negotiates a Le
    docker compose --env-file .env -f deploy/caddy/docker-compose.caddy.yml up -d
    ```
 
-4. On first boot, open `https://couplecards.example.com` and sign in with `couplecards` and the password `changeme`. You are forced to pick a strong new password before reaching the admin panel.
+4. On first boot, open `https://couplecards.example.com` and sign in with `couplecards` and the password printed in the logs (`docker compose -f deploy/caddy/docker-compose.caddy.yml logs couplecards`). You are forced to pick a strong new password before reaching the admin panel.
 
 ## Notes
 

@@ -51,9 +51,10 @@ docker compose up -d --build
 
 Open <http://localhost:3000>. On the first boot:
 
-1. Sign in with `couplecards` and the password `changeme`.
-2. Pick a strong admin password when prompted.
-3. From the admin panel, create accounts for the players, or open public registration so they can sign up themselves from the login page. Admin-created accounts show their initial password exactly once; copy it somewhere safe.
+1. Read the admin password the server generated, with `docker compose logs couplecards`: it sits between two lines of `=` signs.
+2. Sign in with `couplecards` and that password.
+3. Pick a strong admin password when prompted.
+4. From the admin panel, create accounts for the players, or open public registration so they can sign up themselves from the login page. Admin-created accounts show their initial password exactly once; copy it somewhere safe.
 
 ## Documentation
 

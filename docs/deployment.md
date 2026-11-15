@@ -77,7 +77,7 @@ If you lose the admin password:
 
 1. Stop the container.
 2. Edit `.env` and set `ADMIN_RESET=1`.
-3. Start the container again. It resets the admin password to `changeme` and forces a password change on the next login. A warning line is printed to the logs.
+3. Start the container again. It resets the admin password to a new random one, printed in the logs (`docker compose logs couplecards`), and forces a password change on the next login.
 4. Remove `ADMIN_RESET` from `.env` and restart. Leaving it enabled on every boot would reset the password every time.
 
 ## Using the prebuilt image from GHCR
