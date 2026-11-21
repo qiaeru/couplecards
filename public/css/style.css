@@ -353,10 +353,25 @@ body::before {
   ::view-transition-new(root) {
     animation: screen-in 0.32s var(--ease-out) both;
   }
+  /* A trip back, or toward a tab further left, mirrors the slide (router.js
+     sets the attribute for the length of the transition). */
+  :root[data-nav-direction="back"]::view-transition-new(root) {
+    animation-name: screen-in-back;
+  }
   @supports (view-transition-name: none) {
     .screen {
       animation: none;
     }
+  }
+}
+@keyframes screen-in-back {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 @keyframes screen-out {

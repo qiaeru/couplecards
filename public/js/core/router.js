@@ -63,11 +63,33 @@ export async function navigate(name, params = {}) {
 // popstate cannot tell back/forward apart: it also fires on every hash change,
 // link taps included. A fresh navigation creates a history entry with no
 // state, so stamping entries on first render means that meeting a stamp again
-// can only be a trip through the history.
-function isRevisit() {
-  if (history.state?.visited) return true;
-  history.replaceState({ ...history.state, visited: true }, '');
-  return false;
+// can only be a trip through the history. The stamp is a position, one above
+// the entry it was reached from, so comparing it with the current one tells a
+// trip back from a trip forward.
+let currentIndex = 0;
+function stampEntry() {
+  const stamped = history.state?.navIndex;
+  if (stamped != null) return { revisit: true, index: stamped };
+  const index = currentIndex + 1;
+  history.replaceState({ ...history.state, navIndex: index }, '');
+  return { revisit: false, index };
+}
+
+// Which side the next screen slides in from. A trip back through the history,
+// or a return to home (the root, reached again after a draw or from a tab),
+// comes from the left; between two screens of the bottom nav, the side follows
+// their order, like swiping between pages; everything else is a step forward,
+// from the right.
+function navDirection(from, to, step) {
+  if (step.revisit) return step.index < currentIndex ? 'back' : 'forward';
+  if (to === 'home' && from && from !== 'home') return 'back';
+  const order = [
+    'home',
+    ...[...document.querySelectorAll('[data-nav-route]')].map((a) => a.dataset.navRoute),
+  ];
+  const a = order.indexOf(from);
+  const b = order.indexOf(to);
+  return a >= 0 && b >= 0 && b < a ? 'back' : 'forward';
 }
 
 async function render({ fresh = false } = {}) {
@@ -79,7 +101,10 @@ async function render({ fresh = false } = {}) {
   // Snapshot the scroll position of the screen we are about to leave, so a
   // future browser back can restore it.
   if (currentRoute) scrollPositions.set(currentRoute, window.scrollY);
-  const restoreScroll = isRevisit() && !fresh;
+  const step = stampEntry();
+  const restoreScroll = step.revisit && !fresh;
+  const direction = navDirection(currentRoute, segment, step);
+  currentIndex = step.index;
 
   if (currentModule && typeof currentModule.unmount === 'function') {
     try {
@@ -105,7 +130,16 @@ async function render({ fresh = false } = {}) {
     document.startViewTransition &&
     !window.matchMedia('(prefers-reduced-motion: reduce)').matches
   ) {
-    await document.startViewTransition(swap).updateCallbackDone;
+    // An attribute rather than view transition types: startViewTransition()
+    // only takes an options object since Chrome 125 and Safari 18.2, and the
+    // older ones would throw on it.
+    const root = document.documentElement;
+    root.dataset.navDirection = direction;
+    const transition = document.startViewTransition(swap);
+    transition.finished.finally(() => {
+      if (gen === renderGen) delete root.dataset.navDirection;
+    });
+    await transition.updateCallbackDone;
     if (gen !== renderGen) return;
   } else {
     swap();
