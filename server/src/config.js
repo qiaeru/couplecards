@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Environment parsing and runtime configuration.
 
-import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import pkg from '../package.json' with { type: 'json' };
 
 function required(name) {
   const value = process.env[name];
@@ -46,16 +46,6 @@ function sessionKey(secret) {
 
 const DATA_DIR = process.env.DATA_DIR || resolve(process.cwd(), 'var');
 
-function readPackageVersion() {
-  try {
-    const pkgPath = new URL('../package.json', import.meta.url);
-    const pkg = JSON.parse(readFileSync(pkgPath, 'utf8'));
-    return pkg.version || '0.0.0';
-  } catch {
-    return '0.0.0';
-  }
-}
-
 export const config = {
   env: NODE_ENV,
   isProduction: NODE_ENV === 'production',
@@ -71,7 +61,7 @@ export const config = {
   adminReset: bool('ADMIN_RESET', false),
   enableDemoAccount: bool('ENABLE_DEMO_ACCOUNT', false),
   enableRegistration: bool('ENABLE_REGISTRATION', false),
-  version: readPackageVersion(),
+  version: pkg.version,
   publicDir: process.env.PUBLIC_DIR || resolve(process.cwd(), '../public'),
   dataSeedDir: process.env.DATA_SEED_DIR || resolve(process.cwd(), '../data'),
 };

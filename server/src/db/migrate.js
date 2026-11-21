@@ -4,10 +4,9 @@
 
 import { readdirSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { getDb, transaction } from './index.js';
 
-const MIGRATIONS_DIR = resolve(fileURLToPath(import.meta.url), '../../../migrations');
+const MIGRATIONS_DIR = resolve(import.meta.dirname, '../../migrations');
 
 export function runMigrations(logger) {
   const db = getDb();
