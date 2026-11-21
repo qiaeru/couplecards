@@ -108,24 +108,28 @@ window.addEventListener('hashchange', () => {
 });
 
 // Animated modal dismissal shared by showConfirm and withModal. The timeout
-// (not animationend) hides the element so reduced motion, where the
-// animations are disabled, still ends hidden.
+// (not animationend) closes the dialog so reduced motion, where the
+// animations are disabled, still ends closed. showModal() traps focus and
+// makes the page inert. closedby="none" keeps Escape and the Android back
+// gesture off a dialog whose loss is unrecoverable; Safari ignores the
+// attribute, so the keydown handlers also cancel Escape.
 let modalCloseTimer = 0;
-function openModalHost(host) {
+function openModalHost(host, dismissable = true) {
   clearTimeout(modalCloseTimer);
   host.classList.remove('closing');
-  host.hidden = false;
+  host.setAttribute('closedby', dismissable ? 'closerequest' : 'none');
+  if (!host.open) host.showModal();
 }
 function closeModalHost(host) {
   host.classList.add('closing');
   clearTimeout(modalCloseTimer);
   modalCloseTimer = setTimeout(() => {
-    host.hidden = true;
+    host.close();
     host.classList.remove('closing');
   }, 170);
 }
 
-// Generic confirmation modal with a focus trap. Resolves to true/false.
+// Generic confirmation modal. Resolves to true/false.
 export function showConfirm({ title, body, confirmLabel, cancelLabel, danger = false } = {}) {
   return new Promise((resolve) => {
     const modal = document.getElementById('modal');
@@ -149,13 +153,13 @@ export function showConfirm({ title, body, confirmLabel, cancelLabel, danger = f
     cancelBtn.hidden =
       !cancelLabel && cancelLabel !== undefined ? false : cancelLabel === '' ? true : false;
 
-    const focusables = () => [cancelBtn, confirmBtn].filter((b) => !b.hidden);
-
     const close = (result) => {
       closeModalHost(modal);
       confirmBtn.removeEventListener('click', onConfirm);
       cancelBtn.removeEventListener('click', onCancel);
       modal.querySelector('[data-modal-close]')?.removeEventListener('click', onCancel);
+      modal.removeEventListener('cancel', onNativeCancel);
+      modal.removeEventListener('close', onCancel);
       document.removeEventListener('keydown', onKey);
       if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
         try {
@@ -166,33 +170,29 @@ export function showConfirm({ title, body, confirmLabel, cancelLabel, danger = f
     };
     const onConfirm = () => close(true);
     const onCancel = () => close(false);
+    // Close requests (back gesture) take the animated path too.
+    const onNativeCancel = (e) => {
+      e.preventDefault();
+      onCancel();
+    };
     const onKey = (e) => {
       if (e.key === 'Escape') {
+        e.preventDefault();
         onCancel();
         return;
       }
       if (e.key === 'Enter' && document.activeElement !== cancelBtn) {
         onConfirm();
-        return;
-      }
-      if (e.key === 'Tab') {
-        const items = focusables();
-        if (items.length < 2) return;
-        const first = items[0];
-        const last = items[items.length - 1];
-        if (e.shiftKey && document.activeElement === first) {
-          e.preventDefault();
-          last.focus();
-        } else if (!e.shiftKey && document.activeElement === last) {
-          e.preventDefault();
-          first.focus();
-        }
       }
     };
 
     confirmBtn.addEventListener('click', onConfirm);
     cancelBtn.addEventListener('click', onCancel);
     modal.querySelector('[data-modal-close]')?.addEventListener('click', onCancel);
+    modal.addEventListener('cancel', onNativeCancel);
+    // A close request the browser refuses to let us cancel closes the dialog
+    // natively: settle the promise and drop the listeners all the same.
+    modal.addEventListener('close', onCancel);
     document.addEventListener('keydown', onKey);
 
     openModalHost(modal);
@@ -242,7 +242,7 @@ export function withModal({
   const showCancel = cancelLabel != null;
   cancelBtn.hidden = !showCancel;
   if (showCancel) cancelBtn.textContent = cancelLabel;
-  openModalHost(host);
+  openModalHost(host, dismissable);
 
   const FOCUSABLE =
     'a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
@@ -256,6 +256,8 @@ export function withModal({
     confirmBtn.removeEventListener('click', handler);
     cancelBtn.removeEventListener('click', cancel);
     backdrop?.removeEventListener('click', cancel);
+    host.removeEventListener('cancel', onNativeCancel);
+    host.removeEventListener('close', cancel);
     document.removeEventListener('keydown', onKey);
     if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
       try {
@@ -269,11 +271,14 @@ export function withModal({
       await onConfirm?.({ close, confirmBtn });
     } catch {}
   };
+  const onNativeCancel = (event) => {
+    event.preventDefault();
+    if (dismissable) cancel();
+  };
   const onKey = (event) => {
     if (event.key === 'Escape') {
-      if (!dismissable) return;
       event.preventDefault();
-      cancel();
+      if (dismissable) cancel();
       return;
     }
     // The dialog forms have no submit button, so Enter in a field would do
@@ -281,25 +286,14 @@ export function withModal({
     if (event.key === 'Enter' && event.target?.tagName === 'INPUT') {
       event.preventDefault();
       if (!confirmBtn.disabled) confirmBtn.click();
-      return;
-    }
-    if (event.key !== 'Tab') return;
-    const items = getFocusables();
-    if (items.length === 0) return;
-    const first = items[0];
-    const last = items[items.length - 1];
-    if (event.shiftKey && document.activeElement === first) {
-      event.preventDefault();
-      last.focus();
-    } else if (!event.shiftKey && document.activeElement === last) {
-      event.preventDefault();
-      first.focus();
     }
   };
 
   confirmBtn.addEventListener('click', handler);
   cancelBtn.addEventListener('click', cancel);
   if (dismissable) backdrop?.addEventListener('click', cancel);
+  host.addEventListener('cancel', onNativeCancel);
+  host.addEventListener('close', cancel);
   document.addEventListener('keydown', onKey);
   onBodyReady?.({ close });
 

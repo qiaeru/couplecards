@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- Dialogs now use the browser's native modal: screen readers and keyboards can no longer reach the page behind them, and the Android back gesture closes them like the Cancel button. The dialog that shows a generated password once still only closes through its button.
+
 ## [1.17.2] - 2026-11-15
 
 ### Security

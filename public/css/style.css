@@ -1487,17 +1487,31 @@ body::before {
 }
 
 /* Modal */
+/* A full-viewport transparent <dialog>: the blurred .modal-backdrop and the
+   card keep drawing the look, the native ::backdrop only traps scrolling. */
 .modal {
   position: fixed;
   inset: 0;
-  z-index: 2000;
-  display: flex;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  border: 0;
+  padding: 20px;
+  background: transparent;
+  color: inherit;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  overscroll-behavior: contain;
 }
-.modal[hidden] {
-  display: none;
+.modal[open] {
+  display: flex;
+}
+.modal::backdrop {
+  background: transparent;
+  overflow: hidden;
+  overscroll-behavior: contain;
 }
 .modal-backdrop {
   position: absolute;

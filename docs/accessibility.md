@@ -26,7 +26,7 @@ The card title and description are announced through `#card-announce`, and both 
 
 ### Modals
 
-Every modal uses `role="dialog"`, `aria-modal="true"`, and `aria-labelledby` pointing to the visible title. Focus is trapped inside the modal's focusables, so `Tab` cycles across every button, input, select, and checkbox in the body in addition to the cancel and confirm buttons. `Escape` and a click on the backdrop close the modal, and focus is returned to the element that opened it once it closes. On the shared confirmation dialog, `Enter` also confirms when focus is not on the Cancel button.
+Every modal is a native `<dialog>` opened with `showModal()` and labeled by its visible title through `aria-labelledby`. The browser keeps focus inside it and makes the rest of the page inert, so `Tab` cycles across the dialog's controls (and may pass through the browser's own toolbar, as with any modal dialog). `Escape`, a click on the backdrop, and the Android back gesture close the modal, and focus is returned to the element that opened it once it closes. The dialog that shows a generated password once ignores all three, so it only closes through its button. On the shared confirmation dialog, `Enter` also confirms when focus is not on the Cancel button.
 
 ### Navigation
 

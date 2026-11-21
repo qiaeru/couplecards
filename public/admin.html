@@ -133,7 +133,7 @@
 
     <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 
-    <div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+    <dialog id="modal" class="modal" aria-labelledby="modal-title">
       <div class="modal-backdrop" data-modal-close></div>
       <div class="modal-card">
         <h2 id="modal-title" class="modal-title"></h2>
@@ -143,7 +143,7 @@
           <button type="button" class="btn btn-primary" id="modal-confirm"></button>
         </div>
       </div>
-    </div>
+    </dialog>
   </div>
 
   <script type="module" src="/js/admin.js"></script>
