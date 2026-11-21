@@ -12,12 +12,6 @@ function emojiUrl(slug) {
   return slug ? `${BASE}/${slug}.svg` : '';
 }
 
-export function emojiImgHTML(slug, alt = '') {
-  const url = emojiUrl(slug);
-  if (!url) return '';
-  return `<img class="emoji" src="${url}" alt="${alt}" draggable="false">`;
-}
-
 export function createEmojiImg(slug, alt = '', { lazy = false } = {}) {
   const img = document.createElement('img');
   img.className = 'emoji';

@@ -5,6 +5,8 @@ body {
 }
 
 .auth-shell {
+  position: relative;
+  z-index: 1;
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
@@ -174,9 +176,4 @@ body {
 #forgot-open .btn {
   margin-top: 10px;
   width: 100%;
-}
-
-.auth-shell {
-  position: relative;
-  z-index: 1;
 }

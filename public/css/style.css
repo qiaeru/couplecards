@@ -1530,6 +1530,7 @@ body::before {
   width: 100%;
   max-height: calc(100dvh - 40px);
   overflow-y: auto;
+  overscroll-behavior: contain;
   box-shadow: var(--shadow-lg);
   animation: modal-in 0.25s var(--ease-out);
 }
@@ -1591,9 +1592,6 @@ body::before {
 }
 .modal-actions .btn {
   flex: 1 1 140px;
-}
-.modal-card {
-  overscroll-behavior: contain;
 }
 .field input[readonly] {
   color: var(--text-soft);

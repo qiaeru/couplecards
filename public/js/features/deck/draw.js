@@ -13,7 +13,7 @@ import {
   removeHistoryByUuid,
   isBanned,
 } from '../../core/sync.js';
-import { emojiImgHTML } from '../../ui/emoji.js';
+import { createEmojiImg } from '../../ui/emoji.js';
 import { t } from '../../core/i18n.js';
 import { on } from '../../core/events.js';
 import { CONFIG } from '../../config.js';
@@ -264,6 +264,27 @@ function applyCardText(card) {
   descEl.setAttribute('lang', locale);
 }
 
+// Shared by the live draw and the preview: text, art, pile label, and the
+// pile and foil tints of both faces.
+function paintCard(card) {
+  const { pile } = card;
+  applyCardText(card);
+  $('card-emoji').replaceChildren(
+    createEmojiImg(card.emoji || (pile === 'home' ? 'house' : 'city')),
+  );
+  $('card-pile-label').textContent = card.foil
+    ? `${t(`piles.${pile}.label`)} · ${t('draw.foil.rare')}`
+    : t(`piles.${pile}.label`);
+  const tint = pile === 'home' ? 'for-home' : 'for-outdoor';
+  const frontEl = document.querySelector('#card-flip .card-front');
+  frontEl.classList.remove('for-home', 'for-outdoor', 'is-foil');
+  frontEl.classList.add(tint);
+  frontEl.classList.toggle('is-foil', !!card.foil);
+  const backEl = document.querySelector('#card-flip .card-back');
+  backEl.classList.remove('for-home', 'for-outdoor');
+  backEl.classList.add(tint);
+}
+
 async function startDraw(pile) {
   previewMode = false;
   // Claim this generation. If unmount or a newer draw bumps the counter while
@@ -289,20 +310,7 @@ async function startDraw(pile) {
   }
   currentCardId = card.id;
 
-  applyCardText(card);
-  $('card-emoji').innerHTML = emojiImgHTML(card.emoji || (pile === 'home' ? 'house' : 'city'));
-  $('card-pile-label').textContent = card.foil
-    ? `${t(`piles.${pile}.label`)} · ${t('draw.foil.rare')}`
-    : t(`piles.${pile}.label`);
-  const frontEl = document.querySelector('#card-flip .card-front');
-  frontEl.classList.remove('for-home', 'for-outdoor', 'is-foil');
-  frontEl.classList.add(pile === 'home' ? 'for-home' : 'for-outdoor');
-  if (card.foil) frontEl.classList.add('is-foil');
-  // Tint the back flash with the pile the user just tapped.
-  const backEl = document.querySelector('#card-flip .card-back');
-  backEl.classList.remove('for-home', 'for-outdoor');
-  backEl.classList.add(pile === 'home' ? 'for-home' : 'for-outdoor');
-
+  paintCard(card);
   resetStage();
   await requestWakeLock();
   if (stale()) return false;
@@ -489,18 +497,7 @@ function showCardDirectly(cardId) {
   currentCardId = null;
   previewCardId = cardId;
   const pile = card.pile;
-  applyCardText(card);
-  $('card-emoji').innerHTML = emojiImgHTML(card.emoji || (pile === 'home' ? 'house' : 'city'));
-  $('card-pile-label').textContent = card.foil
-    ? `${t(`piles.${pile}.label`)} · ${t('draw.foil.rare')}`
-    : t(`piles.${pile}.label`);
-  const frontEl = document.querySelector('#card-flip .card-front');
-  frontEl.classList.remove('for-home', 'for-outdoor', 'is-foil');
-  frontEl.classList.add(pile === 'home' ? 'for-home' : 'for-outdoor');
-  if (card.foil) frontEl.classList.add('is-foil');
-  const backEl = document.querySelector('#card-flip .card-back');
-  backEl.classList.remove('for-home', 'for-outdoor');
-  backEl.classList.add(pile === 'home' ? 'for-home' : 'for-outdoor');
+  paintCard(card);
   resetStage();
   const f = $('card-flip');
   const preview = $('preview-actions');
@@ -515,7 +512,7 @@ function showCardDirectly(cardId) {
     f.classList.add('floaty');
     $('card-ground')?.classList.add('active');
   }
-  frontEl.classList.add('idle-shine');
+  document.querySelector('#card-flip .card-front').classList.add('idle-shine');
   announceCard(card);
   if (preview) preview.hidden = false;
   updatePreviewActions(cardId);
@@ -603,7 +600,8 @@ function bumpInactivity() {
     navigate('home');
   }, CONFIG.inactivityTimeoutMs);
 }
-const inactivityListeners = ['pointerdown', 'pointermove', 'keydown', 'touchstart'];
+// pointerdown covers touch too, so touchstart would only double the bumps.
+const inactivityListeners = ['pointerdown', 'pointermove', 'keydown'];
 
 function onVisibilityChange() {
   if (document.hidden) {
@@ -650,8 +648,8 @@ export async function mount({ params }) {
   document.getElementById('preview-action-ban')?.addEventListener('click', previewBan);
   document.getElementById('preview-action-unban')?.addEventListener('click', previewUnban);
 
-  const pile = params.get ? params.get('pile') : params.pile;
-  const preview = params.get ? params.get('preview') : params.preview;
+  const pile = params.get('pile');
+  const preview = params.get('preview');
   if (preview) {
     // Stale deep link or deleted card: don't strand the user on a blank screen.
     if (!showCardDirectly(preview)) {

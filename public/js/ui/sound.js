@@ -10,10 +10,9 @@ let masterGain = null;
 
 function ensureContext() {
   if (ctx) return ctx;
-  const Ctor = window.AudioContext || window.webkitAudioContext;
-  if (!Ctor) return null;
+  if (!window.AudioContext) return null;
   try {
-    ctx = new Ctor({ latencyHint: 'interactive' });
+    ctx = new AudioContext({ latencyHint: 'interactive' });
   } catch {
     ctx = null;
     return null;
@@ -124,7 +123,6 @@ export function playReveal(isFoil = false) {
 
 export function playBan() {
   if (!guard()) return;
-  if (!ctx || !masterGain) return;
   const t0 = ctx.currentTime;
   const osc = ctx.createOscillator();
   const gain = ctx.createGain();
@@ -142,7 +140,6 @@ export function playBan() {
 
 export function playReturn() {
   if (!guard()) return;
-  if (!ctx || !masterGain) return;
   const t0 = ctx.currentTime;
   const osc = ctx.createOscillator();
   const gain = ctx.createGain();

@@ -80,9 +80,13 @@ export function t(key, params) {
   return interpolate(value, params);
 }
 
+// Cached per locale like the date formatters below: History and the
+// Collection search call tn() on every repaint.
+let plural = null;
 export function tn(key, count, params) {
-  const rules = new Intl.PluralRules(current);
-  const category = rules.select(count);
+  if (plural?.locale !== current)
+    plural = { locale: current, rules: new Intl.PluralRules(current) };
+  const category = plural.rules.select(count);
   const variant = `${key}.${category}`;
   const otherKey = `${key}.other`;
   const str =

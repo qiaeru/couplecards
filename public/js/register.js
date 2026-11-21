@@ -3,7 +3,7 @@
 // no partials. Creates an account (username + password), opens the session and
 // redirects, or shows the closed state when registration is disabled.
 
-import { register, registrationEnabled, me } from './core/auth.js';
+import { register, registrationEnabled, me, redirectAfterAuth } from './core/auth.js';
 import { initI18n, applyI18n } from './core/i18n.js';
 import { bindPasswordStrength } from './ui/password-strength.js';
 import { applyFieldError } from './ui/form-error.js';
@@ -19,23 +19,6 @@ function showError(code, extra = {}, fields = ERROR_FIELDS) {
   applyFieldError('register-error', ERROR_FIELDS, null);
   applyFieldError('register-error', fields, code, extra);
   if (code) $(fields[0])?.focus();
-}
-
-function redirectAfterAuth(user) {
-  const next = new URLSearchParams(location.search).get('next');
-  if (next) {
-    // Parse rather than pattern-match: browsers drop tabs and newlines, so
-    // "/\t/evil.example" looks like a local path and still leaves the origin.
-    let target = null;
-    try {
-      target = new URL(next, location.origin);
-    } catch {}
-    if (target?.origin === location.origin) {
-      location.replace(target.pathname + target.search + target.hash);
-      return;
-    }
-  }
-  location.replace(user?.role === 'admin' ? '/admin.html' : '/');
 }
 
 function showStep(name) {

@@ -108,3 +108,23 @@ export async function getPasswordPolicy() {
 export async function setPreferences(prefs) {
   return request('/api/auth/preferences', { method: 'POST', body: prefs });
 }
+
+// Sends a freshly signed-in user to ?next= when it stays on this origin, else
+// to their landing page. Shared by the login and registration pages.
+export function redirectAfterAuth(user) {
+  const next = new URLSearchParams(location.search).get('next');
+  if (next) {
+    // Parse rather than pattern-match: browsers drop tabs and newlines, so
+    // "/\t/evil.example" looks like a local path and still leaves the origin.
+    let target = null;
+    try {
+      target = new URL(next, location.origin);
+    } catch {}
+    if (target?.origin === location.origin) {
+      location.replace(target.pathname + target.search + target.hash);
+      return;
+    }
+  }
+  // Admins go straight to /admin.html; everyone else gets the home SPA.
+  location.replace(user?.role === 'admin' ? '/admin.html' : '/');
+}
