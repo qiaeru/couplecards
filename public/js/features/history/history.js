@@ -23,16 +23,19 @@ function matchesFilter(entry) {
   return getCardById(entry.cardId)?.pile === currentFilter;
 }
 
-function startOfDay(date) {
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
+// Local midnight `daysAgo` days back. Calendar arithmetic, not 86 400 000 ms
+// steps: across a DST change a day lasts 23 or 25 hours, and the fixed step
+// filed yesterday's draws under "this week".
+function startOfDay(date, daysAgo = 0) {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate() - daysAgo).getTime();
 }
 
 function groupByDate(history) {
   const now = new Date();
   const today = startOfDay(now);
-  const yesterday = today - 86400000;
-  const weekAgo = today - 7 * 86400000;
-  const monthAgo = today - 30 * 86400000;
+  const yesterday = startOfDay(now, 1);
+  const weekAgo = startOfDay(now, 7);
+  const monthAgo = startOfDay(now, 30);
   const buckets = {
     today: { label: t('history.groups.today'), items: [] },
     yesterday: { label: t('history.groups.yesterday'), items: [] },
