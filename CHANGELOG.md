@@ -6,9 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+### Added
+
+- A form field that the browser or the server rejects now turns red, once you leave it rather than while you type.
+
 ### Changed
 
 - Dialogs now use the browser's native modal: screen readers and keyboards can no longer reach the page behind them, and the Android back gesture closes them like the Cancel button. The dialog that shows a generated password once still only closes through its button.
+
+### Fixed
+
+- In dialogs, Enter and Escape no longer confirm or close while a Japanese, Chinese, or Korean input method is still composing a word.
+- Screen readers announce the "Copied" message shown inside a dialog again, and announce the settings toggles as switches.
 
 ## [1.17.2] - 2026-11-15
 

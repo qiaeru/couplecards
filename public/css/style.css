@@ -1750,6 +1750,13 @@ body::before {
   font-family: inherit;
   font-size: var(--text-base);
 }
+/* Flagged once the user leaves the field or submits (:user-invalid, not
+   :invalid, which turns red at the first keystroke) or when the server
+   rejected it (aria-invalid from form-error.js). */
+:is(.change-password-form, .card-form, .auth-form)
+  :is(input, textarea, select):is(:user-invalid, [aria-invalid="true"]) {
+  border-color: var(--danger);
+}
 .card-form textarea {
   resize: vertical;
   min-height: 70px;

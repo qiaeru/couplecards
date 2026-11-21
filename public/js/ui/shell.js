@@ -114,16 +114,34 @@ window.addEventListener('hashchange', () => {
 // gesture off a dialog whose loss is unrecoverable; Safari ignores the
 // attribute, so the keydown handlers also cancel Escape.
 let modalCloseTimer = 0;
+// The page behind a modal dialog is inert, the toast included: a "Copied"
+// raised from inside the dialog would be skipped by screen readers and its
+// close button unreachable. The toast lives inside the dialog while it is open.
+let toastSlot = null;
+function adoptToast(host) {
+  const el = document.getElementById('toast');
+  if (!el || el.parentElement === host) return;
+  toastSlot = { parent: el.parentElement, next: el.nextSibling };
+  host.append(el);
+}
+function releaseToast(host) {
+  const el = document.getElementById('toast');
+  if (!el || el.parentElement !== host || !toastSlot) return;
+  toastSlot.parent.insertBefore(el, toastSlot.next);
+  toastSlot = null;
+}
 function openModalHost(host, dismissable = true) {
   clearTimeout(modalCloseTimer);
   host.classList.remove('closing');
   host.setAttribute('closedby', dismissable ? 'closerequest' : 'none');
+  adoptToast(host);
   if (!host.open) host.showModal();
 }
 function closeModalHost(host) {
   host.classList.add('closing');
   clearTimeout(modalCloseTimer);
   modalCloseTimer = setTimeout(() => {
+    releaseToast(host);
     host.close();
     host.classList.remove('closing');
   }, 170);
@@ -276,6 +294,10 @@ export function withModal({
     if (dismissable) cancel();
   };
   const onKey = (event) => {
+    // With a Japanese, Chinese or Korean IME, Enter commits the word being
+    // composed and Escape drops it: neither may reach the dialog. Safari
+    // clears isComposing before that keydown, hence the 229 keyCode.
+    if (event.isComposing || event.keyCode === 229) return;
     if (event.key === 'Escape') {
       event.preventDefault();
       if (dismissable) cancel();
