@@ -92,7 +92,7 @@ export function bindPasswordStrength({ input, host, userInputs = [], minScore = 
     });
     const { score } = await computeScore(value, userInputs);
     const pct = (score / 4) * 100;
-    fill.style.width = `${pct}%`;
+    fill.style.transform = `translateX(${pct - 100}%)`;
     fill.dataset.score = String(score);
     const nextLabel = value ? t(`changePassword.strength.${score}`) : '';
     if (nextLabel !== lastLabel) {

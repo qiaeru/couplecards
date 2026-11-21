@@ -1851,9 +1851,11 @@ select option:hover {
 }
 .pw-strength-fill {
   height: 100%;
-  width: 0%;
+  /* Full width, slid out of the clipped bar: password-strength.js moves it by
+     transform, which skips layout on every keystroke. */
+  transform: translateX(-100%);
   transition:
-    width 0.25s ease,
+    transform 0.25s ease,
     background 0.25s ease;
   background: var(--danger);
 }
