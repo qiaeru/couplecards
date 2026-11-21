@@ -9,11 +9,43 @@ const HTML_ESCAPES = {
   "'": '&#39;',
 };
 
-// Escape a string for safe interpolation into an HTML template literal.
-// Use this any time a user-supplied value flows into innerHTML; for plain
-// textContent assignments the browser already escapes correctly.
-export function escapeHtml(s) {
+function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, (c) => HTML_ESCAPES[c]);
+}
+
+// The CSP enforces Trusted Types (server/src/plugins/helmet.js): innerHTML
+// only takes markup from this policy, so the html`` tag below is the one way
+// to write HTML, and it escapes every interpolated value. Browsers without
+// Trusted Types get a plain wrapper that stringifies the same way.
+const policy = globalThis.trustedTypes?.createPolicy('couplecards', { createHTML: (s) => s });
+
+class SafeHTML {
+  constructor(value) {
+    this.value = value;
+  }
+  toString() {
+    return this.value;
+  }
+}
+
+const isSafe = (v) => v instanceof SafeHTML || !!globalThis.trustedTypes?.isHTML(v);
+
+// Nested html`` results and arrays of them go in as markup; everything else
+// (user data, translations, numbers) is escaped. null, undefined and false
+// render nothing, so `${cond && html`...`}` reads naturally.
+function fragment(value) {
+  if (value == null || value === false) return '';
+  if (Array.isArray(value)) return value.map(fragment).join('');
+  if (isSafe(value)) return String(value);
+  return escapeHtml(value);
+}
+
+export function html(strings, ...values) {
+  let out = strings[0];
+  values.forEach((value, i) => {
+    out += fragment(value) + strings[i + 1];
+  });
+  return policy ? policy.createHTML(out) : new SafeHTML(out);
 }
 
 // navigator.clipboard is gated to HTTPS/localhost; fall back to execCommand for plain-HTTP LAN deploys.

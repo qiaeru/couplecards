@@ -5,6 +5,7 @@
 // keeps working and only the score stays at zero.
 
 import { t } from '../core/i18n.js';
+import { html } from '../core/dom.js';
 
 let zxcvbnPromise = null;
 
@@ -52,14 +53,16 @@ async function computeScore(password, userInputs = []) {
 export function bindPasswordStrength({ input, host, userInputs = [], minScore = 3 }) {
   if (!input || !host) return () => {};
 
-  host.innerHTML = `
+  host.innerHTML = html`
     <div class="pw-strength">
       <div class="pw-strength-bar" role="presentation">
         <div class="pw-strength-fill" data-fill></div>
       </div>
       <div class="pw-strength-label" data-label aria-live="polite" aria-atomic="true"></div>
       <ul class="pw-strength-rules" data-rules>
-        <li data-rule="minLength">${t('changePassword.policy.minLength', { min: RULES.minLength })}</li>
+        <li data-rule="minLength">
+          ${t('changePassword.policy.minLength', { min: RULES.minLength })}
+        </li>
         <li data-rule="upper">${t('changePassword.policy.upper')}</li>
         <li data-rule="lower">${t('changePassword.policy.lower')}</li>
         <li data-rule="digit">${t('changePassword.policy.digit')}</li>

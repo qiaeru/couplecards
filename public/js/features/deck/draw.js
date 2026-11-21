@@ -207,9 +207,9 @@ function resetStage() {
 
   f.className = 'card-flip';
   if (glow) glow.className = 'bg-glow';
-  if (dust) dust.innerHTML = '';
-  if (landing) landing.innerHTML = '';
-  if (ambient) ambient.innerHTML = '';
+  if (dust) dust.replaceChildren();
+  if (landing) landing.replaceChildren();
+  if (ambient) ambient.replaceChildren();
   $('card-ground')?.classList.remove('active');
   $('reveal-streak')?.classList.remove('go');
   if (a) a.hidden = true;

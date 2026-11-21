@@ -7,7 +7,7 @@ import { getHistory, getCardById, getCardText } from '../../core/sync.js';
 import { navigate } from '../../core/router.js';
 import { t, tn, fmtDateLong } from '../../core/i18n.js';
 import { on } from '../../core/events.js';
-import { escapeHtml } from '../../core/dom.js';
+import { html } from '../../core/dom.js';
 
 let unsubscribers = [];
 // Persists across visits, like the Collection filter: aria-pressed is re-synced
@@ -69,12 +69,12 @@ function render() {
   const history = getHistory();
   const toolbar = document.getElementById('history-toolbar');
   if (toolbar) toolbar.hidden = history.length === 0;
-  host.innerHTML = '';
+  host.replaceChildren();
   if (history.length === 0) {
-    host.innerHTML = `<div class="empty">
+    host.innerHTML = html`<div class="empty">
       <div class="empty-icon" aria-hidden="true">💝</div>
-      <div class="empty-title">${escapeHtml(t('history.empty.title'))}</div>
-      <div class="empty-hint">${escapeHtml(t('history.empty.hint'))}</div>
+      <div class="empty-title">${t('history.empty.title')}</div>
+      <div class="empty-hint">${t('history.empty.hint')}</div>
     </div>`;
     return;
   }
@@ -85,10 +85,10 @@ function render() {
 
   const visible = history.filter(matchesFilter);
   if (visible.length === 0) {
-    host.innerHTML = `<div class="empty">
+    host.innerHTML = html`<div class="empty">
       <div class="empty-icon" aria-hidden="true">💝</div>
-      <div class="empty-title">${escapeHtml(t('history.empty.filter.title'))}</div>
-      <div class="empty-hint">${escapeHtml(t('history.empty.filter.hint'))}</div>
+      <div class="empty-title">${t('history.empty.filter.title')}</div>
+      <div class="empty-hint">${t('history.empty.filter.hint')}</div>
     </div>`;
     const btn = document.createElement('button');
     btn.type = 'button';
@@ -128,17 +128,19 @@ function render() {
       const left = document.createElement('div');
       left.className = 'list-item-main';
       const pileBadge = pile
-        ? `<span class="pile-badge ${pile}">${escapeHtml(t(`piles.${pile}.label`))}</span>`
+        ? html`<span class="pile-badge ${pile}">${t(`piles.${pile}.label`)}</span>`
         : '';
       const rareBadge = foil
-        ? `<span class="tag tag-accent">${escapeHtml(t('draw.foil.rare'))}</span>`
+        ? html`<span class="tag tag-accent">${t('draw.foil.rare')}</span>`
         : '';
-      left.innerHTML = `
+      left.innerHTML = html`
         <div class="list-item-header">
           <span class="list-item-badges">${pileBadge}${rareBadge}</span>
-          <span class="list-item-title">${escapeHtml(title)}</span>
+          <span class="list-item-title">${title}</span>
         </div>
-        <div class="list-item-meta">${escapeHtml(t('history.entry.drawnAt', { when: fmtDateLong(entry.drawnAt) }))}</div>
+        <div class="list-item-meta">
+          ${t('history.entry.drawnAt', { when: fmtDateLong(entry.drawnAt) })}
+        </div>
       `;
 
       const right = document.createElement('div');

@@ -4,6 +4,11 @@
 
 import { applyI18n } from './i18n.js';
 
+// The view partials are same-origin files from public/views/, written by the
+// project itself: this policy hands them to innerHTML under Trusted Types.
+const partialPolicy = globalThis.trustedTypes?.createPolicy('couplecards-partial', {
+  createHTML: (s) => s,
+});
 const partialCache = new Map();
 const features = new Map();
 // Per-route scroll positions, restored only when the navigation comes from
@@ -30,7 +35,8 @@ async function loadPartial(name) {
   if (partialCache.has(name)) return partialCache.get(name);
   const resp = await fetch(`/views/${name}.html`, { credentials: 'same-origin' });
   if (!resp.ok) throw new Error(`partial ${name} failed to load`);
-  const html = await resp.text();
+  const text = await resp.text();
+  const html = partialPolicy ? partialPolicy.createHTML(text) : text;
   partialCache.set(name, html);
   return html;
 }

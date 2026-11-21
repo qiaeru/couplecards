@@ -22,6 +22,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Screen readers announce the "Copied" message shown inside a dialog again, and announce the settings toggles as switches.
 - On the day after a daylight saving time change, History no longer files yesterday's draws under "This week".
 
+### Security
+
+- The Content Security Policy now enforces Trusted Types: markup reaches the page only through a template that escapes every value, so a missed escape can no longer turn into script injection.
+
 ## [1.17.2] - 2026-11-15
 
 ### Security

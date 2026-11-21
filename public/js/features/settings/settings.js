@@ -25,6 +25,7 @@ import { resetUserData, clearAllLocalState } from '../../core/sync.js';
 import { setLocale, getLocale, supportedLocales, t } from '../../core/i18n.js';
 import { navigate } from '../../core/router.js';
 import { bindPasswordStrength } from '../../ui/password-strength.js';
+import { html } from '../../core/dom.js';
 
 // Document-level listener, removed on unmount (view-local listeners die with
 // the view's DOM, but document survives navigation).
@@ -165,20 +166,26 @@ async function openChangePasswordDialog() {
 
   withModal({
     title: t('changePassword.title'),
-    bodyHtml: `
+    bodyHtml: html`
       <form id="cp-form" class="change-password-form" novalidate>
         <label class="field">
           <span>${t('changePassword.current')}</span>
-          <input type="password" id="cp-current" autocomplete="current-password" required>
+          <input type="password" id="cp-current" autocomplete="current-password" required />
         </label>
         <label class="field">
           <span>${t('changePassword.new')}</span>
-          <input type="password" id="cp-new" autocomplete="new-password" required minlength="12">
+          <input type="password" id="cp-new" autocomplete="new-password" required minlength="12" />
         </label>
         <div id="cp-strength"></div>
         <label class="field">
           <span>${t('changePassword.confirm')}</span>
-          <input type="password" id="cp-confirm" autocomplete="new-password" required minlength="12">
+          <input
+            type="password"
+            id="cp-confirm"
+            autocomplete="new-password"
+            required
+            minlength="12"
+          />
         </label>
         <div class="cp-error" id="cp-error" role="alert"></div>
       </form>

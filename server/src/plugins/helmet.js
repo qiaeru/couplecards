@@ -21,6 +21,11 @@ export default fp(async function helmetPlugin(app) {
         'form-action': ["'self'"],
         'frame-ancestors': ["'none'"],
         'object-src': ["'none'"],
+        // Trusted Types: HTML and script URLs only reach the DOM through the
+        // three named policies (public/js/core/dom.js, core/router.js,
+        // ui/shell.js); a stray innerHTML string throws instead of parsing.
+        'require-trusted-types-for': ["'script'"],
+        'trusted-types': ['couplecards', 'couplecards-partial', 'couplecards-sw'],
         // Helmet ships `upgrade-insecure-requests` by default. On a plain-HTTP
         // LAN deployment this rewrites every asset URL to https:// and breaks
         // the page. Keep it only when we know we are served over HTTPS.

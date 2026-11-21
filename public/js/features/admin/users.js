@@ -5,7 +5,7 @@ import { request, errorMessage } from '../../core/api.js';
 import { t, tn, fmtDateLong } from '../../core/i18n.js';
 import { on } from '../../core/events.js';
 import { toast, showConfirm, withModal } from '../../ui/shell.js';
-import { escapeHtml, copyToClipboard, selectText } from '../../core/dom.js';
+import { html, copyToClipboard, selectText } from '../../core/dom.js';
 
 let allUsers = [];
 let usersQuery = '';
@@ -23,12 +23,12 @@ function filterUsers() {
 function renderUsersList(users) {
   const host = document.getElementById('admin-users-list');
   if (!host) return;
-  host.innerHTML = '';
+  host.replaceChildren();
   if (users.length === 0) {
-    host.innerHTML = `<div class="empty">
+    host.innerHTML = html`<div class="empty">
       <div class="empty-icon" aria-hidden="true">🔍</div>
-      <div class="empty-title">${escapeHtml(t('admin.users.search.empty.title'))}</div>
-      <div class="empty-hint">${escapeHtml(t('admin.users.search.empty.hint'))}</div>
+      <div class="empty-title">${t('admin.users.search.empty.title')}</div>
+      <div class="empty-hint">${t('admin.users.search.empty.hint')}</div>
     </div>`;
     return;
   }
@@ -40,16 +40,11 @@ function renderUsersList(users) {
     const locked = u.lockedUntil ? new Date(u.lockedUntil + 'Z') : null;
     const isLocked = locked && locked > new Date();
     const badges = [];
-    if (isAdmin)
-      badges.push(`<span class="tag tag-accent">${escapeHtml(t('admin.users.admin'))}</span>`);
-    if (isDemo)
-      badges.push(`<span class="tag tag-accent">${escapeHtml(t('admin.users.demo'))}</span>`);
-    if (isLocked)
-      badges.push(`<span class="tag tag-danger">${escapeHtml(t('admin.users.locked'))}</span>`);
+    if (isAdmin) badges.push(html`<span class="tag tag-accent">${t('admin.users.admin')}</span>`);
+    if (isDemo) badges.push(html`<span class="tag tag-accent">${t('admin.users.demo')}</span>`);
+    if (isLocked) badges.push(html`<span class="tag tag-danger">${t('admin.users.locked')}</span>`);
     if (u.mustChangePassword)
-      badges.push(
-        `<span class="tag tag-warning">${escapeHtml(t('admin.users.mustChange'))}</span>`,
-      );
+      badges.push(html`<span class="tag tag-warning">${t('admin.users.mustChange')}</span>`);
     // Demo account can only be deleted; its password, username, and lock state
     // are managed by the seed / login logic.
     const showUnlock = isLocked && !isAdmin && !isDemo;
@@ -58,28 +53,53 @@ function renderUsersList(users) {
     const showDelete = !isAdmin;
     const actions = [
       showUnlock
-        ? `<button class="btn btn-sm" data-action="unlock" data-id="${u.id}">${escapeHtml(t('admin.users.unlock'))}</button>`
+        ? html`<button class="btn btn-sm" data-action="unlock" data-id="${u.id}">
+            ${t('admin.users.unlock')}
+          </button>`
         : '',
       showRename
-        ? `<button class="btn btn-sm" data-action="rename" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('admin.users.rename'))}</button>`
+        ? html`<button
+            class="btn btn-sm"
+            data-action="rename"
+            data-id="${u.id}"
+            data-username="${u.username}"
+          >
+            ${t('admin.users.rename')}
+          </button>`
         : '',
       showReset
-        ? `<button class="btn btn-sm" data-action="reset" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('admin.users.reset'))}</button>`
+        ? html`<button
+            class="btn btn-sm"
+            data-action="reset"
+            data-id="${u.id}"
+            data-username="${u.username}"
+          >
+            ${t('admin.users.reset')}
+          </button>`
         : '',
       showDelete
-        ? `<button class="btn btn-sm btn-danger-outline" data-action="delete" data-id="${u.id}" data-username="${escapeHtml(u.username)}">${escapeHtml(t('common.delete'))}</button>`
+        ? html`<button
+            class="btn btn-sm btn-danger-outline"
+            data-action="delete"
+            data-id="${u.id}"
+            data-username="${u.username}"
+          >
+            ${t('common.delete')}
+          </button>`
         : '',
-    ]
-      .filter(Boolean)
-      .join('');
-    row.innerHTML = `
+    ].filter(Boolean);
+    row.innerHTML = html`
       <div class="list-item-main">
-        <div class="list-item-title">${escapeHtml(u.username)}</div>
-        <div class="list-item-meta">${escapeHtml(t('admin.users.createdAt', { when: fmtDateLong(u.createdAt + 'Z') }))}</div>
-        <div class="list-item-meta">${escapeHtml(u.lastLoginAt ? t('admin.users.lastLogin', { when: fmtDateLong(u.lastLoginAt + 'Z') }) : t('admin.users.neverLogged'))}</div>
-        <div class="list-item-badges">${badges.join('')}</div>
+        <div class="list-item-title">${u.username}</div>
+        <div class="list-item-meta">
+          ${t('admin.users.createdAt', { when: fmtDateLong(u.createdAt + 'Z') })}
+        </div>
+        <div class="list-item-meta">
+          ${u.lastLoginAt ? t('admin.users.lastLogin', { when: fmtDateLong(u.lastLoginAt + 'Z') }) : t('admin.users.neverLogged')}
+        </div>
+        <div class="list-item-badges">${badges}</div>
       </div>
-      ${actions ? `<div class="list-item-actions">${actions}</div>` : ''}
+      ${actions.length > 0 && html`<div class="list-item-actions">${actions}</div>`}
     `;
     host.appendChild(row);
   }
@@ -88,11 +108,13 @@ function renderUsersList(users) {
 function showInitialPassword(username, password) {
   withModal({
     title: t('admin.users.initialPassword.title', { username }),
-    bodyHtml: `
-      <p>${escapeHtml(t('admin.users.initialPassword.warn'))}</p>
+    bodyHtml: html`
+      <p>${t('admin.users.initialPassword.warn')}</p>
       <div class="initial-password-box">
-        <code id="initial-password-value">${escapeHtml(password)}</code>
-        <button type="button" class="btn btn-primary" id="initial-password-copy">${escapeHtml(t('admin.users.initialPassword.copy'))}</button>
+        <code id="initial-password-value">${password}</code>
+        <button type="button" class="btn btn-primary" id="initial-password-copy">
+          ${t('admin.users.initialPassword.copy')}
+        </button>
       </div>
     `,
     confirmLabel: t('admin.users.initialPassword.close'),
@@ -132,14 +154,21 @@ async function createUser(username) {
 function renameUser(id, username) {
   withModal({
     title: t('admin.users.rename.title', { username }),
-    bodyHtml: `
+    bodyHtml: html`
       <form id="rename-user-form" class="card-form">
         <label class="field">
-          <span>${escapeHtml(t('admin.users.rename.label'))}</span>
-          <input type="text" id="rename-user-input" value="${escapeHtml(username)}"
-                 required minlength="3" maxlength="32" pattern="[a-z0-9._\\-]+"
-                 autocomplete="off">
-          <small>${escapeHtml(t('admin.users.create.usernameHint'))}</small>
+          <span>${t('admin.users.rename.label')}</span>
+          <input
+            type="text"
+            id="rename-user-input"
+            value="${username}"
+            required
+            minlength="3"
+            maxlength="32"
+            pattern="[a-z0-9._\\-]+"
+            autocomplete="off"
+          />
+          <small>${t('admin.users.create.usernameHint')}</small>
         </label>
         <div class="cp-error" id="rename-user-error" role="alert"></div>
       </form>

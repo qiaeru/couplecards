@@ -5,7 +5,7 @@
 import { request, errorMessage } from '../../core/api.js';
 import { t, supportedLocales } from '../../core/i18n.js';
 import { toast, withModal, showConfirm } from '../../ui/shell.js';
-import { escapeHtml } from '../../core/dom.js';
+import { html } from '../../core/dom.js';
 
 const MAX_IMPORT_BYTES = 2 * 1024 * 1024;
 const SUPPORTED_LOCALES = supportedLocales();
@@ -53,50 +53,63 @@ function markApplyDanger(btn, danger) {
 }
 
 function renderSummary(result) {
-  if (!result) return '';
+  if (!result) return html``;
   const { added, updated, removed, unchanged, keptOutsideFile } = result;
   if (added === 0 && updated === 0 && removed === 0) {
-    return `<div class="deck-sync-summary is-quiet">${escapeHtml(t('admin.deckSync.summary.noChange'))}</div>`;
+    return html`<div class="deck-sync-summary is-quiet">
+      ${t('admin.deckSync.summary.noChange')}
+    </div>`;
   }
   const parts = [];
   parts.push(
-    `<div><strong>${escapeHtml(t('admin.deckSync.summary.added', { count: added }))}</strong></div>`,
+    html`<div><strong>${t('admin.deckSync.summary.added', { count: added })}</strong></div>`,
   );
   parts.push(
-    `<div><strong>${escapeHtml(t('admin.deckSync.summary.updated', { count: updated }))}</strong></div>`,
+    html`<div><strong>${t('admin.deckSync.summary.updated', { count: updated })}</strong></div>`,
   );
   if (removed > 0) {
     parts.push(
-      `<div class="is-danger"><strong>${escapeHtml(t('admin.deckSync.summary.removed', { count: removed }))}</strong></div>`,
+      html`<div class="is-danger">
+        <strong>${t('admin.deckSync.summary.removed', { count: removed })}</strong>
+      </div>`,
     );
   }
-  parts.push(
-    `<div>${escapeHtml(t('admin.deckSync.summary.unchanged', { count: unchanged }))}</div>`,
-  );
+  parts.push(html`<div>${t('admin.deckSync.summary.unchanged', { count: unchanged })}</div>`);
   if (keptOutsideFile > 0) {
-    parts.push(
-      `<div>${escapeHtml(t('admin.deckSync.summary.kept', { count: keptOutsideFile }))}</div>`,
-    );
+    parts.push(html`<div>${t('admin.deckSync.summary.kept', { count: keptOutsideFile })}</div>`);
   }
-  return `<div class="deck-sync-summary"><h3>${escapeHtml(t('admin.deckSync.summary.title'))}</h3>${parts.join('')}</div>`;
+  return html`<div class="deck-sync-summary">
+    <h3>${t('admin.deckSync.summary.title')}</h3>
+    ${parts}
+  </div>`;
 }
 
 function renderModeOptions(selectedMode) {
-  return `
+  return html`
     <fieldset class="field-group">
-      <legend>${escapeHtml(t('admin.deckSync.mode'))}</legend>
+      <legend>${t('admin.deckSync.mode')}</legend>
       <label class="radio-row">
-        <input type="radio" name="deck-sync-mode" value="mirror" ${selectedMode === 'mirror' ? 'checked' : ''}>
+        <input
+          type="radio"
+          name="deck-sync-mode"
+          value="mirror"
+          ${selectedMode === 'mirror' ? 'checked' : ''}
+        />
         <span>
-          <strong>${escapeHtml(t('admin.deckSync.mode.mirror'))}</strong>
-          <small>${escapeHtml(t('admin.deckSync.mode.mirror.hint'))}</small>
+          <strong>${t('admin.deckSync.mode.mirror')}</strong>
+          <small>${t('admin.deckSync.mode.mirror.hint')}</small>
         </span>
       </label>
       <label class="radio-row">
-        <input type="radio" name="deck-sync-mode" value="upsert" ${selectedMode === 'upsert' ? 'checked' : ''}>
+        <input
+          type="radio"
+          name="deck-sync-mode"
+          value="upsert"
+          ${selectedMode === 'upsert' ? 'checked' : ''}
+        />
         <span>
-          <strong>${escapeHtml(t('admin.deckSync.mode.upsert'))}</strong>
-          <small>${escapeHtml(t('admin.deckSync.mode.upsert.hint'))}</small>
+          <strong>${t('admin.deckSync.mode.upsert')}</strong>
+          <small>${t('admin.deckSync.mode.upsert.hint')}</small>
         </span>
       </label>
     </fieldset>
@@ -107,17 +120,23 @@ function openSyncDialog() {
   let mode = 'upsert';
   let lastPreview = null;
 
-  const renderBody = () => `
-    <p class="deck-sync-intro">${escapeHtml(t('admin.deckSync.intro'))}</p>
+  const renderBody = () => html`
+    <p class="deck-sync-intro">${t('admin.deckSync.intro')}</p>
     ${renderModeOptions(mode)}
     <div class="deck-sync-backup">
-      <p class="deck-sync-backup-hint">${escapeHtml(t('admin.deckSync.backupHint'))}</p>
-      <button type="button" class="btn" id="deck-sync-backup-btn">${escapeHtml(t('admin.cards.tools.export'))}</button>
+      <p class="deck-sync-backup-hint">${t('admin.deckSync.backupHint')}</p>
+      <button type="button" class="btn" id="deck-sync-backup-btn">
+        ${t('admin.cards.tools.export')}
+      </button>
     </div>
     <div class="deck-sync-actions">
-      <button type="button" class="btn" id="deck-sync-preview-btn">${escapeHtml(t('admin.deckSync.preview'))}</button>
+      <button type="button" class="btn" id="deck-sync-preview-btn">
+        ${t('admin.deckSync.preview')}
+      </button>
     </div>
-    <div id="deck-sync-summary-host"><p class="deck-sync-backup-hint">${escapeHtml(t('admin.deckSync.previewHint'))}</p></div>
+    <div id="deck-sync-summary-host">
+      <p class="deck-sync-backup-hint">${t('admin.deckSync.previewHint')}</p>
+    </div>
     <div class="cp-error" id="deck-sync-error" role="alert"></div>
   `;
 
@@ -201,14 +220,18 @@ function openImportDialog(deck, filename) {
   let mode = 'upsert';
   let lastPreview = null;
 
-  const renderBody = () => `
-    <p class="deck-sync-intro">${escapeHtml(t('admin.deckImport.intro'))}</p>
-    <p class="deck-sync-filename">${escapeHtml(t('admin.deckImport.selected', { name: filename }))}</p>
+  const renderBody = () => html`
+    <p class="deck-sync-intro">${t('admin.deckImport.intro')}</p>
+    <p class="deck-sync-filename">${t('admin.deckImport.selected', { name: filename })}</p>
     ${renderModeOptions(mode)}
     <div class="deck-sync-actions">
-      <button type="button" class="btn" id="deck-sync-preview-btn">${escapeHtml(t('admin.deckSync.preview'))}</button>
+      <button type="button" class="btn" id="deck-sync-preview-btn">
+        ${t('admin.deckSync.preview')}
+      </button>
     </div>
-    <div id="deck-sync-summary-host"><p class="deck-sync-backup-hint">${escapeHtml(t('admin.deckSync.previewHint'))}</p></div>
+    <div id="deck-sync-summary-host">
+      <p class="deck-sync-backup-hint">${t('admin.deckSync.previewHint')}</p>
+    </div>
     <div class="cp-error" id="deck-sync-error" role="alert"></div>
   `;
 

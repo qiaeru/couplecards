@@ -8,7 +8,7 @@ import { navigate } from '../../core/router.js';
 import { t, tn } from '../../core/i18n.js';
 import { on } from '../../core/events.js';
 import { createEmojiImg } from '../../ui/emoji.js';
-import { escapeHtml } from '../../core/dom.js';
+import { html } from '../../core/dom.js';
 
 let unsubscribe = [];
 let currentFilter = 'all';
@@ -113,8 +113,16 @@ function buildTile(card, discovered) {
       const cross = document.createElement('div');
       cross.className = 'coll-tile-cross';
       cross.setAttribute('aria-hidden', 'true');
-      cross.innerHTML =
-        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>';
+      cross.innerHTML = html`<svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="3"
+        stroke-linecap="round"
+      >
+        <line x1="5" y1="5" x2="19" y2="19" />
+        <line x1="19" y1="5" x2="5" y2="19" />
+      </svg>`;
       tile.appendChild(cross);
     }
   } else {
@@ -222,17 +230,17 @@ function render() {
     if (live) live.textContent = tn('collection.search.results', visible.length);
   }
 
-  grid.innerHTML = '';
+  grid.replaceChildren();
   if (visible.length === 0) {
     let empty;
     if (q) empty = { title: 'collection.search.empty.title', hint: 'collection.search.empty.hint' };
     else if (cards.length === 0)
       empty = { title: 'collection.empty.title', hint: 'collection.empty.hint' };
     else empty = { title: 'collection.empty.filter.title', hint: 'collection.empty.filter.hint' };
-    grid.innerHTML = `<div class="empty">
+    grid.innerHTML = html`<div class="empty">
       <div class="empty-icon" aria-hidden="true">🎴</div>
-      <div class="empty-title">${escapeHtml(t(empty.title))}</div>
-      <div class="empty-hint">${escapeHtml(t(empty.hint))}</div>
+      <div class="empty-title">${t(empty.title)}</div>
+      <div class="empty-hint">${t(empty.hint)}</div>
     </div>`;
     // A dead end offers the way out: drop the query, or widen the filter.
     if (q) {

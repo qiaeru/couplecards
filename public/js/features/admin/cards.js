@@ -8,7 +8,7 @@ import { getCardText } from '../../core/sync.js';
 import { on } from '../../core/events.js';
 import { toast, showConfirm, withModal } from '../../ui/shell.js';
 import { mountDeckTools } from './deck-sync.js';
-import { escapeHtml } from '../../core/dom.js';
+import { html } from '../../core/dom.js';
 import { EMOJI_SLUGS } from './emoji-slugs.js';
 
 const SUPPORTED_LOCALES = supportedLocales();
@@ -50,16 +50,16 @@ function filterCards() {
 function renderCardsList(cards) {
   const host = document.getElementById('admin-cards-list');
   if (!host) return;
-  host.innerHTML = '';
+  host.replaceChildren();
   if (cards.length === 0) {
     const empty =
       allCards.length === 0
         ? { title: 'admin.cards.empty.title', hint: 'admin.cards.empty.hint' }
         : { title: 'admin.cards.search.empty.title', hint: 'admin.cards.search.empty.hint' };
-    host.innerHTML = `<div class="empty">
+    host.innerHTML = html`<div class="empty">
       <div class="empty-icon" aria-hidden="true">🃏</div>
-      <div class="empty-title">${escapeHtml(t(empty.title))}</div>
-      <div class="empty-hint">${escapeHtml(t(empty.hint))}</div>
+      <div class="empty-title">${t(empty.title)}</div>
+      <div class="empty-hint">${t(empty.hint)}</div>
     </div>`;
     return;
   }
@@ -68,20 +68,24 @@ function renderCardsList(cards) {
     const { title, description } = getCardText(card, locale);
     const row = document.createElement('div');
     row.className = 'list-item';
-    row.innerHTML = `
+    row.innerHTML = html`
       <div class="list-item-main">
         <div class="list-item-header">
           <span class="list-item-badges">
-            <span class="tag tag-${card.pile}">${escapeHtml(t(`piles.${card.pile}.label`))}</span>
-            ${card.foil ? `<span class="tag tag-accent">${escapeHtml(t('admin.cards.foil'))}</span>` : ''}
+            <span class="tag tag-${card.pile}">${t(`piles.${card.pile}.label`)}</span>
+            ${card.foil ? html`<span class="tag tag-accent">${t('admin.cards.foil')}</span>` : ''}
           </span>
-          <span class="list-item-title">${escapeHtml(title)}</span>
+          <span class="list-item-title">${title}</span>
         </div>
-        <div class="list-item-meta">${escapeHtml(description)}</div>
+        <div class="list-item-meta">${description}</div>
       </div>
       <div class="list-item-actions">
-        <button class="btn btn-sm" data-action="edit" data-id="${escapeHtml(card.id)}">${escapeHtml(t('common.edit'))}</button>
-        <button class="btn btn-sm btn-danger-outline" data-action="delete" data-id="${escapeHtml(card.id)}">${escapeHtml(t('common.delete'))}</button>
+        <button class="btn btn-sm" data-action="edit" data-id="${card.id}">
+          ${t('common.edit')}
+        </button>
+        <button class="btn btn-sm btn-danger-outline" data-action="delete" data-id="${card.id}">
+          ${t('common.delete')}
+        </button>
       </div>
     `;
     host.appendChild(row);
@@ -90,17 +94,17 @@ function renderCardsList(cards) {
 
 function renderTranslationSection(locale, existing) {
   const data = existing?.translations?.[locale] || { title: '', description: '' };
-  return `
+  return html`
     <fieldset class="field-group card-translation">
-      <legend>${escapeHtml(localeLabel(locale))}</legend>
+      <legend>${localeLabel(locale)}</legend>
       <label class="field">
-        <span>${escapeHtml(t('admin.cards.cardTitle'))}</span>
-        <input type="text" name="title-${locale}" maxlength="${TITLE_MAX}"
-               value="${escapeHtml(data.title)}">
+        <span>${t('admin.cards.cardTitle')}</span>
+        <input type="text" name="title-${locale}" maxlength="${TITLE_MAX}" value="${data.title}" />
       </label>
       <label class="field">
-        <span>${escapeHtml(t('admin.cards.description'))}</span>
-        <textarea name="description-${locale}" maxlength="${DESCRIPTION_MAX}" rows="3">${escapeHtml(data.description)}</textarea>
+        <span>${t('admin.cards.description')}</span>
+        <textarea name="description-${locale}" maxlength="${DESCRIPTION_MAX}" rows="3">
+${data.description}</textarea>
       </label>
     </fieldset>
   `;
@@ -120,37 +124,50 @@ function openCardDialog({ card = null } = {}) {
   const isEdit = !!card;
   withModal({
     title: isEdit ? t('admin.cards.edit') : t('admin.cards.create'),
-    bodyHtml: `
+    bodyHtml: html`
       <form id="card-form" class="card-form">
         <label class="field">
-          <span>${escapeHtml(t('admin.cards.id'))}</span>
-          <input type="text" id="card-id" value="${card ? escapeHtml(card.id) : ''}"
-                 ${isEdit ? 'readonly' : ''} required
-                 pattern="[a-z0-9\\-]{1,64}">
-          <small>${escapeHtml(t('admin.cards.idHint'))}</small>
+          <span>${t('admin.cards.id')}</span>
+          <input
+            type="text"
+            id="card-id"
+            value="${card?.id ?? ''}"
+            ${isEdit ? 'readonly' : ''}
+            required
+            pattern="[a-z0-9\\-]{1,64}"
+          />
+          <small>${t('admin.cards.idHint')}</small>
         </label>
         <label class="field">
-          <span>${escapeHtml(t('admin.cards.pile'))}</span>
+          <span>${t('admin.cards.pile')}</span>
           <select id="card-pile" required>
-            <option value="home" ${card?.pile === 'home' ? 'selected' : ''}>${escapeHtml(t('piles.home.label'))}</option>
-            <option value="outdoor" ${card?.pile === 'outdoor' ? 'selected' : ''}>${escapeHtml(t('piles.outdoor.label'))}</option>
+            <option value="home" ${card?.pile === 'home' ? 'selected' : ''}>
+              ${t('piles.home.label')}
+            </option>
+            <option value="outdoor" ${card?.pile === 'outdoor' ? 'selected' : ''}>
+              ${t('piles.outdoor.label')}
+            </option>
           </select>
         </label>
-        <p class="field-hint">${escapeHtml(t('admin.cards.translation.hint'))}</p>
-        ${SUPPORTED_LOCALES.map((loc) => renderTranslationSection(loc, card)).join('')}
+        <p class="field-hint">${t('admin.cards.translation.hint')}</p>
+        ${SUPPORTED_LOCALES.map((loc) => renderTranslationSection(loc, card))}
         <label class="field-inline">
-          <input type="checkbox" id="card-foil" ${card?.foil ? 'checked' : ''}>
-          <span>${escapeHtml(t('admin.cards.foil'))}</span>
+          <input type="checkbox" id="card-foil" ${card?.foil ? 'checked' : ''} />
+          <span>${t('admin.cards.foil')}</span>
         </label>
         <label class="field">
-          <span>${escapeHtml(t('admin.cards.emoji'))}</span>
-          <input type="text" id="card-emoji" list="card-emoji-slugs"
-                 value="${card?.emoji ? escapeHtml(card.emoji) : ''}"
-                 pattern="[a-z0-9\\-]{1,64}">
-          <small>${escapeHtml(t('admin.cards.emojiHint'))}</small>
+          <span>${t('admin.cards.emoji')}</span>
+          <input
+            type="text"
+            id="card-emoji"
+            list="card-emoji-slugs"
+            value="${card?.emoji ?? ''}"
+            pattern="[a-z0-9\\-]{1,64}"
+          />
+          <small>${t('admin.cards.emojiHint')}</small>
         </label>
         <datalist id="card-emoji-slugs">
-          ${EMOJI_SLUGS.map((s) => `<option value="${escapeHtml(s)}"></option>`).join('')}
+          ${EMOJI_SLUGS.map((s) => html`<option value="${s}"></option>`)}
         </datalist>
         <div class="cp-error" id="card-error" role="alert"></div>
       </form>

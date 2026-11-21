@@ -5,6 +5,7 @@
 import { t } from '../core/i18n.js';
 import { on } from '../core/events.js';
 import { pendingOutboxCount } from '../core/sync.js';
+import { html } from '../core/dom.js';
 
 const VIBRATION_KEY = 'couplecards:vibrations-enabled';
 const SOUND_KEY = 'couplecards:sounds-enabled';
@@ -87,8 +88,16 @@ export function toast(message, options = {}) {
     close.type = 'button';
     close.className = 'toast-close';
     close.setAttribute('aria-label', t('common.dismiss'));
-    close.innerHTML =
-      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+    close.innerHTML = html`<svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.4"
+      stroke-linecap="round"
+      aria-hidden="true"
+    >
+      <path d="M6 6l12 12M18 6L6 18" />
+    </svg>`;
     close.addEventListener('click', dismiss);
     el.appendChild(close);
   }
@@ -328,6 +337,16 @@ export function withModal({
   return { close };
 }
 
+// Under Trusted Types, register() only takes a script URL from a policy; this
+// one can name nothing but the app's own worker.
+const swPolicy = globalThis.trustedTypes?.createPolicy('couplecards-sw', {
+  createScriptURL: (url) => {
+    if (url !== '/sw.js') throw new TypeError(`unexpected service worker URL ${url}`);
+    return url;
+  },
+});
+const SW_URL = swPolicy ? swPolicy.createScriptURL('/sw.js') : '/sw.js';
+
 // Screen-wake lock while a draw animation is in progress.
 let wakeLockSentinel = null;
 export async function requestWakeLock() {
@@ -391,7 +410,7 @@ export function registerServiceWorker() {
   // already and a plain listener would never run.
   const register = async () => {
     try {
-      const reg = await navigator.serviceWorker.register('/sw.js');
+      const reg = await navigator.serviceWorker.register(SW_URL);
       if (reg.waiting) showUpdateBanner(reg.waiting);
       reg.addEventListener('updatefound', () => {
         const installing = reg.installing;
