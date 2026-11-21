@@ -21,7 +21,6 @@ body {
   overflow-x: auto;
 }
 .admin-tab {
-  -webkit-appearance: none;
   appearance: none;
   background: transparent;
   border: none;
@@ -76,7 +75,6 @@ body {
 .admin-panel .list {
   padding: 0;
   mask-image: none;
-  -webkit-mask-image: none;
 }
 /* Input styling shared with the Collection search, see style.css. */
 

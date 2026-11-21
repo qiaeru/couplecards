@@ -103,7 +103,6 @@ body {
   font-family: var(--font);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  min-height: 100vh;
   min-height: 100dvh;
 }
 
@@ -244,13 +243,13 @@ body::before {
 .floating-band-right {
   right: 0;
 }
-@media (max-width: 1023.98px) {
+@media (width < 1024px) {
   .floating-sides {
     --icon-scale: 0.5;
   }
 }
 /* Too narrow for margins, too wide for the stacked piles below. */
-@media (max-width: 759.98px) {
+@media (width < 760px) {
   .floating-sides {
     display: none;
   }
@@ -258,7 +257,7 @@ body::before {
 /* Phones: only home has room, in the strips beside the stacked piles (at most
    186 px wide, see .piles). Half the icons, fainter, and no blur, which costs
    a phone GPU on every frame. */
-@media (max-width: 539.98px) {
+@media (width < 540px) {
   body:has(#view .piles) .floating-sides {
     display: block;
     opacity: 0.75;
@@ -275,7 +274,6 @@ body::before {
 }
 
 #app {
-  min-height: 100vh;
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
@@ -483,7 +481,6 @@ body::before {
 
 /* Buttons */
 .btn {
-  -webkit-appearance: none;
   appearance: none;
   border: 1px solid var(--surface-border);
   background: var(--surface);
@@ -635,7 +632,6 @@ body::before {
 }
 
 .icon-btn {
-  -webkit-appearance: none;
   appearance: none;
   width: 44px;
   height: 44px;
@@ -672,7 +668,7 @@ body::before {
   margin: 0 auto;
   width: 100%;
 }
-@media (min-width: 540px) {
+@media (width >= 540px) {
   .piles {
     grid-template-columns: 1fr 1fr;
     gap: 40px;
@@ -681,7 +677,7 @@ body::before {
 }
 /* Short phone viewports: shrink the stacked piles so the home screen fits
    without scrolling on devices around 640-720px tall. */
-@media (max-width: 539px) and (max-height: 720px) {
+@media (width <= 539px) and (height <= 720px) {
   .piles {
     max-width: 152px;
     gap: 12px;
@@ -717,7 +713,6 @@ body::before {
 
 /* Piles = card stacks */
 .pile {
-  -webkit-appearance: none;
   appearance: none;
   border: none;
   background: transparent;
@@ -937,7 +932,7 @@ body::before {
   letter-spacing: -0.01em;
   text-shadow: 0 2px 4px color-mix(in srgb, black 20%, transparent);
 }
-@media (min-width: 540px) {
+@media (width >= 540px) {
   .pile-emoji {
     font-size: var(--icon-md);
   }
@@ -1018,13 +1013,6 @@ body::before {
   gap: 10px;
   padding: 12px 0;
   mask-image: linear-gradient(
-    to bottom,
-    transparent 0,
-    black 16px,
-    black calc(100% - 8px),
-    transparent 100%
-  );
-  -webkit-mask-image: linear-gradient(
     to bottom,
     transparent 0,
     black 16px,
@@ -1175,7 +1163,6 @@ body::before {
     transform 0.2s ease,
     visibility 0.2s;
   z-index: 40;
-  -webkit-appearance: none;
   appearance: none;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
@@ -1373,7 +1360,6 @@ body::before {
   gap: 12px;
 }
 .toast-close {
-  -webkit-appearance: none;
   appearance: none;
   background: transparent;
   border: none;
@@ -1407,7 +1393,6 @@ body::before {
 }
 
 .toast-action {
-  -webkit-appearance: none;
   appearance: none;
   background: transparent;
   border: none;
@@ -1538,7 +1523,6 @@ body::before {
   padding: 22px;
   max-width: 460px;
   width: 100%;
-  max-height: calc(100vh - 40px);
   max-height: calc(100dvh - 40px);
   overflow-y: auto;
   box-shadow: var(--shadow-lg);

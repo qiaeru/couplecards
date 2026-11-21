@@ -99,7 +99,7 @@
 /* Narrow phones: the longer locale labels (e.g. "Bannissements",
    "Verbannte Karten", "Cartas vetadas") need a smaller font and tighter
    gutters to fit the four-column grid without pushing into neighbours. */
-@media (max-width: 380px) {
+@media (width <= 380px) {
   .app-bottom-nav-list {
     gap: 2px;
     padding-left: 6px;

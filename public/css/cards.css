@@ -280,7 +280,6 @@ body:has(#screen-draw) .floating-sides {
   position: absolute;
   inset: 0;
   backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
   border-radius: 22px;
   overflow: hidden;
   box-shadow:
@@ -743,13 +742,9 @@ body:has(#screen-draw) .floating-sides {
     color-mix(in srgb, var(--gold) 10%, transparent) 92%,
     color-mix(in srgb, var(--gold) 45%, transparent)
   );
-  -webkit-mask:
-    linear-gradient(black, black) content-box,
-    linear-gradient(black, black);
   mask:
     linear-gradient(black, black) content-box,
     linear-gradient(black, black);
-  -webkit-mask-composite: xor;
   mask-composite: exclude;
   padding: 1px;
 }
@@ -1349,7 +1344,7 @@ body:has(#screen-draw) .floating-sides {
 /* Short viewports: shrink the revealed card and its typography so the
    description stays clear of the action buttons pinned to the bottom on
    small phones. */
-@media (max-height: 740px) {
+@media (height <= 740px) {
   .draw-stage {
     width: min(300px, 80vw);
     height: min(420px, 64vh);
@@ -1398,7 +1393,7 @@ body:has(#screen-draw) .floating-sides {
     top: calc(env(safe-area-inset-top, 0px) + 12px);
   }
 }
-@media (max-height: 620px) {
+@media (height <= 620px) {
   .draw-stage {
     width: min(260px, 72vw);
     height: min(360px, 60vh);
@@ -1420,7 +1415,7 @@ body:has(#screen-draw) .floating-sides {
 
 /* Landscape phones: the card takes the height, the actions stack beside it
    and the wordmark (decorative) makes room. */
-@media (max-height: 620px) and (orientation: landscape) {
+@media (height <= 620px) and (orientation: landscape) {
   #screen-draw.screen {
     flex-direction: row;
     gap: 32px;
@@ -1644,7 +1639,7 @@ body:has(#screen-draw) .floating-sides {
   gap: 10px;
   padding: 0 0 24px;
 }
-@media (min-width: 720px) {
+@media (width >= 720px) {
   .collection-grid {
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 14px;
@@ -1746,7 +1741,7 @@ body:has(#screen-draw) .floating-sides {
   font-size: var(--text-xs);
   padding-top: 2px;
 }
-@media (min-width: 720px) {
+@media (width >= 720px) {
   .coll-tile .card-pile-label {
     font-size: var(--text-xs);
   }
