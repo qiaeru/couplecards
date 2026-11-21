@@ -113,21 +113,14 @@ function render() {
       const pile = card ? card.pile : null;
       const foil = !!card?.foil;
 
-      const div = document.createElement('div');
+      // Replaying a card opens another screen, so the row is a real link: no
+      // per-row listeners, and middle-click or long-press work as anywhere else.
+      const div = document.createElement(card ? 'a' : 'div');
       div.className = 'list-item stagger-in';
       div.style.setProperty('--i', String(Math.min(stagger++, 8)));
       if (card) {
         div.classList.add('clickable');
-        div.setAttribute('role', 'button');
-        div.setAttribute('tabindex', '0');
-        const replay = () => navigate('draw', { preview: entry.cardId });
-        div.addEventListener('click', replay);
-        div.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            replay();
-          }
-        });
+        div.href = `#/draw?${new URLSearchParams({ preview: entry.cardId })}`;
       }
 
       const row = document.createElement('div');

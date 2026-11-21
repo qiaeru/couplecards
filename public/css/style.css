@@ -1450,7 +1450,9 @@ body::before {
 
 /* Clickable history item */
 .list-item.clickable {
-  cursor: pointer;
+  display: block;
+  color: inherit;
+  text-decoration: none;
   transition:
     background 0.15s,
     transform 0.1s;

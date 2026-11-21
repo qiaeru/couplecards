@@ -48,8 +48,8 @@ function buildCardFront(card, title, description, locale) {
   );
   art.appendChild(emojiSpan);
 
-  // Not a heading: the tile is a role="button", and dozens of headings inside
-  // buttons pollute screen-reader heading navigation.
+  // Not a heading: the tile is a labeled link, and dozens of headings inside
+  // links pollute screen-reader heading navigation.
   const titleEl = document.createElement('div');
   titleEl.className = 'card-title';
   titleEl.textContent = title;
@@ -85,7 +85,8 @@ function buildCardFront(card, title, description, locale) {
 
 function buildTile(card, discovered) {
   const banned = isBanned(card.id);
-  const tile = document.createElement('div');
+  // A discovered tile opens the card's preview screen, so it is a link.
+  const tile = document.createElement(discovered ? 'a' : 'div');
   tile.className = 'coll-tile';
   tile.classList.add(card.pile === 'home' ? 'for-home' : 'for-outdoor');
   if (card.foil) tile.classList.add('is-foil');
@@ -95,8 +96,7 @@ function buildTile(card, discovered) {
   if (discovered) {
     if (freshIds.has(card.id)) tile.classList.add('is-fresh');
     const { title, description, locale } = getCardText(card);
-    tile.setAttribute('role', 'button');
-    tile.setAttribute('tabindex', '0');
+    tile.href = `#/draw?${new URLSearchParams({ preview: card.id })}`;
     // The gold border is the only visual mark of a rare card at this size,
     // so the name carries the rarity for everyone else. Literal keys: the
     // i18n check resolves usage statically.
@@ -108,8 +108,6 @@ function buildTile(card, discovered) {
         ? 'collection.tile.drawnRare.label'
         : 'collection.tile.drawn.label';
     tile.setAttribute('aria-label', t(labelKey, { title }));
-    // Opening is handled by the grid, see onGridClick.
-    tile.dataset.cardId = card.id;
     tile.appendChild(buildCardFront(card, title, description, locale));
     if (banned) {
       const cross = document.createElement('div');
@@ -260,23 +258,6 @@ function render() {
   grid.appendChild(frag);
 }
 
-// Tile activation is delegated to the grid: render() rebuilds every tile on
-// each filter, search keystroke and ban change, and a full deck means hundreds
-// of listeners to re-create each time. Locked tiles carry no data-card-id, so
-// they stay inert.
-function onGridClick(event) {
-  const tile = event.target.closest('.coll-tile[data-card-id]');
-  if (tile) navigate('draw', { preview: tile.dataset.cardId });
-}
-
-function onGridKeydown(event) {
-  if (event.key !== 'Enter' && event.key !== ' ') return;
-  const tile = event.target.closest('.coll-tile[data-card-id]');
-  if (!tile) return;
-  event.preventDefault();
-  navigate('draw', { preview: tile.dataset.cardId });
-}
-
 function emptyAction(label, onClick) {
   const btn = document.createElement('button');
   btn.type = 'button';
@@ -302,9 +283,6 @@ function onFilterClick(event) {
 export function mount({ params } = {}) {
   document.getElementById('btn-back-home')?.addEventListener('click', () => navigate('home'));
   document.querySelector('.collection-filters')?.addEventListener('click', onFilterClick);
-  const grid = document.getElementById('collection-grid');
-  grid?.addEventListener('click', onGridClick);
-  grid?.addEventListener('keydown', onGridKeydown);
 
   // #/collection?filter=banned lets the empty-pile notice on Home land on the
   // cards worth restoring. Validated against the chips in the view so a bogus

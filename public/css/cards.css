@@ -1663,21 +1663,23 @@ body:has(#screen-draw) .floating-sides {
     box-shadow 0.18s ease;
   -webkit-tap-highlight-color: transparent;
 }
-.coll-tile[role="button"] {
-  cursor: pointer;
+a.coll-tile {
+  display: block;
+  color: inherit;
+  text-decoration: none;
 }
 @media (hover: hover) {
-  .coll-tile[role="button"]:hover {
+  a.coll-tile:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 22px color-mix(in srgb, black 45%, transparent);
   }
 }
 /* Tap feedback: the native highlight is disabled above, so give touch users
    a press response of our own. */
-.coll-tile[role="button"]:active {
+a.coll-tile:active {
   transform: scale(0.96);
 }
-.coll-tile[role="button"]:focus-visible {
+a.coll-tile:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
