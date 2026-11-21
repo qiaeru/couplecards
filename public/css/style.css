@@ -365,16 +365,6 @@ body::before {
   }
 }
 
-.container.center {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  width: 100%;
-}
-
 /* Typography */
 .title {
   font-family: var(--font);
