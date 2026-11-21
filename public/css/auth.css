@@ -60,6 +60,7 @@ body {
   letter-spacing: -0.015em;
   margin: 0 0 20px;
   color: var(--text);
+  text-wrap: balance;
 }
 
 .auth-subtitle {

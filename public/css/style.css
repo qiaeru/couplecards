@@ -385,6 +385,7 @@ body::before {
   color: var(--text);
   line-height: 1.2;
   text-align: center;
+  text-wrap: balance;
 }
 .title-icon {
   width: 1.25em;
@@ -1112,12 +1113,14 @@ body::before {
   font-size: var(--text-md);
   font-weight: 600;
   color: var(--text);
+  text-wrap: balance;
 }
 .empty-hint {
   font-size: var(--text-sm);
   color: var(--text-muted);
   max-width: 260px;
   line-height: 1.5;
+  text-wrap: pretty;
 }
 
 /* Settings */
@@ -1562,12 +1565,14 @@ body::before {
   font-size: var(--text-md);
   font-weight: 700;
   color: var(--text);
+  text-wrap: balance;
 }
 .modal-body {
   margin: 0 0 20px;
   color: var(--text-soft);
   line-height: 1.5;
   font-size: var(--text-base);
+  text-wrap: pretty;
 }
 /* Sticky so the buttons of a long form (the admin card editor) stay in
    reach while its body scrolls; the negative margins re-span the padding. */
@@ -1760,6 +1765,10 @@ body::before {
 .card-form textarea {
   resize: vertical;
   min-height: 70px;
+  /* Grows with the description instead of scrolling inside three rows; the
+     cap keeps a long one from pushing the actions out of the dialog. */
+  field-sizing: content;
+  max-block-size: 12lh;
 }
 
 /* Windows/Chrome renders <option> using the OS native dropdown and silently

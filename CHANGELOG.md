@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Changed
 
 - Dialogs now use the browser's native modal: screen readers and keyboards can no longer reach the page behind them, and the Android back gesture closes them like the Cancel button. The dialog that shows a generated password once still only closes through its button.
+- Card titles balance their lines, and card descriptions rarely end on a lone word. In the admin card editor, the description fields grow with their text.
 
 ### Fixed
 

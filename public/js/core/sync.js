@@ -141,7 +141,11 @@ function warmEmojiCache() {
   for (const c of cards) if (c.emoji) slugs.add(c.emoji);
   const run = () => {
     for (const slug of slugs) {
-      fetch(`/icons/emoji/${slug}.svg`, { credentials: 'same-origin' }).catch(() => {});
+      // Low priority: dozens of SVGs must not compete with the deck and state
+      // requests of a cold start.
+      fetch(`/icons/emoji/${slug}.svg`, { credentials: 'same-origin', priority: 'low' }).catch(
+        () => {},
+      );
     }
   };
   if (typeof requestIdleCallback === 'function') requestIdleCallback(run, { timeout: 3000 });
