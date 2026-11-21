@@ -20,7 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Fixed
 
 - In dialogs, Enter and Escape no longer confirm or close while a Japanese, Chinese, or Korean input method is still composing a word.
-- Screen readers announce the "Copied" message shown inside a dialog again, and announce the settings toggles as switches.
+- Screen readers announce the sound, vibration, and registration toggles as switches rather than checkboxes.
 - On the day after a daylight saving time change, History no longer files yesterday's draws under "This week".
 
 ### Security
