@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 
+## [1.18.0] - 2026-11-21
+
 ### Added
 
 - A form field that the browser or the server rejects now turns red, once you leave it rather than while you type.
